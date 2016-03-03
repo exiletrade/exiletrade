@@ -80,3 +80,10 @@ e(le)?Dps:
   query: properties.Weapon.Total Elemental DPS:>=$1
 (\d+)-(\d+)e(le)?Dps:
   query: properties.Weapon.Total Elemental DPS:[$1 TO $2] 
+
+(tier)?red(tier)?:
+  query: properties.Map.Map Tier:>=12
+yellowtier|tieryellow:
+  query: properties.Map.Map Tier:[7 TO 11]
+whitetier|tierwhite:
+  query: properties.Map.Map Tier:<=6
