@@ -59,3 +59,24 @@ crafted:
   query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:>=$1
 (\d+)-(\d+)(es|energyshield):
   query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:[$1 TO $2]
+
+p(hys?)?Dps:
+  query: propertiesPseudo.Weapon.estimatedQ20.Physical DPS:>0
+(\d+)p(hys?)?Dps:
+  query: propertiesPseudo.Weapon.estimatedQ20.Physical DPS:>=$1
+(\d+)-(\d+) p(hys?)?Dps:
+  query: propertiesPseudo.Weapon.estimatedQ20.Physical DPS:[$1 TO $2] 
+
+Dps:
+  query: properties.Weapon.Total DPS:>0
+(\d+)Dps:
+  query: properties.Weapon.Total DPS:>=$1
+(\d+)-(\d+)Dps:
+  query: properties.Weapon.Total DPS:[$1 TO $2] 
+
+e(le)?Dps:
+  query: properties.Weapon.Total Elemental DPS:>0
+(\d+)e(le)?Dps:
+  query: properties.Weapon.Total Elemental DPS:>=$1
+(\d+)-(\d+)e(le)?Dps:
+  query: properties.Weapon.Total Elemental DPS:[$1 TO $2] 
