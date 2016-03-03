@@ -37,9 +37,3 @@ crafted:
   query: requirements.Int:<=$1
 (\d+)rLe?ve?l:
   query: requirements.Level:<=$1
-(\d+)(ar|armour):
-  query: propertiesPseudo.Armour.estimatedQ20.Armour:>=$1
-(\d+)(ev|evasion):
-  query: propertiesPseudo.Armour.estimatedQ20.Evasion Rating:>=$1
-(\d+)(es|energyshield):
-  query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:>=$1
