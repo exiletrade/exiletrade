@@ -133,7 +133,11 @@ gulp.task('copy:images', function (cb) {
 // Copy Demo Build to production repo
 gulp.task('copy:build', function (cb) {
 	if (isDemo) {
-		gulp.src('./demo/**/*')
+		gulp.src([
+			'./demo/**/*',
+			'LICENSE',
+			'README.md'
+		])
 			.pipe(gulp.dest(destinationDemo))
 		;
 	}
