@@ -182,7 +182,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 
 	appModule.controller('SearchController', ['$scope', '$http', 'es', function($scope, $http, es) {
 		// Default
-		$scope.searchInput = "gloves";
+		$scope.searchInput = "(gloves or chest) 60life 80eleres";
 		$scope.queryString = "";
 		$scope.savedSearchesList = JSON.parse(localStorage.getItem("savedSearches"));
 		$scope.savedItemsList = JSON.parse(localStorage.getItem("savedItems"));
