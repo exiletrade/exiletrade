@@ -51,7 +51,18 @@ function evalSearchTerm(token) {
 			if (foundMatch) {
 				result = terms[regex].query;
 				// apply any captured regex groups
-				result = cleanToken.replace(rgex, result);
+				var arr = rgex.exec(cleanToken);
+				// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
+				result = result.replace(/\$(\d+)/g, function replacer(match, p1, offset, string) {
+					var filter = terms[regex].filter;
+					var value = arr[p1];
+					if (filter) {
+						var filterFn = Function("val", filter);
+						value = filterFn(value);
+					}
+					return value;
+				});
+				//result = cleanToken.replace(rgex, result);
 				// escape spaces for elasticsearch
 				result = escapeField(result);
 				if (hasOpenParen(token))  result = '(' + result;
