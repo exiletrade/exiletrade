@@ -10,18 +10,18 @@ life:
   query: modsPseudo.+# Total to maximum Life:[$1 TO $2]
 
 mlife:
-  query: modsTotal.#% increased maximum Life&mod_min=&mod_max:>0
+  query: modsTotal.#% increased maximum Life:>0
 (\d+)mlife:
-  query: modsTotal.#% increased maximum Life&mod_min=&mod_max:[$1 TO *]
+  query: modsTotal.#% increased maximum Life:[$1 TO *]
 (\d+)-(\d+)mlife:
-  query: modsTotal.#% increased maximum Life&mod_min=&mod_max:[$1 TO $2]
+  query: modsTotal.#% increased maximum Life:[$1 TO $2]
 
 mana:
-  query: modsTotal.#% increased maximum Mana&mod_min=&mod_max:>0
+  query: modsTotal.#% increased maximum Mana:>0
 (\d+)mana:
-  query: modsTotal.#% increased maximum Mana&mod_min=&mod_max:[$1 TO *]
+  query: modsTotal.#% increased maximum Mana:[$1 TO *]
 (\d+)-(\d+)mana:
-  query: modsTotal.#% increased maximum Mana&mod_min=&mod_max:[$1 TO $2]
+  query: modsTotal.#% increased maximum Mana:[$1 TO $2]
    
 T?(otal)?res:
   query: modsPseudo.+#% Total to Resistances:>0

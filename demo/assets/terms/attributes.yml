@@ -28,18 +28,12 @@ crafted:
 (\d+)q(uality)?:
   query: properties.Quality:$1  
 (\d+)iLe?ve?l:
-  query: attributes.ilvl:$1
+  query: attributes.ilvl:>=$1
 (\d+)rDex:
-  query: requirements.Dex:$1
+  query: requirements.Dex:<=$1
 (\d+)rStr:
-  query: requirements.Str:$1
+  query: requirements.Str:<=$1
 (\d+)rInt:
-  query: requirements.Int:$1
+  query: requirements.Int:<=$1
 (\d+)rLe?ve?l:
-  query: requirements.Level:$1
-(\d+)(ar|armour):
-  query: propertiesPseudo.Armour.estimatedQ20.Armour:$1
-(\d+)(ev|evasion):
-  query: propertiesPseudo.Armour.estimatedQ20.Evasion Rating:$1
-(\d+)(es|energyshield):
-  query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:$1
+  query: requirements.Level:<=$1
