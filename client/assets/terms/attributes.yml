@@ -23,7 +23,7 @@ crafted:
  query: attributes.craftedModsCount:>0
  mirrored:
   query: attributes.mirrored:true
-(\d+)g(em)?lvl:
+(\d+)g(em)?le?ve?l:
   query: properties.Gem.Level:$1
 (\d+)q(uality)?:
   query: properties.Quality:$1  
