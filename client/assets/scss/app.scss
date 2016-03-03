@@ -1,0 +1,417 @@
+@import "settings";
+@import "foundation";
+
+$bg_color_corrupted :#C22626;
+$border_color_item : #004978;
+$color_white : #fff;
+$switch_on_color: #43AC6A;
+
+li {
+	list-style-type: none;
+}
+ul {
+	margin-left: 0;
+}
+
+.label.corrupted {
+	padding: 0.13333rem 0.5rem;
+	background-color: $bg_color_corrupted;
+}
+.label.mirrored {
+	padding: 0.13333rem 0.5rem;
+	background-color: grey;
+}
+
+.app-header {
+	h1 {
+		font-size: rem-calc(36px);
+		color: white;
+		margin: 0;
+	}
+	background-color: #00558b;
+	border-bottom: 1px solid #69768b;
+	text-align: center;
+}
+
+img.gitter-badge {
+	margin:0;
+}
+
+#main {
+	padding-top: 15px;
+}
+
+.grid-content.search-results .grid-block {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.search-options {
+	margin:0 !important;
+
+	.label-pseudoMods {
+		margin:0;
+		padding: 7px;
+	}
+}
+
+.highlight {
+	background-color: rgba(0,0,0,.2);
+}
+.itemsPerRow {
+	flex: 0 0 100%;
+}
+
+.absoluteNavBtn {
+	position: absolute;
+	top: 67px;
+	&.savedSearches {
+		right: 10px;
+	}
+	&.scrollTop {
+		right: 182px;
+	}
+}
+
+.search-results {
+	.item {
+		min-width: 600px;
+		margin: 5px 0;
+		padding: 0;
+
+		.item-border {
+			margin: 0 5px;
+			border-top: transparent;
+		}
+		.item-inner-border {
+			border: 1px solid $border_color_item;
+			padding: 5px 5px 10px 5px;
+
+		}
+		.item-header {
+			line-height: 30px;
+			height: 30px;
+			color: $color_white;
+			border-bottom: 1px solid $border_color_item;
+			width: 100%;
+
+			.controls {
+				background-color: $border_color_item;
+				padding: 0 8px;
+				border: 1px solid $border_color_item;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+
+				svg {
+					width: 25px !important;
+					height: 25px !important;
+					margin-top: 2px;
+					margin-left: 15px;
+					margin-right: 5px;
+
+					&:hover{
+						cursor: pointer;
+					}
+				}
+
+				.switch.small {
+					width: 2.2rem;
+					height: 1.325rem;
+					margin-top: 4px;
+				}
+				.switch.small > label::after {
+					width: 1.325rem;
+					height: 1.325rem;
+				}
+				.switch input:checked + label {
+					background-color: $switch_on_color;
+					&:after {
+						border-color: $switch_on_color;
+					}
+				}
+			}
+		}
+
+		span {
+			display: inline;
+			line-height: 1em;
+		}
+		
+		.sortable {
+			&:hover {
+				cursor: default;
+			}
+		}
+		.click {
+			cursor: pointer;
+		}
+	}
+	.item-box-left {
+		position: relative;
+	}
+	.grid-block.item-info {
+		min-height: 210px;
+		margin-left: 114px;
+	}
+	.item-info .grid-block {
+		flex-grow: 0;
+		-webkit-flex-grow: 0;
+
+		.seperator:before {
+			content: " · ";
+		}
+	}
+
+	.requirements, .sell-infos {
+		font-size: rem-calc(12px);
+		span {
+			padding-right: 5px;
+			line-height: 30px;
+			&.amount {
+				padding-right: 0;
+			}
+		}
+
+		.price:hover {
+			cursor: help;
+		}
+		span.currency {
+			width: 30px;
+			height: 30px;
+			display: inline-block;
+			background-size: 30px;
+			padding-right: 35px;
+			background: url('../img/currency_icons.png') no-repeat;
+
+			&.Regal {
+				background-position: right 0;
+			}
+			&.Augmentation {
+				background-position: right -30px;
+			}
+			&.Wisdom {
+				background-position: right -60px;
+			}
+			&.Portal {
+				background-position: right -90px;
+			}
+			&.Alchemy {
+				background-position: right -120px;
+			}
+			&.Mirror {
+				background-position: right -150px;
+			}
+			&.Blessed {
+				background-position: right -180px;
+			}
+			&.Whetstone {
+				background-position: right -210px;
+			}
+			&.Scrap {
+				 background-position: right -240px;
+			}
+			&.Vaal {
+				background-position: right -270px;
+			}
+			&.Bauble {
+				background-position: right -300px;
+			}
+			&.Chaos {
+				background-position: right -330px;
+			}
+			&.Chisel {
+				background-position: right -360px;
+			}
+			&.Chromatic {
+				background-position: right -390px;
+			}
+			&.Divine {
+				 background-position: right -420px;
+			}
+			&.Exalted {
+				background-position: right -450px;
+			}
+			&.Transmutation {
+				background-position: right -480px;
+			}
+			&.Scouring {
+				background-position: right -510px;
+			}
+			&.Regret {
+				background-position: right -540px;
+			}
+			&.Fusing {
+				background-position: right -570px;
+			}
+			&.Prism {
+				background-position: right -600px;
+			}
+			&.Jeweller {
+				background-position: right -630px;
+			}
+			&.Alteration {
+				background-position: right -660px;
+			}
+			&.Chance {
+				background-position: right -690px;
+			}
+		}
+	}
+
+	.mods, .modsPseudo {
+		margin-bottom: 10px;
+
+		ul {
+			margin-top: 10px;
+			font-size: rem-calc(12px);
+			margin-bottom: 5px;
+		}
+		.firstExplicit {
+			border-top: 1px dotted #008ee8;
+		}
+		.unidentified {
+			color: $bg_color_corrupted;
+			font-weight: 700;
+		}
+	}
+	.modsPseudo {
+		opacity: .8;
+	}
+
+	.grid-block.item-info {
+		flex-wrap: initial;
+		-webkit-flex-wrap: initial;
+		
+		&> .grid-block {
+			padding-left: 10px;
+		}
+	}
+
+	.image-container {
+		max-width: 114px;
+		width: 100%;
+		min-height: 210px;
+		background-size: contain;
+		padding: 10px;
+		background-repeat: no-repeat;
+		position: absolute;
+		background-position: right 10px;
+
+		&:hover {
+			.socket, .socketLink {
+				opacity:0;
+			}
+		}
+
+		.socket {
+			position: absolute;
+			height: 47px;
+			width: 47px;
+			background: url('../img/sockets.png');
+			top: 0;
+			left: 0;
+			margin: 10px;
+
+			&.middle {
+				top: 47px;
+			}
+			&.bottom {
+				top: 94px;
+			}
+			&.socketRight {
+				right:0;
+				left: initial;
+			}
+			&.socketBlue {
+				background-position: 0 -47px;
+			}
+			&.socketGreen {
+				background-position: 0 -94px;
+			}
+			&.socketWhite {
+				background-position: 0 -235px;
+			}
+		}
+
+		.socketLink {
+			position: absolute;
+			height: 47px;
+			width: 47px;
+			background: url('../img/sockets.png');
+			top: 0;
+			left: 0;
+			margin: 10px;
+
+			&.socketLinkCenter {
+				background-position: 0 -188px;
+				left: 23px;
+				&.middle {
+					top: 48px;
+				}
+				&.bottom {
+					top: 95px;
+				}
+			}
+			&.socketLinkLeft, &.socketLinkRight {
+				background-position: 0 -141px;
+				top: 24px;
+				&.middle {
+					top: 71px;
+				}
+			}
+			&.socketLinkRight {
+				background-position: 0 -141px;
+				left: 46px;
+			}
+			&.socketLinkLeft {
+				background-position: 0 -141px;
+				left: -1px;
+			}
+
+		}
+	}
+
+	.item-stats {
+		font-size: rem-calc(12px);
+		margin-top: 36px;
+
+		table {
+			min-width: 150px;
+		}
+		td {
+			padding: 3px 3px;
+			text-align: left;
+
+			&:nth-of-type(2) {
+				text-align: right;
+			}
+		}
+	}
+
+}
+
+.panel {
+	width: 400px;
+
+	.saved-search.accordion {
+		margin-top: 50px;
+		a {
+			position: relative;
+		}
+
+		svg {
+			position: absolute;
+			right: 10px;
+			top:10px;
+			width: 21px;
+			height: 21px;
+			&:hover {
+				cursor:pointer;
+			}
+		}
+	}
+
+	.block-list li > a, .block-list li > span, .block-list li > label {
+		font-size: rem-calc(12);
+	}
+}

@@ -1,0 +1,11 @@
+#
+# Seller
+#
+#offline                         =       online=
+#online                          =       online=x
+bo:
+  query: shop.chaosEquiv:>0
+nobo:
+  query: shop.chaosEquiv:0
+seller(.*):
+  query: (shop.sellerAccount:$1 OR shop.sellerIGN:$1)

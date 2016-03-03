@@ -1,0 +1,104 @@
+#
+# Jewel exclusive Mods
+#
+
+staffc(ast)?sp(eed)?(with)?:
+  query: modsTotal.#% increased Cast Speed while wielding a Staff:>0
+(\d+)staffc(ast)?sp(eed)?(with)?:
+  query: modsTotal.#% increased Cast Speed while wielding a Staff:[$1 TO *]
+(\d+)-(\d+)staffc(ast)?sp(eed)?(with)?:
+  query: modsTotal.#% increased Cast Speed while wielding a Staff:[$1 TO $2]
+
+F(ire)?(Skill)?c(ast)?sp(eed)?(with)?:
+  query: modsTotal.#% increased Cast Speed with Fire Skills:>0
+(\d+)F(ire)?(Skill)? c(ast)?sp(eed)?(with)?:
+  query: modsTotal.#% increased Cast Speed with Fire Skills:[$1 TO *]
+(\d+)-(\d+)F(ire)?(Skill)? c(ast)?sp(eed)?(with)?:
+  query: modsTotal.#% increased Cast Speed with Fire Skills:[$1 TO $2]
+
+minionD(amage|mg):
+  query: modsTotal.Minions deal #% increased Damage:>0
+(\d+)minionD(amage|mg):
+  query: modsTotal.Minions deal #% increased Damage:[$1 TO *]
+(\d+)-(\d+)minionD(amage|mg):
+  query: modsTotal.Minions deal #% increased Damage:[$1 TO $2]
+
+d(ual)?w(ield)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed while Dual Wielding:>0
+(\d+)d(ual)?w(ield)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed while Dual Wielding:[$1 TO *]
+(\d+)-(\d+)d(ual)?w(ield)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed while Dual Wielding:[$1 TO $2]
+
+sh(ield)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed while holding a Shield:>0
+(\d+)sh(ield)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed while holding a Shield:[$1 TO *]
+(\d+)-(\d+)sh(ield)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed while holding a Shield:[$1 TO $2]
+
+st(aff)?tc(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed while wielding a Staff:>0
+(\d+)st(aff)?tc(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed while wielding a Staff:[$1 TO *]
+(\d+)-(\d+)st(aff)?tc(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed while wielding a Staff:[$1 TO $2]
+
+c(old)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed with Cold Skills:>0
+(\d+)c(old)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed with Cold Skills:[$1 TO *]
+(\d+)-(\d+)c(old)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed with Cold Skills:[$1 TO $2]
+
+f(ire)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed with Fire Skills:>0
+(\d+)f(ire)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed with Fire Skills:[$1 TO *]
+(\d+)-(\d+)f(ire)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed with Fire Skills:[$1 TO $2]
+
+l(ight)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed with Lightning Skills:>0
+(\d+)l(ight)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed with Lightning Skills:[$1 TO *]
+(\d+)-(\d+)l(ight)?c(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Cast Speed with Lightning Skills:[$1 TO $2]
+
+i(nc|ncreased)?da?ma?ge?:
+  query: modsTotal.#% increased Damage:>0
+(\d+)da?ma?ge?:
+  query: modsTotal.#% increased Damage:[$1 TO *]
+(\d+)-(\d+)da?ma?ge?:
+  query: modsTotal.#% increased Damage:[$1 TO $2]
+
+a(rea)?da?ma?ge?:
+  query: modsTotal.#% increased Area Damage:>0
+(\d+)a(rea)?da?ma?ge?:
+  query: modsTotal.#% increased Area Damage:[$1 TO *]
+(\d+)-(\d+)a(rea)?da?ma?ge?:
+  query: modsTotal.#% increased Area Damage:[$1 TO $2]
+
+attc(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Attack and Cast Speed:>0
+(\d+)attc(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Attack and Cast Speed:[$1 TO *]
+(\d+)-(\d+)attc(ast)?sp(ee)?d:
+  query: modsTotal.#% increased Attack and Cast Speed:[$1 TO $2]
+
+ch(aos)?da?ma?ge?:
+  query: modsTotal.#% increased Chaos Damage:>0
+(\d+)ch(aos)?da?ma?ge?:
+  query: modsTotal.#% increased Chaos Damage:[$1 TO *]
+(\d+)-(\d+)ch(aos)?da?ma?ge?:
+  query: modsTotal.#% increased Chaos Damage:[$1 TO $2]
+
+me(lee)?da?ma?ge?:
+  query: modsTotal.#% increased Melee Damage:>0
+(\d+)me(lee)?da?ma?ge?:
+  query: modsTotal.#% increased Melee Damage:[$1 TO *]
+(\d+)-(\d+)me(lee)?da?ma?ge?:
+  query: modsTotal.#% increased Melee Damage:[$1 TO $2]
+
+
+

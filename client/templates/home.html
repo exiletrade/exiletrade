@@ -1,0 +1,317 @@
+---
+name: home
+url: /
+---
+
+<div id="main" class="grid-container" ng-controller="SearchController" >
+	<p><strong>-- This is still very much a work in progress, but we are working hard!</strong></p>
+	<div class="grid-content"> 
+		<!--div zf-panel="" id="panelName">
+			<a zf-close="" class="button">Close Panel</a>
+		-->	
+				<label>Search Input</label>
+				<input id="searchField" ng-model="searchInput" my-enter="doSearch()" size="150" type="text">
+
+				<a href="#" ng-click="doSearch()" class="button" value="Search">Search</a>
+				<a href="#" ng-click="saveLastSearch()" class="button small">Save Search</a>
+				<a href="#" zf-toggle="savedSearchesPanel" class="button small hollow ">Show saved Searches/Items</a>
+				<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>
+				<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn scrollTop">Scroll Top</a>
+
+				<div class="grid-block search-options">
+					<span class="inline-label">
+						<div class="switch small">
+							<input type="checkbox" ng-model="switchPseudoMods" id="switch-pseudoMods">
+							<label for="switch-pseudoMods"></label>
+						</div>
+
+						<label class="label-pseudoMods">Show PseudoMods</label>
+					</span>
+					<span class="inline-label">
+						<div class="switch small">
+							<input type="checkbox" ng-model="switchItemsPerRow" id="switch-itemsPerRow"
+								   ng-true-value="" ng-false-value="" ng-change="stateChanged()">
+							<label for="switch-itemsPerRow"></label>
+						</div>
+
+						<label class="label-pseudoMods">1 item per Row</label>
+					</span>
+				</div>
+
+				<div zf-panel="" id="savedSearchesPanel" position="right">
+					<a zf-close="" class="close-button ng-scope">×</a>
+
+					<zf-accordion class="saved-search">
+						<zf-accordion-item title="Saved Searches">
+							<section class="block-list">
+								<ul>
+									<li class="" ng-repeat="data in savedSearchesList">
+										<a href="#" ng-model="searchInput" ng-click="doSavedSearch(data)">{{data}}</a>
+										<img zf-iconic="" icon="ban" size="small" class="iconic-color-alert" ng-click="removeSearchFromList(data)">
+									</li>
+								</ul>
+							</section>
+						</zf-accordion-item>
+						<zf-accordion-item title="Saved Items (no display yet)">
+							<section class="block-list">
+								<ul>
+									<li class="" ng-repeat="data in savedItemsList">
+										<a href="#" ng-click="" zf-open="showItemModal">{{data.itemDescription}}</a>
+										<img zf-iconic="" icon="ban" size="small" class="iconic-color-alert" ng-click="removeItemFromList(data.itemId)">
+									</li>
+								</ul>
+							</section>
+						</zf-accordion-item>
+					</zf-accordion>
+				</div>
+
+				<hr width=100% size=1>
+
+				<div zf-modal="" id="showItemModal">
+					<a zf-close="" class="close-button">×</a>
+					Placeholder text for saved Item.
+				</div>
+
+		<!--/div-->
+	</div>
+
+	
+	<div class="grid-content search-results" ">
+		<!--a href="#" zf-toggle="panelName" class="button">Show Search</a-->
+		
+		<ul>
+			<li>Request took {{Response.took}} ms
+			<li>Request matched {{Response.hits.total}} hits
+			<li>Query String: {{queryString}}
+		</ul>
+		
+		<div class="grid-block search-items large-up-2">
+			<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style=""
+				 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
+
+				<div class="grid-block item-border">
+					<div class="grid-block item-header medium-12 right-ju">
+						<div class="controls" >
+							<div class="switch small">
+								<input type="checkbox" id="switch-{{item._id}}"
+									ng-model="switchValue"
+                     				ng-true-value="{backgroundColor:'rgba(0,0,0,.2'}" ng-false-value="">
+								<label for="switch-{{item._id}}"></label>
+							</div>
+							<span>
+								<img zf-iconic="" icon="cart" size="medium" ng-click="saveItem(item._id, item._source.info.fullName, item._source.shop.lastCharacterName)" class="float-right iconic-color-secondary">
+							</span>
+
+						</div>
+					</div>
+					<div class="grid-block item-inner-border" ng-style="switchValue">
+						<div class="grid-block item-box-left">
+
+							<div class="grid-block image-container" ng-style="{'background-image': 'url({{item._source.info.icon}})'}">
+								<div ng-repeat="cssClasses in getSocketClasses(item._source.sockets.allSockets)" class="socket {{cssClasses}}">
+								</div>
+								<div ng-repeat="cssClasses in getSocketLinkClasses(item._source.sockets.allSockets)" class="socketLink {{cssClasses}}">
+								</div>
+								<span class="stackSize" ng-if="item._source.properties.stackSize">{{item._source.properties.stackSize.current}}</span>
+							</div>
+
+							<div class="grid-block item-info">
+								<div class="vertical grid-block">
+									<div class="grid-block">
+										<h5 class="item-name">
+											<span class="label corrupted" ng-if="item._source.attributes.corrupted">Corrupted</span>
+											<span class="label mirrored" ng-if="item._source.attributes.mirrored">Mirrored</span>
+											<a class="name" href="http://www.pathofexile.com/forum/view-thread/{{item._source.shop.threadid}}" target="_blank">
+												{{item._source.info.fullName}}
+											</a>
+										</h5>
+									</div>
+
+									<div class="grid-block requirements">
+										<span class="sortable" ng-show="!isEmpty(item._source.properties.Map)"
+											  ng-repeat="(prop, value) in item._source.properties.Map"
+											  data-value="{{value}}"
+											  data-name="{{prop}}">
+											{{prop}}: {{value}}
+											<i class="seperator"></i>
+										</span>
+
+										<span class="sortable"
+											  ng-show="{{item._source.attributes.ilvl}}"
+											  ng-if="needsILvl(item._source.attributes)"
+											  data-value="{{item._source.attributes.ilvl}}"
+											  data-name="iLvl">
+											Item Lvl: {{item._source.attributes.ilvl}}
+											<i class="seperator"></i>
+										</span>
+
+										<span class="sortable"
+											  ng-show="{{item._source.requirements.Level}}"
+											  data-value="{{item._source.requirements.Level}}"
+											  data-name="Level">
+											Level: {{item._source.requirements.Level}}
+											<i class="seperator"></i>
+										</span>
+
+										<span class="sortable"
+											  ng-show="{{item._source.requirements.Str}}"
+											  data-value="{{item._source.requirements.Str}}"
+											  data-name="Str">
+											Strength: {{item._source.requirements.Str}}
+											<i class="seperator"></i>
+										</span>
+
+										<span class="sortable"
+											  ng-show="{{item._source.requirements.Dex}}"
+											  data-value="{{item._source.requirements.Dex}}"
+											  data-name="Int">
+											Intelligence: {{item._source.requirements.Dex}}
+											<i class="seperator"></i>
+										</span>
+
+										<span class="sortable"
+											  ng-show="{{item._source.requirements.Int}}"
+											  data-value="{{item._source.requirements.Int}}"
+											  data-name="Int">
+											Intelligence: {{item._source.requirements.Int}}
+										</span>
+									</div>
+
+									<div class="grid-block mods">
+										<ul>
+											<li class="sortable" ng-repeat="mod in item._source.forgottenMods"
+												data-mod="{{mod}}">
+												<a href="#" ng-click="doSearchWithSort(mod.key)">{{mod.display}}</a>
+											</li>
+											<li class="unidentified" ng-if="item._source.attributes.identified==false">Unidentified</li>
+										</ul>
+									</div>
+									<!--div class="grid-block mods"> TODO, maybe toggle switch to show mods total?
+										<ul>
+											<li class="sortable" ng-repeat="mod in getItemMods(item._source.modsTotal)"
+												ng-class="{implicit: ($index+1) <= item._source.attributes.implicitModsCount,
+												firstExplicit: ($index) == item._source.attributes.implicitModsCount}"
+												data-mod="{{mod}}">
+												{{mod}}
+											</li>
+											<li ng-if="item._source.mods.Card">
+												{{item._source.mods.Card.DivinationReward}}
+											</li>
+											<li class="unidentified" ng-if="item._source.attributes.identified==false">Unidentified</li>
+										</ul>
+									</div-->
+									<div class="grid-block modsPseudo">
+										<ul ng-show="switchPseudoMods==true" ng-if="!(item._source.modsPseudo | isEmpty)">
+											<li>[Pseudo Mods]</li>
+											<li class="sortable" ng-repeat="mod in getItemMods(item._source.modsPseudo)"
+												data-mod="{{mod}}">
+												{{mod}}
+											</li>
+										</ul>
+									</div>
+
+									<div class="grid-block sell-infos">
+										<span class=""  ng-if="item._source.shop.saleType && item._source.shop.amount > 0">
+											{{item._source.shop.saleType}}:
+										</span>
+										<span class="sortable price amount"
+											  ng-if="item._source.shop.amount > 0"
+											  data-value="{{item._source.shop.amount}}"
+											  data-name="Price in {{item._source.shop.currency}}"
+											  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
+											{{item._source.shop.amount}}×
+										</span>
+										<span class="sortable price"
+											  ng-if="item._source.shop.amount > 0"
+											  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
+											<span class="currency {{item._source.shop.currency}}"></span>
+											<i class="seperator"></i>
+										</span>
+
+										<span class="click verified {{item._source.shop.verified}}">
+											Verify
+											<span class=""></span>
+											<i class="seperator"></i>
+										</span>
+
+										<span class="" data-ign="{{item._source.shop.lastCharacterName}}">
+											IGN: {{item._source.shop.lastCharacterName}}
+											<i class="seperator"></i>
+										</span>
+
+										<span>
+											<button ngclipboard class="click whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}">Copy Whisper</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="grid-block item-box-right">
+							<div class="item-stats float-left" ng-if="!item._source.properties.Weapon" ng-repeat="itemType in item._source.propertiesPseudo">
+								<table>
+									<thead>
+										<th><td></td><td></td></th>
+									</thead>
+									<tbody>
+									<tr>
+										<td>Quality</td>
+										<td>{{item._source.properties.Quality | defaultToValue }} <span>+{{20-(item._source.properties.Quality)}}</span></td>
+									</tr>
+									<tr ng-repeat="(defense, value) in itemType.estimatedQ20">
+										<td>{{defense}}</td>
+										<td>{{value}}</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="item-stats float-left" ng-if="item._source.properties.Gem !== undefinded">
+								<table>
+									<thead>
+										<th><td></td><td></td></th>
+									</thead>
+									<tbody>
+									<tr>
+										<td>Quality</td>
+										<td>{{item._source.properties.Quality | defaultToValue }}</td>
+									</tr>
+									<tr>
+										<td>Gem Level</td>
+										<td>{{item._source.properties.Gem.Level}}</td>
+									</tr>
+									<tr>
+										<td>Gem Experience</td>
+										<td>{{item._source.properties.Gem.Experience.PercentLeveled}}%</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="item-stats float-left" ng-if="item._source.properties.Weapon">
+								<table>
+									<thead>
+										<th><td></td><td></td></th>
+									</thead>
+									<tbody>
+									<tr>
+										<td>Quality</td>
+										<td>{{item._source.properties.Quality | defaultToValue }} <span>+{{20-(item._source.properties.Quality)}}</span></td>
+									</tr>
+									<tr >
+										<td>Gem Level</td>
+										<td>{{item._source.properties.Gem.Level}}</td>
+									</tr>
+									<tr>
+										<td>Gem Experience</td>
+										<td>{{item._source.properties.Gem.Experience.PercentLeveled}}%</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

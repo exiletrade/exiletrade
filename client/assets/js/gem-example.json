@@ -1,0 +1,2917 @@
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 3,
+    "successful": 3,
+    "failed": 0
+  },
+  "hits": {
+    "total": 32,
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "xyz-47f8933d9f9d373e41d49f13457e0c2545dc442add2fe44aa5e8657a5e1abafd-6-5",
+        "_score": null,
+        "_source": {
+          "info": {
+            "fullName": "Reduced Mana",
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/ReducedManaCost.png",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "typeLine": "Reduced Mana",
+            "name": "Reduced Mana",
+            "tokenized": {
+              "fullName": "reduced mana",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "added": 1456862317000,
+            "chaosEquiv": 7760.14285714286,
+            "currency": "Orb of Chance",
+            "defaultMessage": "@xyz I would like to buy your Reduced Mana listed for 54321 Orb of Chance (League:Standard, Stash Tab:\"~b/o 1 regret 45p\" [x6,y5])",
+            "lastCharacterName": "xyz",
+            "hasPrice": true,
+            "verified": "YES",
+            "updated": 1456955742000,
+            "priceSource": "note",
+            "stash": {
+              "xLocation": "6",
+              "inventoryID": "Stash2",
+              "yLocation": "5",
+              "stashName": "~b/o 1 regret 45p",
+              "stashID": "47f8933d9f9d373e41d49f13457e0c2545dc442add2fe44aa5e8657a5e1abafd"
+            },
+            "note": "~b/o 54321 chance",
+            "modified": 1456862317000,
+            "saleType": "b/o",
+            "amount": "54321",
+            "sellerAccount": "xyz",
+            "price": {"Orb of Chance": 54321}
+          },
+          "mods": {"Gem": {"explicit": {"#% reduced Mana Cost": 32}}},
+          "requirements": {
+            "Level": 62,
+            "Str": 99
+          },
+          "attributes": {
+            "equipType": "Gem",
+            "support": true,
+            "corrupted": false,
+            "explicitModsCount": 1,
+            "baseItemName": "Reduced Mana",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Standard",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "uuid": "xyz-47f8933d9f9d373e41d49f13457e0c2545dc442add2fe44aa5e8657a5e1abafd-6-5",
+          "properties": {
+            "Gem": {
+              "Level": 16,
+              "Experience": {
+                "PercentLeveled": 46,
+                "Current": 7040795,
+                "NextLevel": 15058455
+              },
+              "type": {"Support": true}
+            }
+          }
+        },
+        "sort": [1456955742000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "xyz-47f8933d9f9d373e41d49f13457e0c2545dc442add2fe44aa5e8657a5e1abafd-1-1",
+        "_score": null,
+        "_source": {
+          "info": {
+            "fullName": "Culling Strike",
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/CullingStrike.png",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "typeLine": "Culling Strike",
+            "name": "Culling Strike",
+            "tokenized": {
+              "fullName": "culling strike",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "xLocation": "1",
+              "inventoryID": "Stash5",
+              "yLocation": "1",
+              "stashName": "~b/o 1 regret 45p",
+              "stashID": "47f8933d9f9d373e41d49f13457e0c2545dc442add2fe44aa5e8657a5e1abafd"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 1,
+            "modified": 1456862317000,
+            "note": null,
+            "currency": "Orb of Regret",
+            "saleType": "b/o",
+            "amount": "1",
+            "defaultMessage": "@xyz I would like to buy your Culling Strike listed for 1 Orb of Regret (League:Standard, Stash Tab:\"~b/o 1 regret 45p\" [x1,y1])",
+            "sellerAccount": "xyz",
+            "lastCharacterName": "xyz",
+            "hasPrice": true,
+            "verified": "YES",
+            "updated": 1456955742000,
+            "priceSource": "stashName"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% increased Damage": 30,
+                "Kills Enemies on #% Life or less when hit by supported Skills": 10
+              }
+            }
+          },
+          "requirements": {
+            "Level": 62,
+            "Dex": 99
+          },
+          "attributes": {
+            "equipType": "Gem",
+            "support": true,
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Culling Strike",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Standard",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "uuid": "xyz-47f8933d9f9d373e41d49f13457e0c2545dc442add2fe44aa5e8657a5e1abafd-1-1",
+          "properties": {
+            "Gem": {
+              "Level": 16,
+              "Mana Multiplier": 110,
+              "Experience": {
+                "PercentLeveled": 46,
+                "Current": 7094907,
+                "NextLevel": 15256013
+              },
+              "type": {"Support": true}
+            }
+          }
+        },
+        "sort": [1456955742000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-7",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/LeapSlam.png",
+            "fullName": "Leap Slam",
+            "name": "Leap Slam",
+            "typeLine": "Leap Slam",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "leap slam",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash4",
+              "xLocation": "0",
+              "yLocation": "7",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868901000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Leap Slam listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x0,y7])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868901000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% chance to Knock Enemies Back on hit": 20,
+                "Deals #% of Base Attack Damage": 106
+              }
+            }
+          },
+          "requirements": {
+            "Level": 29,
+            "Str": 69
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-7",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Leap Slam",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 6,
+              "type": {
+                "Attack": true,
+                "AoE": true,
+                "Movement": true,
+                "Melee": true
+              },
+              "Mana Cost": 15,
+              "Experience": {
+                "PercentLeveled": 5,
+                "Current": 17296,
+                "NextLevel": 320280
+              }
+            }
+          }
+        },
+        "sort": [1456868901000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-3-1",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/multipleattacks.png",
+            "fullName": "Multistrike",
+            "name": "Multistrike",
+            "typeLine": "Multistrike",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "multistrike",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash6",
+              "xLocation": "3",
+              "yLocation": "1",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868901000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Multistrike listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x3,y1])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868901000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% more Melee Attack Speed": 83,
+                "#% less Attack Damage": 30,
+                "Supported Melee Attacks Repeat # additional times": 2
+              }
+            }
+          },
+          "requirements": {
+            "Level": 54,
+            "Str": 55,
+            "Dex": 38
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-3-1",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 3,
+            "baseItemName": "Multistrike",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 9,
+              "Mana Multiplier": 180,
+              "type": {
+                "Attack": true,
+                "Support": true,
+                "Melee": true
+              },
+              "Experience": {
+                "PercentLeveled": 27,
+                "Current": 528760,
+                "NextLevel": 1956648
+              }
+            }
+          }
+        },
+        "sort": [1456868901000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-1-6",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Clarity.png",
+            "fullName": "Clarity",
+            "name": "Clarity",
+            "typeLine": "Clarity",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "clarity",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash24",
+              "xLocation": "1",
+              "yLocation": "6",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868901000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Clarity listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x1,y6])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868901000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% increased Area of Effect radius": 18,
+                "You and nearby allies regenerate # Mana per second": 9
+              }
+            }
+          },
+          "requirements": {
+            "Level": 33,
+            "Int": 77
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-1-6",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Clarity",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 7,
+              "Mana Reserved": 115,
+              "Cast Time": "1.20 sec",
+              "type": {
+                "Spell": true,
+                "Aura": true,
+                "AoE": true
+              },
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 359090,
+                "NextLevel": 359090
+              },
+              "Cooldown Time": "1.20 sec"
+            }
+          }
+        },
+        "sort": [1456868901000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-3-3",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/CastOnDmgTaken.png",
+            "fullName": "Cast when Damage Taken",
+            "name": "Cast when Damage Taken",
+            "typeLine": "Cast when Damage Taken",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "cast when damage taken",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash16",
+              "xLocation": "3",
+              "yLocation": "3",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868901000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Cast when Damage Taken listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x3,y3])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868901000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "This Gem can only Support Skill Gems requiring Level # or lower": 38,
+                "#% less Damage": 70,
+                "#% increased Damage": 3,
+                "You cannot Cast Supported Spells directly": true,
+                "Casts Supported Spells when you take a total of # Damage": 528
+              }
+            }
+          },
+          "requirements": {
+            "Level": 38,
+            "Str": 39,
+            "Int": 27
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-3-3",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 5,
+            "baseItemName": "Cast when Damage Taken",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Quality": "7",
+            "Gem": {
+              "Level": 1,
+              "type": {
+                "Trigger": true,
+                "Spell": true,
+                "Support": true
+              },
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 388734,
+                "NextLevel": 388734
+              },
+              "Cooldown Time": "0.25 sec"
+            }
+          }
+        },
+        "sort": [1456868901000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-3-2",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/IncreasedAOE.png",
+            "fullName": "Increased Area of Effect",
+            "name": "Increased Area of Effect",
+            "typeLine": "Increased Area of Effect",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "increased area of effect",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash18",
+              "xLocation": "3",
+              "yLocation": "2",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868901000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Increased Area of Effect listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x3,y2])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868901000,
+            "verified": "GONE"
+          },
+          "mods": {"Gem": {"explicit": {"#% increased Area of Effect radius": 31}}},
+          "requirements": {
+            "Level": 60,
+            "Int": 96
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-3-2",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 1,
+            "baseItemName": "Increased Area of Effect",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 12,
+              "Mana Multiplier": 140,
+              "type": {
+                "Support": true,
+                "AoE": true
+              },
+              "Experience": {
+                "PercentLeveled": 89,
+                "Current": 3188329,
+                "NextLevel": 3576232
+              }
+            }
+          }
+        },
+        "sort": [1456868901000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-3",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/TemporalChains.png",
+            "fullName": "Temporal Chains",
+            "name": "Temporal Chains",
+            "typeLine": "Temporal Chains",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "temporal chains",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash5",
+              "xLocation": "0",
+              "yLocation": "3",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868875000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Temporal Chains listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x0,y3])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868875000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "Cursed enemies are #% slower": 24,
+                "#% increased Area of Effect radius": 18,
+                "#% reduced Effect of Curse against Players": 40,
+                "Base duration is # seconds": 545,
+                "Other effects on Cursed enemies expire #% slower": 40
+              }
+            }
+          },
+          "requirements": {
+            "Level": 50,
+            "Dex": 71,
+            "Int": 49
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-3",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 5,
+            "baseItemName": "Temporal Chains",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 10,
+              "Cast Time": "0.50 sec",
+              "type": {
+                "Curse": true,
+                "Spell": true,
+                "AoE": true,
+                "Duration": true
+              },
+              "Mana Cost": 38,
+              "Experience": {
+                "PercentLeveled": 0,
+                "Current": 1,
+                "NextLevel": 1368233
+              }
+            }
+          }
+        },
+        "sort": [1456868875000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-1",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/DamageAgainstChilled.png",
+            "fullName": "Hypothermia",
+            "name": "Hypothermia",
+            "typeLine": "Hypothermia",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "hypothermia",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash13",
+              "xLocation": "0",
+              "yLocation": "1",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868875000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Hypothermia listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x0,y1])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868875000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% more Damage against Chilled Enemies": 20,
+                "#% chance to Freeze Enemies which are Chilled": 10
+              }
+            }
+          },
+          "requirements": {
+            "Level": 31,
+            "Dex": 52
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-1",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Hypothermia",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 1,
+              "Mana Multiplier": 120,
+              "type": {
+                "Cold": true,
+                "Support": true
+              },
+              "Experience": {
+                "PercentLeveled": 0,
+                "Current": 1,
+                "NextLevel": 285815
+              }
+            }
+          }
+        },
+        "sort": [1456868875000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-2",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/PhaseRun.png",
+            "fullName": "Phase Run",
+            "name": "Phase Run",
+            "typeLine": "Phase Run",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "phase run",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash28",
+              "xLocation": "0",
+              "yLocation": "2",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868875000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Phase Run listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x0,y2])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868875000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% more Melee Physical Damage": 20,
+                "#% increased Skill Duration Per Frenzy Charge": 100,
+                "Phasing": true,
+                "#% reduced Visibility to Enemies": 80,
+                "Base duration is # seconds": 180,
+                "Base secondary duration is # seconds": 20,
+                "#% increased Movement Speed": 30
+              }
+            }
+          },
+          "requirements": {
+            "Level": 34,
+            "Dex": 79
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-2",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 7,
+            "baseItemName": "Phase Run",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 1,
+              "Cast Time": "0.50 sec",
+              "type": {
+                "Spell": true,
+                "Duration": true,
+                "Movement": true
+              },
+              "Mana Cost": 11,
+              "Experience": {
+                "PercentLeveled": 0,
+                "Current": 1,
+                "NextLevel": 252595
+              },
+              "Cooldown Time": "4.00 sec"
+            }
+          }
+        },
+        "sort": [1456868875000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-3-0",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/CullingStrike.png",
+            "fullName": "Culling Strike",
+            "name": "Culling Strike",
+            "typeLine": "Culling Strike",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "culling strike",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash31",
+              "xLocation": "3",
+              "yLocation": "0",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868875000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Culling Strike listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x3,y0])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868875000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% increased Damage": 20,
+                "Kills Enemies on #% Life or less when hit by supported Skills": 10
+              }
+            }
+          },
+          "requirements": {
+            "Level": 50,
+            "Dex": 81
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-3-0",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Culling Strike",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 11,
+              "Mana Multiplier": 110,
+              "type": {"Support": true},
+              "Experience": {
+                "PercentLeveled": 86,
+                "Current": 1860550,
+                "NextLevel": 2151030
+              }
+            }
+          }
+        },
+        "sort": [1456868875000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-4",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/LesserMultipleProjectiles.png",
+            "fullName": "Lesser Multiple Projectiles",
+            "name": "Lesser Multiple Projectiles",
+            "typeLine": "Lesser Multiple Projectiles",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "lesser multiple projectiles",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash18",
+              "xLocation": "0",
+              "yLocation": "4",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868875000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Lesser Multiple Projectiles listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x0,y4])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868875000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% less Projectile Damage": 25,
+                "# additional Projectiles": 2
+              }
+            }
+          },
+          "requirements": {
+            "Level": 8,
+            "Dex": 18
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-4",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Lesser Multiple Projectiles",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 1,
+              "Mana Multiplier": 140,
+              "type": {
+                "Projectile": true,
+                "Support": true
+              },
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 3231,
+                "NextLevel": 3231
+              }
+            }
+          }
+        },
+        "sort": [1456868875000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-6",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/AddedColdDamage.png",
+            "fullName": "Added Cold Damage",
+            "name": "Added Cold Damage",
+            "typeLine": "Added Cold Damage",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "added cold damage",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash8",
+              "xLocation": "0",
+              "yLocation": "6",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868875000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Added Cold Damage listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x0,y6])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868875000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "Adds #-# Cold Damage": {
+                  "min": 30,
+                  "avg": 37.5,
+                  "max": 45
+                }
+              }
+            }
+          },
+          "requirements": {
+            "Level": 40,
+            "Dex": 66
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-6",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 1,
+            "baseItemName": "Added Cold Damage",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 10,
+              "Mana Multiplier": 130,
+              "type": {
+                "Cold": true,
+                "Support": true
+              },
+              "Experience": {
+                "PercentLeveled": 0,
+                "Current": 1,
+                "NextLevel": 755049
+              }
+            }
+          }
+        },
+        "sort": [1456868875000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-5",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/DamageAgainstChilled.png",
+            "fullName": "Hypothermia",
+            "name": "Hypothermia",
+            "typeLine": "Hypothermia",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "hypothermia",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash9",
+              "xLocation": "0",
+              "yLocation": "5",
+              "stashID": "18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58",
+              "stashName": "~price 10 chaos"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 10,
+            "note": null,
+            "modified": 1456868875000,
+            "currency": "Chaos Orb",
+            "saleType": "price",
+            "amount": "10",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "defaultMessage": "@watermnp2 I would like to buy your Hypothermia listed for 10 Chaos Orb (League:Talisman, Stash Tab:\"~price 10 chaos\" [x0,y5])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868875000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% more Damage against Chilled Enemies": 20,
+                "#% chance to Freeze Enemies which are Chilled": 10
+              }
+            }
+          },
+          "requirements": {
+            "Level": 31,
+            "Dex": 52
+          },
+          "uuid": "watermnp2-18bf1aadce6891ddc31780c8cba4398a215988b94e88c32159d477ea05ed2e58-0-5",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Hypothermia",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 1,
+              "Mana Multiplier": 120,
+              "type": {
+                "Cold": true,
+                "Support": true
+              },
+              "Experience": {
+                "PercentLeveled": 0,
+                "Current": 1,
+                "NextLevel": 285815
+              }
+            }
+          }
+        },
+        "sort": [1456868875000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-8-2",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/VaalGems/VaalSpark.png",
+            "fullName": "Vaal Spark",
+            "name": "Vaal Spark",
+            "typeLine": "Vaal Spark",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "vaal spark",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash35",
+              "xLocation": "8",
+              "yLocation": "2",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "Base duration is # seconds": 350,
+                "Deals #-# Lightning Damage": {
+                  "min": 16,
+                  "avg": 162,
+                  "max": 308
+                },
+                "Fires Projectiles at all Enemies": true
+              }
+            }
+          },
+          "requirements": {
+            "Level": 60,
+            "Int": 134
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-8-2",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": true,
+            "explicitModsCount": 3,
+            "baseItemName": "Vaal Spark",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Damage Effectiveness": 40,
+              "Critical Strike Chance": 6,
+              "Mana Cost": 0,
+              "Can Store # Use": 1,
+              "Level": 17,
+              "Souls Per Use": 48,
+              "Cast Time": "0.65 sec",
+              "Experience": {
+                "PercentLeveled": 99,
+                "Current": 27565682,
+                "NextLevel": 27792735
+              },
+              "type": {
+                "Lightning": true,
+                "Projectile": true,
+                "Spell": true,
+                "Vaal": true,
+                "Duration": true
+              }
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-2-4",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/RainOfBlades.png",
+            "fullName": "Bladefall",
+            "name": "Bladefall",
+            "typeLine": "Bladefall",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "bladefall",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash53",
+              "xLocation": "2",
+              "yLocation": "4",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% less Damage per Volley": 5,
+                "Deals #-# Physical Damage": {
+                  "min": 214,
+                  "avg": 267.5,
+                  "max": 321
+                }
+              }
+            }
+          },
+          "requirements": {
+            "Level": 52,
+            "Dex": 117
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-2-4",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Bladefall",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Damage Effectiveness": 120,
+              "Level": 11,
+              "Critical Strike Chance": 5,
+              "Cast Time": "0.80 sec",
+              "type": {
+                "Spell": true,
+                "AoE": true
+              },
+              "Mana Cost": 21,
+              "Experience": {
+                "PercentLeveled": 68,
+                "Current": 1115171,
+                "NextLevel": 1638338
+              }
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-7-6",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/ElementalWeakness.png",
+            "fullName": "Elemental Weakness",
+            "name": "Elemental Weakness",
+            "typeLine": "Elemental Weakness",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "elemental weakness",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash1",
+              "xLocation": "7",
+              "yLocation": "6",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% increased Area of Effect radius": 26,
+                "Cursed enemies lose #% Elemental Resistances": 33,
+                "Base duration is # seconds": 1030
+              }
+            }
+          },
+          "requirements": {
+            "Level": 58,
+            "Int": 130
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-7-6",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 3,
+            "baseItemName": "Elemental Weakness",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 14,
+              "Cast Time": "0.50 sec",
+              "type": {
+                "Curse": true,
+                "Spell": true,
+                "AoE": true,
+                "Duration": true
+              },
+              "Mana Cost": 43,
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 3017327,
+                "NextLevel": 3017327
+              }
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-0-5",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/CastOnDmgTaken.png",
+            "fullName": "Cast when Damage Taken",
+            "name": "Cast when Damage Taken",
+            "typeLine": "Cast when Damage Taken",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "cast when damage taken",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash9",
+              "xLocation": "0",
+              "yLocation": "5",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "This Gem can only Support Skill Gems requiring Level # or lower": 40,
+                "#% less Damage": 66,
+                "You cannot Cast Supported Spells directly": true,
+                "Casts Supported Spells when you take a total of # Damage": 583
+              }
+            }
+          },
+          "requirements": {
+            "Level": 40,
+            "Str": 41,
+            "Int": 29
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-0-5",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 4,
+            "baseItemName": "Cast when Damage Taken",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 2,
+              "type": {
+                "Trigger": true,
+                "Spell": true,
+                "Support": true
+              },
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 477437,
+                "NextLevel": 477437
+              },
+              "Cooldown Time": "0.25 sec"
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-1-3",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/IceShield.png",
+            "fullName": "Arctic Armour",
+            "name": "Arctic Armour",
+            "typeLine": "Arctic Armour",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "arctic armour",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash15",
+              "xLocation": "1",
+              "yLocation": "3",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% less Fire Damage taken when Hit": 12,
+                "#% less Physical Damage taken when Hit": 12,
+                "Chill Enemy for # seconds when hit": 0,
+                "Base duration is # seconds": 420
+              }
+            }
+          },
+          "requirements": {
+            "Level": 66,
+            "Dex": 92,
+            "Int": 64
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-1-3",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 4,
+            "baseItemName": "Arctic Armour",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 18,
+              "Mana Reserved": 25,
+              "Cast Time": "0.50 sec",
+              "type": {
+                "Spell": true,
+                "Cold": true,
+                "Duration": true
+              },
+              "Experience": {
+                "PercentLeveled": 73,
+                "Current": 45946929,
+                "NextLevel": 62872274
+              },
+              "Cooldown Time": "0.50 sec"
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-4-0",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/LifeLeech.png",
+            "fullName": "Life Leech",
+            "name": "Life Leech",
+            "typeLine": "Life Leech",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "life leech",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash16",
+              "xLocation": "4",
+              "yLocation": "0",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% increased Life Leeched per second": 20,
+                "#% of Damage Leeched as Life": 2
+              }
+            }
+          },
+          "requirements": {
+            "Level": 52,
+            "Str": 84
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-4-0",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Life Leech",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 11,
+              "Mana Multiplier": 130,
+              "type": {"Support": true},
+              "Experience": {
+                "PercentLeveled": 92,
+                "Current": 1522712,
+                "NextLevel": 1638338
+              }
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-5-7",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/Aurify.png",
+            "fullName": "Blasphemy",
+            "name": "Blasphemy",
+            "typeLine": "Blasphemy",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "blasphemy",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash18",
+              "xLocation": "5",
+              "yLocation": "7",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% increased Radius of Curses": 34,
+                "Supported Curse Spells are Cast as Auras": true
+              }
+            }
+          },
+          "requirements": {
+            "Level": 66,
+            "Int": 105
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-5-7",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Blasphemy",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Mana Reservation Override": 35,
+              "Level": 18,
+              "type": {
+                "Curse": true,
+                "Support": true,
+                "Aura": true
+              },
+              "Experience": {
+                "PercentLeveled": 10,
+                "Current": 6501625,
+                "NextLevel": 62460771
+              },
+              "Cooldown Time": "0.50 sec"
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-2-5",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/RejuvinationTotem.png",
+            "fullName": "Rejuvenation Totem",
+            "name": "Rejuvenation Totem",
+            "typeLine": "Rejuvenation Totem",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "rejuvenation totem",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash32",
+              "xLocation": "2",
+              "yLocation": "5",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "Totem lasts # seconds": 8,
+                "#% increased Aura radius": 30,
+                "Summons a Totem which uses this Skill": true,
+                "# Life regenerated per second": 6
+              }
+            }
+          },
+          "requirements": {
+            "Level": 4,
+            "Str": 16
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-2-5",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 4,
+            "baseItemName": "Rejuvenation Totem",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Quality": "10",
+            "Gem": {
+              "Level": 1,
+              "Cast Time": "0.60 sec",
+              "type": {
+                "Spell": true,
+                "Totem": true,
+                "Aura": true,
+                "AoE": true,
+                "Duration": true
+              },
+              "Mana Cost": 13,
+              "Experience": {
+                "PercentLeveled": 0,
+                "Current": 1,
+                "NextLevel": 841
+              }
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-9-9",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/FirePenetration.png",
+            "fullName": "Fire Penetration",
+            "name": "Fire Penetration",
+            "typeLine": "Fire Penetration",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "fire penetration",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash37",
+              "xLocation": "9",
+              "yLocation": "9",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {"Gem": {"explicit": {"Penetrates #% Fire Resistance": 34}}},
+          "requirements": {
+            "Level": 64,
+            "Str": 102
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-9-9",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 1,
+            "baseItemName": "Fire Penetration",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 17,
+              "Mana Multiplier": 140,
+              "type": {
+                "Fire": true,
+                "Support": true
+              },
+              "Experience": {
+                "PercentLeveled": 41,
+                "Current": 10764156,
+                "NextLevel": 25964218
+              }
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-3-10",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/FlameTotem.png",
+            "fullName": "Flame Totem",
+            "name": "Flame Totem",
+            "typeLine": "Flame Totem",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "flame totem",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash38",
+              "xLocation": "3",
+              "yLocation": "10",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "Totem lasts # seconds": 8,
+                "Deals #-# Fire Damage": {
+                  "min": 105,
+                  "avg": 131,
+                  "max": 157
+                },
+                "# additional Projectiles": 2,
+                "Summons a Totem which uses this Skill": true
+              }
+            }
+          },
+          "requirements": {
+            "Level": 67,
+            "Str": 94,
+            "Int": 65
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-3-10",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 4,
+            "baseItemName": "Flame Totem",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Damage Effectiveness": 25,
+              "Level": 19,
+              "Critical Strike Chance": 5,
+              "Cast Time": "0.25 sec",
+              "type": {
+                "Projectile": true,
+                "Spell": true,
+                "Totem": true,
+                "Fire": true,
+                "Duration": true
+              },
+              "Mana Cost": 41,
+              "Experience": {
+                "PercentLeveled": 15,
+                "Current": 37159567,
+                "NextLevel": 242081178
+              }
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-0-4",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/IncreasedQuality.png",
+            "fullName": "Item Rarity",
+            "name": "Item Rarity",
+            "typeLine": "Item Rarity",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "item rarity",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash41",
+              "xLocation": "0",
+              "yLocation": "4",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {"Gem": {"explicit": {"#% increased Rarity of Items Dropped by Slain Enemies": 56}}},
+          "requirements": {
+            "Level": 64,
+            "Int": 102
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-0-4",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 1,
+            "baseItemName": "Item Rarity",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 17,
+              "type": {"Support": true},
+              "Experience": {
+                "PercentLeveled": 33,
+                "Current": 8734998,
+                "NextLevel": 25964218
+              }
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-3-0",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Clarity.png",
+            "fullName": "Clarity",
+            "name": "Clarity",
+            "typeLine": "Clarity",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "clarity",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash50",
+              "xLocation": "3",
+              "yLocation": "0",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% increased Area of Effect radius": 33,
+                "You and nearby allies regenerate # Mana per second": 14
+              }
+            }
+          },
+          "requirements": {
+            "Level": 54,
+            "Int": 121
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-3-0",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Clarity",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 14,
+              "Mana Reserved": 203,
+              "Cast Time": "1.20 sec",
+              "type": {
+                "Spell": true,
+                "Aura": true,
+                "AoE": true
+              },
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 3070912,
+                "NextLevel": 3070912
+              },
+              "Cooldown Time": "1.20 sec"
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-4-3",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Clarity.png",
+            "fullName": "Clarity",
+            "name": "Clarity",
+            "typeLine": "Clarity",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "clarity",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash51",
+              "xLocation": "4",
+              "yLocation": "3",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "#% increased Area of Effect radius": 27,
+                "You and nearby allies regenerate # Mana per second": 12
+              }
+            }
+          },
+          "requirements": {
+            "Level": 45,
+            "Int": 102
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-4-3",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Clarity",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 11,
+              "Mana Reserved": 166,
+              "Cast Time": "1.20 sec",
+              "type": {
+                "Spell": true,
+                "Aura": true,
+                "AoE": true
+              },
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 1727879,
+                "NextLevel": 1727879
+              },
+              "Cooldown Time": "1.20 sec"
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-8-3",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Purity.png",
+            "fullName": "Purity of Elements",
+            "name": "Purity of Elements",
+            "typeLine": "Purity of Elements",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "purity of elements",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash23",
+              "xLocation": "8",
+              "yLocation": "3",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "You and nearby allies gain #% to all Elemental Resistances": 20,
+                "#% increased Area of Effect radius": 27
+              }
+            }
+          },
+          "requirements": {
+            "Level": 52,
+            "Str": 51,
+            "Int": 74
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-8-3",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 2,
+            "baseItemName": "Purity of Elements",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 11,
+              "Mana Reserved": 35,
+              "Cast Time": "1.20 sec",
+              "type": {
+                "Spell": true,
+                "Aura": true,
+                "AoE": true
+              },
+              "Experience": {
+                "PercentLeveled": 80,
+                "Current": 1323557,
+                "NextLevel": 1638338
+              },
+              "Cooldown Time": "1.20 sec"
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-8-4",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/WarlordsMark.png",
+            "fullName": "Warlord's Mark",
+            "name": "Warlord's Mark",
+            "typeLine": "Warlord's Mark",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "warlord's mark",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash54",
+              "xLocation": "8",
+              "yLocation": "4",
+              "stashID": "ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a",
+              "stashName": "no buyout"
+            },
+            "added": 1456862317000,
+            "chaosEquiv": 0,
+            "note": null,
+            "modified": 1456868843000,
+            "saleType": "Offer",
+            "currency": "null",
+            "amount": "0",
+            "lastCharacterName": "pwxs",
+            "sellerAccount": "watermnp2",
+            "hasPrice": false,
+            "priceSource": "null",
+            "updated": 1456868843000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "Base duration is # seconds": 600,
+                "Cursed enemies have an additional #% chance to be Stunned": 11,
+                "Cursed enemies grant #% Life Leech when Hit": 2,
+                "Cursed enemies have a #% chance to grant an Endurance Charge when slain": 21,
+                "Cursed enemies grant #% Mana Leech when Hit": 2,
+                "Cursed enemies have #% reduced Stun Recovery": 21
+              }
+            }
+          },
+          "requirements": {
+            "Level": 24,
+            "Str": 58
+          },
+          "uuid": "watermnp2-ab3b90b6d6e3e360e1cebad1848a343b5ca71f59f81073d317036f82aa88796a-8-4",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 6,
+            "baseItemName": "Warlord's Mark",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 1,
+              "Cast Time": "0.50 sec",
+              "type": {
+                "Curse": true,
+                "Spell": true,
+                "AoE": true,
+                "Duration": true
+              },
+              "Mana Cost": 24,
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 118383,
+                "NextLevel": 118383
+              }
+            }
+          }
+        },
+        "sort": [1456868843000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "pwx-2973baa87537b9f49fc54a62a4a745bc8d277393e75f9986a70c41c4cf1cb5a4-1-5",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/enhance.png",
+            "fullName": "Enhance",
+            "name": "Enhance",
+            "typeLine": "Enhance",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "enhance",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash2",
+              "xLocation": "1",
+              "yLocation": "5",
+              "stashID": "2973baa87537b9f49fc54a62a4a745bc8d277393e75f9986a70c41c4cf1cb5a4",
+              "stashName": "Sell1"
+            },
+            "added": 1456864654000,
+            "chaosEquiv": 15,
+            "note": "~b/o 15 chaos",
+            "modified": 1456868774000,
+            "currency": "Chaos Orb",
+            "saleType": "b/o",
+            "amount": "15",
+            "lastCharacterName": "pwxig",
+            "sellerAccount": "pwx",
+            "defaultMessage": "@pwx I would like to buy your Enhance listed for 15 Chaos Orb (League:Talisman, Stash Tab:\"Sell1\" [x1,y5])",
+            "hasPrice": true,
+            "priceSource": "note",
+            "updated": 1456868774000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "This Gem gains #% increased Experience": 50,
+                "+#% to Quality of Supported Active Skill Gems": 16
+              }
+            }
+          },
+          "requirements": {
+            "Level": 45,
+            "Dex": 73
+          },
+          "uuid": "pwx-2973baa87537b9f49fc54a62a4a745bc8d277393e75f9986a70c41c4cf1cb5a4-1-5",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": true,
+            "explicitModsCount": 2,
+            "baseItemName": "Enhance",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Quality": "10",
+            "Gem": {
+              "Level": 3,
+              "Mana Multiplier": 115,
+              "type": {"Support": true}
+            }
+          }
+        },
+        "sort": [1456868774000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "pwx-ec64b4f0dc093fc6b988d75dbdcc6dc3934d11120c4f364cd215ae4f023e0546-3-5",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/Support/CastOnDmgTaken.png",
+            "fullName": "Cast when Damage Taken",
+            "name": "Cast when Damage Taken",
+            "typeLine": "Cast when Damage Taken",
+            "descrText": "This is a Support Gem. It does not grant a bonus to your character, but to skills in sockets connected to it. Place into an item socket connected to a socket containing the Active Skill Gem you wish to augment. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "cast when damage taken",
+              "descrText": "this is a support gem. it does not grant a bonus to your character, but to skills in sockets connected to it. place into an item socket connected to a socket containing the active skill gem you wish to augment. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash24",
+              "xLocation": "3",
+              "yLocation": "5",
+              "stashID": "ec64b4f0dc093fc6b988d75dbdcc6dc3934d11120c4f364cd215ae4f023e0546",
+              "stashName": "~gb/o 1 chaos"
+            },
+            "added": 1456862316000,
+            "chaosEquiv": 1,
+            "note": null,
+            "modified": 1456868628000,
+            "currency": "Chaos Orb",
+            "saleType": "gb/o",
+            "amount": "1",
+            "lastCharacterName": "pwxig",
+            "sellerAccount": "pwx",
+            "defaultMessage": "@pwx I would like to buy your Cast when Damage Taken listed for 1 Chaos Orb (League:Talisman, Stash Tab:\"~gb/o 1 chaos\" [x3,y5])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868628000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "This Gem can only Support Skill Gems requiring Level # or lower": 52,
+                "#% less Damage": 42,
+                "You cannot Cast Supported Spells directly": true,
+                "Casts Supported Spells when you take a total of # Damage": 1107
+              }
+            }
+          },
+          "requirements": {
+            "Level": 52,
+            "Str": 53,
+            "Int": 37
+          },
+          "uuid": "pwx-ec64b4f0dc093fc6b988d75dbdcc6dc3934d11120c4f364cd215ae4f023e0546-3-5",
+          "attributes": {
+            "support": true,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 4,
+            "baseItemName": "Cast when Damage Taken",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Level": 8,
+              "type": {
+                "Trigger": true,
+                "Spell": true,
+                "Support": true
+              },
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 1638338,
+                "NextLevel": 1638338
+              },
+              "Cooldown Time": "0.25 sec"
+            }
+          }
+        },
+        "sort": [1456868628000]
+      },
+      {
+        "_index": "poe20160301",
+        "_type": "item",
+        "_id": "pwx-ec64b4f0dc093fc6b988d75dbdcc6dc3934d11120c4f364cd215ae4f023e0546-6-4",
+        "_score": null,
+        "_source": {
+          "info": {
+            "icon": "http://webcdn.pathofexile.com/image/Art/2DItems/Gems/MoltenShell.png",
+            "fullName": "Molten Shell",
+            "name": "Molten Shell",
+            "typeLine": "Molten Shell",
+            "descrText": "Place into an item socket of the right colour to gain this skill. Right click to remove from a socket.",
+            "tokenized": {
+              "fullName": "molten shell",
+              "descrText": "place into an item socket of the right colour to gain this skill. right click to remove from a socket."
+            }
+          },
+          "shop": {
+            "stash": {
+              "inventoryID": "Stash9",
+              "xLocation": "6",
+              "yLocation": "4",
+              "stashID": "ec64b4f0dc093fc6b988d75dbdcc6dc3934d11120c4f364cd215ae4f023e0546",
+              "stashName": "~gb/o 1 chaos"
+            },
+            "added": 1456862316000,
+            "chaosEquiv": 1,
+            "note": null,
+            "modified": 1456868584000,
+            "currency": "Chaos Orb",
+            "saleType": "gb/o",
+            "amount": "1",
+            "lastCharacterName": "pwxig",
+            "sellerAccount": "pwx",
+            "defaultMessage": "@pwx I would like to buy your Molten Shell listed for 1 Chaos Orb (League:Talisman, Stash Tab:\"~gb/o 1 chaos\" [x6,y4])",
+            "hasPrice": true,
+            "priceSource": "stashName",
+            "updated": 1456868584000,
+            "verified": "GONE"
+          },
+          "mods": {
+            "Gem": {
+              "explicit": {
+                "# additional Armour": 376,
+                "Deals #-# Fire Damage": {
+                  "min": 631,
+                  "avg": 789,
+                  "max": 947
+                },
+                "Base duration is # seconds": 1000,
+                "Shields break after # total Damage is prevented": 602
+              }
+            }
+          },
+          "requirements": {
+            "Level": 52,
+            "Str": 117
+          },
+          "uuid": "pwx-ec64b4f0dc093fc6b988d75dbdcc6dc3934d11120c4f364cd215ae4f023e0546-6-4",
+          "attributes": {
+            "support": false,
+            "equipType": "Gem",
+            "corrupted": false,
+            "explicitModsCount": 4,
+            "baseItemName": "Molten Shell",
+            "lockedToCharacter": false,
+            "identified": true,
+            "ilvl": 0,
+            "baseItemType": "Gem",
+            "inventoryHeight": 1,
+            "mirrored": false,
+            "rarity": "Gem",
+            "frameType": 4,
+            "league": "Talisman",
+            "itemType": "Gem",
+            "inventoryWidth": 1
+          },
+          "properties": {
+            "Gem": {
+              "Damage Effectiveness": 200,
+              "Level": 14,
+              "Critical Strike Chance": 5,
+              "Cast Time": "1.00 sec",
+              "type": {
+                "Spell": true,
+                "AoE": true,
+                "Fire": true,
+                "Duration": true
+              },
+              "Mana Cost": 23,
+              "Experience": {
+                "PercentLeveled": 100,
+                "Current": 2573731,
+                "NextLevel": 2573731
+              }
+            }
+          }
+        },
+        "sort": [1456868584000]
+      }
+    ]
+  }
+}

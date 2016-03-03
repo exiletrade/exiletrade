@@ -1,0 +1,1818 @@
+#
+#BaseTypes
+#
+
+FishingRod:
+  query: info.typeLine:"Fishing Rod"
+DryPeninsula:
+  query: info.typeLine:"Dry Peninsula"
+AbandonedWealth:
+  query: info.typeLine:"Abandoned Wealth"
+Anarchy'?s?Price:
+  query: info.typeLine:"Anarchy's Price"
+Assassin'?s?Favour:
+  query: info.typeLine:"Assassin's Favour"
+Audacity:
+  query: info.typeLine:"Audacity"
+BlindVenture:
+  query: info.typeLine:"Blind Venture"
+ChaoticDisposition:
+  query: info.typeLine:"Chaotic Disposition"
+CovetedPossession:
+  query: info.typeLine:"Coveted Possession"
+Death:
+  query: info.typeLine:"Death"
+Doedre'?s?Madness:
+  query: info.typeLine:"Doedre's Madness"
+Emperor'?s?Luck:
+  query: info.typeLine:"Emperor's Luck"
+Gemcutter'?s?Promise:
+  query: info.typeLine:"Gemcutter's Promise"
+Gift(of)?(the)?GemlingQueen:
+  query: info.typeLine:"Gift of the Gemling Queen"
+GraveKnowledge:
+  query: info.typeLine:"Grave Knowledge"
+Hope:
+  query: info.typeLine:"Hope"
+House(of)?Mirrors:
+  query: info.typeLine:"House of Mirrors"
+Hubris:
+  query: info.typeLine:"Hubris"
+Humility:
+  query: info.typeLine:"Humility"
+Hunter'?s?Resolve:
+  query: info.typeLine:"Hunter's Resolve"
+Hunter'?s?Reward:
+  query: info.typeLine:"Hunter's Reward"
+Jackin(the)?Box:
+  query: info.typeLine:"Jack in the Box"
+Lantador'?s?LostLove:
+  query: info.typeLine:"Lantador's Lost Love"
+LastHope:
+  query: info.typeLine:"Last Hope"
+Loyalty:
+  query: info.typeLine:"Loyalty"
+LuckyConnections:
+  query: info.typeLine:"Lucky Connections"
+MercilessArmament:
+  query: info.typeLine:"Merciless Armament"
+PrideBefore(the)?Fall:
+  query: info.typeLine:"Pride Before the Fall"
+Rain(of)?Chaos:
+  query: info.typeLine:"Rain of Chaos"
+Scholar(of)?(the)?Seas:
+  query: info.typeLine:"Scholar of the Seas"
+(The)?Aes(the)?te:
+  query: info.typeLine:"The Aesthete"
+(The)?Artist:
+  query: info.typeLine:"The Artist"
+(The)?Avenger:
+  query: info.typeLine:"The Avenger"
+(The)?BattleBorn:
+  query: info.typeLine:"The Battle Born"
+(The)?Betrayal:
+  query: info.typeLine:"The Betrayal"
+(The)?BrittleEmperor:
+  query: info.typeLine:"The Brittle Emperor"
+(The)?CarrionCrow:
+  query: info.typeLine:"The Carrion Crow"
+(The)?Cartographer:
+  query: info.typeLine:"The Cartographer"
+(The)?Cataclysm:
+  query: info.typeLine:"The Cataclysm"
+(The)?Catalyst:
+  query: info.typeLine:"The Catalyst"
+(The)?CelestialJusticar:
+  query: info.typeLine:"The Celestial Justicar"
+(The)?ChainsthatBind:
+  query: info.typeLine:"The Chains that Bind"
+(The)?Conduit:
+  query: info.typeLine:"The Conduit"
+(The)?DarkMage:
+  query: info.typeLine:"The Dark Mage"
+(The)?Doctor:
+  query: info.typeLine:"The Doctor"
+(The)?Doppelganger:
+  query: info.typeLine:"The Doppelganger"
+(The)?Dragon'?s?Heart:
+  query: info.typeLine:"The Dragon's Heart"
+(The)?DrunkenAristocrat:
+  query: info.typeLine:"The Drunken Aristocrat"
+(The)?EncroachingDarkness:
+  query: info.typeLine:"The Encroaching Darkness"
+(The)?Enlightened:
+  query: info.typeLine:"The Enlightened"
+(The)?Explorer:
+  query: info.typeLine:"The Explorer"
+(The)?Feast:
+  query: info.typeLine:"The Feast"
+(The)?Fiend:
+  query: info.typeLine:"The Fiend"
+(The)?Fletcher:
+  query: info.typeLine:"The Fletcher"
+(The)?Flora'?s?Gift:
+  query: info.typeLine:"The Flora's Gift"
+(The)?Fox:
+  query: info.typeLine:"The Fox"
+(The)?Gambler:
+  query: info.typeLine:"The Gambler"
+(The)?Gemcutter:
+  query: info.typeLine:"The Gemcutter"
+(The)?Gentleman:
+  query: info.typeLine:"The Gentleman"
+(The)?Gladiator:
+  query: info.typeLine:"The Gladiator"
+(The)?Hermit:
+  query: info.typeLine:"The Hermit"
+(The)?Hoarder:
+  query: info.typeLine:"The Hoarder"
+(The)?Hunger:
+  query: info.typeLine:"The Hunger"
+(The)?Incantation:
+  query: info.typeLine:"The Incantation"
+(The)?Inoculated:
+  query: info.typeLine:"The Inoculated"
+(The)?Inventor:
+  query: info.typeLine:"The Inventor"
+(The)?King'?s?Heart:
+  query: info.typeLine:"The King's Heart"
+(The)?LastOneStanding:
+  query: info.typeLine:"The Last One Standing"
+(The)?Lich:
+  query: info.typeLine:"The Lich"
+(The)?Lover:
+  query: info.typeLine:"The Lover"
+(The)?Mercenary:
+  query: info.typeLine:"The Mercenary"
+(The)?Metalsmith'?s?Gift:
+  query: info.typeLine:"The Metalsmith's Gift"
+(The)?OneWithAll:
+  query: info.typeLine:"The One With All"
+(The)?PackLeader:
+  query: info.typeLine:"The Pack Leader"
+(The)?Pact:
+  query: info.typeLine:"The Pact"
+(The)?Poet:
+  query: info.typeLine:"The Poet"
+(The)?Queen:
+  query: info.typeLine:"The Queen"
+(The)?RoadtoPower:
+  query: info.typeLine:"The Road to Power"
+(The)?ScarredMeadow:
+  query: info.typeLine:"The Scarred Meadow"
+(The)?Scholar:
+  query: info.typeLine:"The Scholar"
+(The)?Siren:
+  query: info.typeLine:"The Siren"
+(The)?SpoiledPrince:
+  query: info.typeLine:"The Spoiled Prince"
+(The)?Summoner:
+  query: info.typeLine:"The Summoner"
+(The)?Sun:
+  query: info.typeLine:"The Sun"
+(The)?Surgeon:
+  query: info.typeLine:"The Surgeon"
+(The)?Surveyor:
+  query: info.typeLine:"The Surveyor"
+(The)?Survivalist:
+  query: info.typeLine:"The Survivalist"
+(The)?Thaumaturgist:
+  query: info.typeLine:"The Thaumaturgist"
+(The)?Tower:
+  query: info.typeLine:"The Tower"
+(The)?Trial:
+  query: info.typeLine:"The Trial"
+(The)?Twins:
+  query: info.typeLine:"The Twins"
+(The)?Union:
+  query: info.typeLine:"The Union"
+(The)?Vast:
+  query: info.typeLine:"The Vast"
+(The)?Warden:
+  query: info.typeLine:"The Warden"
+(The)?Watcher:
+  query: info.typeLine:"The Watcher"
+(The)?Wind:
+  query: info.typeLine:"The Wind"
+(The)?Wrath:
+  query: info.typeLine:"The Wrath"
+ThreeFacesin(the)?Dark:
+  query: info.typeLine:"Three Faces in the Dark"
+TimeLostRelic:
+  query: info.typeLine:"Time-Lost Relic"
+Vinia'?s?Token:
+  query: info.typeLine:"Vinia's Token"
+VolatilePower:
+  query: info.typeLine:"Volatile Power"
+WealthandPower:
+  query: info.typeLine:"Wealth and Power"
+AlbinoRhoaFea(the)?r:
+  query: info.typeLine:"Albino Rhoa Feather"
+
+#Flasks
+
+AmethystF(la?sk)?:
+  query: info.typeLine:"Amethyst Flask"
+AquamarineF(la?sk)?:
+  query: info.typeLine:"Aquamarine Flask"
+BasaltF(la?sk)?:
+  query: info.typeLine:"Basalt Flask"
+BismuthF(la?sk)?:
+  query: info.typeLine:"Bismuth Flask"
+ColossalHybridF(la?sk)?:
+  query: info.typeLine:"Colossal Hybrid Flask"
+ColossalLifeF(la?sk)?:
+  query: info.typeLine:"Colossal Life Flask"
+ColossalManaF(la?sk)?:
+  query: info.typeLine:"Colossal Mana Flask"
+DiamondF(la?sk)?:
+  query: info.typeLine:"Diamond Flask"
+DivineLifeF(la?sk)?:
+  query: info.typeLine:"Divine Life Flask"
+DivineManaF(la?sk)?:
+  query: info.typeLine:"Divine Mana Flask"
+EternalLifeF(la?sk)?:
+  query: info.typeLine:"Eternal Life Flask"
+EternalManaF(la?sk)?:
+  query: info.typeLine:"Eternal Mana Flask"
+GiantLifeF(la?sk)?:
+  query: info.typeLine:"Giant Life Flask"
+GiantManaF(la?sk)?:
+  query: info.typeLine:"Giant Mana Flask"
+GrandLifeF(la?sk)?:
+  query: info.typeLine:"Grand Life Flask"
+GrandManaF(la?sk)?:
+  query: info.typeLine:"Grand Mana Flask"
+GraniteF(la?sk)?:
+  query: info.typeLine:"Granite Flask"
+GreaterLifeF(la?sk)?:
+  query: info.typeLine:"Greater Life Flask"
+GreaterManaF(la?sk)?:
+  query: info.typeLine:"Greater Mana Flask"
+HallowedHybridF(la?sk)?:
+  query: info.typeLine:"Hallowed Hybrid Flask"
+HallowedLifeF(la?sk)?:
+  query: info.typeLine:"Hallowed Life Flask"
+HallowedManaF(la?sk)?:
+  query: info.typeLine:"Hallowed Mana Flask"
+JadeF(la?sk)?:
+  query: info.typeLine:"Jade Flask"
+LargeHybridF(la?sk)?:
+  query: info.typeLine:"Large Hybrid Flask"
+LargeLifeF(la?sk)?:
+  query: info.typeLine:"Large Life Flask"
+LargeManaF(la?sk)?:
+  query: info.typeLine:"Large Mana Flask"
+MediumHybridF(la?sk)?:
+  query: info.typeLine:"Medium Hybrid Flask"
+MediumLifeF(la?sk)?:
+  query: info.typeLine:"Medium Life Flask"
+MediumManaF(la?sk)?:
+  query: info.typeLine:"Medium Mana Flask"
+QuartzF(la?sk)?:
+  query: info.typeLine:"Quartz Flask"
+QuicksilverF(la?sk)?:
+  query: info.typeLine:"Quicksilver Flask"
+RubyF(la?sk)?:
+  query: info.typeLine:"Ruby Flask"
+SacredHybridF(la?sk)?:
+  query: info.typeLine:"Sacred Hybrid Flask"
+SacredLifeF(la?sk)?:
+  query: info.typeLine:"Sacred Life Flask"
+SacredManaF(la?sk)?:
+  query: info.typeLine:"Sacred Mana Flask"
+SanctifiedLifeF(la?sk)?:
+  query: info.typeLine:"Sanctified Life Flask"
+SanctifiedManaF(la?sk)?:
+  query: info.typeLine:"Sanctified Mana Flask"
+SapphireF(la?sk)?:
+  query: info.typeLine:"Sapphire Flask"
+SilverF(la?sk)?:
+  query: info.typeLine:"Silver Flask"
+SmallHybridF(la?sk)?:
+  query: info.typeLine:"Small Hybrid Flask"
+SmallLifeF(la?sk)?:
+  query: info.typeLine:"Small Life Flask"
+SmallManaF(la?sk)?:
+  query: info.typeLine:"Small Mana Flask"
+StibniteF(la?sk)?:
+  query: info.typeLine:"Stibnite Flask"
+SulphurF(la?sk)?:
+  query: info.typeLine:"Sulphur Flask"
+TopazF(la?sk)?:
+  query: info.typeLine:"Topaz Flask"
+
+#Fragments
+
+(Mortal)?Grief:
+  query: info.typeLine:"Mortal Grief"
+(Mortal)?Hope:
+  query: info.typeLine:"Mortal Hope"
+(Mortal)?Ignorance:
+  query: info.typeLine:"Mortal Ignorance"
+(Mortal)?Rage:
+  query: info.typeLine:"Mortal Rage"
+(Sac(rifice)?)?(At)?Dawn:
+  query: info.typeLine:"Sacrifice at Dawn"
+(Sac(rifice)?)?(At)?Dusk:
+  query: info.typeLine:"Sacrifice at Dusk"
+(Sac(rifice)?)?(At)?Midnight:
+  query: info.typeLine:"Sacrifice at Midnight"
+(Sac(rifice)?)?(At)?Noon:
+  query: info.typeLine:"Sacrifice at Noon"
+
+#1-HandedSwords
+
+(The)?King'?s?Blade:
+  query: info.typeLine:"The King's Blade"
+AncientSword:
+  query: info.typeLine:"Ancient Sword"
+Baselard:
+  query: info.typeLine:"Baselard"
+BattleSword:
+  query: info.typeLine:"Battle Sword"
+BladedMace:
+  query: info.typeLine:"Bladed Mace"
+BroadSword:
+  query: info.typeLine:"Broad Sword"
+CopperSword:
+  query: info.typeLine:"Copper Sword"
+CorsairSword:
+  query: info.typeLine:"Corsair Sword"
+Cutlass:
+  query: info.typeLine:"Cutlass"
+DuskBlade:
+  query: info.typeLine:"Dusk Blade"
+ElderSword:
+  query: info.typeLine:"Elder Sword"
+ElegantSword:
+  query: info.typeLine:"Elegant Sword"
+EternalSword:
+  query: info.typeLine:"Eternal Sword"
+GemstoneSword:
+  query: info.typeLine:"Gemstone Sword"
+Gladius:
+  query: info.typeLine:"Gladius"
+GracefulSword:
+  query: info.typeLine:"Graceful Sword"
+Grappler:
+  query: info.typeLine:"Grappler"
+HookSword:
+  query: info.typeLine:"Hook Sword"
+LegionSword:
+  query: info.typeLine:"Legion Sword"
+MidnightBlade:
+  query: info.typeLine:"Midnight Blade"
+OrnateSword:
+  query: info.typeLine:"Ornate Sword"
+RustedSword:
+  query: info.typeLine:"Rusted Sword"
+Sabre:
+  query: info.typeLine:"Sabre"
+TigerHook:
+  query: info.typeLine:"Tiger Hook"
+TigerSword:
+  query: info.typeLine:"Tiger Sword"
+TwilightBlade:
+  query: info.typeLine:"Twilight Blade"
+VaalBlade:
+  query: info.typeLine:"Vaal Blade"
+VarisciteBlade:
+  query: info.typeLine:"Variscite Blade"
+WarSword:
+  query: info.typeLine:"War Sword"
+
+#Thrusting Swords
+
+AntiqueRapier:
+  query: info.typeLine:"Antique Rapier"
+ApexRapier:
+  query: info.typeLine:"Apex Rapier"
+BasketRapier:
+  query: info.typeLine:"Basket Rapier"
+BatteredFoil:
+  query: info.typeLine:"Battered Foil"
+BurnishedFoil:
+  query: info.typeLine:"Burnished Foil"
+CourtesanSword:
+  query: info.typeLine:"Courtesan Sword"
+DragonboneRapier:
+  query: info.typeLine:"Dragonbone Rapier"
+DragoonSword:
+  query: info.typeLine:"Dragoon Sword"
+ElegantFoil:
+  query: info.typeLine:"Elegant Foil"
+Estoc:
+  query: info.typeLine:"Estoc"
+FancyFoil:
+  query: info.typeLine:"Fancy Foil"
+HarpyRapier:
+  query: info.typeLine:"Harpy Rapier"
+JaggedFoil:
+  query: info.typeLine:"Jagged Foil"
+JewelledFoil:
+  query: info.typeLine:"Jewelled Foil"
+Pecoraro:
+  query: info.typeLine:"Pecoraro"
+PrimevalRapier:
+  query: info.typeLine:"Primeval Rapier"
+RustedSpike:
+  query: info.typeLine:"Rusted Spike"
+SerratedFoil:
+  query: info.typeLine:"Serrated Foil"
+Smallsword:
+  query: info.typeLine:"Smallsword"
+SpiraledFoil:
+  query: info.typeLine:"Spiraled Foil"
+TemperedFoil:
+  query: info.typeLine:"Tempered Foil"
+ThornRapier:
+  query: info.typeLine:"Thorn Rapier"
+VaalRapier:
+  query: info.typeLine:"Vaal Rapier"
+WhaleboneRapier:
+  query: info.typeLine:"Whalebone Rapier"
+WyrmboneRapier:
+  query: info.typeLine:"Wyrmbone Rapier"
+
+#2-Handed Swords
+
+BastardSword:
+  query: info.typeLine:"Bastard Sword"
+ButcherSword:
+  query: info.typeLine:"Butcher Sword"
+CorrodedBlade:
+  query: info.typeLine:"Corroded Blade"
+CurvedBlade:
+  query: info.typeLine:"Curved Blade"
+EngravedGreatsword:
+  query: info.typeLine:"Engraved Greatsword"
+EtchedGreatsword:
+  query: info.typeLine:"Etched Greatsword"
+ExquisiteBlade:
+  query: info.typeLine:"Exquisite Blade"
+EzomyteBlade:
+  query: info.typeLine:"Ezomyte Blade"
+FootmanSword:
+  query: info.typeLine:"Footman Sword"
+Headman'?s?Sword:
+  query: info.typeLine:"Headman's Sword"
+HighlandBlade:
+  query: info.typeLine:"Highland Blade"
+InfernalSword:
+  query: info.typeLine:"Infernal Sword"
+Li(the)?Blade:
+  query: info.typeLine:"Lithe Blade"
+LionSword:
+  query: info.typeLine:"Lion Sword"
+Longsword:
+  query: info.typeLine:"Longsword"
+ReaverSword:
+  query: info.typeLine:"Reaver Sword"
+SpectralSword:
+  query: info.typeLine:"Spectral Sword"
+TwoHandedSword:
+  query: info.typeLine:"Two-Handed Sword"
+VaalGreatsword:
+  query: info.typeLine:"Vaal Greatsword"
+WraithSword:
+  query: info.typeLine:"Wraith Sword"
+
+#Jewelry
+
+Agate(Am+(ulet|y))?:
+  query: info.typeLine:"Agate Amulet"
+Amber(Am+(ulet|y))?:
+  query: info.typeLine:"Amber Amulet"
+AmethystR(ing)?:
+  query: info.typeLine:"Amethyst Ring"
+Citrine(Am+(ulet|y))?:
+  query: info.typeLine:"Citrine Amulet"
+Coral(Am+(ulet|y))?:
+  query: info.typeLine:"Coral Amulet"
+CoralR(ing)?:
+  query: info.typeLine:"Coral Ring"
+DiamondR(ing)?:
+  query: info.typeLine:"Diamond Ring"
+Gold(Am+(ulet|y))?:
+  query: info.typeLine:"Gold Amulet"
+GoldR(ing)?:
+  query: info.typeLine:"Gold Ring"
+IronR(ing)?:
+  query: info.typeLine:"Iron Ring"
+Jade(Am+(ulet|y))?:
+  query: info.typeLine:"Jade Amulet"
+Jet(Am+(ulet|y))?:
+  query: info.typeLine:"Jet Amulet"
+Lapis(Am+(ulet|y))?:
+  query: info.typeLine:"Lapis Amulet"
+MoonstoneR(ing)?:
+  query: info.typeLine:"Moonstone Ring"
+Onyx(Am+(ulet|y))?:
+  query: info.typeLine:"Onyx Amulet"
+Paua(Am+(ulet|y))?:
+  query: info.typeLine:"Paua Amulet"
+PauaR(ing)?:
+  query: info.typeLine:"Paua Ring"
+RubyR(ing)?:
+  query: info.typeLine:"Ruby Ring"
+SapphireR(ing)?:
+  query: info.typeLine:"Sapphire Ring"
+TopazR(ing)?:
+  query: info.typeLine:"Topaz Ring"
+Turquoise(Am+(ulet|y))?:
+  query: info.typeLine:"Turquoise Amulet"
+TwoStoneR(ing)?:
+  query: info.typeLine:"Two-Stone Ring"
+UnsetR(ing)?:
+  query: info.typeLine:"Unset Ring"
+
+#Axes
+
+AbyssalAxe:
+  query: info.typeLine:"Abyssal Axe"
+ArmingAxe:
+  query: info.typeLine:"Arming Axe"
+BoardingAxe:
+  query: info.typeLine:"Boarding Axe"
+BroadAxe:
+  query: info.typeLine:"Broad Axe"
+ButcherAxe:
+  query: info.typeLine:"Butcher Axe"
+CeremonialAxe:
+  query: info.typeLine:"Ceremonial Axe"
+ChestSplitter:
+  query: info.typeLine:"Chest Splitter"
+Cleaver:
+  query: info.typeLine:"Cleaver"
+DaggerAxe:
+  query: info.typeLine:"Dagger Axe"
+DecorativeAxe:
+  query: info.typeLine:"Decorative Axe"
+DespotAxe:
+  query: info.typeLine:"Despot Axe"
+DoubleAxe:
+  query: info.typeLine:"Double Axe"
+EngravedHatchet:
+  query: info.typeLine:"Engraved Hatchet"
+EtchedHatchet:
+  query: info.typeLine:"Etched Hatchet"
+EzomyteAxe:
+  query: info.typeLine:"Ezomyte Axe"
+Fleshripper:
+  query: info.typeLine:"Fleshripper"
+GildedAxe:
+  query: info.typeLine:"Gilded Axe"
+HeadsmanAxe:
+  query: info.typeLine:"Headsman Axe"
+InfernalAxe:
+  query: info.typeLine:"Infernal Axe"
+JadeChopper:
+  query: info.typeLine:"Jade Chopper"
+JadeHatchet:
+  query: info.typeLine:"Jade Hatchet"
+JasperAxe:
+  query: info.typeLine:"Jasper Axe"
+JasperChopper:
+  query: info.typeLine:"Jasper Chopper"
+KaruiAxe:
+  query: info.typeLine:"Karui Axe"
+KaruiChopper:
+  query: info.typeLine:"Karui Chopper"
+Labrys:
+  query: info.typeLine:"Labrys"
+NobleAxe:
+  query: info.typeLine:"Noble Axe"
+Poleaxe:
+  query: info.typeLine:"Poleaxe"
+ReaverAxe:
+  query: info.typeLine:"Reaver Axe"
+RoyalAxe:
+  query: info.typeLine:"Royal Axe"
+RunicHatchet:
+  query: info.typeLine:"Runic Hatchet"
+RustedHatchet:
+  query: info.typeLine:"Rusted Hatchet"
+ShadowAxe:
+  query: info.typeLine:"Shadow Axe"
+SiegeAxe:
+  query: info.typeLine:"Siege Axe"
+SpectralAxe:
+  query: info.typeLine:"Spectral Axe"
+StoneAxe:
+  query: info.typeLine:"Stone Axe"
+SunderingAxe:
+  query: info.typeLine:"Sundering Axe"
+TalonAxe:
+  query: info.typeLine:"Talon Axe"
+TimberAxe:
+  query: info.typeLine:"Timber Axe"
+Tomahawk:
+  query: info.typeLine:"Tomahawk"
+VaalAxe:
+  query: info.typeLine:"Vaal Axe"
+VaalHatchet:
+  query: info.typeLine:"Vaal Hatchet"
+VoidAxe:
+  query: info.typeLine:"Void Axe"
+WarAxe:
+  query: info.typeLine:"War Axe"
+Woodsplitter:
+  query: info.typeLine:"Woodsplitter"
+WraithAxe:
+  query: info.typeLine:"Wraith Axe"
+WristChopper:
+  query: info.typeLine:"Wrist Chopper"
+
+#Belts
+
+ChainBelt:
+  query: info.typeLine:"Chain Belt"
+ClothBelt:
+  query: info.typeLine:"Cloth Belt"
+HeavyBelt:
+  query: info.typeLine:"Heavy Belt"
+LeatherBelt:
+  query: info.typeLine:"Leather Belt"
+RusticSash:
+  query: info.typeLine:"Rustic Sash"
+StuddedBelt:
+  query: info.typeLine:"Studded Belt"
+
+#Bows
+
+AssassinB(ow)?:
+  query: info.typeLine:"Assassin Bow"
+B(ow)?yer'?s?Dream:
+  query: info.typeLine:"Bowyer's Dream"
+BoneB(ow)?:
+  query: info.typeLine:"Bone Bow"
+CitadelB(ow)?:
+  query: info.typeLine:"Citadel Bow"
+CompositeB(ow)?:
+  query: info.typeLine:"Composite Bow"
+CompoundB(ow)?:
+  query: info.typeLine:"Compound Bow"
+CrudeB(ow)?:
+  query: info.typeLine:"Crude Bow"
+DeathB(ow)?:
+  query: info.typeLine:"Death Bow"
+DecimationB(ow)?:
+  query: info.typeLine:"Decimation Bow"
+DecurveB(ow)?:
+  query: info.typeLine:"Decurve Bow"
+GroveB(ow)?:
+  query: info.typeLine:"Grove Bow"
+HarbingerB(ow)?:
+  query: info.typeLine:"Harbinger Bow"
+HighbornB(ow)?:
+  query: info.typeLine:"Highborn Bow"
+ImperialB(ow)?:
+  query: info.typeLine:"Imperial Bow"
+IvoryB(ow)?:
+  query: info.typeLine:"Ivory Bow"
+LongB(ow)?:
+  query: info.typeLine:"Long Bow"
+MarakethB(ow)?:
+  query: info.typeLine:"Maraketh Bow"
+RangerB(ow)?:
+  query: info.typeLine:"Ranger Bow"
+RecurveB(ow)?:
+  query: info.typeLine:"Recurve Bow"
+ReflexB(ow)?:
+  query: info.typeLine:"Reflex Bow"
+RoyalB(ow)?:
+  query: info.typeLine:"Royal Bow"
+ShortB(ow)?:
+  query: info.typeLine:"Short Bow"
+SniperB(ow)?:
+  query: info.typeLine:"Sniper Bow"
+SpineB(ow)?:
+  query: info.typeLine:"Spine Bow"
+SteelwoodB(ow)?:
+  query: info.typeLine:"Steelwood Bow"
+ThicketB(ow)?:
+  query: info.typeLine:"Thicket Bow"
+
+#Claws
+
+Awl:
+  query: info.typeLine:"Awl"
+Blinder:
+  query: info.typeLine:"Blinder"
+Cat'?s?Paw:
+  query: info.typeLine:"Cat's Paw"
+DoubleClaw:
+  query: info.typeLine:"Double Claw"
+EagleClaw:
+  query: info.typeLine:"Eagle Claw"
+EyeGouger:
+  query: info.typeLine:"Eye Gouger"
+FrightClaw:
+  query: info.typeLine:"Fright Claw"
+GeminiClaw:
+  query: info.typeLine:"Gemini Claw"
+Gouger:
+  query: info.typeLine:"Gouger"
+GreatWhiteClaw:
+  query: info.typeLine:"Great White Claw"
+GutRipper:
+  query: info.typeLine:"Gut Ripper"
+Hellion'?s?Paw:
+  query: info.typeLine:"Hellion's Paw"
+ImperialClaw:
+  query: info.typeLine:"Imperial Claw"
+NailedFist:
+  query: info.typeLine:"Nailed Fist"
+NobleClaw:
+  query: info.typeLine:"Noble Claw"
+PrehistoricClaw:
+  query: info.typeLine:"Prehistoric Claw"
+SharktoothClaw:
+  query: info.typeLine:"Sharktooth Claw"
+SparklingClaw:
+  query: info.typeLine:"Sparkling Claw"
+TerrorClaw:
+  query: info.typeLine:"Terror Claw"
+ThresherClaw:
+  query: info.typeLine:"Thresher Claw"
+ThroatStabber:
+  query: info.typeLine:"Throat Stabber"
+Tiger'?s?Paw:
+  query: info.typeLine:"Tiger's Paw"
+TimewornClaw:
+  query: info.typeLine:"Timeworn Claw"
+TwinClaw:
+  query: info.typeLine:"Twin Claw"
+VaalClaw:
+  query: info.typeLine:"Vaal Claw"
+
+#Daggers
+
+Ambusher:
+  query: info.typeLine:"Ambusher"
+BootBlade:
+  query: info.typeLine:"Boot Blade"
+BootKnife:
+  query: info.typeLine:"Boot Knife"
+ButcherKnife:
+  query: info.typeLine:"Butcher Knife"
+CarvingKnife:
+  query: info.typeLine:"Carving Knife"
+CopperKris:
+  query: info.typeLine:"Copper Kris"
+DemonDagger:
+  query: info.typeLine:"Demon Dagger"
+EzomyteDagger:
+  query: info.typeLine:"Ezomyte Dagger"
+FiendDagger:
+  query: info.typeLine:"Fiend Dagger"
+FlayingKnife:
+  query: info.typeLine:"Flaying Knife"
+GlassShank:
+  query: info.typeLine:"Glass Shank"
+GoldenKris:
+  query: info.typeLine:"Golden Kris"
+GuttingKnife:
+  query: info.typeLine:"Gutting Knife"
+ImpDagger:
+  query: info.typeLine:"Imp Dagger"
+ImperialSkean:
+  query: info.typeLine:"Imperial Skean"
+PlatinumKris:
+  query: info.typeLine:"Platinum Kris"
+Poignard:
+  query: info.typeLine:"Poignard"
+ProngDagger:
+  query: info.typeLine:"Prong Dagger"
+RoyalSkean:
+  query: info.typeLine:"Royal Skean"
+Sai:
+  query: info.typeLine:"Sai"
+Saint'?s?Hauberk:
+  query: info.typeLine:"Saint's Hauberk"
+SaintlyChainmail:
+  query: info.typeLine:"Saintly Chainmail"
+Skean:
+  query: info.typeLine:"Skean"
+SkinningKnife:
+  query: info.typeLine:"Skinning Knife"
+SlaughterKnife:
+  query: info.typeLine:"Slaughter Knife"
+Stiletto:
+  query: info.typeLine:"Stiletto"
+Trisula:
+  query: info.typeLine:"Trisula"
+
+#Maces
+
+AncestralClub:
+  query: info.typeLine:"Ancestral Club"
+AuricMace:
+  query: info.typeLine:"Auric Mace"
+BarbedClub:
+  query: info.typeLine:"Barbed Club"
+BattleHammer:
+  query: info.typeLine:"Battle Hammer"
+BehemothMace:
+  query: info.typeLine:"Behemoth Mace"
+CeremonialMace:
+  query: info.typeLine:"Ceremonial Mace"
+DragonMace:
+  query: info.typeLine:"Dragon Mace"
+DreamMace:
+  query: info.typeLine:"Dream Mace"
+DriftwoodClub:
+  query: info.typeLine:"Driftwood Club"
+FlangedMace:
+  query: info.typeLine:"Flanged Mace"
+Gavel:
+  query: info.typeLine:"Gavel"
+HammeredBuckler:
+  query: info.typeLine:"Hammered Buckler"
+LegionHammer:
+  query: info.typeLine:"Legion Hammer"
+NightmareMace:
+  query: info.typeLine:"Nightmare Mace"
+OrnateMace:
+  query: info.typeLine:"Ornate Mace"
+Pernarch:
+  query: info.typeLine:"Pernarch"
+PetrifiedClub:
+  query: info.typeLine:"Petrified Club"
+PhantomMace:
+  query: info.typeLine:"Phantom Mace"
+RockBreaker:
+  query: info.typeLine:"Rock Breaker"
+SpikedClub:
+  query: info.typeLine:"Spiked Club"
+StoneHammer:
+  query: info.typeLine:"Stone Hammer"
+Tenderizer:
+  query: info.typeLine:"Tenderizer"
+TribalClub:
+  query: info.typeLine:"Tribal Club"
+WarHammer:
+  query: info.typeLine:"War Hammer"
+WyrmMace:
+  query: info.typeLine:"Wyrm Mace"
+
+#Sceptres
+
+AbyssalScep(tre)?:
+  query: info.typeLine:"Abyssal Sceptre"
+BloodScep(tre)?:
+  query: info.typeLine:"Blood Sceptre"
+BronzeScep(tre)?:
+  query: info.typeLine:"Bronze Sceptre"
+CarnalScep(tre)?:
+  query: info.typeLine:"Carnal Sceptre"
+CrystalScep(tre)?:
+  query: info.typeLine:"Crystal Sceptre"
+DarkwoodScep(tre)?:
+  query: info.typeLine:"Darkwood Sceptre"
+DriftwoodScep(tre)?:
+  query: info.typeLine:"Driftwood Sceptre"
+GrinningFetish:
+  query: info.typeLine:"Grinning Fetish"
+HornedScep(tre)?:
+  query: info.typeLine:"Horned Sceptre"
+IronScep(tre)?:
+  query: info.typeLine:"Iron Sceptre"
+KaruiScep(tre)?:
+  query: info.typeLine:"Karui Sceptre"
+LeadScep(tre)?:
+  query: info.typeLine:"Lead Sceptre"
+OchreScep(tre)?:
+  query: info.typeLine:"Ochre Sceptre"
+OpalScep(tre)?:
+  query: info.typeLine:"Opal Sceptre"
+PlatinumScep(tre)?:
+  query: info.typeLine:"Platinum Sceptre"
+QuartzScep(tre)?:
+  query: info.typeLine:"Quartz Sceptre"
+RitualScep(tre)?:
+  query: info.typeLine:"Ritual Sceptre"
+RoyalScep(tre)?:
+  query: info.typeLine:"Royal Sceptre"
+SambarScep(tre)?:
+  query: info.typeLine:"Sambar Sceptre"
+Sekhem:
+  query: info.typeLine:"Sekhem"
+ShadowScep(tre)?:
+  query: info.typeLine:"Shadow Sceptre"
+StagScep(tre)?:
+  query: info.typeLine:"Stag Sceptre"
+Tyrant'?s?Sekhem:
+  query: info.typeLine:"Tyrant's Sekhem"
+VaalScep(tre)?:
+  query: info.typeLine:"Vaal Sceptre"
+VoidScep(tre)?:
+  query: info.typeLine:"Void Sceptre"
+
+#2-Handed Maces
+
+BrassMaul:
+  query: info.typeLine:"Brass Maul"
+ColossusMallet:
+  query: info.typeLine:"Colossus Mallet"
+CoronalMaul:
+  query: info.typeLine:"Coronal Maul"
+DreadMaul:
+  query: info.typeLine:"Dread Maul"
+DriftwoodMaul:
+  query: info.typeLine:"Driftwood Maul"
+FrightMaul:
+  query: info.typeLine:"Fright Maul"
+GreatMallet:
+  query: info.typeLine:"Great Mallet"
+ImperialMaul:
+  query: info.typeLine:"Imperial Maul"
+JaggedMaul:
+  query: info.typeLine:"Jagged Maul"
+KaruiMaul:
+  query: info.typeLine:"Karui Maul"
+Mallet:
+  query: info.typeLine:"Mallet"
+Meatgrinder:
+  query: info.typeLine:"Meatgrinder"
+MorningStar:
+  query: info.typeLine:"Morning Star"
+Piledriver:
+  query: info.typeLine:"Piledriver"
+PlatedMaul:
+  query: info.typeLine:"Plated Maul"
+Sledgehammer:
+  query: info.typeLine:"Sledgehammer"
+SolarMaul:
+  query: info.typeLine:"Solar Maul"
+SpinyMaul:
+  query: info.typeLine:"Spiny Maul"
+Steelhead:
+  query: info.typeLine:"Steelhead"
+TerrorMaul:
+  query: info.typeLine:"Terror Maul"
+TotemicMaul:
+  query: info.typeLine:"Totemic Maul"
+TribalMaul:
+  query: info.typeLine:"Tribal Maul"
+
+#Quivers
+
+BluntArrowQuiv(er)?:
+  query: info.typeLine:"Blunt Arrow Quiver"
+BroadheadArrowQuiv(er)?:
+  query: info.typeLine:"Broadhead Arrow Quiver"
+ConductiveQuiv(er)?:
+  query: info.typeLine:"Conductive Quiver"
+CuredQuiv(er)?:
+  query: info.typeLine:"Cured Quiver"
+FireArrowQuiv(er)?:
+  query: info.typeLine:"Fire Arrow Quiver"
+HeavyQuiv(er)?:
+  query: info.typeLine:"Heavy Quiver"
+LightQuiv(er)?:
+  query: info.typeLine:"Light Quiver"
+PenetratingArrowQuiv(er)?:
+  query: info.typeLine:"Penetrating Arrow Quiver"
+RuggedQuiv(er)?:
+  query: info.typeLine:"Rugged Quiver"
+SerratedArrowQuiv(er)?:
+  query: info.typeLine:"Serrated Arrow Quiver"
+SharktoothArrowQuiv(er)?:
+  query: info.typeLine:"Sharktooth Arrow Quiver"
+SpikePointArrowQuiv(er)?:
+  query: info.typeLine:"Spike-Point Arrow Quiver"
+TwoPointArrowQuiv(er)?:
+  query: info.typeLine:"Two-Point Arrow Quiver"
+
+#Staves
+
+CoiledStaff:
+  query: info.typeLine:"Coiled Staff"
+CrescentStaff:
+  query: info.typeLine:"Crescent Staff"
+EclipseStaff:
+  query: info.typeLine:"Eclipse Staff"
+EzomyteStaff:
+  query: info.typeLine:"Ezomyte Staff"
+FoulStaff:
+  query: info.typeLine:"Foul Staff"
+GnarledBranch:
+  query: info.typeLine:"Gnarled Branch"
+HighbornStaff:
+  query: info.typeLine:"Highborn Staff"
+ImperialStaff:
+  query: info.typeLine:"Imperial Staff"
+IronStaff:
+  query: info.typeLine:"Iron Staff"
+JudgementStaff:
+  query: info.typeLine:"Judgement Staff"
+Lathi:
+  query: info.typeLine:"Lathi"
+LongStaff:
+  query: info.typeLine:"Long Staff"
+MaelströmStaff:
+  query: info.typeLine:"Maelström Staff"
+MilitaryStaff:
+  query: info.typeLine:"Military Staff"
+MoonStaff:
+  query: info.typeLine:"Moon Staff"
+PrimitiveStaff:
+  query: info.typeLine:"Primitive Staff"
+PrimordialStaff:
+  query: info.typeLine:"Primordial Staff"
+Quarterstaff:
+  query: info.typeLine:"Quarterstaff"
+RoyalStaff:
+  query: info.typeLine:"Royal Staff"
+SerpentineStaff:
+  query: info.typeLine:"Serpentine Staff"
+VileStaff:
+  query: info.typeLine:"Vile Staff"
+WoodfulStaff:
+  query: info.typeLine:"Woodful Staff"
+
+#Wands
+
+CarvedWand:
+  query: info.typeLine:"Carved Wand"
+CrystalWand:
+  query: info.typeLine:"Crystal Wand"
+Demon'?s?Horn:
+  query: info.typeLine:"Demon's Horn"
+DriftwoodWand:
+  query: info.typeLine:"Driftwood Wand"
+EngravedWand:
+  query: info.typeLine:"Engraved Wand"
+Faun'?s?Horn:
+  query: info.typeLine:"Faun's Horn"
+Goat'?s?Horn:
+  query: info.typeLine:"Goat's Horn"
+Hea(the)?nWand:
+  query: info.typeLine:"Heathen Wand"
+ImbuedWand:
+  query: info.typeLine:"Imbued Wand"
+OmenWand:
+  query: info.typeLine:"Omen Wand"
+OpalWand:
+  query: info.typeLine:"Opal Wand"
+PaganWand:
+  query: info.typeLine:"Pagan Wand"
+Pr(of)?aneWand:
+  query: info.typeLine:"Profane Wand"
+ProphecyWand:
+  query: info.typeLine:"Prophecy Wand"
+QuartzWand:
+  query: info.typeLine:"Quartz Wand"
+SageWand:
+  query: info.typeLine:"Sage Wand"
+SerpentWand:
+  query: info.typeLine:"Serpent Wand"
+SpiraledWand:
+  query: info.typeLine:"Spiraled Wand"
+TornadoWand:
+  query: info.typeLine:"Tornado Wand"
+
+#Boots
+
+AmbushBoots:
+  query: info.typeLine:"Ambush Boots"
+AncientGreaves:
+  query: info.typeLine:"Ancient Greaves"
+AntiqueGreaves:
+  query: info.typeLine:"Antique Greaves"
+ArcanistSlippers:
+  query: info.typeLine:"Arcanist Slippers"
+Assassin'?s?Boots:
+  query: info.typeLine:"Assassin's Boots"
+BronzescaleBoots:
+  query: info.typeLine:"Bronzescale Boots"
+CarnalBoots:
+  query: info.typeLine:"Carnal Boots"
+ChainBoots:
+  query: info.typeLine:"Chain Boots"
+ClaspedBoots:
+  query: info.typeLine:"Clasped Boots"
+ConjurerBoots:
+  query: info.typeLine:"Conjurer Boots"
+CrusaderBoots:
+  query: info.typeLine:"Crusader Boots"
+DeerskinBoots:
+  query: info.typeLine:"Deerskin Boots"
+DragonscaleBoots:
+  query: info.typeLine:"Dragonscale Boots"
+EelskinBoots:
+  query: info.typeLine:"Eelskin Boots"
+GoathideBoots:
+  query: info.typeLine:"Goathide Boots"
+GoliathGreaves:
+  query: info.typeLine:"Goliath Greaves"
+HydrascaleBoots:
+  query: info.typeLine:"Hydrascale Boots"
+IronGreaves:
+  query: info.typeLine:"Iron Greaves"
+IronscaleBoots:
+  query: info.typeLine:"Ironscale Boots"
+Lea(the)?rscaleBoots:
+  query: info.typeLine:"Leatherscale Boots"
+LegionBoots:
+  query: info.typeLine:"Legion Boots"
+MeshBoots:
+  query: info.typeLine:"Mesh Boots"
+MurderBoots:
+  query: info.typeLine:"Murder Boots"
+NubuckBoots:
+  query: info.typeLine:"Nubuck Boots"
+PlatedGreaves:
+  query: info.typeLine:"Plated Greaves"
+RawhideBoots:
+  query: info.typeLine:"Rawhide Boots"
+ReinforcedGreaves:
+  query: info.typeLine:"Reinforced Greaves"
+RingmailBoots:
+  query: info.typeLine:"Ringmail Boots"
+RivetedBoots:
+  query: info.typeLine:"Riveted Boots"
+SamiteSlippers:
+  query: info.typeLine:"Samite Slippers"
+SatinSlippers:
+  query: info.typeLine:"Satin Slippers"
+ScholarBoots:
+  query: info.typeLine:"Scholar Boots"
+SerpentscaleBoots:
+  query: info.typeLine:"Serpentscale Boots"
+ShackledBoots:
+  query: info.typeLine:"Shackled Boots"
+ShagreenBoots:
+  query: info.typeLine:"Shagreen Boots"
+SharkskinBoots:
+  query: info.typeLine:"Sharkskin Boots"
+SilkSlippers:
+  query: info.typeLine:"Silk Slippers"
+SlinkBoots:
+  query: info.typeLine:"Slink Boots"
+SoldierBoots:
+  query: info.typeLine:"Soldier Boots"
+SorcererBoots:
+  query: info.typeLine:"Sorcerer Boots"
+StealthBoots:
+  query: info.typeLine:"Stealth Boots"
+SteelGreaves:
+  query: info.typeLine:"Steel Greaves"
+SteelscaleBoots:
+  query: info.typeLine:"Steelscale Boots"
+StrappedBoots:
+  query: info.typeLine:"Strapped Boots"
+TitanGreaves:
+  query: info.typeLine:"Titan Greaves"
+TrapperBoots:
+  query: info.typeLine:"Trapper Boots"
+VaalGreaves:
+  query: info.typeLine:"Vaal Greaves"
+VelvetSlippers:
+  query: info.typeLine:"Velvet Slippers"
+WoolShoes:
+  query: info.typeLine:"Wool Shoes"
+WrappedBoots:
+  query: info.typeLine:"Wrapped Boots"
+WyrmscaleBoots:
+  query: info.typeLine:"Wyrmscale Boots"
+ZealotBoots:
+  query: info.typeLine:"Zealot Boots"
+
+#Armour
+
+ArenaPlate:
+  query: info.typeLine:"Arena Plate"
+Assassin'?s?Garb:
+  query: info.typeLine:"Assassin's Garb"
+AstralPlate:
+  query: info.typeLine:"Astral Plate"
+BattleLamellar:
+  query: info.typeLine:"Battle Lamellar"
+BattlePlate:
+  query: info.typeLine:"Battle Plate"
+BloodRaiment:
+  query: info.typeLine:"Blood Raiment"
+BoneArmour:
+  query: info.typeLine:"Bone Armour"
+BronzePlate:
+  query: info.typeLine:"Bronze Plate"
+BuckskinTunic:
+  query: info.typeLine:"Buckskin Tunic"
+CabalistRegalia:
+  query: info.typeLine:"Cabalist Regalia"
+CarnalArmour:
+  query: info.typeLine:"Carnal Armour"
+ChainHauberk:
+  query: info.typeLine:"Chain Hauberk"
+ChainmailDoublet:
+  query: info.typeLine:"Chainmail Doublet"
+ChainmailTunic:
+  query: info.typeLine:"Chainmail Tunic"
+ChainmailVest:
+  query: info.typeLine:"Chainmail Vest"
+Chestplate:
+  query: info.typeLine:"Chestplate"
+ColosseumPlate:
+  query: info.typeLine:"Colosseum Plate"
+Commander'?s?Brigandine:
+  query: info.typeLine:"Commander's Brigandine"
+Conjurer'?s?Vestment:
+  query: info.typeLine:"Conjurer's Vestment"
+ConquestChainmail:
+  query: info.typeLine:"Conquest Chainmail"
+CopperPlate:
+  query: info.typeLine:"Copper Plate"
+CoronalLea(the)?r:
+  query: info.typeLine:"Coronal Leather"
+CrimsonRaiment:
+  query: info.typeLine:"Crimson Raiment"
+CrusaderChainmail:
+  query: info.typeLine:"Crusader Chainmail"
+CrusaderPlate:
+  query: info.typeLine:"Crusader Plate"
+CryptArmour:
+  query: info.typeLine:"Crypt Armour"
+Cutthroat'?s?Garb:
+  query: info.typeLine:"Cutthroat's Garb"
+DesertBrigandine:
+  query: info.typeLine:"Desert Brigandine"
+DestinyLea(the)?r:
+  query: info.typeLine:"Destiny Leather"
+DestroyerRegalia:
+  query: info.typeLine:"Destroyer Regalia"
+DevoutChainmail:
+  query: info.typeLine:"Devout Chainmail"
+DragonscaleDoublet:
+  query: info.typeLine:"Dragonscale Doublet"
+EelskinTunic:
+  query: info.typeLine:"Eelskin Tunic"
+ElegantRingmail:
+  query: info.typeLine:"Elegant Ringmail"
+ExquisiteLea(the)?r:
+  query: info.typeLine:"Exquisite Leather"
+FieldLamellar:
+  query: info.typeLine:"Field Lamellar"
+FrontierLea(the)?r:
+  query: info.typeLine:"Frontier Leather"
+FullChainmail:
+  query: info.typeLine:"Full Chainmail"
+FullDragonscale:
+  query: info.typeLine:"Full Dragonscale"
+FullLea(the)?r:
+  query: info.typeLine:"Full Leather"
+FullPlate:
+  query: info.typeLine:"Full Plate"
+FullRingmail:
+  query: info.typeLine:"Full Ringmail"
+FullScaleArmour:
+  query: info.typeLine:"Full Scale Armour"
+FullWyrmscale:
+  query: info.typeLine:"Full Wyrmscale"
+General'?s?Brigandine:
+  query: info.typeLine:"General's Brigandine"
+GladiatorPlate:
+  query: info.typeLine:"Gladiator Plate"
+GloriousLea(the)?r:
+  query: info.typeLine:"Glorious Leather"
+GloriousPlate:
+  query: info.typeLine:"Glorious Plate"
+GoldenPlate:
+  query: info.typeLine:"Golden Plate"
+HolyChainmail:
+  query: info.typeLine:"Holy Chainmail"
+HussarBrigandine:
+  query: info.typeLine:"Hussar Brigandine"
+InfantryBrigandine:
+  query: info.typeLine:"Infantry Brigandine"
+LacqueredGarb:
+  query: info.typeLine:"Lacquered Garb"
+LatticedRingmail:
+  query: info.typeLine:"Latticed Ringmail"
+LightBrigandine:
+  query: info.typeLine:"Light Brigandine"
+LordlyPlate:
+  query: info.typeLine:"Lordly Plate"
+LoricatedRingmail:
+  query: info.typeLine:"Loricated Ringmail"
+Mage'?s?Vestment:
+  query: info.typeLine:"Mage's Vestment"
+MajesticPlate:
+  query: info.typeLine:"Majestic Plate"
+NecromancerSilks:
+  query: info.typeLine:"Necromancer Silks"
+Occultist'?s?Vestment:
+  query: info.typeLine:"Occultist's Vestment"
+OiledCoat:
+  query: info.typeLine:"Oiled Coat"
+OiledVest:
+  query: info.typeLine:"Oiled Vest"
+OrnateRingmail:
+  query: info.typeLine:"Ornate Ringmail"
+PaddedJacket:
+  query: info.typeLine:"Padded Jacket"
+PaddedVest:
+  query: info.typeLine:"Padded Vest"
+PlateVest:
+  query: info.typeLine:"Plate Vest"
+QuiltedJacket:
+  query: info.typeLine:"Quilted Jacket"
+RingmailCoat:
+  query: info.typeLine:"Ringmail Coat"
+SacrificialGarb:
+  query: info.typeLine:"Sacrificial Garb"
+SadistGarb:
+  query: info.typeLine:"Sadist Garb"
+Sage'?s?Robe:
+  query: info.typeLine:"Sage's Robe"
+Savant'?s?Robe:
+  query: info.typeLine:"Savant's Robe"
+ScaleDoublet:
+  query: info.typeLine:"Scale Doublet"
+ScaleVest:
+  query: info.typeLine:"Scale Vest"
+ScarletRaiment:
+  query: info.typeLine:"Scarlet Raiment"
+Scholar'?s?Robe:
+  query: info.typeLine:"Scholar's Robe"
+SentinelJacket:
+  query: info.typeLine:"Sentinel Jacket"
+ShabbyJerkin:
+  query: info.typeLine:"Shabby Jerkin"
+SharkskinTunic:
+  query: info.typeLine:"Sharkskin Tunic"
+SilkenGarb:
+  query: info.typeLine:"Silken Garb"
+SilkenVest:
+  query: info.typeLine:"Silken Vest"
+SilkenWrap:
+  query: info.typeLine:"Silken Wrap"
+SilkRobe:
+  query: info.typeLine:"Silk Robe"
+SimpleRobe:
+  query: info.typeLine:"Simple Robe"
+SleekCoat:
+  query: info.typeLine:"Sleek Coat"
+Soldier'?s?Brigandine:
+  query: info.typeLine:"Soldier's Brigandine"
+SpidersilkRobe:
+  query: info.typeLine:"Spidersilk Robe"
+StrappedLea(the)?r:
+  query: info.typeLine:"Strapped Leather"
+SunLea(the)?r:
+  query: info.typeLine:"Sun Leather"
+SunPlate:
+  query: info.typeLine:"Sun Plate"
+Thief'?s?Garb:
+  query: info.typeLine:"Thief's Garb"
+TriumphantLamellar:
+  query: info.typeLine:"Triumphant Lamellar"
+VaalRegalia:
+  query: info.typeLine:"Vaal Regalia"
+VarnishedCoat:
+  query: info.typeLine:"Varnished Coat"
+WarPlate:
+  query: info.typeLine:"War Plate"
+WaxedGarb:
+  query: info.typeLine:"Waxed Garb"
+WidowsilkRobe:
+  query: info.typeLine:"Widowsilk Robe"
+WildLea(the)?r:
+  query: info.typeLine:"Wild Leather"
+WyrmscaleDoublet:
+  query: info.typeLine:"Wyrmscale Doublet"
+ZodiacLea(the)?r:
+  query: info.typeLine:"Zodiac Leather"
+
+#Gloves
+
+AmbushMitts:
+  query: info.typeLine:"Ambush Mitts"
+AncientGauntlets:
+  query: info.typeLine:"Ancient Gauntlets"
+AntiqueGauntlets:
+  query: info.typeLine:"Antique Gauntlets"
+ArcanistGloves:
+  query: info.typeLine:"Arcanist Gloves"
+Assassin'?s?Mitts:
+  query: info.typeLine:"Assassin's Mitts"
+BronzeGauntlets:
+  query: info.typeLine:"Bronze Gauntlets"
+BronzescaleGauntlets:
+  query: info.typeLine:"Bronzescale Gauntlets"
+CarnalMitts:
+  query: info.typeLine:"Carnal Mitts"
+ChainGloves:
+  query: info.typeLine:"Chain Gloves"
+ClaspedMitts:
+  query: info.typeLine:"Clasped Mitts"
+ConjurerGloves:
+  query: info.typeLine:"Conjurer Gloves"
+CrusaderGloves:
+  query: info.typeLine:"Crusader Gloves"
+DeerskinGloves:
+  query: info.typeLine:"Deerskin Gloves"
+DragonscaleGauntlets:
+  query: info.typeLine:"Dragonscale Gauntlets"
+EelskinGloves:
+  query: info.typeLine:"Eelskin Gloves"
+EmbroideredGloves:
+  query: info.typeLine:"Embroidered Gloves"
+FishscaleGauntlets:
+  query: info.typeLine:"Fishscale Gauntlets"
+GoathideGloves:
+  query: info.typeLine:"Goathide Gloves"
+GoliathGauntlets:
+  query: info.typeLine:"Goliath Gauntlets"
+HydrascaleGauntlets:
+  query: info.typeLine:"Hydrascale Gauntlets"
+IronGauntlets:
+  query: info.typeLine:"Iron Gauntlets"
+IronscaleGauntlets:
+  query: info.typeLine:"Ironscale Gauntlets"
+LegionGloves:
+  query: info.typeLine:"Legion Gloves"
+MeshGloves:
+  query: info.typeLine:"Mesh Gloves"
+MurderMitts:
+  query: info.typeLine:"Murder Mitts"
+NubuckGloves:
+  query: info.typeLine:"Nubuck Gloves"
+PlatedGauntlets:
+  query: info.typeLine:"Plated Gauntlets"
+RawhideGloves:
+  query: info.typeLine:"Rawhide Gloves"
+RingmailGloves:
+  query: info.typeLine:"Ringmail Gloves"
+RivetedGloves:
+  query: info.typeLine:"Riveted Gloves"
+SamiteGloves:
+  query: info.typeLine:"Samite Gloves"
+SatinGloves:
+  query: info.typeLine:"Satin Gloves"
+SerpentscaleGauntlets:
+  query: info.typeLine:"Serpentscale Gauntlets"
+ShagreenGloves:
+  query: info.typeLine:"Shagreen Gloves"
+SharkskinGloves:
+  query: info.typeLine:"Sharkskin Gloves"
+SilkGloves:
+  query: info.typeLine:"Silk Gloves"
+SlinkGloves:
+  query: info.typeLine:"Slink Gloves"
+SoldierGloves:
+  query: info.typeLine:"Soldier Gloves"
+SorcererGloves:
+  query: info.typeLine:"Sorcerer Gloves"
+StealthGloves:
+  query: info.typeLine:"Stealth Gloves"
+SteelGauntlets:
+  query: info.typeLine:"Steel Gauntlets"
+SteelscaleGauntlets:
+  query: info.typeLine:"Steelscale Gauntlets"
+StrappedMitts:
+  query: info.typeLine:"Strapped Mitts"
+TitanGauntlets:
+  query: info.typeLine:"Titan Gauntlets"
+TrapperMitts:
+  query: info.typeLine:"Trapper Mitts"
+VaalGauntlets:
+  query: info.typeLine:"Vaal Gauntlets"
+VelvetGloves:
+  query: info.typeLine:"Velvet Gloves"
+WoolGloves:
+  query: info.typeLine:"Wool Gloves"
+WrappedMitts:
+  query: info.typeLine:"Wrapped Mitts"
+WyrmscaleGauntlets:
+  query: info.typeLine:"Wyrmscale Gauntlets"
+ZealotGloves:
+  query: info.typeLine:"Zealot Gloves"
+
+#Helmets
+
+AventailHelm(et)?:
+  query: info.typeLine:"Aventail Helmet"
+BarbuteHelm(et)?:
+  query: info.typeLine:"Barbute Helmet"
+BatteredHelm:
+  query: info.typeLine:"Battered Helm"
+BoneCirclet:
+  query: info.typeLine:"Bone Circlet"
+CallousMask:
+  query: info.typeLine:"Callous Mask"
+CloseHelm(et)?:
+  query: info.typeLine:"Close Helmet"
+ConeHelm(et)?:
+  query: info.typeLine:"Cone Helmet"
+CrusaderHelm(et)?:
+  query: info.typeLine:"Crusader Helmet"
+DeicideMask:
+  query: info.typeLine:"Deicide Mask"
+EternalBurgonet:
+  query: info.typeLine:"Eternal Burgonet"
+EzomyteBurgonet:
+  query: info.typeLine:"Ezomyte Burgonet"
+FencerHelm:
+  query: info.typeLine:"Fencer Helm"
+FestivalMask:
+  query: info.typeLine:"Festival Mask"
+FlutedBascinet:
+  query: info.typeLine:"Fluted Bascinet"
+GildedSallet:
+  query: info.typeLine:"Gilded Sallet"
+GladiatorHelm(et)?:
+  query: info.typeLine:"Gladiator Helmet"
+GoldenMask:
+  query: info.typeLine:"Golden Mask"
+GreatCrown:
+  query: info.typeLine:"Great Crown"
+GreatHelm(et)?:
+  query: info.typeLine:"Great Helmet"
+HarlequinMask:
+  query: info.typeLine:"Harlequin Mask"
+HubrisCirclet:
+  query: info.typeLine:"Hubris Circlet"
+HunterHood:
+  query: info.typeLine:"Hunter Hood"
+IronCirclet:
+  query: info.typeLine:"Iron Circlet"
+IronHat:
+  query: info.typeLine:"Iron Hat"
+IronMask:
+  query: info.typeLine:"Iron Mask"
+LacqueredHelm(et)?:
+  query: info.typeLine:"Lacquered Helmet"
+Lea(the)?rCap:
+  query: info.typeLine:"Leather Cap"
+Lea(the)?rHood:
+  query: info.typeLine:"Leather Hood"
+LionPelt:
+  query: info.typeLine:"Lion Pelt"
+LunarisCirclet:
+  query: info.typeLine:"Lunaris Circlet"
+MagistrateCrown:
+  query: info.typeLine:"Magistrate Crown"
+MindCage:
+  query: info.typeLine:"Mind Cage"
+NecromancerCirclet:
+  query: info.typeLine:"Necromancer Circlet"
+NightmareBascinet:
+  query: info.typeLine:"Nightmare Bascinet"
+NobleTricorne:
+  query: info.typeLine:"Noble Tricorne"
+PigFacedBascinet:
+  query: info.typeLine:"Pig-Faced Bascinet"
+PlagueMask:
+  query: info.typeLine:"Plague Mask"
+PraetorCrown:
+  query: info.typeLine:"Praetor Crown"
+ProphetCrown:
+  query: info.typeLine:"Prophet Crown"
+RavenMask:
+  query: info.typeLine:"Raven Mask"
+ReaverHelm(et)?:
+  query: info.typeLine:"Reaver Helmet"
+RegicideMask:
+  query: info.typeLine:"Regicide Mask"
+RoyalBurgonet:
+  query: info.typeLine:"Royal Burgonet"
+RustedCoif:
+  query: info.typeLine:"Rusted Coif"
+Sallet:
+  query: info.typeLine:"Sallet"
+SamiteHelm(et)?:
+  query: info.typeLine:"Samite Helmet"
+ScareMask:
+  query: info.typeLine:"Scare Mask"
+SecutorHelm:
+  query: info.typeLine:"Secutor Helm"
+SiegeHelm(et)?:
+  query: info.typeLine:"Siege Helmet"
+SilkenHood:
+  query: info.typeLine:"Silken Hood"
+SinnerTricorne:
+  query: info.typeLine:"Sinner Tricorne"
+SolarisCirclet:
+  query: info.typeLine:"Solaris Circlet"
+SoldierHelm(et)?:
+  query: info.typeLine:"Soldier Helmet"
+SteelCirclet:
+  query: info.typeLine:"Steel Circlet"
+TortureCage:
+  query: info.typeLine:"Torture Cage"
+TribalCirclet:
+  query: info.typeLine:"Tribal Circlet"
+Tricorne:
+  query: info.typeLine:"Tricorne"
+UrsinePelt:
+  query: info.typeLine:"Ursine Pelt"
+VaalMask:
+  query: info.typeLine:"Vaal Mask"
+VineCirclet:
+  query: info.typeLine:"Vine Circlet"
+VisoredSallet:
+  query: info.typeLine:"Visored Sallet"
+WolfPelt:
+  query: info.typeLine:"Wolf Pelt"
+ZealotHelm(et)?:
+  query: info.typeLine:"Zealot Helmet"
+
+#Shields
+
+AlderSpikedShield:
+  query: info.typeLine:"Alder Spiked Shield"
+AlloyedSpikedShield:
+  query: info.typeLine:"Alloyed Spiked Shield"
+AncientSpiritShield:
+  query: info.typeLine:"Ancient Spirit Shield"
+AngelicKiteShield:
+  query: info.typeLine:"Angelic Kite Shield"
+ArchonKiteShield:
+  query: info.typeLine:"Archon Kite Shield"
+BaroqueRoundShield:
+  query: info.typeLine:"Baroque Round Shield"
+BattleBuckler:
+  query: info.typeLine:"Battle Buckler"
+BoneSpiritShield:
+  query: info.typeLine:"Bone Spirit Shield"
+BrandedKiteShield:
+  query: info.typeLine:"Branded Kite Shield"
+BrassSpiritShield:
+  query: info.typeLine:"Brass Spirit Shield"
+BronzeTowerShield:
+  query: info.typeLine:"Bronze Tower Shield"
+BuckskinTowerShield:
+  query: info.typeLine:"Buckskin Tower Shield"
+BurnishedSpikedShield:
+  query: info.typeLine:"Burnished Spiked Shield"
+CardinalRoundShield:
+  query: info.typeLine:"Cardinal Round Shield"
+CedarTowerShield:
+  query: info.typeLine:"Cedar Tower Shield"
+CeremonialKiteShield:
+  query: info.typeLine:"Ceremonial Kite Shield"
+ChampionKiteShield:
+  query: info.typeLine:"Champion Kite Shield"
+ChimingSpiritShield:
+  query: info.typeLine:"Chiming Spirit Shield"
+ColossalTowerShield:
+  query: info.typeLine:"Colossal Tower Shield"
+CompoundSpikedShield:
+  query: info.typeLine:"Compound Spiked Shield"
+CopperTowerShield:
+  query: info.typeLine:"Copper Tower Shield"
+CorrodedTowerShield:
+  query: info.typeLine:"Corroded Tower Shield"
+CorrugatedBuckler:
+  query: info.typeLine:"Corrugated Buckler"
+CrestedTowerShield:
+  query: info.typeLine:"Crested Tower Shield"
+CrimsonRoundShield:
+  query: info.typeLine:"Crimson Round Shield"
+CrusaderBuckler:
+  query: info.typeLine:"Crusader Buckler"
+DriftwoodSpikedShield:
+  query: info.typeLine:"Driftwood Spiked Shield"
+EbonyTowerShield:
+  query: info.typeLine:"Ebony Tower Shield"
+ElegantRoundShield:
+  query: info.typeLine:"Elegant Round Shield"
+EnameledBuckler:
+  query: info.typeLine:"Enameled Buckler"
+EtchedKiteShield:
+  query: info.typeLine:"Etched Kite Shield"
+EzomyteSpikedShield:
+  query: info.typeLine:"Ezomyte Spiked Shield"
+EzomyteTowerShield:
+  query: info.typeLine:"Ezomyte Tower Shield"
+FirRoundShield:
+  query: info.typeLine:"Fir Round Shield"
+FossilisedSpiritShield:
+  query: info.typeLine:"Fossilised Spirit Shield"
+GildedBuckler:
+  query: info.typeLine:"Gilded Buckler"
+GirdedTowerShield:
+  query: info.typeLine:"Girded Tower Shield"
+GoathideBuckler:
+  query: info.typeLine:"Goathide Buckler"
+GoldenBuckler:
+  query: info.typeLine:"Golden Buckler"
+HarmonicSpiritShield:
+  query: info.typeLine:"Harmonic Spirit Shield"
+ImperialBuckler:
+  query: info.typeLine:"Imperial Buckler"
+IronwoodBuckler:
+  query: info.typeLine:"Ironwood Buckler"
+IvorySpiritShield:
+  query: info.typeLine:"Ivory Spirit Shield"
+JinglingSpiritShield:
+  query: info.typeLine:"Jingling Spirit Shield"
+LacewoodSpiritShield:
+  query: info.typeLine:"Lacewood Spirit Shield"
+LacqueredBuckler:
+  query: info.typeLine:"Lacquered Buckler"
+LaminatedKiteShield:
+  query: info.typeLine:"Laminated Kite Shield"
+LayeredKiteShield:
+  query: info.typeLine:"Layered Kite Shield"
+LindenKiteShield:
+  query: info.typeLine:"Linden Kite Shield"
+MahoganyTowerShield:
+  query: info.typeLine:"Mahogany Tower Shield"
+MirroredSpikedShield:
+  query: info.typeLine:"Mirrored Spiked Shield"
+MosaicKiteShield:
+  query: info.typeLine:"Mosaic Kite Shield"
+OakBuckler:
+  query: info.typeLine:"Oak Buckler"
+OrnateSpikedShield:
+  query: info.typeLine:"Ornate Spiked Shield"
+PaintedBuckler:
+  query: info.typeLine:"Painted Buckler"
+PaintedTowerShield:
+  query: info.typeLine:"Painted Tower Shield"
+PineBuckler:
+  query: info.typeLine:"Pine Buckler"
+PinnacleTowerShield:
+  query: info.typeLine:"Pinnacle Tower Shield"
+PlankKiteShield:
+  query: info.typeLine:"Plank Kite Shield"
+PolishedSpikedShield:
+  query: info.typeLine:"Polished Spiked Shield"
+RawhideTowerShield:
+  query: info.typeLine:"Rawhide Tower Shield"
+RedwoodSpikedShield:
+  query: info.typeLine:"Redwood Spiked Shield"
+ReinforcedKiteShield:
+  query: info.typeLine:"Reinforced Kite Shield"
+ReinforcedTowerShield:
+  query: info.typeLine:"Reinforced Tower Shield"
+RottedRoundShield:
+  query: info.typeLine:"Rotted Round Shield"
+ScarletRoundShield:
+  query: info.typeLine:"Scarlet Round Shield"
+ShagreenTowerShield:
+  query: info.typeLine:"Shagreen Tower Shield"
+SovereignSpikedShield:
+  query: info.typeLine:"Sovereign Spiked Shield"
+SpikedBundle:
+  query: info.typeLine:"Spiked Bundle"
+SpikedRoundShield:
+  query: info.typeLine:"Spiked Round Shield"
+SpinyRoundShield:
+  query: info.typeLine:"Spiny Round Shield"
+SplendidRoundShield:
+  query: info.typeLine:"Splendid Round Shield"
+SplinteredTowerShield:
+  query: info.typeLine:"Splintered Tower Shield"
+SteelKiteShield:
+  query: info.typeLine:"Steel Kite Shield"
+StuddedRoundShield:
+  query: info.typeLine:"Studded Round Shield"
+SupremeSpikedShield:
+  query: info.typeLine:"Supreme Spiked Shield"
+TarnishedSpiritShield:
+  query: info.typeLine:"Tarnished Spirit Shield"
+TeakRoundShield:
+  query: info.typeLine:"Teak Round Shield"
+ThoriumSpiritShield:
+  query: info.typeLine:"Thorium Spirit Shield"
+TitaniumSpiritShield:
+  query: info.typeLine:"Titanium Spirit Shield"
+TwigSpiritShield:
+  query: info.typeLine:"Twig Spirit Shield"
+VaalBuckler:
+  query: info.typeLine:"Vaal Buckler"
+VaalSpiritShield:
+  query: info.typeLine:"Vaal Spirit Shield"
+WalnutSpiritShield:
+  query: info.typeLine:"Walnut Spirit Shield"
+WarBuckler:
+  query: info.typeLine:"War Buckler"
+YewSpiritShield:
+  query: info.typeLine:"Yew Spirit Shield"
+
+#Jewels
+
+CobaltJe?we?l:
+  query: info.typeLine:"Cobalt Jewel"
+CrimsonJe?we?l:
+  query: info.typeLine:"Crimson Jewel"
+ViridianJe?we?l:
+  query: info.typeLine:"Viridian Jewel"
+
+#Demigod Bases
+
+GoldenBracers:
+  query: info.typeLine:"Golden Bracers"
+GoldenCaligae:
+  query: info.typeLine:"Golden Caligae"
+GoldenHoop:
+  query: info.typeLine:"Golden Hoop"
+GoldenObi:
+  query: info.typeLine:"Golden Obi"
+GoldenWreath:
+  query: info.typeLine:"Golden Wreath"
