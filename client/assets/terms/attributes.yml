@@ -23,7 +23,7 @@ crafted:
  query: attributes.craftedModsCount:>0
  mirrored:
   query: attributes.mirrored:true
-(\d+)g(em)?lvl:
+(\d+)g(em)?le?ve?l:
   query: properties.Gem.Level:$1
 (\d+)q(uality)?:
   query: properties.Quality:$1  
@@ -37,7 +37,6 @@ crafted:
   query: requirements.Int:<=$1
 (\d+)rLe?ve?l:
   query: requirements.Level:<=$1
-
   
 (ar|armour):
   query: propertiesPseudo.Armour.estimatedQ20.Armour:>0
@@ -93,8 +92,9 @@ yellowtier|tieryellow:
   query: properties.Map.Map Tier:[7 TO 11]
 whitetier|tierwhite:
   query: properties.Map.Map Tier:<=6
-  
+ 
 (\d+)aps:
   query: properties.Weapon.Attacks per Second:>=$1
 (\d+)-(\d+))aps:
   query: properties.Weapon.Attacks per Second:[$1 TO $2]
+
