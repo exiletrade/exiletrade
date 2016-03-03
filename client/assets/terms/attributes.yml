@@ -63,7 +63,7 @@ p(hys?)?Dps:
   query: propertiesPseudo.Weapon.estimatedQ20.Physical DPS:>0
 (\d+)p(hys?)?Dps:
   query: propertiesPseudo.Weapon.estimatedQ20.Physical DPS:>=$1
-(\d+)-(\d+) p(hys?)?Dps:
+(\d+)-(\d+)p(hys?)?Dps:
   query: propertiesPseudo.Weapon.estimatedQ20.Physical DPS:[$1 TO $2] 
 
 Dps:
@@ -95,6 +95,6 @@ whitetier|tierwhite:
  
 (\d+)aps:
   query: properties.Weapon.Attacks per Second:>=$1
-(\d+)-(\d+))aps:
+(\d+)-(\d+)aps:
   query: properties.Weapon.Attacks per Second:[$1 TO $2]
 
