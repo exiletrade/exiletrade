@@ -29,11 +29,26 @@
   query: shop.chaosEquiv:[$1 TO $2]
   filter: return val * 0.5;
 
-#(([0-9]+)?(\.)?([0-9]{1,2})?)(fus(ing|e)?)                                  =       buyout_currency=fusing&buyout_max=$GROUP1
-#(([0-9]+)?(\.)?([0-9]{1,2})?)-(([0-9]+)?(\.)?([0-9]{1,2})?)(fus(ing|e)?)    =       buyout_currency=fusing&buyout_min=$GROUP1&buyout_max=$GROUP2
-#
-#(([0-9]+)?(\.)?([0-9]{1,2})?)(ex(alted)?)                                  =       buyout_currency=exalted&buyout_max=$GROUP1
-#(([0-9]+)?(\.)?([0-9]{1,2})?)-(([0-9]+)?(\.)?([0-9]{1,2})?)(ex(alted)?)    =       buyout_currency=exalted&buyout_min=$GROUP1&buyout_max=$GROUP2
-#
-#(([0-9]+)?(\.)?([0-9]{1,2})?)(alt(eration)?)                               =       buyout_currency=alteration&buyout_max=$GROUP1
-#(([0-9]+)?(\.)?([0-9]{1,2})?)-(([0-9]+)?(\.)?([0-9]{1,2})?)(alt(eration)?) =       buyout_currency=alteration&buyout_min=$GROUP1&buyout_max=$GROUP2
+(\d*\.?\d*)fus(ing|e)?:
+  query: shop.chaosEquiv:[* TO $1]
+  filter: return val * 0.5;
+  
+(\d*\.?\d*)-(\d*\.?\d*)fus(ing|e)?:
+  query: shop.chaosEquiv:[$1 TO $2]
+  filter: return val * 0.5;
+  
+(\d*\.?\d*)ex(alted)?:
+  query: shop.chaosEquiv:[* TO $1]
+  filter: return val * 80;
+  
+(\d*\.?\d*)-(\d*\.?\d*)ex(alted)?:
+  query: shop.chaosEquiv:[$1 TO $2]
+  filter: return val * 80;
+
+(\d*\.?\d*)alt(eration)?:
+  query: shop.chaosEquiv:[* TO $1]
+  filter: return val * 0.062;
+  
+(\d*\.?\d*)-(\d*\.?\d*)alt(eration)?:
+  query: shop.chaosEquiv:[$1 TO $2]
+  filter: return val * 0.062;
