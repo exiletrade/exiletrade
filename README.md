@@ -1,6 +1,6 @@
 [![Join the chat at https://gitter.im/poeblackmarket/poeblackmarket.github.io](https://badges.gitter.im/exiletrade/exiletrade.svg)](https://gitter.im/exiletrade/exiletrade?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-# ExileTrade - An Advance Search Engine
+# ExileTrade - An Advanced Search Engine
 
 ![poesearchalpha](https://cloud.githubusercontent.com/assets/75921/13418232/a3264698-dfae-11e5-8d0e-bd073370476c.PNG)
 
