@@ -37,3 +37,25 @@ crafted:
   query: requirements.Int:<=$1
 (\d+)rLe?ve?l:
   query: requirements.Level:<=$1
+
+  
+(ar|armour):
+  query: propertiesPseudo.Armour.estimatedQ20.Armour:>0
+(\d+)(ar|armour):
+  query: propertiesPseudo.Armour.estimatedQ20.Armour:>=$1
+(\d+)-(\d+)(ar|armour):
+  query: propertiesPseudo.Armour.estimatedQ20.Armour:[$1 TO $2]
+  
+(ev|evasion):
+  query: propertiesPseudo.Armour.estimatedQ20.Evasion Rating:>0 
+(\d+)(ev|evasion):
+  query: propertiesPseudo.Armour.estimatedQ20.Evasion Rating:>=$1
+(\d+)-(\d+)(ev|evasion):
+  query: propertiesPseudo.Armour.estimatedQ20.Evasion Rating:[$1 TO $2]
+
+(es|energyshield):
+  query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:>0
+(\d+)(es|energyshield):
+  query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:>=$1
+(\d+)-(\d+)(es|energyshield):
+  query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:[$1 TO $2]
