@@ -3,6 +3,7 @@ node_modules
 npm-debug.log
 bower_components
 build
+demo
 .sass-cache
 client/assets/js/test.json
 client/assets/js/example.json
