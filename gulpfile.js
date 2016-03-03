@@ -9,13 +9,20 @@ var $ = require('gulp-load-plugins')();
 var argv = require('yargs').argv;
 var gulp = require('gulp');
 var rimraf = require('rimraf');
+var gulpRimraf = require('gulp-rimraf');
 var router = require('front-router');
 var sequence = require('run-sequence');
+var ignore = require('gulp-ignore');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
 // Check for --demo flag
 var isDemo = !!(argv.demo);
+
+var destination = (isDemo ? './demo' : './build' );
+var destinationDemo =  '../exiletrade.github.io';
+var routerPath = (isDemo ? 'demo' : 'build' );
+
 
 // 2. FILE PATHS
 // - - - - - - - - - - - - - - -
@@ -61,13 +68,19 @@ var paths = {
 
 // Cleans the build directory
 gulp.task('clean', function (cb) {
-	var destination = (isDemo ? './demo' : './build' );
-	rimraf(destination, cb);
+	if(!isDemo) {
+		rimraf(destination, cb);
+	}
+	else {
+		return gulp.src('../exiletrade.github.io/**/*', { read: false })
+			.pipe(ignore('.git/**'))
+			.pipe(gulpRimraf({ force: true }));
+		cb();
+	}
 });
 
 // Copies everything in the client folder except templates, Sass, and JS
 gulp.task('copy', function () {
-	var destination = (isDemo ? './demo' : './build' );
 	return gulp.src(paths.assets, {
 		base: './client/'
 	})
@@ -77,8 +90,6 @@ gulp.task('copy', function () {
 
 // Copies your app's page templates and generates URLs for them
 gulp.task('copy:templates', function () {
-	var destination = (isDemo ? './demo' : './build' );
-	var routerPath = (isDemo ? 'demo' : 'build' );
 	return gulp.src('./client/templates/**/*.html')
 		.pipe(router({
 			path: routerPath + '/assets/js/routes.js',
@@ -90,8 +101,6 @@ gulp.task('copy:templates', function () {
 
 // Compiles the Foundation for Apps directive partials into a single JavaScript file
 gulp.task('copy:foundation', function (cb) {
-	var destination = (isDemo ? './demo' : './build' );
-
 	gulp.src('bower_components/foundation-apps/js/angular/components/**/*.html')
 		.pipe($.ngHtml2js({
 			prefix: 'components/',
@@ -113,8 +122,6 @@ gulp.task('copy:foundation', function (cb) {
 
 // Copy images
 gulp.task('copy:images', function (cb) {
-	var destination = (isDemo ? './demo' : './build' );
-
 	// Asset icons
 	gulp.src('./client/assets/img/**/*.+(jpg|jpeg|gif|png|svg)')
 		.pipe(gulp.dest(destination + '/assets/img/'))
@@ -125,12 +132,11 @@ gulp.task('copy:images', function (cb) {
 
 // Copy Demo Build to production repo
 gulp.task('copy:build', function (cb) {
-	return;
-	if (!isDemo) return;
-	var destinationDemo = '../exiletrade/';
-	gulp.src('./demo/**/*')
-		.pipe(gulp.dest(destinationDemo))
-	;
+	if (isDemo) {
+		gulp.src('./demo/**/*')
+			.pipe(gulp.dest(destinationDemo))
+		;
+	}
 
 	cb();
 });
@@ -138,7 +144,6 @@ gulp.task('copy:build', function (cb) {
 // Compiles Sass
 gulp.task('sass', function () {
 	var minifyCss = $.if(isProduction, $.minifyCss());
-	var destination = (isDemo ? './demo' : './build' );
 
 	return gulp.src('client/assets/scss/app.scss')
 		.pipe($.sass({
@@ -155,10 +160,9 @@ gulp.task('sass', function () {
 });
 
 // Compiles and copies the Foundation for Apps JavaScript, as well as your app's custom JS
-gulp.task('uglify', ['uglify:foundation', 'uglify:app'])
+gulp.task('uglify', ['uglify:foundation', 'uglify:app']);
 
 gulp.task('uglify:foundation', function (cb) {
-	var destination = (isDemo ? './demo' : './build' );
 	var uglify = $.if(isProduction, $.uglify()
 		.on('error', function (e) {
 			console.log(e);
@@ -172,7 +176,6 @@ gulp.task('uglify:foundation', function (cb) {
 });
 
 gulp.task('uglify:app', function () {
-	var destination = (isDemo ? './demo' : './build' );
 	var uglify = $.if(isProduction, $.uglify()
 		.on('error', function (e) {
 			console.log(e);
@@ -200,7 +203,7 @@ gulp.task('server', ['build'], function () {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function (cb) {
-	sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', 'copy:images', cb);
+	sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', 'copy:images', 'copy:build', cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change

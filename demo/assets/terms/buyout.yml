@@ -1,0 +1,35 @@
+#
+# buyout
+# for rates, see: http://exiletools.com/rates
+#
+(([0-9]+)?(\.)?([0-9]{1,2})?)(ch?(aos)?):
+  query: shop.chaosEquiv:[* TO $1]
+  example:
+  - 3ch
+  - 10chaos
+  - 9.19chaos
+  description: |
+      Items with less than or equal to the
+      specified buyout in Chaos Equivalent.
+
+(([0-9]+)?(\.)?([0-9]{1,2})?)-(([0-9]+)?(\.)?([0-9]{1,2})?)(ch?(aos)?):
+  query: shop.chaosEquiv:[$1 TO $2]
+  example:
+  - 3-5ch
+  - 10-20.5chaos
+  - 19.19-30chaos
+
+# https://github.com/trackpete/exiletools-indexer/issues/107
+#(([0-9]+)?(\.)?([0-9]{1,2})?)(alch?(emy)?):
+#  query: shop.chaosEquiv:[$1 TO $2]
+  
+#(([0-9]+)?(\.)?([0-9]{1,2})?)-(([0-9]+)?(\.)?([0-9]{1,2})?)(alch?(emy)?)    =       buyout_currency=alchemy&buyout_min=$GROUP1&buyout_max=$GROUP2
+
+#(([0-9]+)?(\.)?([0-9]{1,2})?)(fus(ing|e)?)                                  =       buyout_currency=fusing&buyout_max=$GROUP1
+#(([0-9]+)?(\.)?([0-9]{1,2})?)-(([0-9]+)?(\.)?([0-9]{1,2})?)(fus(ing|e)?)    =       buyout_currency=fusing&buyout_min=$GROUP1&buyout_max=$GROUP2
+#
+#(([0-9]+)?(\.)?([0-9]{1,2})?)(ex(alted)?)                                  =       buyout_currency=exalted&buyout_max=$GROUP1
+#(([0-9]+)?(\.)?([0-9]{1,2})?)-(([0-9]+)?(\.)?([0-9]{1,2})?)(ex(alted)?)    =       buyout_currency=exalted&buyout_min=$GROUP1&buyout_max=$GROUP2
+#
+#(([0-9]+)?(\.)?([0-9]{1,2})?)(alt(eration)?)                               =       buyout_currency=alteration&buyout_max=$GROUP1
+#(([0-9]+)?(\.)?([0-9]{1,2})?)-(([0-9]+)?(\.)?([0-9]{1,2})?)(alt(eration)?) =       buyout_currency=alteration&buyout_min=$GROUP1&buyout_max=$GROUP2

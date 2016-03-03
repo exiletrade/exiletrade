@@ -1,0 +1,58 @@
+Scroll(of)?Wisdom:
+  query: info.name:"Scroll of Wisdom"
+PortalScroll:
+  query: info.name:"Portal Scroll"
+(A(rm)?(ourer)?'?s?)?Scrap:
+  query: info.name:"Armourer's Scrap"
+(Blacksmith)?'?s?Whet(stone)?:
+  query: info.name:"Blacksmith's Whetstone"
+(Glassblower)?'?s?Bauble:
+  query: info.name:"Glassblower's Bauble"
+(Cartographer)?'?s?Chis(el)?:
+  query: info.name:"Cartographer's Chisel"
+(Gemcutter'?s?)?Prism:
+  query: info.name:"Gemcutter's Prism"
+Jew(eller)?'?s?(Orb)?:
+  query: info.name:"Jeweller's Orb"
+Chrom(atic)?(Orb)?:
+  query: info.name:"Chromatic Orb"
+(Orb)?(of)?Fus(ing|e)?:
+  query: info.name:"Orb of Fusing"
+(Orb)?(of)?Trans(mut(ation|e))?:
+  query: info.name:"Orb of Transmutation"
+(Orb)?(of)?Chance:
+  query: info.name:"Orb of Chance"
+(Orb)?(of)?Alch(emy)?:
+  query: info.name:"Orb of Alchemy"
+Regal(Orb)?:
+  query: info.name:"Regal Orb"
+Orb(of)?Augmentation:
+  query: info.name:"Orb of Augmentation"
+Exalt|Ex|Exalted(Orb)?:
+  query: info.name:"Exalted Orb"
+Alt|(Orb)?(of)?Alteration:
+  query: info.name:"Orb of Alteration"
+Ch?(aos)?(Orb)?:
+  query: info.name:"Chaos Orb"
+Bless|Blessed(Orb)?:
+  query: info.name:"Blessed Orb"
+Divine(Orb)?:
+  query: info.name:"Divine Orb"
+Scour|(Orb)?(of)?Scouring:
+  query: info.name:"Orb of Scouring"
+Mir+(or)?(of)?(Kalandra)?:
+  query: info.name:"Mirror of Kalandra"
+(Orb)?(of)?Regret:
+  query: info.name:"Orb of Regret"
+Vaal(Orb)?:
+  query: info.name:"Vaal Orb"
+Eternal(Orb)?:
+  query: info.name:"Eternal Orb"
+ScrollFragment:
+  query: info.name:"Scroll Fragment"
+Trans(mutation)?Shard:
+  query: info.name:"Transmutation Shard"
+Alt(eration)?Shard:
+  query: info.name:"Alteration Shard"
+AlchemyShard:
+  query: info.name:"Alchemy Shard"
