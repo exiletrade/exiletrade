@@ -51,7 +51,18 @@ function evalSearchTerm(token) {
 			if (foundMatch) {
 				result = terms[regex].query;
 				// apply any captured regex groups
-				result = cleanToken.replace(rgex, result);
+				var arr = rgex.exec(cleanToken);
+				// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
+				result = result.replace(/\$(\d+)/g, function replacer(match, p1, offset, string) {
+					var filter = terms[regex].filter;
+					var value = arr[p1];
+					if (filter) {
+						var filterFn = Function("val", filter);
+						value = filterFn(value);
+					}
+					return value;
+				});
+				//result = cleanToken.replace(rgex, result);
 				// escape spaces for elasticsearch
 				result = escapeField(result);
 				if (hasOpenParen(token))  result = '(' + result;
@@ -171,7 +182,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 
 	appModule.controller('SearchController', ['$scope', '$http', 'es', function($scope, $http, es) {
 		// Default
-		$scope.searchInput = "gloves";
+		$scope.searchInput = "(gloves or chest) 60life 80eleres";
 		$scope.queryString = "";
 		$scope.savedSearchesList = JSON.parse(localStorage.getItem("savedSearches"));
 		$scope.savedItemsList = JSON.parse(localStorage.getItem("savedItems"));

@@ -1,6 +1,5 @@
 
 <div id="main" class="grid-container" ng-controller="SearchController" >
-	<p><strong>-- This is still very much a work in progress, but we are working hard!</strong></p>
 	<div class="grid-content"> 
 		<!--div zf-panel="" id="panelName">
 			<a zf-close="" class="button">Close Panel</a>
@@ -8,8 +7,14 @@
 				<label>Search Input</label>
 				<input id="searchField" ng-model="searchInput" my-enter="doSearch()" size="150" type="text">
 
-				<a href="#" ng-click="doSearch()" class="button" value="Search">Search</a>
-				<a href="#" ng-click="saveLastSearch()" class="button small">Save Search</a>
+				<a href="#" ng-click="doSearch()" class="button" value="Search">
+					<img zf-iconic="" icon="Magnifying-glass" size="small">
+					Search
+				</a>
+				<a href="#" ng-click="saveLastSearch()" class="button small">
+					<img zf-iconic="" icon="Circle-check" size="small">
+					Save Search
+				</a>
 				<a href="#" zf-toggle="savedSearchesPanel" class="button small hollow ">Show saved Searches/Items</a>
 				<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>
 				<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn scrollTop">Scroll Top</a>
@@ -91,13 +96,16 @@
 							<div class="switch small">
 								<input type="checkbox" id="switch-{{item._id}}"
 									ng-model="switchValue"
-                     				ng-true-value="{backgroundColor:'rgba(0,0,0,.2'}" ng-false-value="">
+                     				ng-true-value="{backgroundColor:'rgba(0,0,0,.1'}" ng-false-value="">
 								<label for="switch-{{item._id}}"></label>
 							</div>
 							<span>
-								<img zf-iconic="" icon="cart" size="medium" ng-click="saveItem(item._id, item._source.info.fullName, item._source.shop.lastCharacterName)" class="float-right iconic-color-secondary">
+								<a class="saveNotificationLink" title="Save Item" content="Saved: {{item._source.info.fullName}}" color="success" autoclose="2000" zf-notify="save-notification-{{item._id}}">
+									<img zf-iconic="" icon="Circle-check" size="medium" ng-click="saveItem(item._id, item._source.info.fullName, item._source.shop.lastCharacterName)"
+									 class="float-right iconic-color-secondary">
+								</a>
 							</span>
-
+							<zf-notification-set id="save-notification-{{item._id}}" position="top-left"></zf-notification-set>
 						</div>
 					</div>
 					<div class="grid-block item-inner-border" ng-style="switchValue">
@@ -153,7 +161,7 @@
 											  ng-show="{{item._source.requirements.Str}}"
 											  data-value="{{item._source.requirements.Str}}"
 											  data-name="Str">
-											Strength: {{item._source.requirements.Str}}
+											Str: {{item._source.requirements.Str}}
 											<i class="seperator"></i>
 										</span>
 
@@ -161,7 +169,7 @@
 											  ng-show="{{item._source.requirements.Dex}}"
 											  data-value="{{item._source.requirements.Dex}}"
 											  data-name="Int">
-											Intelligence: {{item._source.requirements.Dex}}
+											Dex: {{item._source.requirements.Dex}}
 											<i class="seperator"></i>
 										</span>
 
@@ -169,7 +177,7 @@
 											  ng-show="{{item._source.requirements.Int}}"
 											  data-value="{{item._source.requirements.Int}}"
 											  data-name="Int">
-											Intelligence: {{item._source.requirements.Int}}
+											Int: {{item._source.requirements.Int}}
 										</span>
 									</div>
 
@@ -236,7 +244,7 @@
 										</span>
 
 										<span>
-											<button ngclipboard class="click whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}">Copy Whisper</button>
+											<button ngclipboard class="click button small hollow whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}">Copy Whisper</button>
 										</span>
 									</div>
 								</div>
