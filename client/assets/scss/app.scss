@@ -14,8 +14,8 @@ ul {
 }
 
 img.pageLogo {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	margin: 8px !important;
 }
 .menu-bar > li > a.pageLogo {
@@ -48,17 +48,60 @@ img.pageLogo {
 	.gitter {
 		margin-right: 34px;
 	}
+	.disclaimer, .repo {
+		color: white;
+		border-color: white;
+		padding:4px;
+		margin: 2px;
+	}
 }
 
 .menu-bar {
 	h1 {
-		//font-size: rem-calc(36px);
+		font-size: 2.5rem;
 		color: white;
 		margin: 0;
 	}
 	h6 {
 		color: #ababab;
 	}
+}
+
+.searchField {
+	padding: 0 3rem;
+	hr {
+		margin-top: 5px;
+	}
+}
+.openOptions, .openSaves {
+	width: 30px;
+	height:30px;
+	display: inline-block;
+	position: absolute;
+	top: 106px;
+	padding: 6px;
+	box-shadow: 3px 0 10px rgba(0, 0, 0, 0.25);
+	border: 1px solid lightgrey;
+}
+
+.openOptions {
+	left: 0;
+}
+.openSaves {
+	right:0;
+	&.bookmark {
+		top:136px;
+	}
+}
+
+.footer {
+	max-height:50px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid grey;
+	background-color:$border_color_item;
+	color: white;
+	font-size: rem-calc(10px);
 }
 
 img.gitter-badge {
@@ -102,6 +145,10 @@ img.gitter-badge {
 }
 
 .search-results {
+	.debugInfo {
+		font-size: 12px;
+	}
+
 	.item {
 		min-width: 600px;
 		margin: 5px 0;
@@ -467,5 +514,17 @@ img.gitter-badge {
 
 	.block-list li > a, .block-list li > span, .block-list li > label {
 		font-size: rem-calc(12);
+	}
+
+	.search-options {
+		margin-top: 50px !important;
+		a {
+			position: relative;
+		}
+		section {
+			width: 100%;
+			margin-left: 0px;
+			padding-left: 0px;
+		}
 	}
 }
