@@ -125,8 +125,8 @@ url: /
 									ng-options="v for v in options.buyoutSelect.options">
 							</select>
 						</li>
-						<li ng-repeat="input in options.searchPrefixInputs track by $index">
-							<input type="text" ng-model="input" placeholder="Custom prefix">
+						<li ng-repeat="input in options.searchPrefixInputs" id="ghjgj">
+							<input type="text" ng-model="input.value" placeholder="Custom prefix">
 						</li>
 					</ul>
 					<a href="" class="button small hollow" ng-click="addInputField()">Add Field</a>

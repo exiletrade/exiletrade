@@ -4,7 +4,7 @@ function parseSearchInput(_terms, input) {
 	terms = _terms;
 
 	// capture literal search terms (LST) like name="veil of the night"
-	var regex = /([^\s]*[:=]\".*?\")/g;
+	var regex = /([^\s]*=\".*?\")/g;
 	var lsts = input.match(regex);
 	lsts = expandLsts(lsts);
 	var _input = input.replace(regex, 'LST');
@@ -15,8 +15,6 @@ function parseSearchInput(_terms, input) {
 		i++;
 		return lst;
 	});
-	var ri = new RegExp('name:"(.+)"', 'i');
-	if(ri.test(_queryStr)) return _queryStr.replace("name","info.tokenized.fullName");
 	return _queryStr;
 	return parseSearchInputTokens(input);
 }
@@ -29,10 +27,10 @@ function parseSearchInputTokens(input) {
 	var tokens = input.split(" ");
 	var queryTokens = [];
 	for (i in tokens) {
-		var evaluatedToken = tokens[i];
-		var token = evaluatedToken.toUpperCase();
+		var token = tokens[i].toUpperCase();
+		var evaluatedToken = token;
 		if ( token != "OR" && token != "AND" && token !="LST" && token !="NOT" ) {
-			evaluatedToken = evalSearchTerm(evaluatedToken);
+			evaluatedToken = evalSearchTerm(token);
 			if (evaluatedToken && hasBackTick(evaluatedToken)) {
 				evaluatedToken = parseSearchInputTokens(evaluatedToken);
 			}
@@ -202,9 +200,19 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 				"value": "Buyout: Yes",
 				"options": ["Buyout: Yes", "Buyout: No", "Buyout: Either"]
 			},
-			"searchPrefixInputs" : ['']
+			"searchPrefixInputs" : [{"value": "s"}]
 		};
-
+		loadOptions();
+		/*
+		 Load options from HTML storage
+		 */
+		function loadOptions(){
+			var loadedOptions;
+			if (localStorage.getItem("savedOptions") !== null){
+				loadedOptions = JSON.parse(localStorage.getItem("savedOptions"));
+				$scope.options = loadedOptions;
+			}
+		}
 		$scope.termsMap = {};
 
 		var mergeIntoTermsMap = function(res){
@@ -396,24 +404,17 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			Add input Fields (search Prefixes)
 		*/
 		$scope.addInputField = function() {
-			var newField = '';
-			$scope.options.searchPrefixInputs.push(newField);
+			console.log($scope.options.searchPrefixInputs);
+			$scope.options.searchPrefixInputs.push({"value":""});
+			console.log($scope.options.searchPrefixInputs);
 		};
 
 		/*
-		 Delete selected saved search terms from HTML storage
+			Save options to HTML storage
 		*/
-		$scope.saveOptions = function(id){
-			/*
-			var savedItems = JSON.parse(localStorage.getItem("savedItems"));
-
-			savedItems = savedItems.filter(function (el) {
-					return el.itemId !== id;
-				}
-			);
-
-			localStorage.setItem("savedItems", JSON.stringify(savedItems));
-			$scope.savedItemsList = savedItems.reverse();*/
+		$scope.saveOptions = function(){
+			console.log($scope.options);
+			localStorage.setItem("savedOptions", JSON.stringify($scope.options));
 		};
 
 		/*
