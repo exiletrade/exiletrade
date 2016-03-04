@@ -245,6 +245,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 					addCustomFields(value._source.properties);
 				});
 				$scope.Response = response;
+				// console.trace(JSON.stringify(response, null, 2));
 			}, function (err) {
 				console.trace(err.message);
 			});
@@ -255,18 +256,32 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		*/
 		function addCustomFields(item) {
 			if (item.mods) item['forgottenMods'] = createForgottenMods(item);
+			if (item.mods) item['implicitMods'] = createImplicitMods(item);
 		}
 
 		function createForgottenMods(item) {
 			var itemTypeKey = firstKey(item.mods);
 			var explicits = item.mods[itemTypeKey].explicit;
 			var forgottenMods = $.map( explicits, function( propertyValue, modKey ) {
+				// TODO, add forgotten mod special data here
 				return {
 					display : modToDisplay(propertyValue, modKey),
 					key : 'mods.' + itemTypeKey + '.explicit.' + modKey
 				};
 			});
 			return forgottenMods;
+		}
+
+		function createImplicitMods(item) {
+			var itemTypeKey = firstKey(item.mods);
+			var explicits = item.mods[itemTypeKey].implicit;
+			var implicitMods = $.map( explicits, function( propertyValue, modKey ) {
+				return {
+					display : modToDisplay(propertyValue, modKey),
+					key : 'mods.' + itemTypeKey + '.implicit.' + modKey
+				};
+			});
+			return implicitMods;
 		}
 
 
