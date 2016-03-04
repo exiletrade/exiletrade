@@ -553,4 +553,13 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			});
 		};
 	});
+
+	appModule.directive('itemBox', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/item-box.html',
+			// todo: shouldn't need to inherit entire scope
+			scope: true
+		};
+	});
 })();
