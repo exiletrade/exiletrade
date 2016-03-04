@@ -523,7 +523,7 @@ Jorrhast'?s?Blacksteel:
   query: info.name:"Jorrhast's Blacksteel"
 Kaltenhalt:
   query: info.name:"Kaltenhalt"
-Kaom'?s?Heart:
+Kaom'?s?(Heart)?:
   query: info.name:"Kaom's Heart"
 Kaom'?s?Primacy:
   query: info.name:"Kaom's Primacy"
@@ -579,8 +579,8 @@ LochtonialCaress:
   query: info.name:"Lochtonial Caress"
 Lori'?s?Lantern:
   query: info.name:"Lori's Lantern"
-Maelstr[öo]m(of)?Chaos:
-  query: info.name:"Maelström of Chaos"
+Maelstr[Ã¶o]m(of)?Chaos:
+  query: info.name:"MaelstrÃ¶m of Chaos"
 Malachai'?s?Artifice:
   query: info.name:"Malachai's Artifice"
 Malachai'?s?Loop:
@@ -625,8 +625,8 @@ Mindspiral:
   query: info.name:"Mindspiral"
 Ming'?s?Heart:
   query: info.name:"Ming's Heart"
-Mj[öo]lner:
-  query: info.name:"Mjölner"
+Mj[Ã¶o]lner:
+  query: info.name:"MjÃ¶lner"
 Mokou'?s?Embrace:
   query: info.name:"Mokou's Embrace"
 Mon'?tregul'?s?Grasp:
