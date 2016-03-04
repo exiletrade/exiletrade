@@ -31,6 +31,7 @@ function parseSearchInputTokens(input) {
 		var evaluatedToken = token;
 		if ( token != "OR" && token != "AND" && token !="LST" && token !="NOT" ) {
 			evaluatedToken = evalSearchTerm(token);
+			console.trace(token + '=' + evaluatedToken);
 			if (evaluatedToken && hasBackTick(evaluatedToken)) {
 				evaluatedToken = parseSearchInputTokens(evaluatedToken);
 			}
@@ -67,6 +68,7 @@ function evalSearchTerm(token) {
 				result = escapeField(result);
 				if (hasOpenParen(token))  result = '(' + result;
 				if (hasCloseParen(token)) result = result + ')';
+				console.trace(cleanToken + ' + ' + rgex + '=' + result);
 				break;
 			}
 		}
@@ -182,7 +184,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 
 	appModule.controller('SearchController', ['$scope', '$http', 'es', function($scope, $http, es) {
 		// Default
-		$scope.searchInput = "(gloves or chest) 60life 80eleres";
+		$scope.searchInput = ""; // (gloves or chest) 60life 80eleres
 		$scope.queryString = "";
 		$scope.savedSearchesList = JSON.parse(localStorage.getItem("savedSearches"));
 		$scope.savedItemsList = JSON.parse(localStorage.getItem("savedItems"));
@@ -201,7 +203,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 				"value": 'Buyout: Yes',
 				"options": ["Buyout: Yes", "Buyout: No", "Buyout: Either"]
 			},
-			"searchPrefixInputs" : [{"value": "s"}]
+			"searchPrefixInputs" : []
 		};
 
 		if($scope.loadedOptions) checkDefaultOptions();
@@ -220,7 +222,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		}
 
 		function createSearchPrefix(options){
-			var searchPrefix = " " + options['leagueSelect']['value'].replace(" ","");
+			var searchPrefix = options['leagueSelect']['value'].replace(" ","");
 			var buyout = options['buyoutSelect']['value'];
 			switch(buyout){
 				case "Buyout: Yes":	searchPrefix += " bo"; break;
@@ -281,7 +283,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 
 		function doActualSearch(size, sortKey, sortOrder) {
 			$scope.Response = null;
-			var searchQuery = parseSearchInput($scope.termsMap, $scope.searchInput + createSearchPrefix($scope.options));
+			var searchQuery = parseSearchInput($scope.termsMap, $scope.searchInput + ' ' + createSearchPrefix($scope.options));
 			console.log("searchQuery=" + searchQuery);
 			$scope.queryString = searchQuery;
 
