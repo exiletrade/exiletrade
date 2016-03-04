@@ -2,7 +2,7 @@
 # buyout
 # for rates, see: http://exiletools.com/rates
 #
-(\d*\.?\d*)ch?(aos)?:
+((\d+)?\.?(\d+))ch?(aos)?:
   query: shop.chaosEquiv:[* TO $1]
   example:
   - 3ch
@@ -13,42 +13,42 @@
       Items with less than or equal to the
       specified buyout in Chaos Equivalent.
 
-(\d*\.?\d*)-(\d*\.?\d*)ch?(aos)?:
-  query: shop.chaosEquiv:[$1 TO $2]
+((\d+)?\.?(\d+))-((\d+)?\.?(\d+))ch?(aos)?:
+  query: shop.chaosEquiv:[$1 TO $4]
   example:
   - 3-5ch
   - .5-3ch
   - 10-20.5chaos
   - 19.19-30chaos
 
-(\d*\.?\d*)alch?(emy)?:
+((\d+)?\.?(\d+))alch?(emy)?:
   query: shop.chaosEquiv:[* TO $1]
   filter: return val * 0.5;
   
-(\d*\.?\d*)-(\d*\.?\d*)alch?(emy)?:
-  query: shop.chaosEquiv:[$1 TO $2]
+((\d+)?\.?(\d+))-((\d+)?\.?(\d+))alch?(emy)?:
+  query: shop.chaosEquiv:[$1 TO $4]
   filter: return val * 0.5;
 
-(\d*\.?\d*)fus(ing|e)?:
+((\d+)?\.?(\d+))fus(ing|e)?:
   query: shop.chaosEquiv:[* TO $1]
   filter: return val * 0.5;
   
-(\d*\.?\d*)-(\d*\.?\d*)fus(ing|e)?:
-  query: shop.chaosEquiv:[$1 TO $2]
+((\d+)?\.?(\d+))-((\d+)?\.?(\d+))fus(ing|e)?:
+  query: shop.chaosEquiv:[$1 TO $4]
   filter: return val * 0.5;
   
-(\d*\.?\d*)ex(alted)?:
+((\d+)?\.?(\d+))ex(alted)?:
   query: shop.chaosEquiv:[* TO $1]
   filter: return val * 80;
   
-(\d*\.?\d*)-(\d*\.?\d*)ex(alted)?:
-  query: shop.chaosEquiv:[$1 TO $2]
+((\d+)?\.?(\d+))-((\d+)?\.?(\d+))ex(alted)?:
+  query: shop.chaosEquiv:[$1 TO $4]
   filter: return val * 80;
 
-(\d*\.?\d*)alt(eration)?:
+((\d+)?\.?(\d+))alt(eration)?:
   query: shop.chaosEquiv:[* TO $1]
   filter: return val * 0.062;
   
-(\d*\.?\d*)-(\d*\.?\d*)alt(eration)?:
-  query: shop.chaosEquiv:[$1 TO $2]
+((\d+)?\.?(\d+))-((\d+)?\.?(\d+))alt(eration)?:
+  query: shop.chaosEquiv:[$1 TO $4]
   filter: return val * 0.062;

@@ -657,15 +657,15 @@ CrudeB(ow)?:
   query: info.typeLine:"Crude Bow"
 DeathB(ow)?:
   query: info.typeLine:"Death Bow"
-DecimationB(ow)?:
+DecimationB?(ow)?:
   query: info.typeLine:"Decimation Bow"
 DecurveB(ow)?:
   query: info.typeLine:"Decurve Bow"
 GroveB(ow)?:
   query: info.typeLine:"Grove Bow"
-HarbingerB(ow)?:
+HarbingerB?(ow)?:
   query: info.typeLine:"Harbinger Bow"
-HighbornB(ow)?:
+HighbornB?(ow)?:
   query: info.typeLine:"Highborn Bow"
 ImperialB(ow)?:
   query: info.typeLine:"Imperial Bow"
@@ -677,9 +677,9 @@ MarakethB(ow)?:
   query: info.typeLine:"Maraketh Bow"
 RangerB(ow)?:
   query: info.typeLine:"Ranger Bow"
-RecurveB(ow)?:
+RecurveB?(ow)?:
   query: info.typeLine:"Recurve Bow"
-ReflexB(ow)?:
+ReflexB?(ow)?:
   query: info.typeLine:"Reflex Bow"
 RoyalB(ow)?:
   query: info.typeLine:"Royal Bow"
