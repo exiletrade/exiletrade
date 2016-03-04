@@ -213,7 +213,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			Runs the current searchInput with default sort
 		*/		
 		$scope.doSearch = function() {
-			doActualSearch(150, 'shop.updated', 'desc');
+			doActualSearch(50, 'shop.chaosEquiv', 'asc');
 		};
 
 		$scope.stateChanged = function() {
@@ -223,8 +223,11 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		/*
 			Runs the current searchInput with a custom sort
 		*/
-		$scope.doSearchWithSort = function(sortKey){
-			doActualSearch(150, sortKey, 'desc');
+		$scope.doSearchWithSort = function(event){
+			var elem = event.currentTarget;
+			var sortKey = elem.getAttribute('data-sort-key');
+			var sortOrder = elem.getAttribute('data-sort-order');
+			doActualSearch(50, sortKey, sortOrder);
 		};
 
 		function doActualSearch(size, sortKey, sortOrder) {

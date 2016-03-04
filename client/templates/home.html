@@ -255,12 +255,19 @@ url: /
 
 									<div class="grid-block mods">
 										<ul>
-											<li class="sortable" ng-repeat="mod in item._source.implicitMods" data-mod="{{mod}}">
-												<a href="#" ng-click="doSearchWithSort(mod.key)">{{mod.display}}</a>
+											<li class="sortable" ng-repeat="mod in item._source.implicitMods"
+												data-mod="{{mod}}">
+												<a href="#" 
+												   data-sort-key="{{mod.key}}"
+												   data-sort-order="desc"
+												   ng-click="doSearchWithSort($event)">{{mod.display}}</a>
 											</li>
 											<li class="sortable" ng-repeat="mod in item._source.forgottenMods"
 												data-mod="{{mod}}" ng-class="{firstExplicit: ($index) == 0 && item._source.attributes.implicitModsCount > 0}">
-												<a href="#" ng-click="doSearchWithSort(mod.key)">{{mod.display}}</a>
+												<a href="#" 
+												   data-sort-key="{{mod.key}}"
+												   data-sort-order="desc"
+												   ng-click="doSearchWithSort($event)">{{mod.display}}</a>
 											</li>
 											<li ng-if="item._source.mods.Card">
 												{{item._source.mods.Card.DivinationReward}}
@@ -288,7 +295,10 @@ url: /
 											  data-value="{{item._source.shop.amount}}"
 											  data-name="Price in {{item._source.shop.currency}}"
 											  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
-											{{item._source.shop.amount}}×
+											<a href="#" 
+											   data-sort-key="shop.chaosEquiv"
+											   data-sort-order="asc"
+											   ng-click="doSearchWithSort($event)">{{item._source.shop.amount}}x</a>
 										</span>
 										<span class="sortable price"
 											  ng-if="item._source.shop.amount > 0"
