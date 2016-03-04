@@ -315,7 +315,12 @@ url: /
 										<span class="sortable price"
 											  ng-if="item._source.shop.amount > 0"
 											  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
-											<span class="currency {{item._source.shop.currency}}"></span>
+											<a href="#" 
+											   data-sort-key="shop.chaosEquiv"
+											   data-sort-order="asc"
+											   ng-click="doSearchWithSort($event)">
+											   		<span class="currency {{item._source.shop.currency}}"></span>
+											</a>
 											<i class="seperator"></i>
 										</span>
 
