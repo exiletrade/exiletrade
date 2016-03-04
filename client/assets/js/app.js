@@ -4,7 +4,7 @@ function parseSearchInput(_terms, input) {
 	terms = _terms;
 
 	// capture literal search terms (LST) like name="veil of the night"
-	var regex = /([^\s]*=\".*?\")/g;
+	var regex = /([^\s]*[:=]\".*?\")/g;
 	var lsts = input.match(regex);
 	lsts = expandLsts(lsts);
 	var _input = input.replace(regex, 'LST');
@@ -15,6 +15,8 @@ function parseSearchInput(_terms, input) {
 		i++;
 		return lst;
 	});
+	var ri = new RegExp('name:"(.+)"', 'i');
+	if(ri.test(_queryStr)) return _queryStr.replace("name","info.tokenized.fullName");
 	return _queryStr;
 	return parseSearchInputTokens(input);
 }
@@ -27,10 +29,10 @@ function parseSearchInputTokens(input) {
 	var tokens = input.split(" ");
 	var queryTokens = [];
 	for (i in tokens) {
-		var token = tokens[i].toUpperCase();
-		var evaluatedToken = token;
+		var evaluatedToken = tokens[i];
+		var token = evaluatedToken.toUpperCase();
 		if ( token != "OR" && token != "AND" && token !="LST" && token !="NOT" ) {
-			evaluatedToken = evalSearchTerm(token);
+			evaluatedToken = evalSearchTerm(evaluatedToken);
 			if (evaluatedToken && hasBackTick(evaluatedToken)) {
 				evaluatedToken = parseSearchInputTokens(evaluatedToken);
 			}
