@@ -186,33 +186,40 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		$scope.queryString = "";
 		$scope.savedSearchesList = JSON.parse(localStorage.getItem("savedSearches"));
 		$scope.savedItemsList = JSON.parse(localStorage.getItem("savedItems"));
+		$scope.loadedOptions = JSON.parse(localStorage.getItem("savedOptions"));
 
 		$scope.options = {
 			"leagueSelect" : {
 				"type": "select",
 				"name": "League",
-				"value": "Perandus SC",
+				"value": 'Perandus SC',
 				"options": ["Perandus SC", "Perandus HC", "Standard", "Hardcore"]
 			},
 			"buyoutSelect" : {
 				"type": "select",
 				"name": "Buyout",
-				"value": "Buyout: Yes",
+				"value": 'Buyout: Yes',
 				"options": ["Buyout: Yes", "Buyout: No", "Buyout: Either"]
 			},
 			"searchPrefixInputs" : [{"value": "s"}]
 		};
-		loadOptions();
-		/*
-		 Load options from HTML storage
-		 */
-		function loadOptions(){
-			var loadedOptions;
-			if (localStorage.getItem("savedOptions") !== null){
-				loadedOptions = JSON.parse(localStorage.getItem("savedOptions"));
-				$scope.options = loadedOptions;
+
+		checkDefaultOptions();
+
+		function checkDefaultOptions(){
+
+			if(typeof $scope.loadedOptions.leagueSelect !== 'undefined'){
+				$scope.options.leagueSelect.value = $scope.loadedOptions.leagueSelect.value;
+			}
+			if(typeof $scope.loadedOptions.buyoutSelect !== 'undefined'){
+				$scope.options.buyoutSelect.value = $scope.loadedOptions.buyoutSelect.value;
+			}
+			if (typeof $scope.loadedOptions.searchPrefixInputs !== 'undefined' && $scope.loadedOptions.searchPrefixInputs !== null) {
+				$scope.options.searchPrefixInputs = $scope.loadedOptions.searchPrefixInputs;
 			}
 		}
+
+
 		$scope.termsMap = {};
 
 		var mergeIntoTermsMap = function(res){
@@ -243,7 +250,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		};
 
 		$scope.stateChanged = function() {
-			console.log('h');
+			console.log('stateChanged');
 		};
 
 		/*
@@ -413,8 +420,23 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			Save options to HTML storage
 		*/
 		$scope.saveOptions = function(){
-			console.log($scope.options);
 			localStorage.setItem("savedOptions", JSON.stringify($scope.options));
+		};
+
+		$scope.removeInputFromList = function(x){
+			var savedOptions = JSON.parse(localStorage.getItem("savedOptions"));
+			/*
+			console.log($scope.options.searchPrefixInputs);
+			//savedOptions = savedOptions.searchPrefixInputs
+			$scope.options.searchPrefixInputs.filter(function (el) {
+					return el.value !== x.value;
+				}
+			);
+
+			console.log($scope.options.searchPrefixInputs);
+			//$scope.searchPrefixInputs = savedOptions.reverse();
+			localStorage.setItem("savedOptions", JSON.stringify(savedOptions));
+			*/
 		};
 
 		/*
