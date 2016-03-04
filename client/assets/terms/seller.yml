@@ -8,4 +8,4 @@ bo:
 nobo:
   query: shop.chaosEquiv:0
 seller(.*):
-  query: (shop.sellerAccount:$1 OR shop.sellerIGN:$1)
+  query: (shop.sellerAccount:$1)
