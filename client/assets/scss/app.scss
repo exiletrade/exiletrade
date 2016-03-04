@@ -362,6 +362,11 @@ img.gitter-badge {
 			margin-top: 10px;
 			font-size: rem-calc(12px);
 			margin-bottom: 5px;
+
+			a {
+				display: inline-block;
+				max-width: 350px;
+			}
 		}
 		.firstExplicit {
 			border-top: 1px dotted #008ee8;
