@@ -74,11 +74,11 @@ Dps:
   query: properties.Weapon.Total DPS:[$1 TO $2] 
 
 e(le)?Dps:
-  query: properties.Weapon.Total Elemental DPS:>0
+  query: properties.Weapon.Elemental DPS:>0
 (\d+)e(le)?Dps:
-  query: properties.Weapon.Total Elemental DPS:>=$1
+  query: properties.Weapon.Elemental DPS:>=$1
 (\d+)-(\d+)e(le)?Dps:
-  query: properties.Weapon.Total Elemental DPS:[$1 TO $2] 
+  query: properties.Weapon.Elemental DPS:[$1 TO $2] 
  
 ((\d+)?\.?(\d+))aps:
   query: properties.Weapon.Attacks per Second:>=$1
