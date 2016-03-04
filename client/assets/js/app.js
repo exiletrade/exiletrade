@@ -204,10 +204,10 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			"searchPrefixInputs" : [{"value": "s"}]
 		};
 
-		checkDefaultOptions();
+		if($scope.loadedOptions) checkDefaultOptions();
 
 		function checkDefaultOptions(){
-
+		
 			if(typeof $scope.loadedOptions.leagueSelect !== 'undefined'){
 				$scope.options.leagueSelect.value = $scope.loadedOptions.leagueSelect.value;
 			}
