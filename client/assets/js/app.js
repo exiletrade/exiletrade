@@ -219,9 +219,25 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			}
 		}
 
+		function createSearchPrefix(options){
+			var searchPrefix = " " + options['leagueSelect']['value'].replace(" ","");
+			var buyout = options['buyoutSelect']['value'];
+			switch(buyout){
+				case "Buyout: Yes":	searchPrefix += " bo"; break;
+				case "Buyout: No": searchPrefix += " nobo"; break;
+				case "Buyout: Either": searchPrefix += " "; break;
+			}
+			options['searchPrefixInputs'].forEach(function(e){
+				searchPrefix += " " + e['value'];
+			});
+			return searchPrefix;		
+		}
 
 		$scope.termsMap = {};
 
+		//				case 0 : cssClasses = 'socketLeft'; break;
+			//		case 1 : cssClasses = 'socketRight'; break
+		
 		var mergeIntoTermsMap = function(res){
 			var ymlData = jsyaml.load(res.data);
 			jQuery.extend($scope.termsMap, ymlData);
@@ -265,7 +281,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 
 		function doActualSearch(size, sortKey, sortOrder) {
 			$scope.Response = null;
-			var searchQuery = parseSearchInput($scope.termsMap, $scope.searchInput);
+			var searchQuery = parseSearchInput($scope.termsMap, $scope.searchInput + createSearchPrefix($scope.options));
 			console.log("searchQuery=" + searchQuery);
 			$scope.queryString = searchQuery;
 
