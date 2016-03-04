@@ -23,7 +23,7 @@ crafted:
  query: attributes.craftedModsCount:>0
  mirrored:
   query: attributes.mirrored:true
-(\d+)glvl:
+(\d+)g(em)?le?ve?l:
   query: properties.Gem.Level:$1
 (\d+)q(uality)?:
   query: properties.Quality:$1  
@@ -37,3 +37,64 @@ crafted:
   query: requirements.Int:<=$1
 (\d+)rLe?ve?l:
   query: requirements.Level:<=$1
+  
+(ar|armour):
+  query: propertiesPseudo.Armour.estimatedQ20.Armour:>0
+(\d+)(ar|armour):
+  query: propertiesPseudo.Armour.estimatedQ20.Armour:>=$1
+(\d+)-(\d+)(ar|armour):
+  query: propertiesPseudo.Armour.estimatedQ20.Armour:[$1 TO $2]
+  
+(ev|evasion):
+  query: propertiesPseudo.Armour.estimatedQ20.Evasion Rating:>0 
+(\d+)(ev|evasion):
+  query: propertiesPseudo.Armour.estimatedQ20.Evasion Rating:>=$1
+(\d+)-(\d+)(ev|evasion):
+  query: propertiesPseudo.Armour.estimatedQ20.Evasion Rating:[$1 TO $2]
+
+(es|energyshield):
+  query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:>0
+(\d+)(es|energyshield):
+  query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:>=$1
+(\d+)-(\d+)(es|energyshield):
+  query: propertiesPseudo.Armour.estimatedQ20.Energy Shield:[$1 TO $2]
+
+p(hys?)?Dps:
+  query: propertiesPseudo.Weapon.estimatedQ20.Physical DPS:>0
+(\d+)p(hys?)?Dps:
+  query: propertiesPseudo.Weapon.estimatedQ20.Physical DPS:>=$1
+(\d+)-(\d+)p(hys?)?Dps:
+  query: propertiesPseudo.Weapon.estimatedQ20.Physical DPS:[$1 TO $2] 
+
+Dps:
+  query: properties.Weapon.Total DPS:>0
+(\d+)Dps:
+  query: properties.Weapon.Total DPS:>=$1
+(\d+)-(\d+)Dps:
+  query: properties.Weapon.Total DPS:[$1 TO $2] 
+
+e(le)?Dps:
+  query: properties.Weapon.Total Elemental DPS:>0
+(\d+)e(le)?Dps:
+  query: properties.Weapon.Total Elemental DPS:>=$1
+(\d+)-(\d+)e(le)?Dps:
+  query: properties.Weapon.Total Elemental DPS:[$1 TO $2] 
+ 
+(\d+)(Map)?t(ier)?\:
+  query: properties.Map.Map Tier:$1 
+(\d+)(Map)?t(ier)?\+:
+  query: properties.Map.Map Tier:>=$1
+(\d+)-(\d+)(Map)?t(ier)?:
+  query: properties.Map.Map Tier:[$1 TO $2]
+(tier)?red(tier)?:
+  query: properties.Map.Map Tier:>=12
+yellowtier|tieryellow:
+  query: properties.Map.Map Tier:[7 TO 11]
+whitetier|tierwhite:
+  query: properties.Map.Map Tier:<=6
+ 
+(\d+)aps:
+  query: properties.Weapon.Attacks per Second:>=$1
+(\d+)-(\d+)aps:
+  query: properties.Weapon.Attacks per Second:[$1 TO $2]
+

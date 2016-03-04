@@ -2,53 +2,53 @@
 # Offensive Mods
 #
 
-spelldmg|sdmg:
+spellda?ma?ge?|sda?ma?ge?:
   query: modsTotal.#% increased Spell Damage:>0
-(\d+)spelldmg|sdmg:
+(\d+)spellda?ma?ge?|sda?ma?ge?:
   query: modsTotal.#% increased Spell Damage:[$1 TO *]
-(\d+)-(\d+)spelldmg|sdmg:
+(\d+)-(\d+)spellda?ma?ge?|sda?ma?ge?:
   query: modsTotal.#% increased Spell Damage:[$1 TO $2]
 
-colddmg|cdmg:
+coldda?ma?ge?|cda?ma?ge?:
   query: modsTotal.#% increased Cold Damage:>0
-(\d+)colddmg|cdmg:
+(\d+)coldda?ma?ge?|cda?ma?ge?:
   query: modsTotal.#% increased Cold Damage:[$1 TO *]
-(\d+)-(\d+)colddmg|cdmg:
+(\d+)-(\d+)coldda?ma?ge?|cda?ma?ge?:
   query: modsTotal.#% increased Cold Damage:[$1 TO $2]
 
-firedmg|fdmg:
+fireda?ma?ge?|fda?ma?ge?:
   query: modsTotal.#% increased Fire Damage:>0
-(\d+)firedmg|fdmg:
+(\d+)fireda?ma?ge?|fda?ma?ge?:
   query: modsTotal.#% increased Fire Damage:[$1 TO *]
-(\d+)-(\d+)firedmg|fdmg:
+(\d+)-(\d+)fireda?ma?ge?|fda?ma?ge?:
   query: modsTotal.#% increased Fire Damage:[$1 TO $2]
 
-lightdmg|ldmg:
+lightda?ma?ge?|lda?ma?ge?:
   query: modsTotal.#% increased Lightning Damage:>0
-(\d+)lightdmg|ldmg:
+(\d+)lightda?ma?ge?|lda?ma?ge?:
   query: modsTotal.#% increased Lightning Damage:[$1 TO *]
-(\d+)-(\d+)lightdmg|ldmg:
+(\d+)-(\d+)lightda?ma?ge?|lda?ma?ge?:
   query: modsTotal.#% increased Lightning Damage:[$1 TO $2]
 
-coldspelldmg|csdmg:
+coldspellda?ma?ge?|csda?ma?ge?:
   query: modsTotal.#% increased Cold Spell Damage:>0
-(\d+)coldspelldmg|csdmg:
+(\d+)coldspellda?ma?ge?|csda?ma?ge?:
   query: modsTotal.#% increased Cold Spell Damage:[$1 TO *]
-(\d+)-(\d+)coldspelldmg|csdmg:
+(\d+)-(\d+)coldspellda?ma?ge?|csda?ma?ge?:
   query: modsTotal.#% increased Cold Spell Damage:[$1 TO $2]
 
-firespelldmg|fsdmg:
+firespellda?ma?ge?|fsda?ma?ge?:
   query: modsTotal.#% increased Fire Spell Damage:>0
-(\d+)firespelldmg|fsdmg:
+(\d+)firespellda?ma?ge?|fsda?ma?ge?:
   query: modsTotal.#% increased Fire Spell Damage:[$1 TO *]
-(\d+)-(\d+)firespelldmg|fsdmg:
+(\d+)-(\d+)firespellda?ma?ge?|fsda?ma?ge?:
   query: modsTotal.#% increased Fire Spell Damage:[$1 TO $2]
 
-lightspelldmg|lsdmg:
+lightspellda?ma?ge?|lsda?ma?ge?:
   query: modsTotal.#% increased Lightning Spell Damage:>0
-(\d+)lightspelldmg|lsdmg:
+(\d+)lightspellda?ma?ge?|lsda?ma?ge?:
   query: modsTotal.#% increased Lightning Spell Damage:[$1 TO *]
-(\d+)-(\d+)lightspelldmg|lsdmg:
+(\d+)-(\d+)lightspellda?ma?ge?|lsda?ma?ge?:
   query: modsTotal.#% increased Lightning Spell Damage:[$1 TO $2]
 
 manaregen|mregen:
@@ -65,11 +65,11 @@ wed:
 (\d+)-(\d+)wed:
   query: modsTotal.#% increased Elemental Damage with Weapons:[$1 TO $2]
 
-ipd|physdmg|pdmg:
+ipd|physda?ma?ge?|pda?ma?ge?:
   query: modsTotal.#% increased Physical Damage:>0
-(\d+)ipd|physdmg|pdmg:
+(\d+)ipd|physda?ma?ge?|pda?ma?ge?:
   query: modsTotal.#% increased Physical Damage:[$1 TO *]
-(\d+)-(\d+)ipd|physdmg|pdmg:
+(\d+)-(\d+)ipd|physda?ma?ge?|pda?ma?ge?:
   query: modsTotal.#% increased Physical Damage:[$1 TO $2]
 
 f(lat)?phys:
@@ -82,18 +82,18 @@ f(lat)?phys:
 hitscantbeevaded:
   query: modsTotal.Hits can't be Evaded:true
 
-gcrit:
+g(lobal)?crit:
   query: modsTotal.#% increased Global Critical Strike Chance:>0
-(\d+)gcrit:
+(\d+)g(lobal)?crit:
   query: modsTotal.#% increased Global Critical Strike Chance:[$1 TO *]
-(\d+)-(\d+)gcrit:
+(\d+)-(\d+)g(lobal)?crit:
   query: modsTotal.#% increased Global Critical Strike Chance:[$1 TO $2]
 
-gcritmulti:
+g(lobal)?critmulti:
   query: modsTotal.#% increased Global Critical Strike Multiplier:>0
-(\d+)gcritmulti:
+(\d+)g(lobal)?critmulti:
   query: modsTotal.#% increased Global Critical Strike Multiplier:[$1 TO *]
-(\d+)-(\d+)gcritmulti:
+(\d+)-(\d+)g(lobal)?critmulti:
   query: modsTotal.#% increased Global Critical Strike Multiplier:[$1 TO $2]
 
 
@@ -111,11 +111,11 @@ castsp(ee)?d:
 (\d+)-(\d+)castsp(ee)?d:
   query: modsTotal.#% increased Cast Speed:[$1 TO $2]
 
-incprojdmg:
+incprojda?ma?ge?:
   query: modsTotal.#% increased Projectile Damage:>0
-(\d+)incprojdmg:
+(\d+)incprojda?ma?ge?:
   query: modsTotal.#% increased Projectile Damage:[$1 TO *]
-(\d+)-(\d+)incprojdmg:
+(\d+)-(\d+)incprojda?ma?ge?:
   query: modsTotal.#% increased Projectile Damage:[$1 TO $2]
 
 f(lat)?light:
@@ -174,25 +174,25 @@ minusmana|elreon:
 (\d+)-(\d+)minusmana|elreon:
   query: modsTotal.-# to Mana Cost of Skills:[$1 TO $2]
 
-totalcoldspelldmg|tcsdmg:
+totalcoldspellda?ma?ge?|tcsda?ma?ge?:
   query: modsTotal.#% increased Cold Spell Damage:>0
-(\d+)totalcoldspelldmg|tcsdmg:
+(\d+)totalcoldspellda?ma?ge?|tcsda?ma?ge?:
   query: modsTotal.#% increased Cold Spell Damage:[$1 TO *]
-(\d+)-(\d+)totalcoldspelldmg|tcsdmg:
+(\d+)-(\d+)totalcoldspellda?ma?ge?|tcsda?ma?ge?:
   query: modsTotal.#% increased Cold Spell Damage:[$1 TO $2]
 
-totalfirespelldmg|tfsdmg:
+totalfirespellda?ma?ge?|tfsda?ma?ge?:
   query: modsTotal.#% increased Fire Spell Damage:>0
-(\d+)totalfirespelldmg|tfsdmg:
+(\d+)totalfirespellda?ma?ge?|tfsda?ma?ge?:
   query: modsTotal.#% increased Fire Spell Damage:[$1 TO *]
-(\d+)-(\d+)totalfirespelldmg|tfsdmg:
+(\d+)-(\d+)totalfirespellda?ma?ge?|tfsda?ma?ge?:
   query: modsTotal.#% increased Fire Spell Damage:[$1 TO $2]
 
-totallightspelldmg|tlsdmg:
+totallightspellda?ma?ge?|tlsda?ma?ge?:
   query: modsTotal.#% increased Lightning Spell Damage:>0
-(\d+)totallightspelldmg|tlsdmg:
+(\d+)totallightspellda?ma?ge?|tlsda?ma?ge?:
   query: modsTotal.#% increased Lightning Spell Damage:[$1 TO *]
-(\d+)-(\d+)totallightspelldmg|tlsdmg:
+(\d+)-(\d+)totallightspellda?ma?ge?|tlsda?ma?ge?:
   query: modsTotal.#% increased Lightning Spell Damage:[$1 TO $2]
 
 ph(ys)?lifeleech|pll:
