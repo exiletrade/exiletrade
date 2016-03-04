@@ -33,6 +33,7 @@ url: /
 			</label>
 		</div>
 		<zf-notification-set id="save-notification-search" position="top-left"></zf-notification-set>
+		<zf-notification-set id="save-notification-options" position="top-right"></zf-notification-set>
 
 		<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>
 		<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn scrollTop">Scroll Top</a>
@@ -41,7 +42,7 @@ url: /
 		<div class="grid-block search-options" ng-show="false">
 			<span class="inline-label">
 				<div class="switch small">
-					<input type="checkbox" ng-model="switchPseudoMods" id="switch-pseudoMods">
+					<input type="checkbox" ng-model="options.switchPseudoMods" id="switch-pseudoMods">
 					<label for="switch-pseudoMods"></label>
 				</div>
 
@@ -49,7 +50,7 @@ url: /
 			</span>
 			<span class="inline-label">
 				<div class="switch small">
-					<input type="checkbox" ng-model="switchItemsPerRow" id="switch-itemsPerRow"
+					<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
 						   ng-true-value="" ng-false-value="" ng-change="stateChanged()">
 					<label for="switch-itemsPerRow"></label>
 				</div>
@@ -86,8 +87,13 @@ url: /
 			</zf-accordion>
 		</div>
 
+
 		<!-- Show Options Sidebar -->
 		<div zf-panel="" id="searchOptions">
+			<a href="#" zf-close="" ng-click="saveOptions()" class="button small saveOptionsLink" title="Saved Options."
+			   color="success" autoclose="2500" zf-notify="save-notification-options">
+				<img zf-iconic="" icon="circle-check" size="small">Save
+			</a>
 			<a zf-close="" class="close-button ng-scope">×</a>
 
 			<div class="grid-block search-options">
@@ -97,37 +103,42 @@ url: /
 						<li>
 							<span>Show PseudoMods</span>
 							<div class="switch small">
-								<input type="checkbox" ng-model="switchPseudoMods" id="switch-pseudoMods">
+								<input type="checkbox" ng-model="options.switchPseudoMods" id="switch-pseudoMods">
 								<label for="switch-pseudoMods"></label>
 							</div>
 						</li>
 						<li>
 							<span>Show 1 Item per row</span>
 							<div class="switch small">
-								<input type="checkbox" ng-model="switchItemsPerRow" id="switch-itemsPerRow"
+								<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
 									   ng-true-value="" ng-false-value="" ng-change="stateChanged()">
 								<label for="switch-itemsPerRow"></label>
 							</div>
-
 						</li>
 					</ul>
 				</section>
 				<section class="block-list">
 					<header>Search Prefixes</header>
 					<ul>
-						<li><input type="text" placeholder="Buyout"></li>
-						<li><input type="text" placeholder="Placeholder"></li>
+						<li class="with-dropdown">
+							<select name="" ng-model="options.buyoutSelect.value" id="option-buyout"
+									ng-options="v for v in options.buyoutSelect.options">
+							</select>
+						</li>
+						<li ng-repeat="input in options.searchPrefixInputs track by $index">
+							<input type="text" ng-model="input" placeholder="Custom prefix">
+						</li>
 					</ul>
+					<a href="" class="button small hollow" ng-click="addInputField()">Add Field</a>
 				</section>
 				<section class="block-list">
 					<header>Select Leagues</header>
 					<ul>
-						<li class="with-dropdown"><select name="" id="">
-							<option>Standard</option>
-							<option>Hardcore</option>
-							<option>Perandus SC</option>
-							<option>Perandus HC</option>
-						</select></li>
+						<li class="with-dropdown">
+							<select name="" ng-model="options.leagueSelect.value" id="option-league"
+								ng-options="v for v in options.leagueSelect.options">
+							</select>
+						</li>
 					</ul>
 				</section>
 			</div>
@@ -277,7 +288,7 @@ url: /
 									</div>
 									
 									<div class="grid-block modsPseudo">
-										<ul ng-show="switchPseudoMods==true" ng-if="!(item._source.modsPseudo | isEmpty)">
+										<ul ng-show="options.switchPseudoMods==true" ng-if="!(item._source.modsPseudo | isEmpty)">
 											<li>[Pseudo Mods]</li>
 											<li class="sortable" ng-repeat="mod in getItemMods(item._source.modsPseudo)"
 												data-mod="{{mod}}">

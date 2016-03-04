@@ -189,6 +189,22 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		$scope.savedSearchesList = JSON.parse(localStorage.getItem("savedSearches"));
 		$scope.savedItemsList = JSON.parse(localStorage.getItem("savedItems"));
 
+		$scope.options = {
+			"leagueSelect" : {
+				"type": "select",
+				"name": "League",
+				"value": "Perandus SC",
+				"options": ["Perandus SC", "Perandus HC", "Standard", "Hardcore"]
+			},
+			"buyoutSelect" : {
+				"type": "select",
+				"name": "Buyout",
+				"value": "Buyout: Yes",
+				"options": ["Buyout: Yes", "Buyout: No", "Buyout: Either"]
+			},
+			"searchPrefixInputs" : ['']
+		};
+
 		$scope.termsMap = {};
 
 		var mergeIntoTermsMap = function(res){
@@ -373,6 +389,31 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 
 			localStorage.setItem("savedItems", JSON.stringify(savedItems));
 			$scope.savedItemsList = savedItems.reverse();
+		};
+
+
+		/*
+			Add input Fields (search Prefixes)
+		*/
+		$scope.addInputField = function() {
+			var newField = '';
+			$scope.options.searchPrefixInputs.push(newField);
+		};
+
+		/*
+		 Delete selected saved search terms from HTML storage
+		*/
+		$scope.saveOptions = function(id){
+			/*
+			var savedItems = JSON.parse(localStorage.getItem("savedItems"));
+
+			savedItems = savedItems.filter(function (el) {
+					return el.itemId !== id;
+				}
+			);
+
+			localStorage.setItem("savedItems", JSON.stringify(savedItems));
+			$scope.savedItemsList = savedItems.reverse();*/
 		};
 
 		/*
