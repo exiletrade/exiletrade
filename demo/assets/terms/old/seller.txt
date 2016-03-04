@@ -1,8 +1,0 @@
-;
-; Seller
-;
-offline                         =       online=
-online                          =       online=x
-bo                              =       buyout=x
-nobo                            =       buyout=
-seller(.*)                      =       seller=$GROUP1
