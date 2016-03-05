@@ -199,7 +199,8 @@ url: /
 					<div class="grid-block item-inner-border" ng-style="switchValue">
 						<div class="grid-block item-box-left">
 
-							<div class="grid-block image-container" ng-style="{'background-image': 'url({{item._source.info.icon}})'}">
+							<div class="grid-block image-container" ng-style="{'background-image': 'url({{item._source.info.icon}})'}"
+								title="Stash Name: {{item._source.shop.stash.stashName}}">
 								<div ng-repeat="cssClasses in getSocketClasses(item._source.sockets.allSockets)" class="socket {{cssClasses}}">
 								</div>
 								<div ng-repeat="cssClasses in getSocketLinkClasses(item._source.sockets.allSockets)" class="socketLink {{cssClasses}}">
@@ -210,12 +211,10 @@ url: /
 							<div class="grid-block item-info">
 								<div class="vertical grid-block">
 									<div class="grid-block">
-										<h5 class="item-name">
+										<h5 class="item-name" title="Note: {{item._source.shop.note}}">
 											<span class="label corrupted" ng-if="item._source.attributes.corrupted">Corrupted</span>
 											<span class="label mirrored" ng-if="item._source.attributes.mirrored">Mirrored</span>
-											<a class="name" href="http://www.pathofexile.com/forum/view-thread/{{item._source.shop.threadid}}" target="_blank">
-												{{item._source.info.fullName}}
-											</a>
+											<a class="name" ngclipboard data-clipboard-text="{{copyWhisperToClipboard(item)}}">{{item._source.info.fullName}}</a>
 										</h5>
 									</div>
 
@@ -328,11 +327,11 @@ url: /
 											<i class="seperator"></i>
 										</span>
 
-										<span class="click verified {{item._source.shop.verified}}">
+										<!--span class="click verified {{item._source.shop.verified}}">
 											Verify
 											<span class=""></span>
 											<i class="seperator"></i>
-										</span>
+										</span-->
 
 										<span class="" data-ign="{{item._source.shop.lastCharacterName}}">
 											IGN: {{item._source.shop.lastCharacterName}}
@@ -340,7 +339,7 @@ url: /
 										</span>
 
 										<span>
-											<a ngclipboard class="click small hollow whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}">Copy Whisper</a>
+											<a ngclipboard class="click small hollow whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}">Whisper</a>
 										</span>
 									</div>
 								</div>
