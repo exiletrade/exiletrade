@@ -9,3 +9,9 @@ nobo:
   query: shop.hasPrice:false
 seller(.*):
   query: (shop.sellerAccount:$1)
+new:
+  query:shop.verified:YES
+old:
+  query:shop.verified:OLD
+gone:
+  query:shop.verified:GONE
