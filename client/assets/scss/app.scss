@@ -6,6 +6,10 @@ $border_color_item : #004978;
 $color_white : #fff;
 $switch_on_color: #43AC6A;
 
+body {
+	background: rgba(0, 0, 0, 0.06);
+}
+
 li {
 	list-style-type: none;
 }
