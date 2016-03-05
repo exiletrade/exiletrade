@@ -48,10 +48,12 @@ function parseSearchInputTokens(input) {
 
 function evalSearchTerm(token) {
 	var result = "";
+	//console.trace(token)
 	for (regex in terms) {
 		if (terms.hasOwnProperty(regex)) {
 			var rgex = new RegExp('^' + regex + '$', 'i');
 			var cleanToken = removeParensAndBackTick(token);
+			//console.trace(regex)
 			var foundMatch = rgex.test(cleanToken);
 			if (foundMatch) {
 				result = terms[regex].query;
