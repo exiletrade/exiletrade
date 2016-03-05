@@ -182,7 +182,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		return esFactory({ host: 'http://apikey:07e669ae1b2a4f517d68068a8e24cfe4@api.exiletools.com' }); // poeblackmarketweb@gmail.com
 	});
 
-	appModule.controller('SearchController', ['$scope', '$http', '$location', 'es', function($scope, $http, $location, es) {
+	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', 'es', function($q, $scope, $http, $location, es) {
 		console.info('controller');
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.queryString = "";
@@ -256,21 +256,29 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			jQuery.extend($scope.termsMap, ymlData);
 		};
 
-		$http.get('assets/terms/itemtypes.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/gems.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/mod-ofs.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/mod-def.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/mod-vaal.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/attributes.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/sockets.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/buyout.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/uniques.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/basetypes.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/currencies.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/leagues.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/seller.yml').then(mergeIntoTermsMap);
-		$http.get('assets/terms/mod-jewels.yml').then(mergeIntoTermsMap);
+		$q.all([
+			$http.get('assets/terms/itemtypes.yml'),
+			$http.get('assets/terms/gems.yml'),
+			$http.get('assets/terms/mod-ofs.yml'),
+			$http.get('assets/terms/mod-def.yml'),
+			$http.get('assets/terms/mod-vaal.yml'),
+			$http.get('assets/terms/attributes.yml'),
+			$http.get('assets/terms/sockets.yml'),
+			$http.get('assets/terms/buyout.yml'),
+			$http.get('assets/terms/uniques.yml'),
+			$http.get('assets/terms/basetypes.yml'),
+			$http.get('assets/terms/currencies.yml'),
+			$http.get('assets/terms/leagues.yml'),
+			$http.get('assets/terms/seller.yml'),
+			$http.get('assets/terms/mod-jewels.yml')
+		]).then(function (results) {
+			for (var i = 0; i < results.length; i++) {
+				mergeIntoTermsMap(results[i]);
+			}
+			if (typeof httpParams['q'] !== 'undefined') $scope.doSearch();
+		});
 
+		
 		/*
 			Runs the current searchInput with default sort
 		*/		
