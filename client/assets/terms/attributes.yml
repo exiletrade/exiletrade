@@ -15,7 +15,7 @@ unid(entified)?:
  query: attributes.identified:false
 corrupt(ed)?:
  query: attributes.corrupted:true
-pure|(not|un)corrupt(ed)?|clea(n|r):
+(pure|(not|un)corrupt(ed)?|clea(n|r))\b:
  query: attributes.corrupted:false
 notcrafted:
  query: attributes.craftedModsCount:0
@@ -38,11 +38,11 @@ crafted:
 (\d+)rLe?ve?l:
   query: requirements.Level:<=$1
   
-(ar|armour):
+(ar|armou?r):
   query: propertiesPseudo.Armour.estimatedQ20.Armour:>0
-(\d+)(ar|armour):
+(\d+)(ar|armou?r):
   query: propertiesPseudo.Armour.estimatedQ20.Armour:>=$1
-(\d+)-(\d+)(ar|armour):
+(\d+)-(\d+)(ar|armou?r):
   query: propertiesPseudo.Armour.estimatedQ20.Armour:[$1 TO $2]
   
 (ev|evasion):
@@ -97,3 +97,38 @@ yellowtier|tieryellow:
   query: properties.Map.Map Tier:[7 TO 11]
 whitetier|tierwhite:
   query: properties.Map.Map Tier:<=6
+  
+-(ev|evasion):
+  query: _missing_:propertiesPseudo.Armour.estimatedQ20.Evasion\ Rating
+
+-(es|energyshield):
+  query: _missing_:propertiesPseudo.Armour.estimatedQ20.Energy\ Shield
+  
+-(ar|armou?r):
+  query: _missing_:propertiesPseudo.Armour.estimatedQ20.Armour
+
+lifehouse:
+  query: (`-es `-ev) ar
+  
+purear(mou?r)?:
+  query:(`-es `-ev) `ar
+(\d+)purear(mou?r)?:
+  query: (`-es `-ev) `$1ar
+(\d+)-(\d+)purear(mou?r)?:
+  query: (`-es `-ev) `$1-$2ar
+
+pure(ev|evasion):
+  query: (`-es `-ar) `ev
+(\d+)pure(ev|evasion):
+  query: (`-es `-ev) `$1ev
+(\d+)-(\d+)pure(ev|evasion):
+  query: (`-es `-ev) `$1-$2ev
+  
+pure(es|energyshield):
+  query: (`-ar `-ev) `es
+(\d+)pure(es|energyshield):
+  query: (`-es `-ev) `$1es
+(\d+)-(\d+)pure(es|energyshield):
+  query: (`-es `-ev) `$1-$2es
+
+  
