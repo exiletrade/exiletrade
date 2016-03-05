@@ -719,7 +719,7 @@ RathpithGlobe:
   query: info.name:"Rathpith Globe"
 Realmshaper:
   query: info.name:"Realmshaper"
-Reaper'?s?Pursuit:
+Reaper'?s?(Pursuit)?:
   query: info.name:"Reaper's Pursuit"
 Rearguard:
   query: info.name:"Rearguard"
