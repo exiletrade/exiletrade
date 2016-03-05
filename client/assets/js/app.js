@@ -37,6 +37,8 @@ function parseSearchInputTokens(input) {
 			if (evaluatedToken && hasBackTick(evaluatedToken)) {
 				evaluatedToken = parseSearchInputTokens(evaluatedToken);
 			}
+		} else {
+			evaluatedToken = token;
 		}
 		queryTokens.push(evaluatedToken);
 	}
