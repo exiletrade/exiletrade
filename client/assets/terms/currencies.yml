@@ -28,7 +28,7 @@ Regal(Orb)?:
   query: info.name:"Regal Orb"
 Orb(of)?Augmentation:
   query: info.name:"Orb of Augmentation"
-Exalt|Ex|Exalted(Orb)?:
+^Ex(alted)?(Orb)?$:
   query: info.name:"Exalted Orb"
 Alt|(Orb)?(of)?Alteration:
   query: info.name:"Orb of Alteration"
