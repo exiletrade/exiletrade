@@ -170,7 +170,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		$urlProvider.otherwise('/');
 
 		$locationProvider.html5Mode({
-			enabled:false,
+			enabled: true,
 			requireBase: false
 		});
 
