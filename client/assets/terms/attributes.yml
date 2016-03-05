@@ -111,7 +111,7 @@ lifehouse:
   query: (`-es `-ev) ar
   
 purear(mou?r)?:
-  query:(`-es `-ev) `ar
+  query: (`-es `-ev) `ar
 (\d+)purear(mou?r)?:
   query: (`-es `-ev) `$1ar
 (\d+)-(\d+)purear(mou?r)?:
