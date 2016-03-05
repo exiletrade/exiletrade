@@ -29,6 +29,10 @@ url: /
 							>
 						<img zf-iconic="" icon="circle-check" size="small">Save
 					</a>
+					<div class="searchStats" title="{{queryString}}" ng-if="Response.took" zf-open="showElasticJsonRequestModal">
+						&nbsp;&nbsp;<img zf-iconic="" icon="Dashboard" size="small"> {{Response.took}} ms <br/>
+						&nbsp;&nbsp;<img zf-iconic="" icon="Document" size="small"> {{Response.hits.total}} hits
+					</div>
 				</span>
 			</label>
 		</div>
@@ -154,8 +158,15 @@ url: /
 		<!-- Show Disclaimer Modal -->
 		<div zf-modal="" id="showDisclaimerModal">
 			<a zf-close="" class="close-button">×</a>
-			<h3>Disclaimer</h3>
-			<p>This site is fan-made and not affiliated with Grinding Gear Games in any way.</p>
+			<h3>About</h3>
+			<p>This site is fan-made and not affiliated with Grinding Gear Games in any way. ExileTrade is fully open source under GNU General Public License v2.0.</p>
+		</div>
+
+		<!-- Show Elastic JSON Request Debug Modal -->
+		<div zf-modal="" id="showElasticJsonRequestModal">
+			<a zf-close="" class="close-button">×</a>
+			<h4>Elastic JSON Request</h4>
+			<pre>{{elasticJsonRequest}}</pre>
 		</div>
 
 		<hr width=100% size=1>
@@ -163,13 +174,6 @@ url: /
 
 	<!-- Searchresults -->
 	<div class="grid-content search-results">
-
-		<ul class="debugInfo">
-			<li>Request took {{Response.took}} ms
-			<li>Request matched {{Response.hits.total}} hits
-			<li>Query String: {{queryString}}
-		</ul>
-		
 		<div class="grid-block search-items large-up-2">
 			<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style=""
 				 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
