@@ -28,7 +28,7 @@ Add(itional)?Acc(uracy)?:
   query: info.fullName:"Additional Accuracy"
 AddedChaosDamage:
   query: info.fullName:"Added Chaos Damage"
-Ancestral Protector:
+AncestralProtector:
   query: info.fullName:"Ancestral Protector"
 Anger:
   query: info.fullName:"Anger"
@@ -90,7 +90,7 @@ Clarity:
   query: info.fullName:"Clarity"
 Cleave:
   query: info.fullName:"Cleave"
-Cluster Traps:
+ClusterTraps:
   query: info.fullName:"Cluster Traps"
 ColdPen(etration)?:
   query: info.fullName:"Cold Penetration"
@@ -142,7 +142,7 @@ Earthquake:
   query: info.fullName:"Earthquake"
 Ele(mental)?Weakness|EW:
   query: info.fullName:"Elemental Weakness"
-Elemental Focus:
+ElementalFocus:
   query: info.fullName:"Elemental Focus"
 ElementalHit:
   query: info.fullName:"Elemental Hit"
@@ -204,7 +204,7 @@ FreezingPulse:
   query: info.fullName:"Freezing Pulse"
 Frenzy:
   query: info.fullName:"Frenzy"
-Frost Bomb:
+FrostBomb:
   query: info.fullName:"Frost Bomb"
 Frostbite:
   query: info.fullName:"Frostbite"
@@ -238,7 +238,7 @@ HeraldofThunder|HoT:
   query: info.fullName:"Herald of Thunder"
 Hypothermia:
   query: info.fullName:"Hypothermia"
-Ice Trap:
+IceTrap:
   query: info.fullName:"Ice Trap"
 IceBite:
   query: info.fullName:"Ice Bite"

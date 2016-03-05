@@ -51,7 +51,7 @@ function evalSearchTerm(token) {
 	//console.trace(token)
 	for (regex in terms) {
 		if (terms.hasOwnProperty(regex)) {
-			var rgex = new RegExp('^' + regex + '$', 'i');
+			var rgex = new RegExp('^(' + regex + ')$', 'i');
 			var cleanToken = removeParensAndBackTick(token);
 			//console.trace(regex)
 			var foundMatch = rgex.test(cleanToken);
@@ -325,7 +325,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
 			$scope.Response = null;
 			if (limit > 999) limit = 999; // deny power overwhelming
-			var finalSearchInput = searchInput + ' ' + createSearchPrefix($scope.options + ' new');
+			var finalSearchInput = searchInput + ' ' + createSearchPrefix($scope.options);
 			$location.search({'q' : searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder, 'limit' : limit});
 			$location.replace();
 			console.trace('changed location to: ' + $location.absUrl());

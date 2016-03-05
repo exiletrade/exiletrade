@@ -10,8 +10,8 @@ nobo:
 seller(.*):
   query: (shop.sellerAccount:$1)
 new:
-  query:shop.verified:YES
+  query: shop.verified:YES
 old:
-  query:shop.verified:OLD
+  query: shop.verified:OLD
 gone:
-  query:shop.verified:GONE
+  query: shop.verified:GONE
