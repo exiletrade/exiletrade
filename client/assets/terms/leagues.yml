@@ -1,11 +1,11 @@
 #
 # Leagues
 #
-(standard|sc):
+^(standard|sc)$:
   query: attributes.league:Standard
-(hardcore|hc):
+^(hardcore|hc)$:
   query: attributes.league:Hardcore
-(((t(e?mp)?)|Perandus)|(st(andar)?d|sc))+:
+^(((t(e?mp)?)|P(erandus)?)|(st(andar)?d|sc))$+:
   query: attributes.league:Perandus
-((t(e?mp)?)|Perandus)(hardcore|hc):
+^(((t(e?mp)?)|P(erandus)?)(hardcore|hc))$:
   query: attributes.league:Hardcore Perandus
