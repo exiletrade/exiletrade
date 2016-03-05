@@ -15,8 +15,8 @@ function parseSearchInput(_terms, input) {
 		i++;
 		return lst;
 	});
-	var ri = new RegExp('^name:"(.+)"$', 'i');
-	if(ri.test(_queryStr)) return _queryStr.replace("name","info.tokenized.fullName");
+	var ri = new RegExp('^name[:=]"(.+)"$', 'i');
+	if(ri.test(_queryStr)) return _queryStr.replace("name","info.tokenized.fullName").replace("=",":");
 	return _queryStr.replace("=",":");
 	return parseSearchInputTokens(input);
 }
