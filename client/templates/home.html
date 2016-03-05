@@ -20,7 +20,7 @@ url: /
 		<div class="small-12 medium=12 grid-content">
 			<label>
 				<span class="inline-label">
-					<a href="#" ng-click="doSearch()" class="button" value="Search">
+					<a href="" ng-click="doSearch()" class="button" value="Search">
 						<img zf-iconic="" icon="magnifying-glass" size="small">
 					</a>
 					<input id="searchField" ng-model="searchInput" placeholder="Search Input" my-enter="doSearch()" size="150" type="text">
@@ -269,14 +269,14 @@ url: /
 										<ul>
 											<li class="sortable" ng-repeat="mod in item._source.implicitMods"
 												data-mod="{{mod}}">
-												<a href="#" 
+												<a href="" 
 												   data-sort-key="{{mod.key}}"
 												   data-sort-order="desc"
 												   ng-click="doSearchWithSort($event)">{{mod.display}}</a>
 											</li>
 											<li class="sortable" ng-repeat="mod in item._source.forgottenMods"
 												data-mod="{{mod}}" ng-class="{firstExplicit: ($index) == 0 && item._source.attributes.implicitModsCount > 0}">
-												<a href="#" 
+												<a href="" 
 												   data-sort-key="{{mod.key}}"
 												   data-sort-order="desc"
 												   ng-click="doSearchWithSort($event)">{{mod.display}}</a>
@@ -307,7 +307,7 @@ url: /
 											  data-value="{{item._source.shop.amount}}"
 											  data-name="Price in {{item._source.shop.currency}}"
 											  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
-											<a href="#" 
+											<a href="" 
 											   data-sort-key="shop.chaosEquiv"
 											   data-sort-order="asc"
 											   ng-click="doSearchWithSort($event)">{{item._source.shop.amount}}×</a>
@@ -315,7 +315,7 @@ url: /
 										<span class="sortable price"
 											  ng-if="item._source.shop.amount > 0"
 											  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
-											<a href="#" 
+											<a href="" 
 											   data-sort-key="shop.chaosEquiv"
 											   data-sort-order="asc"
 											   ng-click="doSearchWithSort($event)">
