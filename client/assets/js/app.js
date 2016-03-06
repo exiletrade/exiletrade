@@ -32,10 +32,23 @@ function parseSearchInputTokens(input) {
 		var evaluatedToken = tokens[i];
 		var token = evaluatedToken.toUpperCase();
 		if ( token != "OR" && token != "AND" && token !="LST" && token !="NOT" ) {
-			evaluatedToken = evalSearchTerm(evaluatedToken);
-			console.trace(token + '=' + evaluatedToken);
-			if (evaluatedToken && hasBackTick(evaluatedToken)) {
-				evaluatedToken = parseSearchInputTokens(evaluatedToken);
+			if(!token.startsWith('-')){			
+				evaluatedToken = evalSearchTerm(evaluatedToken);
+				console.trace(token + '=' + evaluatedToken);
+				if (evaluatedToken && hasBackTick(evaluatedToken)) {
+					evaluatedToken = parseSearchInputTokens(evaluatedToken);
+				}
+			}else{
+				console.info("exclude: "+ evaluatedToken);
+				var exclude = "_missing:";
+				evaluatedToken = evalSearchTerm(evaluatedToken.substring(1));
+				if(evaluatedToken.indexOf('#')>-1){
+					var rgex = new RegExp(':.+','i')
+					evaluatedToken = "_missing_:" + evaluatedToken.replace(rgex,"")					
+				}else{
+					evaluatedToken = "-"+evaluatedToken;
+					//console.info("exclude: "+ exclude + evaluatedToken);
+				}
 			}
 		} else {
 			evaluatedToken = token;
@@ -52,7 +65,7 @@ function evalSearchTerm(token) {
 	for (regex in terms) {
 		if (terms.hasOwnProperty(regex)) {
 			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
-			var rgex = new RegExp('^' + regex + '$', 'i');
+			var rgex = new RegExp(regex, 'i');
 			var cleanToken = removeParensAndBackTick(token);
 			//console.trace(regex)
 			var foundMatch = rgexTest.test(cleanToken);
