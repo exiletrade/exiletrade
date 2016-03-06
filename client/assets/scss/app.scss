@@ -25,6 +25,11 @@ ul {
 	margin-left: 0;
 }
 
+em {
+  font-style: normal;         /* Removes italics */
+  text-decoration: underline; /* Makes underline */
+}
+
 img.pageLogo {
 	width: 40px;
 	height: 40px;
