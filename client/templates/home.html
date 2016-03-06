@@ -343,6 +343,13 @@ url: /
 												   data-sort-order="desc"
 												   ng-click="doSearchWithSort($event)"><span ng-if="mod.affix">[{{mod.affix}} T{{mod.tier}}/{{mod.maxTier}}]</span> {{mod.display}}</a>
 											</li>
+											<li class="sortable" ng-repeat="mod in item._source.craftedMods"
+												data-mod="{{mod}}">
+												<a href="" 
+												   data-sort-key="{{mod.key}}"
+												   data-sort-order="desc"
+												   ng-click="doSearchWithSort($event)">{{mod.display}}</a>
+											</li>
 											<li ng-if="item._source.mods.Card">
 												{{item._source.mods.Card.DivinationReward}}
 											</li>

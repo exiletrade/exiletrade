@@ -360,6 +360,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		function addCustomFields(item) {
 			if (item.mods) createForgottenMods(item);
 			if (item.mods) createImplicitMods(item);
+			if (item.mods) createCraftedMods(item);
 		}
 
 		function createForgottenMods(item) {
@@ -380,14 +381,26 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 
 		function createImplicitMods(item) {
 			var itemTypeKey = firstKey(item.mods);
-			var explicits = item.mods[itemTypeKey].implicit;
-			var implicitMods = $.map( explicits, function( propertyValue, modKey ) {
+			var implicits = item.mods[itemTypeKey].implicit;
+			var implicitMods = $.map( implicits, function( propertyValue, modKey ) {
 				return {
 					display : modToDisplay(propertyValue, modKey),
 					key : 'mods.' + itemTypeKey + '.implicit.' + modKey
 				};
 			});
 			item['implicitMods'] = implicitMods;
+		}
+		
+		function createCraftedMods(item) {
+			var itemTypeKey = firstKey(item.mods);
+			var crafteds = item.mods[itemTypeKey].crafted;
+			var craftedMods = $.map( crafteds, function( propertyValue, modKey ) {
+				return {
+					display : modToDisplay(propertyValue, modKey),
+					key : 'mods.' + itemTypeKey + '.crafted.' + modKey
+				};
+			});
+			item['craftedMods'] = craftedMods;
 		}
 
 
