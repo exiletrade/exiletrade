@@ -362,3 +362,10 @@ f(ire)L(ife)??L(eech)?:
   query: modsTotal.#% of Fire Damage Leeched as Life:[$1 TO *]
 (\d+)-(\d+)f(ire)L(ife)??L(eech)?:
   query: modsTotal.#% of Fire Damage Leeched as Life:[$1 TO $2]  
+
+inc(reased)?A(rea)?of?E(ffect)?:
+  query: modsTotal.#% increased Radius of Area Skills:>0
+(\d+)inc(reased)?A(rea)?of?E(ffect)?:
+  query: modsTotal.#% increased Radius of Area Skills:[$1 TO *]
+(\d+)-(\d+)inc(reased)?A(rea)?of?E(ffect)?:
+  query: modsTotal.#% increased Radius of Area Skills:[$1 TO $2]  
