@@ -441,7 +441,14 @@ url: /
 									</tr>
 									<tr ng-repeat="(defense, value) in itemType.estimatedQ20">
 										<td>{{defense}}</td>
-										<td>{{value}}</td>
+										<td>
+											<a
+												data-sort-key="propertiesPseudo.Armour.estimatedQ20.{{defense}}"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{value}}
+											</a>
+										</td>
 									</tr>
 									</tbody>
 								</table>
