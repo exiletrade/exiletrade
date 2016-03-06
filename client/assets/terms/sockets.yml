@@ -6,7 +6,7 @@
 (\d{1})l(inks?)?:
  query: sockets.largestLinkGroup:>=$1
 (\d{1})s(ockets?)?(\d{1})l(ink)?:
- query: (`$1s AND `$2l)
+ query: (`$1s AND `$3l)
 (\d{1})l(ink)?(\d{1})s(ockets?)?:
  query: (`$1l AND `$3s)
 (\d{1})b(lue?)?:
