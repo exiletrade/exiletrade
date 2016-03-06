@@ -211,9 +211,10 @@ url: /
 					<div class="grid-block item-inner-border" ng-style="switchValue">
 						<div class="grid-block item-box-left">
 
-							<div class="grid-block image-container" ng-style="{'background-image': 'url({{item._source.info.icon}})'}"
+							<div class="grid-block image-container"
 								title="Stash Name: {{item._source.shop.stash.stashName}}"
 								zf-open="showExileToolsItemJsonModal{{item._id}}">
+								<img src="{{item._source.info.icon}}"/>
 								<div ng-repeat="cssClasses in getSocketClasses(item._source.sockets.allSockets)" class="socket {{cssClasses}}">
 								</div>
 								<div ng-repeat="cssClasses in getSocketLinkClasses(item._source.sockets.allSockets)" class="socketLink {{cssClasses}}">
@@ -422,7 +423,14 @@ url: /
 									</tr>
 									<tr>
 										<td>Gem Level</td>
-										<td>{{item._source.properties.Gem.Level}}</td>
+										<td>
+											<a
+												data-sort-key="properties.Gem.Level"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Gem.Level}}
+											</a>
+										</td>
 									</tr>
 									<tr>
 										<td>Gem Experience</td>

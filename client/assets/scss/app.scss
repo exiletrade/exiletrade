@@ -440,6 +440,11 @@ img.gitter-badge {
 		position: absolute;
 		background-position: right 10px;
 
+		img {
+			max-width: 114px;
+			height: auto;
+		}
+
 		&:hover {
 			.socket, .socketLink {
 				opacity:0;
