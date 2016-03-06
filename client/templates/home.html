@@ -171,7 +171,7 @@ url: /
 		<div zf-modal="" id="showElasticJsonRequestModal">
 			<a zf-close="" class="close-button">×</a>
 			<h4>Elastic JSON Request</h4>
-			<pre>{{elasticJsonRequest}}</pre>
+			<textarea class="code" rows="30" cols="160">{{elasticJsonRequest}}</textarea>
 		</div>
 
 		<hr width=100% size=1>
@@ -187,7 +187,7 @@ url: /
 				<div zf-modal="" id="showExileToolsItemJsonModal{{item._id}}">
 					<!--a zf-close="" class="close-button">×</a-->
 					<h4>ExileTools Item JSON</h4>
-					<textarea rows="20" cols="80">{{item | json}}</textarea>
+					<textarea class="code" rows="40" cols="160">{{item | json}}</textarea>
 				</div>
 
 				<div class="grid-block item-border">
