@@ -87,6 +87,8 @@
   query: info.name:"The Supreme Truth"
 (The)?Taming:
   query: info.name:"The Taming"
+(The)?Tempestu?o?u?sSteel:
+  query: info.name:"The Tempestuous Steel"
 (The)?ThreeDragons:
   query: info.name:"The Three Dragons"
 (The)?Vertex:
