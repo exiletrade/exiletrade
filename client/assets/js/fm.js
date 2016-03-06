@@ -38,7 +38,7 @@ function fm_processExplicitMods(item) {
 		var maxTier = affixMaxLookUp(baseType, mod.name)
 		if(affix) {
 			//logger.info('affix found:' + affix.mod + ' tier: ' + affix.tier + ' maxTier: ' + maxTier)
-			mod['affix'] = affix.affix.toLowerCase()
+			mod['affix'] = affix.affix// == 'Prefix' ? 'P' : 'S'
 			mod['tier'] = affix.tier
 			mod['maxTier'] = maxTier
 			
