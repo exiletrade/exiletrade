@@ -341,21 +341,24 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			Add custom fields to the item object
 		*/
 		function addCustomFields(item) {
-			if (item.mods) item['forgottenMods'] = createForgottenMods(item);
-			if (item.mods) item['implicitMods'] = createImplicitMods(item);
+			if (item.mods) createForgottenMods(item);
+			if (item.mods) createImplicitMods(item);
 		}
 
 		function createForgottenMods(item) {
 			var itemTypeKey = firstKey(item.mods);
 			var explicits = item.mods[itemTypeKey].explicit;
 			var forgottenMods = $.map( explicits, function( propertyValue, modKey ) {
-				// TODO, add forgotten mod special data here
 				return {
 					display : modToDisplay(propertyValue, modKey),
-					key : 'mods.' + itemTypeKey + '.explicit.' + modKey
+					key : 'mods.' + itemTypeKey + '.explicit.' + modKey,
+					name : modKey,
+					value : propertyValue
 				};
 			});
-			return forgottenMods;
+			item['forgottenMods'] = forgottenMods;
+			// we call on fm.js to do it's awesome work
+			fm_process(item);
 		}
 
 		function createImplicitMods(item) {
@@ -367,7 +370,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 					key : 'mods.' + itemTypeKey + '.implicit.' + modKey
 				};
 			});
-			return implicitMods;
+			item['implicitMods'] = implicitMods;
 		}
 
 

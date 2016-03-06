@@ -58,8 +58,10 @@ var paths = {
 	],
 	// These files are for your app's JavaScript
 	appJS: [
-		'client/assets/js/app.js'
 		// 'client/assets/js/blackmarket.js' merged into app.js, as this messes up my workflow with chrome dev tools
+		'client/assets/js/affixes.js',
+		'client/assets/js/fm.js',
+		'client/assets/js/app.js'
 	]
 }
 
