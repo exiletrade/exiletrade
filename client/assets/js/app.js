@@ -137,11 +137,13 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 	sortObj[sortKey] = { "order": sortOrder };
 	var esBody = {
 					"sort": [ sortObj ],
-					"query": {
-						"query_string": { // TODO Is this it faster if we used filter-query instead of query?
-							"default_operator": "AND",
-							"query": searchQuery
-						}
+					"filter" : {
+						"query": {
+							"query_string": {
+								"default_operator": "AND",
+								"query": searchQuery
+							}
+						}	
 					},
 					size:_size
 				};
