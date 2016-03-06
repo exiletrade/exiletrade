@@ -27,8 +27,10 @@ crafted:
   query: properties.Gem.Level:$1
 (\d+)q(uality)?:
   query: properties.Quality:$1  
-(\d+)iLe?ve?l:
+(\d+)i(tem)?Le?ve?l:
   query: attributes.ilvl:>=$1
+i(tem)?Le?ve?l(\d+):
+  query: attributes.ilvl:>=$2
 (\d+)rDex:
   query: requirements.Dex:<=$1
 (\d+)rStr:
