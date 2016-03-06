@@ -240,7 +240,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 				$scope.options.buyoutSelect.value = $scope.loadedOptions.buyoutSelect.value;
 			}
 			if(typeof $scope.loadedOptions.verificationSelect !== 'undefined'){
-				$scope.options.buyoutSelect.value = $scope.loadedOptions.verificationSelect.value;
+				$scope.options.verificationSelect.value = $scope.loadedOptions.verificationSelect.value;
 			}
 			if (typeof $scope.loadedOptions.searchPrefixInputs !== 'undefined' && $scope.loadedOptions.searchPrefixInputs !== null) {
 				$scope.options.searchPrefixInputs = $scope.loadedOptions.searchPrefixInputs;
