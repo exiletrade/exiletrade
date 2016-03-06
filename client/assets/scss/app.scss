@@ -4,7 +4,15 @@
 $bg_color_corrupted :#C22626;
 $border_color_item : #004978;
 $color_white : #fff;
+$color_gem_name : #1ba29b;
+$color_unique_name : #af6025;
+$color_rare_name : #a3a314;
+$color_magic_name : #4E4EEB;
+$color_currency_name : #9c7e38;
+$color_normal_name : #111;
+$color_card_name : #dcd3c3;
 $switch_on_color: #43AC6A;
+
 
 body {
 	background: rgba(0, 0, 0, 0.06);
@@ -162,6 +170,30 @@ img.gitter-badge {
 		h5 {
 			margin: 0;
 		}
+
+		a.name {
+            &.Normal {
+				color: $color_normal_name;
+            }
+            &.Magic {
+				color: $color_magic_name;
+            }
+            &.Rare {
+				color: $color_rare_name;
+            }
+            &.Unique {
+				color: $color_unique_name;
+            }
+            &.Gem {
+				color: $color_gem_name;
+            }
+            &.Currency {
+				color: $color_currency_name;
+            }
+            &.Card {
+				color: $color_card_name;
+            }
+        }
 
 		.item-border {
 			margin: 0 5px;

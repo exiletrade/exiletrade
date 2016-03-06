@@ -227,7 +227,9 @@ url: /
 										<h5 class="item-name" title="Note: {{item._source.shop.note}}">
 											<span class="label corrupted" ng-if="item._source.attributes.corrupted">Corrupted</span>
 											<span class="label mirrored" ng-if="item._source.attributes.mirrored">Mirrored</span>
-											<a class="name" ngclipboard data-clipboard-text="{{copyWhisperToClipboard(item)}}">{{item._source.info.fullName}}</a>
+											<a class="name {{item._source.attributes.rarity}}"
+											   ngclipboard
+											   data-clipboard-text="{{copyWhisperToClipboard(item)}}">{{item._source.info.fullName}}</a>
 										</h5>
 									</div>
 
