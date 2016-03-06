@@ -458,35 +458,91 @@ url: /
 									</tr>
 									<tr>
 										<td>APS</td>
-										<td>{{item._source.properties.Weapon['Attacks per Second']}}</td>
+										<td>
+											<a
+												data-sort-key="properties.Weapon.Attacks per Second"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Weapon['Attacks per Second']}}
+											</a>
+										</td>
 									</tr>
 									<tr>
 										<td>Total DPS</td>
-										<td>{{item._source.properties.Weapon['Total DPS']}}</td>
+										<td>
+											<a
+												data-sort-key="properties.Weapon.Total DPS"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Weapon['Total DPS']}}
+											</a>
+										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Physical DPS']">
 										<td>pDPS</td>
-										<td>{{item._source.properties.Weapon['Physical DPS']}}</td>
+										<td>
+											<a
+												data-sort-key="properties.Weapon.Physical DPS"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Weapon['Physical DPS']}}
+											</a>
+										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Elemental DPS']">
 										<td>eDPS</td>
-										<td>{{item._source.properties.Weapon['Elemental DPS']}}</td>
+										<td>
+											<a
+												data-sort-key="properties.Weapon.Elemental DPS"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Weapon['Elemental DPS']}}
+											</a>
+										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Fire DPS']">
-										<td>fDPS</td>
-										<td>{{item._source.properties.Weapon['Fire DPS']}}</td>
+										<td>Fire DPS</td>
+										<td>
+											<a
+												data-sort-key="properties.Weapon.Fire DPS"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Weapon['Fire DPS']}}
+											</a>
+										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Cold DPS']">
-										<td>cDPS</td>
-										<td>{{item._source.properties.Weapon['Cold DPS']}}</td>
+										<td>Cold DPS</td>
+										<td>
+											<a
+												data-sort-key="properties.Weapon.Cold DPS"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Weapon['Cold DPS']}}
+											</a>
+										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Lightning DPS']">
-										<td>lDPS</td>
-										<td>{{item._source.properties.Weapon['Lightning DPS']}}</td>
+										<td>Lightning DPS</td>
+										<td>
+											<a
+												data-sort-key="properties.Weapon.Lightning DPS"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Weapon['Lightning DPS']}}
+											</a>
+										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Chaos DPS']">
-										<td>chDPS</td>
-										<td>{{item._source.properties.Weapon['Chaos DPS']}}</td>
+										<td>Chaos DPS</td>
+										<td>
+											<a
+												data-sort-key="properties.Chaos DPS"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Weapon['Chaos DPS']}}
+											</a>
+										</td>
 									</tr>
 									</tbody>
 								</table>
