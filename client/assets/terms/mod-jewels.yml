@@ -17,11 +17,11 @@ F(ire)?(Skill)?c(ast)?sp(eed)?(with)?:
   query: modsTotal.#% increased Cast Speed with Fire Skills:[$1 TO $2]
 
 minionD(amage|mg):
-  query: modsTotal.Minions deal #% increased Damage:>0
+  query: modsTotal.Minions deal \#% increased Damage:>0
 (\d+)minionD(amage|mg):
-  query: modsTotal.Minions deal #% increased Damage:[$1 TO *]
+  query: modsTotal.Minions deal \#% increased Damage:[$1 TO *]
 (\d+)-(\d+)minionD(amage|mg):
-  query: modsTotal.Minions deal #% increased Damage:[$1 TO $2]
+  query: modsTotal.Minions deal \#% increased Damage:[$1 TO $2]
 
 d(ual)?w(ield)?c(ast)?sp(ee)?d:
   query: modsTotal.#% increased Cast Speed while Dual Wielding:>0
