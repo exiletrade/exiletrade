@@ -160,6 +160,29 @@ url: /
 			Placeholder text for saved Item.
 		</div>
 
+		<!-- Show Search Terms Doc Modal -->
+		<div zf-modal="" id="showSearchTermsDocModal">
+			<!--a zf-close="" class="close-button">×</a-->
+			<h4>Search Terms</h4>
+			<div class="DivWithScroll">
+				<table>
+					<thead>
+						<th>Term</th>
+						<th>Translation</th>
+					</thead>
+					<tbody>
+						<tr 
+							ng-repeat="(key, value) in termsMap"
+							ng-class-odd="'rowOdd'" 
+							ng-class-even="'rowEven'">
+							<td>{{key}}</td>
+							<td>{{value.query}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
 		<!-- Show Disclaimer Modal -->
 		<div zf-modal="" id="showDisclaimerModal">
 			<a zf-close="" class="close-button">×</a>
