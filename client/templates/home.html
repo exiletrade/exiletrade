@@ -247,7 +247,10 @@ url: /
 											  ng-if="needsILvl(item._source.attributes)"
 											  data-value="{{item._source.attributes.ilvl}}"
 											  data-name="iLvl">
-											Item Lvl: {{item._source.attributes.ilvl}}
+											  <a href="" 
+												   data-sort-key="attributes.ilvl"
+												   data-sort-order="desc"
+												   ng-click="doSearchWithSort($event)">Item Lvl: {{item._source.attributes.ilvl}}</a>
 											<i class="seperator"></i>
 										</span>
 
@@ -255,7 +258,10 @@ url: /
 											  ng-show="{{item._source.requirements.Level}}"
 											  data-value="{{item._source.requirements.Level}}"
 											  data-name="Level">
-											Level: {{item._source.requirements.Level}}
+											  <a href="" 
+												   data-sort-key="requirements.Level"
+												   data-sort-order="desc"
+												   ng-click="doSearchWithSort($event)">Level: {{item._source.requirements.Level}}</a>
 											<i class="seperator"></i>
 										</span>
 
@@ -263,7 +269,10 @@ url: /
 											  ng-show="{{item._source.requirements.Str}}"
 											  data-value="{{item._source.requirements.Str}}"
 											  data-name="Str">
-											Str: {{item._source.requirements.Str}}
+											  <a href="" 
+												   data-sort-key="requirements.Str"
+												   data-sort-order="desc"
+												   ng-click="doSearchWithSort($event)">Str: {{item._source.requirements.Str}}</a>
 											<i class="seperator"></i>
 										</span>
 
@@ -271,7 +280,10 @@ url: /
 											  ng-show="{{item._source.requirements.Dex}}"
 											  data-value="{{item._source.requirements.Dex}}"
 											  data-name="Int">
-											Dex: {{item._source.requirements.Dex}}
+											  <a href="" 
+												   data-sort-key="requirements.Dex"
+												   data-sort-order="desc"
+												   ng-click="doSearchWithSort($event)">Dex: {{item._source.requirements.Dex}}</a>
 											<i class="seperator"></i>
 										</span>
 
@@ -279,7 +291,10 @@ url: /
 											  ng-show="{{item._source.requirements.Int}}"
 											  data-value="{{item._source.requirements.Int}}"
 											  data-name="Int">
-											Int: {{item._source.requirements.Int}}
+											  <a href="" 
+												   data-sort-key="requirements.Int"
+												   data-sort-order="desc"
+												   ng-click="doSearchWithSort($event)">Int: {{item._source.requirements.Int}}</a>
 										</span>
 									</div>
 
@@ -370,7 +385,15 @@ url: /
 									<tbody>
 									<tr>
 										<td>Quality</td>
-										<td>{{item._source.properties.Quality | defaultToValue }} <span>+{{20-(item._source.properties.Quality)}}</span></td>
+										<td>
+											{{item._source.properties.Quality | defaultToValue }} 
+											<a
+												data-sort-key="properties.Quality"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												+{{20-(item._source.properties.Quality)}}
+											</a>
+										</td>
 									</tr>
 									<tr ng-repeat="(defense, value) in itemType.estimatedQ20">
 										<td>{{defense}}</td>
@@ -387,7 +410,15 @@ url: /
 									<tbody>
 									<tr>
 										<td>Quality</td>
-										<td>{{item._source.properties.Quality | defaultToValue }}</td>
+										<td>
+											{{item._source.properties.Quality | defaultToValue }} 
+											<a
+												data-sort-key="properties.Quality"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												+{{20-(item._source.properties.Quality)}}
+											</a>
+										</td>
 									</tr>
 									<tr>
 										<td>Gem Level</td>
@@ -395,7 +426,14 @@ url: /
 									</tr>
 									<tr>
 										<td>Gem Experience</td>
-										<td>{{item._source.properties.Gem.Experience.PercentLeveled}}%</td>
+										<td>
+											<a
+												data-sort-key="properties.Gem.Experience.PercentLeveled"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												{{item._source.properties.Gem.Experience.PercentLeveled}}%
+											</a>
+										</td>
 									</tr>
 									</tbody>
 								</table>
@@ -408,7 +446,15 @@ url: /
 									<tbody>
 									<tr>
 										<td>Quality</td>
-										<td>{{item._source.properties.Quality | defaultToValue }} <span>+{{20-(item._source.properties.Quality)}}</span></td>
+										<td>
+											{{item._source.properties.Quality | defaultToValue }} 
+											<a
+												data-sort-key="properties.Quality"
+												data-sort-order="desc"
+												ng-click="doSearchWithSort($event)">
+												+{{20-(item._source.properties.Quality)}}
+											</a>
+										</td>
 									</tr>
 									<tr>
 										<td>APS</td>
