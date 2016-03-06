@@ -358,7 +358,7 @@ inc(reased)?AreaD(amage|mg):
 
 f(ire)L(ife)??L(eech)?:
   query: modsTotal.#% of Fire Damage Leeched as Life:>0
-(\d+)Ign?(ite)?Ch(ance)?:
+(\d+)f(ire)L(ife)??L(eech)?:
   query: modsTotal.#% of Fire Damage Leeched as Life:[$1 TO *]
-(\d+)-(\d+)Ign?(ite)?Ch(ance)?:
+(\d+)-(\d+)f(ire)L(ife)??L(eech)?:
   query: modsTotal.#% of Fire Damage Leeched as Life:[$1 TO $2]  
