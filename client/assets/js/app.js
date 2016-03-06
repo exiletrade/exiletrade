@@ -282,7 +282,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			switch(buyout){
 				case "Buyout: Yes":	searchPrefix += " bo"; break;
 				case "Buyout: No": searchPrefix += " nobo"; break;
-				case "Buyout: Either": searchPrefix += " "; break;
+				case "Buyout: Either": searchPrefix += ""; break;
 			}
 			switch(options['verificationSelect']['value']){
 				case "Status: New":	searchPrefix += " new"; break;
