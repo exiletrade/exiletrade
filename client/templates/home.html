@@ -204,8 +204,16 @@ url: /
 		</div>
 
 		<hr width=100% size=1>
-	</div>
 
+	</div>
+	
+	<div ng-if="badSearchInputTerms.length">
+		<strong>Invalid Search Terms</strong>
+		<ul class="grid-content">
+			<li ng-repeat="badTerm in badSearchInputTerms"><span>{{badTerm}}<span>
+		</ul>
+	</div>
+	
 	<!-- Searchresults -->
 	<div class="grid-content search-results">
 		<div class="grid-block search-items large-up-2">

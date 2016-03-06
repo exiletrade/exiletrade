@@ -2,23 +2,26 @@
 var terms = {};
 function parseSearchInput(_terms, input) {
 	terms = _terms;
-
 	// capture literal search terms (LST) like name="veil of the night"
 	var regex = /([^\s]*[:=]\".*?\")/g;
 	var lsts = input.match(regex);
 	lsts = expandLsts(lsts);
 	var _input = input.replace(regex, 'LST');
-	var queryStr = parseSearchInputTokens(_input);
+	var parseResult = parseSearchInputTokens(_input);
+	console.info(parseResult)
 	var i = 0;
-	var _queryStr = queryStr.replace('LST', function (match) {
+	parseResult.queryString = parseResult.queryString.replace('LST', function (match) {
 		var lst = lsts[i];
 		i++;
 		return lst;
 	});
-	var ri = new RegExp('^name[:=]"(.+)"$', 'i');
-	if(ri.test(_queryStr)) return _queryStr.replace("name","info.tokenized.fullName").replace("=",":");
-	return _queryStr;
-	return parseSearchInputTokens(input);
+	
+	if (/^name[:=]"(.+)"$/i.test(parseResult.queryString)) {
+		parseResult.queryString = parseResult.queryString
+			.replace("name","info.tokenized.fullName")
+			.replace("=",":");
+	}
+	return parseResult;
 }
 
 function expandLsts(lsts) {
@@ -28,35 +31,34 @@ function expandLsts(lsts) {
 function parseSearchInputTokens(input) {
 	var tokens = input.split(" ");
 	var queryTokens = [];
+	var badTokens = [];
 	for (i in tokens) {
 		var evaluatedToken = tokens[i];
 		var token = evaluatedToken.toUpperCase();
-		if ( token != "OR" && token != "AND" && token !="LST" && token !="NOT" ) {
-			if(!token.startsWith('-')){			
-				evaluatedToken = evalSearchTerm(evaluatedToken);
-				console.trace(token + '=' + evaluatedToken);
-				if (evaluatedToken && hasBackTick(evaluatedToken)) {
-					evaluatedToken = parseSearchInputTokens(evaluatedToken);
-				}
-			}else{
-				console.info("exclude: "+ evaluatedToken);
-				var exclude = "_missing:";
-				evaluatedToken = evalSearchTerm(evaluatedToken.substring(1));
-				if(evaluatedToken.indexOf('#')>-1){
-					var rgex = new RegExp(':.+','i')
-					evaluatedToken = "_missing_:" + evaluatedToken.replace(rgex,"")					
-				}else{
-					evaluatedToken = "-"+evaluatedToken;
-					//console.info("exclude: "+ exclude + evaluatedToken);
-				}
-			}
-		} else {
+		
+		if (/^(OR|AND|LST|NOT)$/i.test(token)) {
 			evaluatedToken = token;
+		} else {
+			var isNegation = token.startsWith('-');
+			if (isNegation) evaluatedToken = evaluatedToken.substring(1);
+
+			evaluatedToken = evalSearchTerm(evaluatedToken);
+			console.trace(token + '=' + evaluatedToken);
+
+			if (evaluatedToken) {
+				if (isNegation) {
+					evaluatedToken = createMissingQuery(evaluatedToken);
+				} else if (hasBackTick(evaluatedToken)) {
+					evaluatedToken = parseSearchInputTokens(evaluatedToken).queryString;
+				}
+			} else {
+				badTokens.push(tokens[i]);
+			}
 		}
 		queryTokens.push(evaluatedToken);
 	}
 	var queryString = queryTokens.join(" ");
-	return queryString;
+	return {'queryString' : queryString, 'badTokens' : badTokens};
 }
 
 function evalSearchTerm(token) {
@@ -94,6 +96,16 @@ function evalSearchTerm(token) {
 		}
 	}
 	return result;
+}
+
+function createMissingQuery(evaluatedToken) {
+	if (evaluatedToken.indexOf('#') > -1) {
+		var rgex = new RegExp(':.+', 'i')
+		evaluatedToken = "_missing_:" + evaluatedToken.replace(rgex,"")					
+	} else {
+		evaluatedToken = "-" + evaluatedToken;
+	}
+	return evaluatedToken;
 }
 
 function removeParensAndBackTick(token) {
@@ -207,6 +219,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', 'es', function($q, $scope, $http, $location, es) {
 		console.info('controller');
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
+		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
 		$scope.elasticJsonRequest = "";
 
 		var httpParams = $location.search();
@@ -345,7 +358,9 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			$location.search({'q' : searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder, 'limit' : limit});
 			$location.replace();
 			console.trace('changed location to: ' + $location.absUrl());
-			var searchQuery = parseSearchInput($scope.termsMap, finalSearchInput);
+			var parseResult = parseSearchInput($scope.termsMap, finalSearchInput);
+			var searchQuery = parseResult.queryString;
+			$scope.badSearchInputTerms = parseResult.badTokens;
 			console.log("searchQuery=" + searchQuery);
 			
 			var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder);
