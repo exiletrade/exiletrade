@@ -220,6 +220,12 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 				"value": 'Buyout: Yes',
 				"options": ["Buyout: Yes", "Buyout: No", "Buyout: Either"]
 			},
+			"verificationSelect" : {
+				"type": "select",
+				"name": "Verified",
+				"value": 'Status: New',
+				"options": ["Status: New", "Status: All", "Status: Gone"]
+			},
 			"searchPrefixInputs" : []
 		};
 
@@ -233,6 +239,9 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			if(typeof $scope.loadedOptions.buyoutSelect !== 'undefined'){
 				$scope.options.buyoutSelect.value = $scope.loadedOptions.buyoutSelect.value;
 			}
+			if(typeof $scope.loadedOptions.verificationSelect !== 'undefined'){
+				$scope.options.buyoutSelect.value = $scope.loadedOptions.verificationSelect.value;
+			}
 			if (typeof $scope.loadedOptions.searchPrefixInputs !== 'undefined' && $scope.loadedOptions.searchPrefixInputs !== null) {
 				$scope.options.searchPrefixInputs = $scope.loadedOptions.searchPrefixInputs;
 			}
@@ -245,6 +254,11 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 				case "Buyout: Yes":	searchPrefix += " bo"; break;
 				case "Buyout: No": searchPrefix += " nobo"; break;
 				case "Buyout: Either": searchPrefix += " "; break;
+			}
+			switch(options['verificationSelect']['value']){
+				case "Status: New":	searchPrefix += " new"; break;
+				case "Status: All": searchPrefix += ""; break;
+				case "Status: Gone": searchPrefix += " gone"; break;
 			}
 			options['searchPrefixInputs'].forEach(function(e){
 				searchPrefix += " " + e['value'];
@@ -311,7 +325,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
 			$scope.Response = null;
 			if (limit > 999) limit = 999; // deny power overwhelming
-			var finalSearchInput = searchInput + ' ' + createSearchPrefix($scope.options);
+			var finalSearchInput = searchInput + ' ' + createSearchPrefix($scope.options + ' new');
 			$location.search({'q' : searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder, 'limit' : limit});
 			$location.replace();
 			console.trace('changed location to: ' + $location.absUrl());

@@ -131,4 +131,9 @@ pure(es|energyshield):
 (\d+)-(\d+)pure(es|energyshield):
   query: (`-es `-ev) `$1-$2es
 
-  
+p(hys?)?Da?ma?ge?:
+  query: properties.Weapon.Physical Damage.avg:>0
+(\d+)p(hys?)?Da?ma?ge?:
+  query: properties.Weapon.Physical Damage.avg:>=$1
+(\d+)-(\d+)p(hys?)?Da?ma?ge?:
+  query: properties.Weapon.Physical Damage.avg:[$1 TO $2] 

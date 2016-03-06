@@ -65,11 +65,11 @@ wed:
 (\d+)-(\d+)wed:
   query: modsTotal.#% increased Elemental Damage with Weapons:[$1 TO $2]
 
-ipd|physda?ma?ge?|pda?ma?ge?:
+ipd|incp(hys)?da?ma?ge?:
   query: modsTotal.#% increased Physical Damage:>0
-(\d+)ipd|physda?ma?ge?|pda?ma?ge?:
+(\d+)ipd|incp(hys)?da?ma?ge?:
   query: modsTotal.#% increased Physical Damage:[$1 TO *]
-(\d+)-(\d+)ipd|physda?ma?ge?|pda?ma?ge?:
+(\d+)-(\d+)ipd|incp(hys)?da?ma?ge??:
   query: modsTotal.#% increased Physical Damage:[$1 TO $2]
 
 f(lat)?phys:
