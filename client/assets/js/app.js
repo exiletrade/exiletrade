@@ -51,10 +51,11 @@ function evalSearchTerm(token) {
 	//console.trace(token)
 	for (regex in terms) {
 		if (terms.hasOwnProperty(regex)) {
-			var rgex = new RegExp('^(' + regex + ')$', 'i');
+			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
+			var rgex = new RegExp('^' + regex + '$', 'i');
 			var cleanToken = removeParensAndBackTick(token);
 			//console.trace(regex)
-			var foundMatch = rgex.test(cleanToken);
+			var foundMatch = rgexTest.test(cleanToken);
 			if (foundMatch) {
 				result = terms[regex].query;
 				// apply any captured regex groups
