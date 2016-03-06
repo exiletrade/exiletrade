@@ -355,3 +355,10 @@ inc(reased)?AreaD(amage|mg):
   query: modsTotal.#% increased Elemental Damage:[$1 TO *]
 (\d+)-(\d+)(inc(reased)?)?Ele(mental)?D(amage|mg):
   query: modsTotal.#% increased Elemental Damage:[$1 TO $2]
+
+f(ire)L(ife)??L(eech)?:
+  query: modsTotal.#% of Fire Damage Leeched as Life:>0
+(\d+)Ign?(ite)?Ch(ance)?:
+  query: modsTotal.#% of Fire Damage Leeched as Life:[$1 TO *]
+(\d+)-(\d+)Ign?(ite)?Ch(ance)?:
+  query: modsTotal.#% of Fire Damage Leeched as Life:[$1 TO $2]  
