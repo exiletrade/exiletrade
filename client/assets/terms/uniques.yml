@@ -929,9 +929,9 @@ Voideye:
   query: info.name:"Voideye"
 Voidhome:
   query: info.name:"Voidhome"
-Voll'?s?Devotion:
+(Voll'?s?)?Devotion:
   query: info.name:"Voll's Devotion"
-Voll'?s?Protector:
+(Voll'?s?)?Protector:
   query: info.name:"Voll's Protector"
 VoltaxicRift:
   query: info.name:"Voltaxic Rift"
