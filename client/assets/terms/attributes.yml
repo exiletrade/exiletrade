@@ -85,7 +85,7 @@ e(le)?Dps:
 ((\d+)?\.?(\d+))-((\d+)?\.?(\d+))aps:
   query: properties.Weapon.Attacks per Second:[$1 TO $2]
 
-(\d+)(Map)?t(ier)?\:
+(\d+)(Map)?t(ier)?:
   query: properties.Map.Map Tier:$1 
 (\d+)(Map)?t(ier)?\+:
   query: properties.Map.Map Tier:>=$1
