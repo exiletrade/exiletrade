@@ -23,46 +23,46 @@ mana:
 (\d+)-(\d+)mana:
   query: modsTotal.#% increased maximum Mana:[$1 TO $2]
    
-T?(otal)?res:
+T?(otal)?Res(istance)?:
   query: modsPseudo.+#% Total to Resistances:>0
-(\d+)(Total)?res:
+(\d+)(Total)?Res(istance)?:
   query: modsPseudo.+#% Total to Resistances:[$1 TO *]
-(\d+)-(\d+)(Total)?res:
+(\d+)-(\d+)(Total)?Res(istance)?:
   query: modsPseudo.+#% Total to Resistances:[$1 TO $2]
 
-eleres:
+eleRes(istance)?:
   query: modsPseudo.+#% Total to Elemental Resistances:>0
-(\d+)eleres:
+(\d+)eleRes(istance)?:
   query: modsPseudo.+#% Total to Elemental Resistances:[$1 TO *]
-(\d+)-(\d+)eleres:
+(\d+)-(\d+)eleRes(istance)?:
   query: modsPseudo.+#% Total to Elemental Resistances:[$1 TO $2]  
 
-fireres:
+fireRes(istance)?:
   query: modsPseudo.+#% Total to Fire Resistance:>0
-(\d+)fireres:
+(\d+)fireRes(istance)?:
   query: modsPseudo.+#% Total to Fire Resistance:[$1 TO *]
-(\d+)-(\d+)fireres:
+(\d+)-(\d+)fireRes(istance)?:
   query: modsPseudo.+#% Total to Fire Resistance:[$1 TO $2]
   
-coldres:
+coldRes(istance)?:
   query: modsPseudo.+#% Total to Cold Resistance:>0
-(\d+)coldres:
+(\d+)coldRes(istance)?:
   query: modsPseudo.+#% Total to Cold Resistance:[$1 TO *]
-(\d+)-(\d+)coldres:
+(\d+)-(\d+)coldRes(istance)?:
   query: modsPseudo.+#% Total to Cold Resistance:[$1 TO $2]
 
-lightres:
+lightRes(istance)?:
   query: modsPseudo.+#% Total to Lightning Resistance:>0
-(\d+)lightres:
+(\d+)lightRes(istance)?:
   query: modsPseudo.+#% Total to Lightning Resistance:[$1 TO *]
-(\d+)-(\d+)lightres:
+(\d+)-(\d+)lightRes(istance)?:
   query: modsPseudo.+#% Total to Lightning Resistance:[$1 TO $2]
 
-chaosres|chres|chares:
+cha?(os)?Res(istance)?:
   query: modsPseudo.+#% Total to Chaos Resistance:>0
-(\d+)chaosres|chres|chares:
+(\d+)cha?(os)?Res(istance)?:
   query: modsPseudo.+#% Total to Chaos Resistance:[$1 TO *]
-(\d+)-(\d+)chaosres|chres|chares:
+(\d+)-(\d+)cha?(os)?Res(istance)?:
   query: modsPseudo.+#% Total to Chaos Resistance:[$1 TO $2]
 
 ms:
@@ -173,9 +173,16 @@ incEva?(sion)?(Rating)?:
 (\d+)ofEle(mental)?Res(ist)?(ances)?:
   query: modsPseudo.# of Elemental Resistances:[$1 TO *]
 (\d+)-(\d+)ofEle(mental)?Res(ist)?(ances)?:
-  query: modsPseudo.# of Elemental Resistances::[$1 TO $2]
+  query: modsPseudo.# of Elemental Resistances:[$1 TO $2]
  
 (\d+)ofRes(ist)?(ances)?:
   query: modsPseudo.# of Resistances:[$1 TO *]
 (\d+)-(\d+)ofRes(ist)?(ances)?:
-  query: modsPseudo.# of Resistances::[$1 TO $2]
+  query: modsPseudo.# of Resistances:[$1 TO $2]
+
+allRes(istance)?:
+  query: modsTotal.+#% to all Elemental Resistances:>=0
+(\d+)allRes(istance)?:
+  query: modsTotal.+#% to all Elemental Resistances:[$1 TO *]
+(\d+)-(\d+)allRes(istance)?:
+  query: modsTotal.+#% to all Elemental Resistances:[$1 TO $2]
