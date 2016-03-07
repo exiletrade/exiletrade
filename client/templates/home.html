@@ -125,7 +125,7 @@ url: /
 							<span>Show 1 Item per row</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
-									   ng-true-value="" ng-false-value="" ng-change="stateChanged()">
+									   ng-true-value="" ng-false-value="" ng-change="">
 								<label for="switch-itemsPerRow"></label>
 							</div>
 						</li>
@@ -220,7 +220,7 @@ url: /
 	<!-- Searchresults -->
 	<div class="grid-content search-results">
 		<div class="grid-block search-items large-up-2">
-			<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style=""
+			<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style="options.switchItemsPerRow"
 				 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
 
 				<!-- Show ExileTools Item JSON Debug Modal -->
@@ -249,7 +249,7 @@ url: /
 						</div>
 					</div>
 					<div class="grid-block item-inner-border" ng-style="switchValue">
-						<div class="grid-block item-box-left">
+						<div class="grid-block item-box-left shrink">
 
 							<div class="grid-block image-container"
 								title="Stash Name: {{item._source.shop.stash.stashName}}"
@@ -424,7 +424,7 @@ url: /
 							</div>
 						</div>
 
-						<div class="grid-block item-box-right">
+						<div class="grid-block item-box-right shrink">
 							<div class="item-stats float-left" ng-if="!item._source.properties.Weapon" ng-repeat="itemType in item._source.propertiesPseudo">
 								<table>
 									<thead>
