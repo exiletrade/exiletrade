@@ -93,8 +93,8 @@ function evalSearchTerm(token) {
 				// escape spaces for elasticsearch
 				result = escapeField(result);
 				if (isNegation)  result = '-' + result;
-				if (hasOpenParen(token))  result = '(' + result;
-				if (hasCloseParen(token)) result = result + ')';
+				if (hasOpenParen(token))  result = /\(+/.exec(token)[0] + result;
+				if (hasCloseParen(token)) result = result + /\)+/.exec(token)[0];
 				console.trace(cleanToken + ' + ' + rgex + '=' + result);
 				break;
 			}
