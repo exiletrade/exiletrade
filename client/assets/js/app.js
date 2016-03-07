@@ -395,9 +395,17 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			if (item.mods) createImplicitMods(item);
 			if (item.mods) createCraftedMods(item);
 			if (item.shop) {
-				item.shop['addedHuman'] = new Date(item.shop.added).toLocaleString()
-				item.shop['modifiedHuman'] = new Date(item.shop.modified).toLocaleString()
-				item.shop['udpatedHuman'] = new Date(item.shop.updated).toLocaleString()
+				var added = new Date(item.shop.added);
+				var updated = new Date(item.shop.updated);
+				var modified = new Date(item.shop.modified);
+				item.shop['addedHuman'] = added.toLocaleString();
+				item.shop['udpatedHuman'] = updated.toLocaleString();
+				item.shop['modifiedHuman'] = modified.toLocaleString();
+				var now = new Date();
+				var hourInMillis = 3600000;
+				item.shop['addedHoursAgo'] = (Math.abs(now.getTime() - added.getTime()) / hourInMillis).toFixed(2);
+				item.shop['modifiedHoursAgo'] = (Math.abs(now.getTime() - modified.getTime()) / hourInMillis).toFixed(2);
+				item.shop['udpatedHoursAgo'] = (Math.abs(now.getTime() - updated.getTime()) / hourInMillis).toFixed(2);
 			}
 		}
 
