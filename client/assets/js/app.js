@@ -41,7 +41,7 @@ function parseSearchInputTokens(input) {
 		if (/^(OR|AND|LST|NOT)$/i.test(token)) {
 			evaluatedToken = token;
 		} else {
-			var isNegation = token.startsWith('-');
+			var isNegation = hasNegation(token);
 			if (isNegation) evaluatedToken = evaluatedToken.substring(1);
 
 			evaluatedToken = evalSearchTerm(evaluatedToken);
@@ -71,6 +71,8 @@ function evalSearchTerm(token) {
 			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
 			var rgex = new RegExp(regex, 'i');
 			var cleanToken = removeParensAndBackTick(token);
+			var isNegation = hasNegation(cleanToken);
+			if (isNegation) cleanToken = cleanToken.substring(1);
 			//console.trace(regex)
 			var foundMatch = rgexTest.test(cleanToken);
 			if (foundMatch) {
@@ -90,6 +92,7 @@ function evalSearchTerm(token) {
 				//result = cleanToken.replace(rgex, result);
 				// escape spaces for elasticsearch
 				result = escapeField(result);
+				if (isNegation)  result = '-' + result;
 				if (hasOpenParen(token))  result = '(' + result;
 				if (hasCloseParen(token)) result = result + ')';
 				console.trace(cleanToken + ' + ' + rgex + '=' + result);
@@ -125,6 +128,10 @@ function hasCloseParen(token) {
 
 function hasBackTick(token) {
 	return token.indexOf('`') != -1;
+}
+
+function hasNegation(token) {
+	return token.startsWith('-');
 }
 
 function escapeField(result) {

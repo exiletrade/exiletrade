@@ -2,3 +2,5 @@
   query: (`unique `$1rlvl `-map `-jewel `-flask `$2)
 (\d+)lvling:
   query: (`unique `$1rlvl `-map `-jewel `-flask)
+lvling:
+  query: (`unique `60rlvl `-map `-jewel `-flask)
