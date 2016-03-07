@@ -42,6 +42,16 @@ url: /
 		<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>
 		<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn scrollTop">Scroll Top</a>
 
+		<div ng-if="badSearchInputTerms.length" class="badSearchInputTerms">
+			<zf-accordion>
+				<zf-accordion-item title="Invalid Search Terms">
+					<ul>
+						<li ng-repeat="badTerm in badSearchInputTerms"><span>{{badTerm}}</span>
+					</ul>
+				</zf-accordion-item>
+			</zf-accordion>
+		</div>
+
 		<!-- Hidden Options, other the checkboxes in sidebar don't work -->
 		<div class="grid-block search-options" ng-show="false">
 			<span class="inline-label">
@@ -205,13 +215,6 @@ url: /
 
 		<hr width=100% size=1>
 
-	</div>
-	
-	<div ng-if="badSearchInputTerms.length">
-		<strong>Invalid Search Terms</strong>
-		<ul class="grid-content">
-			<li ng-repeat="badTerm in badSearchInputTerms"><span>{{badTerm}}<span>
-		</ul>
 	</div>
 	
 	<!-- Searchresults -->
@@ -511,7 +514,7 @@ url: /
 												data-sort-key="properties.Quality"
 												data-sort-order="desc"
 												ng-click="doSearchWithSort($event)">
-												&nbsp;´[+{{20-(item._source.properties.Quality)}}]
+												&nbsp;[+{{20-(item._source.properties.Quality)}}]
 											</a>
 										</td>
 									</tr>
