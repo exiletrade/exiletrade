@@ -161,7 +161,7 @@ url: /
 		</div>
 
 		<!-- Show Search Terms Doc Modal -->
-		<div zf-modal="" id="showSearchTermsDocModal">
+		<div zf-modal="" class="wide-json-dialog" id="showSearchTermsDocModal">
 			<!--a zf-close="" class="close-button">×</a-->
 			<h4>Search Terms</h4>
 			<div class="DivWithScroll">
@@ -221,7 +221,7 @@ url: /
 				 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
 
 				<!-- Show ExileTools Item JSON Debug Modal -->
-				<div zf-modal="" id="showExileToolsItemJsonModal{{item._id}}">
+				<div zf-modal="" class="wide-json-dialog" id="showExileToolsItemJsonModal{{item._id}}">
 					<!--a zf-close="" class="close-button">×</a-->
 					<h4>ExileTools Item JSON</h4>
 					<textarea class="code" rows="40" cols="160">{{item | json}}</textarea>

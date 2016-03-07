@@ -15,3 +15,13 @@ old:
   query: shop.verified:OLD
 gone:
   query: shop.verified:GONE
+
+# https://www.reddit.com/r/pathofexiledev/comments/494g7u/how_do_you_know_or_approximately_know_if_a_player/
+(.+)shopMod(ified)?:
+  query: shop.modified:>=$1
+(.+)-(.+)shopMod(ified)?:
+  query: shop.modified:[$1 TO $2]
+(.+)shopUpd(ated)?:
+  query: shop.updated:>=$1
+(.+)-(.+)shopUpd(ated)?:
+  query: shop.updated:[$1 TO $2]
