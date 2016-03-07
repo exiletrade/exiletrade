@@ -36,6 +36,8 @@ i(tem)?Le?ve?l(\d+):
   query: requirements.Int:<=$1
 (\d+)rLe?ve?l:
   query: requirements.Level:<=$1
+(\d+)-(\d+)rLe?ve?l:
+  query: requirements.Level:[$1 TO $2]
   
 (ar|armou?r):
   query: propertiesPseudo.Armour.estimatedQ20.Armour:>0

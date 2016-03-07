@@ -1,6 +1,10 @@
-(\d+)lvling(\w):
-  query: (`unique `$1rlvl `-map `-jewel `-flask `$2)
-(\d+)lvling:
-  query: (`unique `$1rlvl `-map `-jewel `-flask)
-lvling:
-  query: (`unique `60rlvl `-map `-jewel `-flask)
+(\d+)le?ve?ling(\w):
+  query: (`unique `$1rlvl `-map `-jewel `-flask `$2 `-VeiloftheNight `-Voidhome)
+(\d+)-(\d+)le?ve?ling(\w):
+  query: (`unique `$1-$2rlvl `-map `-jewel `-flask `$3 `-VeiloftheNight `-Voidhome)
+(\d+)le?ve?ling:
+  query: (`unique `$1rlvl `-map `-jewel `-flask `-VeiloftheNight `-Voidhome)
+(\d+)-(\d+)le?ve?ling:
+  query: (`unique `$1-$2rlvl `-map `-jewel `-flask `-VeiloftheNight `-Voidhome)
+le?ve?ling:
+  query: (`unique `60rlvl `-map `-jewel `-flask `-VeiloftheNight `-Voidhome)
