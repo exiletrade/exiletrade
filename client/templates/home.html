@@ -375,7 +375,7 @@ url: /
 										</ul>
 									</div>
 
-									<div class="grid-block sell-infos">
+									<!--<div class="grid-block sell-infos">
 										<span class=""  ng-if="item._source.shop.saleType && item._source.shop.amount > 0">
 											{{item._source.shop.saleType}}:
 										</span>
@@ -401,11 +401,11 @@ url: /
 											<i class="seperator"></i>
 										</span>
 
-										<!--span class="click verified {{item._source.shop.verified}}">
+										&lt;!&ndash;span class="click verified {{item._source.shop.verified}}">
 											Verify
 											<span class=""></span>
 											<i class="seperator"></i>
-										</span-->
+										</span&ndash;&gt;
 
 										<span class="" data-ign="{{item._source.shop.lastCharacterName}}">
 											IGN: {{item._source.shop.lastCharacterName}}
@@ -415,7 +415,7 @@ url: /
 										<span>
 											<a ngclipboard class="click small hollow whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}">Whisper</a>
 										</span>
-									</div>
+									</div>-->
 								</div>
 							</div>
 						</div>
@@ -496,7 +496,7 @@ url: /
 									</tbody>
 								</table>
 							</div>
-							<div class="item-stats float-left" ng-if="item._source.properties.Weapon">
+							<div class="item-stats float-left shrink" ng-if="item._source.properties.Weapon">
 								<table>
 									<thead>
 										<th><td></td><td></td></th>
@@ -611,7 +611,7 @@ url: /
 									</tbody>
 								</table>
 							</div>
-							<div class="item-stats float-left">
+							<div class="item-stats float-left shrink">
 								<table>
 									<thead>
 										<th><td></td><td></td></th>
@@ -653,6 +653,47 @@ url: /
 									</tbody>
 								</table>
 							</div>
+						</div>
+						<div class="grid-block sell-infos medium-12">
+							<span class=""  ng-if="item._source.shop.saleType && item._source.shop.amount > 0">
+								{{item._source.shop.saleType}}:
+							</span>
+							<span class="sortable price amount"
+								  ng-if="item._source.shop.amount > 0"
+								  data-value="{{item._source.shop.amount}}"
+								  data-name="Price in {{item._source.shop.currency}}"
+								  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
+								<a href=""
+								   data-sort-key="shop.chaosEquiv"
+								   data-sort-order="asc"
+								   ng-click="doSearchWithSort($event)">{{item._source.shop.amount}}×</a>
+							</span>
+							<span class="sortable price"
+								  ng-if="item._source.shop.amount > 0"
+								  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
+								<a href=""
+								   data-sort-key="shop.chaosEquiv"
+								   data-sort-order="asc"
+								   ng-click="doSearchWithSort($event)">
+									<span class="currency {{item._source.shop.currency}}"></span>
+								</a>
+								<i class="seperator"></i>
+							</span>
+
+							<!--span class="click verified {{item._source.shop.verified}}">
+								Verify
+								<span class=""></span>
+								<i class="seperator"></i>
+							</span-->
+
+							<span class="" data-ign="{{item._source.shop.lastCharacterName}}">
+								IGN: {{item._source.shop.lastCharacterName}}
+								<i class="seperator"></i>
+							</span>
+
+							<span>
+								<a ngclipboard class="click small hollow whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}">Whisper</a>
+							</span>
 						</div>
 					</div>
 				</div>
