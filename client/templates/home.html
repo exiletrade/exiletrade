@@ -350,7 +350,7 @@ url: /
 												<a href="" 
 												   data-sort-key="{{mod.key}}"
 												   data-sort-order="desc"
-												   ng-click="doSearchWithSort($event)"><span ng-if="mod.affix">[{{mod.affix}} T{{mod.tier}}/{{mod.maxTier}}]</span> {{mod.display}}</a>
+												   ng-click="doSearchWithSort($event)"><span class="item-mod-affix" ng-if="mod.affix">[{{mod.affix}} T{{mod.tier}}/{{mod.maxTier}}]</span> {{mod.display}}</a>
 											</li>
 											<li class="sortable" ng-repeat="mod in item._source.craftedMods"
 												data-mod="{{mod}}">
