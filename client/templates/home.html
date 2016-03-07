@@ -622,6 +622,8 @@ url: /
 										<td>
 											<a
 												data-sort-key="shop.udpated"
+											    title="Number of hours passed since item's stash had an update in the River"
+												data-sort-key="shop.updated"
 												data-sort-order="desc"
 												ng-click="doSearchWithSort($event)">
 												{{item._source.shop.udpatedHoursAgo}} hours ago
@@ -632,6 +634,7 @@ url: /
 										<td>Modified</td>
 										<td>
 											<a
+												title="Number of hours passed since item was modified in the River"
 												data-sort-key="shop.modified"
 												data-sort-order="desc"
 												ng-click="doSearchWithSort($event)">
@@ -643,13 +646,14 @@ url: /
 										<td>Added</td>
 										<td>
 											<a
+												title="Number of hours passed since item was first seen in the River"
 												data-sort-key="shop.added"
 												data-sort-order="desc"
 												ng-click="doSearchWithSort($event)">
 												{{item._source.shop.addedHoursAgo}} hours ago
 											</a>
 										</td>
-									</tr>
+ 									</tr>
 									</tbody>
 								</table>
 							</div>
