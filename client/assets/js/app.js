@@ -325,7 +325,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			$http.get('assets/terms/leagues.yml'),
 			$http.get('assets/terms/seller.yml'),
 			$http.get('assets/terms/mod-jewels.yml'),
-			$http.get('assets/terms/mod-group.yml')
+			$http.get('assets/terms/mod-groups.yml')
 		]).then(function (results) {
 			for (var i = 0; i < results.length; i++) {
 				mergeIntoTermsMap(results[i]);
