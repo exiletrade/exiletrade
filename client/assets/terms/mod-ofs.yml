@@ -273,11 +273,11 @@ f(lat)?fireattacks:
   query: modsTotal.Adds # Fire Damage to Attacks:[$1 TO $2]
 
 f(lat)?physattacks:
-  query: modsTotal.Adds # Physical Damage to Attacks:>0
+  query: modsTotal.Adds #-# Physical Damage to Attacks.avg:>0
 (\d+)f(lat)?physattacks:
-  query: modsTotal.Adds # Physical Damage to Attacks:[$1 TO *]
+  query: modsTotal.Adds #-# Physical Damage to Attacks.avg:[$1 TO *]
 (\d+)-(\d+)f(lat)?physattacks:
-  query: modsTotal.Adds # Physical Damage to Attacks:[$1 TO $2]
+  query: modsTotal.Adds #-# Physical Damage to Attacks.avg:[$1 TO $2]
 
 f(lat)?coldattacks:
   query: modsTotal.Adds # Cold Damage to Attacks:>0
