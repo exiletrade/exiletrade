@@ -308,6 +308,9 @@ img.gitter-badge {
 	.item-box-left {
 		position: relative;
 	}
+	.item-box-right {
+		flex-direction: column;
+	}
 	.grid-block.item-info {
 		min-height: 210px;
 		margin-left: 114px;
@@ -550,7 +553,6 @@ img.gitter-badge {
 
 	.item-stats {
 		font-size: rem-calc(12px);
-		width: 100%;
 
 		table {
 			min-width: 150px;
@@ -562,10 +564,6 @@ img.gitter-badge {
 			&:nth-of-type(2) {
 				text-align: right;
 			}
-		}
-
-		&:after {
-			clear:both;
 		}
 	}
 
