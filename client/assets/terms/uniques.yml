@@ -951,6 +951,8 @@ Wheel(of)?(the)?Stormsail:
   query: info.name:"Wheel of the Stormsail"
 Wideswing:
   query: info.name:"Wideswing"
+Widowmaker:
+  query: info.name:"Widowmaker"  
 Wildslash:
   query: info.name:"Wildslash"
 Windripper:
