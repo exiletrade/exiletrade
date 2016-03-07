@@ -23,10 +23,7 @@ crafted:
  query: attributes.craftedModsCount:>0
  mirrored:
   query: attributes.mirrored:true
-(\d+)g(em)?le?ve?l:
-  query: properties.Gem.Level:$1
-(\d+)q(uality)?:
-  query: properties.Quality:$1  
+
 (\d+)i(tem)?Le?ve?l:
   query: attributes.ilvl:>=$1
 i(tem)?Le?ve?l(\d+):
@@ -138,4 +135,24 @@ p(hys?)?Da?ma?ge?:
 (\d+)p(hys?)?Da?ma?ge?:
   query: properties.Weapon.Physical Damage.avg:>=$1
 (\d+)-(\d+)p(hys?)?Da?ma?ge?:
-  query: properties.Weapon.Physical Damage.avg:[$1 TO $2] 
+  query: properties.Weapon.Physical Damage.avg:[$1 TO $2]
+
+(\d+)g(em)?le?ve?l:
+  query: properties.Gem.Level:>=$1
+(\d+)-(\d+)g(em)?le?ve?l:
+  query: properties.Gem.Level:[$1 TO $2]  
+g(em)?le?ve?l(\d+):
+  query: properties.Gem.Level:>=$2
+g(em)?le?ve?l(\d+)-(\d+):
+  query: properties.Gem.Level:[$2 TO $3]
+
+(\d+)(g(em)?)?q(uality)?:
+  query: properties.Quality:$1
+(\d+)-(\d+)(g(em)?)?q(uality)?:
+  query: properties.Quality:[$1 TO $2]
+(g(em)?)?q(uality)?(\d+):
+  query: properties.Quality:$2   
+(g(em)?)?q(uality)?(\d+)-(\d+):
+  query: properties.Quality:[$4 TO $5]    
+  
+

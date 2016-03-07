@@ -1,0 +1,4 @@
+(\d+)lvling(\w):
+  query:  `unique `$1rlvl `-map `-jewel `-flask `$2
+(\d+)lvling(\w)?:
+  query:  `unique `$1rlvl `-map `-jewel `-flask
