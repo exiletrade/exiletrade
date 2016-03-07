@@ -312,7 +312,8 @@ img.gitter-badge {
 		flex-direction: column;
 	}
 	.grid-block.item-info {
-		min-height: 210px;
+		//min-height: 210px;
+		min-height: 190px;
 		margin-left: 114px;
 	}
 	.item-info .grid-block {
@@ -427,7 +428,7 @@ img.gitter-badge {
 	}
 
 	.sell-infos {
-		padding-left:3px;
+		padding-left: 3px;
 	}
 
 	.mods, .modsPseudo {
@@ -470,12 +471,17 @@ img.gitter-badge {
 	.image-container {
 		max-width: 114px;
 		width: 100%;
-		min-height: 210px;
+		max-height: 170px;
 		background-size: contain;
 		padding: 10px;
 		background-repeat: no-repeat;
 		position: absolute;
 		background-position: right 10px;
+
+		img {
+			max-height: 190px;
+			margin: 0 auto;
+		}
 
 		&:hover {
 			.socket, .socketLink {
