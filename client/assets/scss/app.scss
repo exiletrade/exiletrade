@@ -318,13 +318,13 @@ img.gitter-badge {
 	}
 	.item-box-left {
 		position: relative;
+		padding-right: 15px;
 	}
 	.item-box-right {
 		flex-direction: column;
 	}
 	.grid-block.item-info {
-		//min-height: 210px;
-		min-height: 190px;
+		min-height: 170px;
 		margin-left: 114px;
 	}
 	.item-info .grid-block {
@@ -455,7 +455,7 @@ img.gitter-badge {
 
 			a {
 				display: inline-block;
-				max-width: 350px;
+				max-width: 300px;
 			}
 		}
 		.firstExplicit {
@@ -494,7 +494,7 @@ img.gitter-badge {
 		background-position: right 10px;
 
 		img {
-			max-height: 190px;
+			max-height: 170px;
 			margin: 0 auto;
 		}
 
