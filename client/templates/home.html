@@ -200,8 +200,9 @@ url: /
 			<h3>About</h3>
 			<p>This site is fan-made and not affiliated with Grinding Gear Games in any way. ExileTrade is fully open source under GNU General Public License v2.0.</p>
 			<p>ExileTrade is powered by <a href="https://github.com/trackpete/exiletools-indexer">ExileTools Indexer Public API</a>.</p>
-			<h5>Support Us!</h5>
-			<p>Found this tool useful? Feel free to Donate:</p>
+			<p>Visit our official forum thread at <a href="https://www.pathofexile.com/forum/view-thread/1602257">view-thread/1602257</a>.</p>
+			<h5>Support Us</h5>
+			<p>Buy us a couple of beer!</p>
 			<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=3BULCX8UDSN9S&lc=PH&item_name=Durian%20Open%20Source%20Project&currency_code=USD&bn=PP%2dDonationsBF%3aO6Y32pY%2epng%3aNonHosted">
 				<img src="http://i.imgur.com/O6Y32pY.png" />
 			</a>
@@ -221,6 +222,16 @@ url: /
 	<!-- Searchresults -->
 	<div class="grid-content search-results">
 		<div class="grid-block search-items large-up-2">
+			<div ng-if="!Response">
+				<h4>Sample Search:</h4>
+				<ol>
+					<li>(gloves or helm) 50life 60eleres
+					<li>350pdps mace -voidhome 10c
+					<li>((25fireres 25coldres 25lightres 80res) OR (50res 20int)) -unique
+					<li>veilofthenight
+					<li>leveling
+				<ol>
+			</div>
 			<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style="options.switchItemsPerRow"
 				 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
 
