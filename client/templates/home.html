@@ -43,12 +43,31 @@ url: /
 		<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>
 		<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn scrollTop">Scroll Top</a>
 
+		<!-- bad search input accordion -->
 		<div ng-if="badSearchInputTerms.length" class="badSearchInputTerms">
 			<zf-accordion>
 				<zf-accordion-item title="Invalid Search Terms">
 					<ul>
 						<li ng-repeat="badTerm in badSearchInputTerms"><span>{{badTerm}}</span>
 					</ul>
+				</zf-accordion-item>
+			</zf-accordion>
+		</div>
+
+		<!-- search samples accordion -->
+		<div ng-if="!Response">
+			<zf-accordion class="sampleSearches">
+				<zf-accordion-item title="Sample Searches">
+					<ol>
+						<li>(gloves or helm) 50life 60eleres</li>
+						<li>350pdps mace -voidhome 10c</li>
+						<li>ring 20-30fireres 20manaregen 20str</li>
+						<li>sword 300pdps -flatacc 1ex</li>
+						<li>((25fireres 25coldres 25lightres 80res) OR (50res 20int)) -unique</li>
+						<li>voidmanipulation</li>
+						<li>pureev 5l chest</li>
+						<li>24leveling</li>
+					</ol>
 				</zf-accordion-item>
 			</zf-accordion>
 		</div>
@@ -222,19 +241,6 @@ url: /
 	<!-- Searchresults -->
 	<div class="grid-content search-results">
 		<div class="grid-block search-items large-up-2">
-			<div ng-if="!Response">
-				<h4>Sample Search:</h4>
-				<ol>
-					<li>(gloves or helm) 50life 60eleres
-					<li>350pdps mace -voidhome 10c
-					<li>ring 20-30fireres 20manaregen 20str
-					<li>sword 300pdps -flatacc 1ex
-					<li>((25fireres 25coldres 25lightres 80res) OR (50res 20int)) -unique
-					<li>voidmanipulation
-					<li>pureev 5l chest
-					<li>24leveling
-				<ol>
-			</div>
 			<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style="options.switchItemsPerRow"
 				 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
 

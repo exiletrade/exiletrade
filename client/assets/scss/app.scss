@@ -100,12 +100,12 @@ img.pageLogo {
 		margin-top: 5px;
 	}
 }
-.badSearchInputTerms {
+.badSearchInputTerms, .sampleSearches {
 	.accordion-title, .accordion-content {
 		padding: 0.5rem;
 		font-size: rem-calc(12px);
 	}
-	ul {
+	ul, ol {
 		font-size: rem-calc(14px);
 		margin-bottom: 0px;
 		font-family: monospace;
