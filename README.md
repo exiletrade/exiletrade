@@ -25,7 +25,7 @@ git clone https://github.com/exiletrade/exiletrade.git
 Change into the directory.
 
 ```bash
-cd app
+cd exiletrade
 ```
 
 Install the dependencies. If you're running Mac OS or Linux, you may need to run `sudo npm install` instead, depending on how your machine is configured.
