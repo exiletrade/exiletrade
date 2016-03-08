@@ -699,11 +699,12 @@ url: /
 								IGN: {{item._source.shop.lastCharacterName}}
 								<i class="seperator"></i>
 							</span>
-							<span>
+							<span ng-init="counter = 0">
 								<a ngclipboard class="click small hollow whisper-btn" 
 								   data-clipboard-text="{{copyWhisperToClipboard(item)}}"
+								   ng-click="counter = counter + 1"
 								   color="success" autoclose="2000" zf-open="save-notification-whisper">
-								   Whisper
+								   Whisper<span ng-if="counter > 0"> ({{counter}})</span>
 								</a>
 								<span ng-if="item._source.shop.note">Note: {{item._source.shop.note}}</span>
 							</span>
