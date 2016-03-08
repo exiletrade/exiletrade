@@ -46,7 +46,7 @@ Commands you need to push your changes:
 
 ```bash
 git status								<- Shows the status of your copy of the source code
-git pull								<- Make sure you're always up to date
+git pull								<- Make sure you are always up to date
 git commit -am "what I changed" 		<- Commits your changes to your local repository
 git push origin master					<- Push your changes, and if you wanna help us, you will then need to create a pull request on GitHub
 ```
