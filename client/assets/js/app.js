@@ -414,7 +414,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 				var hourInMillis = 3600000;
 				item.shop['addedHoursAgo'] = (Math.abs(now.getTime() - added.getTime()) / hourInMillis).toFixed(2);
 				item.shop['modifiedHoursAgo'] = (Math.abs(now.getTime() - modified.getTime()) / hourInMillis).toFixed(2);
-				item.shop['udpatedHoursAgo'] = (Math.abs(now.getTime() - updated.getTime()) / hourInMillis).toFixed(2);
+				item.shop['updatedHoursAgo'] = (Math.abs(now.getTime() - updated.getTime()) / hourInMillis).toFixed(2);
 			}
 		}
 
