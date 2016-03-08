@@ -209,54 +209,54 @@ p(hys)?manaleech|pml:
 (\d+\.\d+)-(\d+\.\d+)(p(hys)?manaleech|pml):
   query: modsTotal.#% of Physical Attack Damage Leeched as Mana:[$1 TO $2]
 
-plusbowgems|\+bowg:
+(plus|\+)bowg(ems?)?:
   query: modsTotal.+# to Level of Socketed Bow Gems:>0
-(\d+)plusbowgems|\+bowg:
-  query: modsTotal.+# to Level of Socketed Bow Gems:[$1 TO *]
-(\d+)-(\d+)plusbowgems|\+bowg:
-  query: modsTotal.+# to Level of Socketed Bow Gems:[$1 TO $2]
+(plus|\+)?(\d+)(plus|\+)?bowg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Bow Gems:[$2 TO *]
+(plus|\+)?(\d+)-(\d+)(plus|\+)?bowg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Bow Gems:[$2 TO $3]
 
-pluscoldgems|\+coldg:
+(plus|\+)coldg(ems?)?:
   query: modsTotal.+# to Level of Socketed Cold Gems:>0
-(\d+)pluscoldgems|\+coldg:
-  query: modsTotal.+# to Level of Socketed Cold Gems:[$1 TO *]
-(\d+)-(\d+)pluscoldgems|\+coldg:
-  query: modsTotal.+# to Level of Socketed Cold Gems:[$1 TO $2]
+(plus|\+)?(\d+)(plus|\+)?coldg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Cold Gems:[$2 TO *]
+(plus|\+)?(\d+)-(\d+)(plus|\+)?coldg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Cold Gems:[$2 TO $3]
 
-plusfiregems|\+fireg:
+(plus|\+)fireg(ems?)?:
   query: modsTotal.+# to Level of Socketed Fire Gems:>0
-(\d+)plusfiregems|\+fireg:
-  query: modsTotal.+# to Level of Socketed Fire Gems:[$1 TO *]
-(\d+)-(\d+)plusfiregems|\+fireg:
-  query: modsTotal.+# to Level of Socketed Fire Gems:[$1 TO $2]
+(plus|\+)?(\d+)(plus|\+)?fireg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Fire Gems:[$2 TO *]
+(plus|\+)?(\d+)-(\d+)(plus|\+)?fireg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Fire Gems:[$2 TO $3]
 
-pluslightgems|\+lightg:
+(plus|\+)light(ning)?g(ems?)?:
   query: modsTotal.+# to Level of Socketed Lightning Gems:>0
-(\d+)pluslightgems|\+lightg:
-  query: modsTotal.+# to Level of Socketed Lightning Gems:[$1 TO *]
-(\d+)-(\d+)pluslightgems|\+lightg:
-  query: modsTotal.+# to Level of Socketed Lightning Gems:[$1 TO $2]
+(plus|\+)?(\d+)(plus|\+)?light(ning)?g(ems?)?:
+  query: modsTotal.+# to Level of Socketed Lightning Gems:[$2 TO *]
+(plus|\+)?(\d+)-(\d+)(plus|\+)?light(ning)?g(ems?)?:
+  query: modsTotal.+# to Level of Socketed Lightning Gems:[$2 TO $3]
 
-plusmeleegems|\+meleeg:
+(plus|\+)meleeg(ems?)?:
   query: modsTotal.+# to Level of Socketed Melee Gems:>0
-(\d+)plusmeleegems|\+meleeg:
-  query: modsTotal.+# to Level of Socketed Melee Gems:[$1 TO *]
-(\d+)-(\d+)plusmeleegems|\+meleeg:
-  query: modsTotal.+# to Level of Socketed Melee Gems:[$1 TO $2]
+(plus|\+)?(\d+)(plus|\+)?meleeg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Melee Gems:[$2 TO *]
+(plus|\+)?(\d+)-(\d+)(plus|\+)?meleeg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Melee Gems:[$2 TO $3]
 
-plusminiongems|\+miniong:
+(plus|\+)miniong(ems?)?:
   query: modsTotal.+# to Level of Socketed Minion Gems:>0
-(\d+)plusminiongems|\+miniong:
-  query: modsTotal.+# to Level of Socketed Minion Gems:[$1 TO *]
-(\d+)-(\d+)plusminiongems|\+miniong:
-  query: modsTotal.+# to Level of Socketed Minion Gems:[$1 TO $2]
+(plus|\+)?(\d+)(plus|\+)?miniong(ems?)?:
+  query: modsTotal.+# to Level of Socketed Minion Gems:[$2 TO *]
+(plus|\+)?(\d+)-(\d+)(plus|\+)?miniong(ems?)?:
+  query: modsTotal.+# to Level of Socketed Minion Gems:[$2 TO $3]
 
-plusspellgems|\+spellg:
+(plus|\+)spellg(ems?)?:
   query: modsTotal.+# to Level of Socketed Spell Gems:>0
-(\d+)plusspellgems|\+spellg:
-  query: modsTotal.+# to Level of Socketed Spell Gems:[$1 TO *]
-(\d+)-(\d+)plusspellgems|\+spellg:
-  query: modsTotal.+# to Level of Socketed Spell Gems:[$1 TO $2]
+(plus|\+)?(\d+)(plus|\+)?spellg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Spell Gems:[$2 TO *]
+(plus|\+)?(\d+)-(\d+)(plus|\+)?spellg(ems?)?:
+  query: modsTotal.+# to Level of Socketed Spell Gems:[$2 TO $3]
 
 f(lat)?eleattacks:
   query: modsTotal.Adds # Elemental Damage to Attacks:>0
