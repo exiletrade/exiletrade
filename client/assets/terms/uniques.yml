@@ -976,8 +976,8 @@ Zahndethus'?Cassock:
 Zerphi'?s?Last Breath:
   query: info.name:"Zerphi's Last Breath"
 Trypanon:
-  query: info.name:"Zerphi's Last Breath"
+  query: info.name:"Trypanon"
 Viper'?s?Scales:
-  query: info.name:"Zerphi's Last Breath"
-Xirgil'?s?Crank]:
-  query: info.name:"Zerphi's Last Breath"
+  query: info.name:"Viper's Scales"
+Xirgil'?s?Crank:
+  query: info.name:"Xirgil's Crank"
