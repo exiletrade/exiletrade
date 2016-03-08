@@ -25,3 +25,6 @@ gone:
   query: shop.updated:>=$1
 (.+)-(.+)shopUpd(ated)?:
   query: shop.updated:[$1 TO $2]
+
+free:
+  query: shop.stash.stashName:\~free

@@ -153,7 +153,7 @@ g(em)?le?ve?l(\d+)-(\d+):
 (\d+)-(\d+)(g(em)?)?q(uality)?:
   query: properties.Quality:[$1 TO $2]
 (g(em)?)?q(uality)?(\d+):
-  query: properties.Quality:$2   
+  query: properties.Quality:$4   
 (g(em)?)?q(uality)?(\d+)-(\d+):
   query: properties.Quality:[$4 TO $5]    
   
