@@ -25,8 +25,7 @@ url: /
 					</a>
 					<input id="searchField" ng-model="searchInput" placeholder="Search Input" my-enter="doSearch()" size="150" type="text">
 					<a href="#" ng-click="saveLastSearch()" class="button small saveSearchNotificationLink" title="Save Search"
-					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search"
-							>
+					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
 						<img zf-iconic="" icon="circle-check" size="small">Save
 					</a>
 					<div class="searchStats" title="{{queryString}}" ng-if="Response.took" zf-open="showElasticJsonRequestModal">
@@ -38,7 +37,9 @@ url: /
 		</div>
 		<zf-notification-set id="save-notification-search" position="top-left"></zf-notification-set>
 		<zf-notification-set id="save-notification-options" position="top-right"></zf-notification-set>
-
+		<zf-notification-static id="save-notification-whisper" color="success" zf-advise="" title="Whisper message copied." autoclose=2000>
+		</zf-notification-static>
+		
 		<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>
 		<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn scrollTop">Scroll Top</a>
 
@@ -698,9 +699,13 @@ url: /
 								IGN: {{item._source.shop.lastCharacterName}}
 								<i class="seperator"></i>
 							</span>
-
 							<span>
-								<a ngclipboard class="click small hollow whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}" >Whisper</a> <span ng-if="item._source.shop.note">Note: {{item._source.shop.note}}</span>
+								<a ngclipboard class="click small hollow whisper-btn" 
+								   data-clipboard-text="{{copyWhisperToClipboard(item)}}"
+								   color="success" autoclose="2000" zf-open="save-notification-whisper">
+								   Whisper
+								</a>
+								<span ng-if="item._source.shop.note">Note: {{item._source.shop.note}}</span>
 							</span>
 						</div>
 					</div>
