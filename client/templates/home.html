@@ -700,7 +700,7 @@ url: /
 							</span>
 
 							<span>
-								<a ngclipboard class="click small hollow whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}">Whisper</a>
+								<a ngclipboard class="click small hollow whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}" >Whisper</a> <span ng-if="item._source.shop.note">Note: {{item._source.shop.note}}</span>
 							</span>
 						</div>
 					</div>
