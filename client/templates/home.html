@@ -551,6 +551,18 @@ url: /
 										</td>
 									</tr>
 									<tr>
+									<tr ng-if="item._source.properties.Weapon['Critical Strike Chance']">
+                                        <td>Crit Chance</td>
+                                        <td>
+                                            <a
+                                                data-sort-key="properties.Weapon.Critical Strike Chance"
+                                                data-sort-order="desc"
+                                                ng-click="doSearchWithSort($event)">
+                                                {{item._source.properties.Weapon['Critical Strike Chance']}}
+                                            </a>
+                                        </td>
+                                    </tr>
+									<tr>
 										<td>Total DPS</td>
 										<td>
 											<a

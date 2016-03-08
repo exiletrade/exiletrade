@@ -157,4 +157,7 @@ g(em)?le?ve?l(\d+)-(\d+):
 (g(em)?)?q(uality)?(\d+)-(\d+):
   query: properties.Quality:[$4 TO $5]    
   
-
+(\d+)crit(ical)?(strike)?chance:
+  query: properties.Weapon.Critical Strike Chance:>=$1
+(\d+)-(\d+)crit(ical)?(strike)?chance:
+  query: properties.Weapon.Critical Strike Chance:[$1 TO $2]
