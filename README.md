@@ -40,8 +40,16 @@ While you're working on your project, run:
 ```bash
 npm start
 ```
-
 This will compile the Sass and assemble your Angular app. **Now go to `localhost:8080` in your browser to see it in action.** When you change any file in the `client` folder, the appropriate Gulp task will run to build new files.
+
+Commands you need to push your changes:
+
+```bash
+git status								<- Shows the status of your copy of the source code
+git pull								<- Make sure you're always up to date
+git commit -am "what I changed" 		<- Commits your changes to your local repository
+git push origin master					<- Push your changes, and if you wanna help us, you will then need to create a pull request on GitHub
+```
 
 To run the compiling process once, without watching any files, use the `build` command.
 
