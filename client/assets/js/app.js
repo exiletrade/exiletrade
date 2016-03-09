@@ -24,6 +24,14 @@ var terms = {};
 function parseSearchInput(_terms, input) {
 	debugOutput('parseSearchInput: ' + input, 'trace');
 	terms = _terms;
+	
+	// special search term handling
+	if (/\bfree\b/i.test(input) && /\bbo\b/i.test(input)) {
+		// free items cannot have buyouts so let's remove the bo search term if any
+		debugOutput("removing 'bo' as a special handling of 'free'", 'info');
+		input = input.replace(/\bbo\b/i, "").trim();
+	}
+
 	// capture literal search terms (LST) like name="veil of the night"
 	var regex = /([^\s]*[:=]\".*?\")/g;
 	var lsts = input.match(regex);
