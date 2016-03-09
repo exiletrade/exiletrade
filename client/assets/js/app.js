@@ -27,7 +27,6 @@ function parseSearchInput(_terms, input) {
 	// capture literal search terms (LST) like name="veil of the night"
 	var regex = /([^\s]*[:=]\".*?\")/g;
 	var lsts = input.match(regex);
-	lsts = expandLsts(lsts);
 	var _input = input.replace(regex, 'LST');
 	var parseResult = parseSearchInputTokens(_input);
 	debugOutput(parseResult, 'info');
@@ -35,7 +34,7 @@ function parseSearchInput(_terms, input) {
 	parseResult.queryString = parseResult.queryString.replace('LST', function (match) {
 		var lst = lsts[i];
 		i++;
-		return lst;
+		return lst.toLowerCase();
 	});
 	
 	if (/^name[:=]"(.+)"$/i.test(parseResult.queryString)) {
@@ -44,10 +43,6 @@ function parseSearchInput(_terms, input) {
 			.replace("=",":");
 	}
 	return parseResult;
-}
-
-function expandLsts(lsts) {
-	return lsts;
 }
 
 function parseSearchInputTokens(input) {
