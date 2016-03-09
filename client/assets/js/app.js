@@ -60,6 +60,7 @@ function parseSearchInputTokens(input) {
 	var badTokens = [];
 	for (i in tokens) {
 		var evaluatedToken = tokens[i];
+		if (!evaluatedToken) continue;
 		var token = evaluatedToken.toUpperCase();
 		
 		if (/^(OR|AND|LST|NOT)$/i.test(token)) {
