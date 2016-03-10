@@ -867,7 +867,7 @@ Tasalio'?s?Sign:
   query: info.name:"Tasalio's Sign"
 Taste(of)?Hate:
   query: info.name:"Taste of Hate"
-Tear(of)?Purity:
+Tears?(of)?Purity:
   query: info.name:"Tear of Purity"
 TerminusEst:
   query: info.name:"Terminus Est"

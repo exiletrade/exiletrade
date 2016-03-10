@@ -259,18 +259,18 @@ p(hys)?manaleech|pml:
   query: modsTotal.+# to Level of Socketed Spell Gems:[$2 TO $3]
 
 f(lat)?eleattacks:
-  query: modsTotal.Adds # Elemental Damage to Attacks:>0
+  query: modsTotal.Adds #-# Elemental Damage to Attacks.avg:>0
 (\d+)f(lat)?eleattacks:
-  query: modsTotal.Adds # Elemental Damage to Attacks:[$1 TO *]
+  query: modsTotal.Adds #-# Elemental Damage to Attacks.avg:[$1 TO *]
 (\d+)-(\d+)f(lat)?eleattacks:
-  query: modsTotal.Adds # Elemental Damage to Attacks:[$1 TO $2]
+  query: modsTotal.Adds #-# Elemental Damage to Attacks.avg:[$1 TO $2]
 
 f(lat)?fireattacks:
-  query: modsTotal.Adds # Fire Damage to Attacks:>0
+  query: modsTotal.Adds #-# Fire Damage to Attacks.avg:>0
 (\d+)f(lat)?fireattacks:
-  query: modsTotal.Adds # Fire Damage to Attacks:[$1 TO *]
+  query: modsTotal.Adds #-# Fire Damage to Attacks.avg:[$1 TO *]
 (\d+)-(\d+)f(lat)?fireattacks:
-  query: modsTotal.Adds # Fire Damage to Attacks:[$1 TO $2]
+  query: modsTotal.Adds #-# Fire Damage to Attacks.avg:[$1 TO $2]
 
 f(lat)?physattacks:
   query: modsTotal.Adds #-# Physical Damage to Attacks.avg:>0
@@ -279,19 +279,19 @@ f(lat)?physattacks:
 (\d+)-(\d+)f(lat)?physattacks:
   query: modsTotal.Adds #-# Physical Damage to Attacks.avg:[$1 TO $2]
 
-f(lat)?coldattacks:
-  query: modsTotal.Adds # Cold Damage to Attacks:>0
+f(lat)?coldattacks?:
+  query: modsTotal.Adds #-# Cold Damage to Attacks.avg:>0
 (\d+)f(lat)?coldattacks:
-  query: modsTotal.Adds # Cold Damage to Attacks:[$1 TO *]
+  query: modsTotal.Adds #-# Cold Damage to Attacks.avg:[$1 TO *]
 (\d+)-(\d+)f(lat)?coldattacks:
-  query: modsTotal.Adds # Cold Damage to Attacks:[$1 TO $2]
+  query: modsTotal.Adds #-# Cold Damage to Attacks.avg:[$1 TO $2]
 
 f(lat)?lightattacks:
-  query: modsTotal.Adds # Lightning Damage to Attacks:>0
+  query: modsTotal.Adds #-# Lightning Damage to Attacks.avg:>0
 (\d+)f(lat)?lightattacks:
-  query: modsTotal.Adds # Lightning Damage to Attacks:[$1 TO *]
+  query: modsTotal.Adds #-# Lightning Damage to Attacks.avg:[$1 TO *]
 (\d+)-(\d+)f(lat)?lightattacks:
-  query: modsTotal.Adds # Lightning Damage to Attacks:[$1 TO $2]
+  query: modsTotal.Adds #-# Lightning Damage to Attacks.avg:[$1 TO $2]
 
 f(lat)?lightquiver:
   query: modsTotal.Adds #-# Lightning Damage to Attacks:>0
