@@ -147,11 +147,11 @@ spellf(lat)?light|sf(lat)?light:
   query: modsTotal.Adds #-# Lightning Damage to Spells:[$1 TO $2]
 
 spellf(lat)?fire|sf(lat)?fire:
-  query: modsTotal.Adds #-# Fire Damage to Spells:>0
+  query: modsTotal.Adds \#-#  Damage to Spells.avg:>0
 (\d+)spellf(lat)?fire|sf(lat)?fire:
-  query: modsTotal.Adds #-# Fire Damage to Spells:[$1 TO *]
+  query: modsTotal.Adds \#-#  Damage to Spells.avg:[$1 TO *]
 (\d+)-(\d+)spellf(lat)?fire|sf(lat)?fire:
-  query: modsTotal.Adds #-# Fire Damage to Spells:[$1 TO $2]
+  query: modsTotal.Adds \#-#  Damage to Spells.avg:[$1 TO $2]
 
 spellf(lat)?cold|sf(lat)?cold:
   query: modsTotal.Adds #-# Cold Damage to Spells:>0
