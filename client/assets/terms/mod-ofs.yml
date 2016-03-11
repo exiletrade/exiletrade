@@ -73,11 +73,11 @@ ipd|incp(hys)?da?ma?ge?:
   query: modsTotal.#% increased Physical Damage:[$1 TO $2]
 
 f(lat)?phys:
-  query: modsTotal.Adds #-# Physical Damage:>0
+  query: modsTotal.Adds \#-# Physical Damage.avg:>0
 (\d+)f(lat)?phys:
-  query: modsTotal.Adds #-# Physical Damage:[$1 TO *]
+  query: modsTotal.Adds \#-# Physical Damage.avg:[$1 TO *]
 (\d+)-(\d+)f(lat)?phys:
-  query: modsTotal.Adds #-# Physical Damage:[$1 TO $2]
+  query: modsTotal.Adds \#-# Physical Damage.avg:[$1 TO $2]
 
 hitscantbeevaded:
   query: modsTotal.Hits can't be Evaded:true
@@ -119,25 +119,25 @@ incprojda?ma?ge?:
   query: modsTotal.#% increased Projectile Damage:[$1 TO $2]
 
 f(lat)?light:
-  query: modsTotal.Adds #-# Lightning Damage:>0
+  query: modsTotal.Adds \#-# Lightning Damage.avg:>0
 (\d+)f(lat)?light:
-  query: modsTotal.Adds #-# Lightning Damage:[$1 TO *]
+  query: modsTotal.Adds \#-# Lightning Damage.avg:[$1 TO *]
 (\d+)-(\d+)f(lat)?light:
-  query: modsTotal.Adds #-# Lightning Damage:[$1 TO $2]
+  query: modsTotal.Adds \#-# Lightning Damage.avg:[$1 TO $2]
 
 f(lat)?fire:
-  query: modsTotal.Adds #-# Fire Damage:>0
+  query: modsTotal.Adds \#-# Fire Damage.avg:>0
 (\d+)f(lat)?fire:
-  query: modsTotal.Adds #-# Fire Damage:[$1 TO *]
+  query: modsTotal.Adds \#-# Fire Damage.avg:[$1 TO *]
 (\d+)-(\d+)f(lat)?fire:
-  query: modsTotal.Adds #-# Fire Damage:[$1 TO $2]
+  query: modsTotal.Adds \#-# Fire Damage.avg:[$1 TO $2]
 
 f(lat)?cold:
-  query: modsTotal.Adds #-# Cold Damage:>0
+  query: modsTotal.Adds \#-# Cold Damage.avg:>0
 (\d+)f(lat)?cold:
-  query: modsTotal.Adds #-# Cold Damage:[$1 TO *]
+  query: modsTotal.Adds \#-# Cold Damage.avg:[$1 TO *]
 (\d+)-(\d+)f(lat)?cold:
-  query: modsTotal.Adds #-# Cold Damage:[$1 TO $2]
+  query: modsTotal.Adds \#-# Cold Damage.avg:[$1 TO $2]
 
 spellf(lat)?light|sf(lat)?light:
   query: modsTotal.Adds #-# Lightning Damage to Spells:>0
