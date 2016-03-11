@@ -167,11 +167,11 @@ atkspeed|attackspeed:
 (\d+)-(\d+)atkspeed|attackspeed:
   query: modsTotal.#% increased Attack Speed:[$1 TO $2]
 
-minusmana|elreon:
+minusmana|elre?on:
   query: modsTotal.-# to Mana Cost of Skills:>0
-(\d+)minusmana|elreon:
+(\d+)minusmana|elre?on:
   query: modsTotal.-# to Mana Cost of Skills:[$1 TO *]
-(\d+)-(\d+)minusmana|elreon:
+(\d+)-(\d+)minusmana|elre?on:
   query: modsTotal.-# to Mana Cost of Skills:[$1 TO $2]
 
 totalcoldspellda?ma?ge?|tcsda?ma?ge?:
