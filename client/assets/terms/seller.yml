@@ -8,7 +8,7 @@ bo:
 nobo:
   query: shop.hasPrice:false
 seller(.*):
-  query: (shop.sellerAccount:$1)
+  query: (shop.sellerAccount:$1 OR shop.lastCharacterName:$1)
 new:
   query: shop.verified:YES
 old:
