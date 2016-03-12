@@ -385,17 +385,18 @@ url: /
 												   ng-click="doSearchWithSort($event)">{{mod.display}}</a>
 											</li>
 											<li class="sortable" ng-repeat="mod in item._source.forgottenMods"
-												data-mod="{{mod}}" ng-class="{firstExplicit: ($index) == 0 && item._source.attributes.implicitModsCount > 0}">
+												data-mod="{{mod}}" ng-class="{firstExplicit: ($index) == 0 && item._source.attributes.implicitModsCount > 0}"
+												>
 												<a href="" 
 												   data-sort-key="{{mod.key}}"
-												   data-sort-order="desc"
+												   data-sort-order="desc" class="{{mod.css}}"
 												   ng-click="doSearchWithSort($event)"><span class="item-mod-affix" ng-if="mod.affix">[{{mod.affix}} T{{mod.tier}}/{{mod.maxTier}}]</span> {{mod.display}}</a>
 											</li>
 											<li class="sortable" ng-repeat="mod in item._source.craftedMods"
 												data-mod="{{mod}}">
 												<a href="" 
 												   data-sort-key="{{mod.key}}"
-												   data-sort-order="desc"
+												   data-sort-order="desc" class="{{mod.css}}"
 												   ng-click="doSearchWithSort($event)"><em>{{mod.display}}</em></a>
 											</li>
 											<li ng-if="item._source.mods.Card">
@@ -414,48 +415,6 @@ url: /
 											</li>
 										</ul>
 									</div>
-
-									<!--<div class="grid-block sell-infos">
-										<span class=""  ng-if="item._source.shop.saleType && item._source.shop.amount > 0">
-											{{item._source.shop.saleType}}:
-										</span>
-										<span class="sortable price amount"
-											  ng-if="item._source.shop.amount > 0"
-											  data-value="{{item._source.shop.amount}}"
-											  data-name="Price in {{item._source.shop.currency}}"
-											  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
-											<a href="" 
-											   data-sort-key="shop.chaosEquiv"
-											   data-sort-order="asc"
-											   ng-click="doSearchWithSort($event)">{{item._source.shop.amount}}×</a>
-										</span>
-										<span class="sortable price"
-											  ng-if="item._source.shop.amount > 0"
-											  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
-											<a href="" 
-											   data-sort-key="shop.chaosEquiv"
-											   data-sort-order="asc"
-											   ng-click="doSearchWithSort($event)">
-											   		<span class="currency {{item._source.shop.currency}}"></span>
-											</a>
-											<i class="seperator"></i>
-										</span>
-
-										&lt;!&ndash;span class="click verified {{item._source.shop.verified}}">
-											Verify
-											<span class=""></span>
-											<i class="seperator"></i>
-										</span&ndash;&gt;
-
-										<span class="" data-ign="{{item._source.shop.lastCharacterName}}">
-											IGN: {{item._source.shop.lastCharacterName}}
-											<i class="seperator"></i>
-										</span>
-
-										<span>
-											<a ngclipboard class="click small hollow whisper-btn" data-clipboard-text="{{copyWhisperToClipboard(item)}}">Whisper</a>
-										</span>
-									</div>-->
 								</div>
 							</div>
 						</div>
@@ -473,7 +432,7 @@ url: /
 											{{item._source.properties.Quality | defaultToValue }} 
 											<a
 												data-sort-key="properties.Quality"
-												data-sort-order="desc"
+												data-sort-order="desc" class="quality"
 												ng-click="doSearchWithSort($event)">
 												+{{20-(item._source.properties.Quality)}}
 											</a>
@@ -636,7 +595,7 @@ url: /
 											<a
 												data-sort-key="properties.Weapon.Fire DPS"
 												data-sort-order="desc"
-												ng-click="doSearchWithSort($event)">
+												ng-click="doSearchWithSort($event)" class="mod-fire-dmg">
 												{{item._source.properties.Weapon['Fire DPS']}}
 											</a>
 										</td>
@@ -650,7 +609,7 @@ url: /
 											<a
 												data-sort-key="properties.Weapon.Cold DPS"
 												data-sort-order="desc"
-												ng-click="doSearchWithSort($event)">
+												ng-click="doSearchWithSort($event)" class="mod-cold-dmg">
 												{{item._source.properties.Weapon['Cold DPS']}}
 											</a>
 										</td>
@@ -664,7 +623,7 @@ url: /
 											<a
 												data-sort-key="properties.Weapon.Lightning DPS"
 												data-sort-order="desc"
-												ng-click="doSearchWithSort($event)">
+												ng-click="doSearchWithSort($event)" class="mod-lightning-dmg">
 												{{item._source.properties.Weapon['Lightning DPS']}}
 											</a>
 										</td>
@@ -678,7 +637,7 @@ url: /
 											<a
 												data-sort-key="properties.Chaos DPS"
 												data-sort-order="desc"
-												ng-click="doSearchWithSort($event)">
+												ng-click="doSearchWithSort($event)" class="mod-chaos-dmg">
 												{{item._source.properties.Weapon['Chaos DPS']}}
 											</a>
 										</td>

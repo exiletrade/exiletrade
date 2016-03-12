@@ -343,9 +343,6 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 
 		$scope.termsMap = {};
 
-		//				case 0 : cssClasses = 'socketLeft'; break;
-			//		case 1 : cssClasses = 'socketRight'; break
-		
 		var mergeIntoTermsMap = function(res){
 			var ymlData = jsyaml.load(res.data);
 			jQuery.extend($scope.termsMap, ymlData);
@@ -460,12 +457,55 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 					display : modToDisplay(propertyValue, modKey),
 					key : 'mods.' + itemTypeKey + '.explicit.' + modKey,
 					name : modKey,
-					value : propertyValue
+					value : propertyValue,
+					css: getModCssClasses(modKey)
 				};
 			});
 			item['forgottenMods'] = forgottenMods;
 			// we call on fm.js to do it's awesome work
 			fm_process(item);
+		}
+
+		/*
+			Get CSS Classes for element resistances
+		*/
+		function getModCssClasses(mod) {
+			var css = "";
+			if (mod.indexOf("Resistance") > -1) {
+				if (mod.indexOf("Cold") > -1) {
+					css = "mod-cold-res"
+				}
+				else if (mod.indexOf("Fire") > -1) {
+					css = "mod-fire-res"
+				}
+				else if (mod.indexOf("Lightning") > -1) {
+					css = "mod-lightning-res"
+				}
+				else if (mod.indexOf("Chaos") > -1) {
+					css = "mod-chaos-res"
+				}
+			}
+			if (mod.indexOf("Damage") > -1) {
+				if (mod.indexOf("Cold") > -1) {
+					css = "mod-cold-dmg"
+				}
+				else if (mod.indexOf("Fire") > -1) {
+					css = "mod-fire-dmg"
+				}
+				else if (mod.indexOf("Lightning") > -1) {
+					css = "mod-lightning-dmg"
+				}
+				else if (mod.indexOf("Chaos") > -1) {
+					css = "mod-chaos-dmg"
+				}
+			}
+			else if (mod.indexOf("to maximum Life") > -1) {
+				css = "mod-life";
+			}
+			else if (mod.indexOf("to maximum Mana") > -1) {
+				css = "mod-mana";
+			}
+			return css;
 		}
 
 		function createImplicitMods(item) {
@@ -720,7 +760,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 				}
 			}
 			return pos;
-		}
+		};
 
 		$scope.isEmpty = function (obj) {
 			for (var i in obj) if (obj.hasOwnProperty(i)) return false;

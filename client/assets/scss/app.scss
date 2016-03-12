@@ -604,7 +604,28 @@ img.gitter-badge {
 		}
 	}
 
+	a {
+		&.mod-fire-res, &.mod-fire-dmg {
+			//color: black;
+		}
+		&.mod-cold-res, &.mod-cold-dmg {
+			//color: black;
+		}
+		&.mod-lightning-res, &.mod-lightning-dmg {
+			//color: black;
+		}
+		&.mod-chaos-res, &.mod-chaos-dmg {
+			//color: black;
+		}
+		&.mod-life {
+			//color: black;
+		}
+		&.mod-mana {
+			//color: black;
+		}
+	}
 }
+
 
 .panel {
 	width: 400px;
