@@ -84,6 +84,14 @@ url: /
 			</span>
 			<span class="inline-label">
 				<div class="switch small">
+					<input type="checkbox" ng-model="options.showAdvancedStats" id="showAdvancedStats">
+					<label for="showAdvancedStats"></label>
+				</div>
+
+				<label class="label-advancedStats">Show Advanced Item Stats</label>
+			</span>
+			<span class="inline-label">
+				<div class="switch small">
 					<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
 						   ng-true-value="" ng-false-value="" ng-change="stateChanged()">
 					<label for="switch-itemsPerRow"></label>
@@ -139,6 +147,13 @@ url: /
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.switchPseudoMods" id="switch-pseudoMods">
 								<label for="switch-pseudoMods"></label>
+							</div>
+						</li>
+						<li>
+							<span class="label-advancedStats">Show Advanced Item Stats</span>
+							<div class="switch small">
+								<input type="checkbox" ng-model="options.showAdvancedStats" id="showAdvancedStats">
+								<label for="showAdvancedStats"></label>
 							</div>
 						</li>
 						<li>
@@ -470,7 +485,7 @@ url: /
 											<a
 												data-sort-key="propertiesPseudo.Armour.estimatedQ20.{{defense}}"
 												data-sort-order="desc"
-												ng-click="doSearchWithSort($event)">
+												ng-click="doSearchWithSort($event)" class="quality">
 												{{value}}
 											</a>
 										</td>
@@ -502,7 +517,7 @@ url: /
 											<a
 												data-sort-key="properties.Quality"
 												data-sort-order="desc"
-												ng-click="doSearchWithSort($event)">
+												ng-click="doSearchWithSort($event)" class="quality">
 												+{{20-(item._source.properties.Quality)}}
 											</a>
 										</td>
@@ -545,7 +560,7 @@ url: /
 											<a
 												data-sort-key="properties.Quality"
 												data-sort-order="desc"
-												ng-click="doSearchWithSort($event)">
+												ng-click="doSearchWithSort($event)" class="quality">
 												&nbsp;[+{{20-(item._source.properties.Quality)}}]
 											</a>
 										</td>
@@ -596,9 +611,12 @@ url: /
 											<a
 												data-sort-key="propertiesPseudo.Weapon.estimatedQ20.Physical DPS"
 												data-sort-order="desc"
-												ng-click="doSearchWithSort($event)">
+												ng-click="doSearchWithSort($event)" class="quality">
 												&nbsp;[{{item._source.propertiesPseudo.Weapon.estimatedQ20['Physical DPS']}}]
 											</a>
+										</td>
+										<td ng-show="options.showAdvancedStats==true">
+											| test
 										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Elemental DPS']">
@@ -622,6 +640,9 @@ url: /
 												{{item._source.properties.Weapon['Fire DPS']}}
 											</a>
 										</td>
+										<td ng-show="options.showAdvancedStats==true">
+											| test
+										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Cold DPS']">
 										<td>Cold DPS</td>
@@ -632,6 +653,9 @@ url: /
 												ng-click="doSearchWithSort($event)">
 												{{item._source.properties.Weapon['Cold DPS']}}
 											</a>
+										</td>
+										<td ng-show="options.showAdvancedStats==true">
+											| test
 										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Lightning DPS']">
@@ -644,6 +668,9 @@ url: /
 												{{item._source.properties.Weapon['Lightning DPS']}}
 											</a>
 										</td>
+										<td ng-show="options.showAdvancedStats==true">
+											| test
+										</td>
 									</tr>
 									<tr ng-if="item._source.properties.Weapon['Chaos DPS']">
 										<td>Chaos DPS</td>
@@ -654,6 +681,9 @@ url: /
 												ng-click="doSearchWithSort($event)">
 												{{item._source.properties.Weapon['Chaos DPS']}}
 											</a>
+										</td>
+										<td ng-show="options.showAdvancedStats==true">
+											| test
 										</td>
 									</tr>
 									</tbody>
