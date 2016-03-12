@@ -53,7 +53,7 @@ function parseSearchInput(_terms, input) {
 	return parseResult;
 }
 
-function parseSearchInputTokens(input) {
+function parseSearchInputTokens(input, rerun = false) {
 	var tokens = input.split(" ");
 	debugOutput(tokens, 'trace');
 	var queryTokens = [];
@@ -87,9 +87,9 @@ function parseSearchInputTokens(input) {
 
 	//rerun bad tokens
 	debugOutput("bad Tokens: " + badTokens.join(""),"info");
-	if(badTokens.length > 0){	
-		var rerun = parseSearchInputTokens(badTokens.join(""))
-		if(rerun.length['badToekns']>0){
+	if(badTokens.length > 0 && !rerun){	
+		var rerun = parseSearchInputTokens(badTokens.join(""),true)
+		if(rerun.length['badTokens']>0){
 			ga('send', 'event', 'Button', 'Bad Tokens', badTokens.toString());
 		}
 		queryString += " " + rerun['queryString'];
