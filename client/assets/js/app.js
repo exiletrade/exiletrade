@@ -54,7 +54,7 @@ function parseSearchInput(_terms, input) {
 }
 
 function parseSearchInputTokens(input, rerun) {
-	var rerun = typeof rerun !== 'undefined' ?  b : false;
+	var rerun = typeof rerun !== 'undefined' ?  rerun : false;
 	var tokens = input.split(" ");
 	debugOutput(tokens, 'trace');
 	var queryTokens = [];
