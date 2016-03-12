@@ -65,18 +65,18 @@ cha?(os)?Res(istance)?:
 (\d+)-(\d+)cha?(os)?Res(istance)?:
   query: modsPseudo.+#% Total to Chaos Resistance:[$1 TO $2]
 
-ms:
+M(ove(ment)?)?S(p(ee)?d)?:
   query: modsTotal.#% increased Movement Speed:>0
-(\d+)ms:
+(\d+)M(ove(ment)?)?S(p(ee)?d)?:
   query: modsTotal.#% increased Movement Speed:[$1 TO *]
-(\d+)-(\d+)ms:
+(\d+)-(\d+)M(ove(ment)?)?S(p(ee)?d)?:
   query: modsTotal.#% increased Movement Speed:[$1 TO $2]
 
-iir:
+((i(nc(reased)?)?i(tem)?r(arity)?)|rarity):
   query: modsTotal.#% increased Rarity of Items found:>0
-(\d+)iir:
+(\d+)((i(nc(reased)?)?i(tem)?r(arity)?)|rarity):
   query: modsTotal.#% increased Rarity of Items found:[$1 TO *]
-(\d+)-(\d+)iir:
+(\d+)-(\d+)((i(nc(reased)?)?i(tem)?r(arity)?)|rarity):
   query: modsTotal.#% increased Rarity of Items found:[$1 TO $2]  
 
 m(ana)reg(en)?:
@@ -128,11 +128,11 @@ sh(ield)?bloc?k:
 (\d+)-(\d+)sh(ield)?bloc?k:
   query: modsTotal.+#% Chance to Block with Shields:[$1 TO $2]
 
-iiq:
+((i(nc(reased)?)?i(tem)?Q(uant(ity)?)?)|Quant(ity)?):
   query: modsTotal.#% increased Quantity of Items found:>0
-(\d+)iiq:
+(\d+)((i(nc(reased)?)?i(tem)?Q(uant(ity)?)?)|Quant(ity)?):
   query: modsTotal.#% increased Quantity of Items found:[$1 TO *]
-(\d+)-(\d+)iiq:
+(\d+)-(\d+)((i(nc(reased)?)?i(tem)?Q(uant(ity)?)?)|Quant(ity)?):
   query: modsTotal.#% increased Quantity of Items found:[$1 TO $2]
 
 dodge:
