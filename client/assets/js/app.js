@@ -89,7 +89,7 @@ function parseSearchInputTokens(input, rerun = false) {
 	debugOutput("bad Tokens: " + badTokens.join(""),"info");
 	if(badTokens.length > 0 && !rerun){	
 		var rerun = parseSearchInputTokens(badTokens.join(""),true)
-		if(rerun.length['badTokens']>0){
+		if(rerun['badTokens'].length>0){
 			ga('send', 'event', 'Button', 'Bad Tokens', badTokens.toString());
 		}
 		queryString += " " + rerun['queryString'];
