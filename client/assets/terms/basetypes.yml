@@ -1,7 +1,8 @@
 #
 #BaseTypes
 #
-
+(The)?DapperProdigy:
+  query: info.typeLine:"The Dapper Prodigy"
 FishingRod:
   query: info.typeLine:"Fishing Rod"
 DryPeninsula:
