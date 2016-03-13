@@ -679,7 +679,7 @@ Oro'?s?Sacrifice:
   query: info.name:"Oro's Sacrifice"
 Pacifism:
   query: info.name:"Pacifism"
-PerandusBlazon:
+(Perandus)?Blazon:
   query: info.name:"Perandus Blazon"
 PerandusSignet:
   query: info.name:"Perandus Signet"
@@ -791,6 +791,8 @@ ShadowsandDust:
   query: info.name:"Shadows and Dust"
 Shaper'?s?Seed:
   query: info.name:"Shaper's Seed"
+ShatteredChains:
+  query: info.name:"Shattered Chains"
 Shav(ronne'?s?Wrappings|s):
   query: info.name:"Shavronne's Wrappings"
 Shavronne'?s?Pace:
@@ -863,7 +865,7 @@ SurvivalSecrets:
   query: info.name:"Survival Secrets"
 SurvivalSkills:
   query: info.name:"Survival Skills"
-tabula|TabulaRasa:
+(tabula|rasa)+:
   query: info.name:"Tabula Rasa"
 Talisman(of)?(the)?Victor:
   query: info.name:"Talisman of the Victor"
