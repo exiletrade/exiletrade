@@ -72,11 +72,11 @@ M(ove(ment)?)?S(p(ee)?d)?:
 (\d+)-(\d+)M(ove(ment)?)?S(p(ee)?d)?:
   query: modsTotal.#% increased Movement Speed:[$1 TO $2]
 
-((i(nc(reased)?)?)?i(tem)?r(arity)?)|rarity:
+((i(nc(reased)?)?)?i(tem)?r(arity)?)|rarity: 
   query: modsTotal.#% increased Rarity of Items found:>0
-(\d+)((i(nc(reased)?)?)?i(tem)?r(arity)?)|rarity:
+(\d+)((i(nc(reased)?)?)?i(tem)?r(arity)?)|rarity: 
   query: modsTotal.#% increased Rarity of Items found:[$1 TO *]
-(\d+)-(\d+)((i(nc(reased)?)?)?i(tem)?r(arity)?)|rarity:
+(\d+)-(\d+)((i(nc(reased)?)?)?i(tem)?r(arity)?)|rarity: 
   query: modsTotal.#% increased Rarity of Items found:[$1 TO $2]  
 
 m(ana)reg(en)?:

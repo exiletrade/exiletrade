@@ -21,7 +21,7 @@ notcrafted:
  query: attributes.craftedModsCount:0
 crafted:
  query: attributes.craftedModsCount:>0
- mirrored:
+mirrored:
   query: attributes.mirrored:true
 
 (\d+)i(tem)?Le?ve?l:
