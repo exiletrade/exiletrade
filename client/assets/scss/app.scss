@@ -606,22 +606,22 @@ img.gitter-badge {
 
 	a {
 		&.mod-fire-res, &.mod-fire-dmg {
-			//color: black;
+			color: #ff0000;
 		}
 		&.mod-cold-res, &.mod-cold-dmg {
-			//color: black;
+			color: #00b8e6;
 		}
 		&.mod-lightning-res, &.mod-lightning-dmg {
-			//color: black;
+			color: #cccc00;
 		}
 		&.mod-chaos-res, &.mod-chaos-dmg {
-			//color: black;
+			color: #006600;
 		}
 		&.mod-life {
-			//color: black;
+			color: #800000;
 		}
 		&.mod-mana {
-			//color: black;
+			color: #0000cc;
 		}
 	}
 }
