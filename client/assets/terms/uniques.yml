@@ -81,6 +81,8 @@
   query: info.name:"The Screaming Eagle"
 (The)?SearingTouch:
   query: info.name:"The Searing Touch"
+(The)?Sorrow(of)?(the)?Divine:
+  query: info.name:"The Sorrow of the Divine"
 (The)?Stormheart:
   query: info.name:"The Stormheart"
 (The)?SupremeTruth:
