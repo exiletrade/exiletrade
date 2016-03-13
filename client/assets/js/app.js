@@ -238,7 +238,8 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		'foundation',
 		'foundation.dynamicRouting',
 		'foundation.dynamicRouting.animations',
-		'ngclipboard'
+		'ngclipboard',
+		'duScroll'
 	]);
 
 	appModule.config(config);
@@ -643,6 +644,10 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		$scope.removeInputFromList = function(x){
 			var savedOptions = JSON.parse(localStorage.getItem("savedOptions"));
 		};
+
+		$scope.scrollToTop = function() {
+			angular.element(mainGrid).scrollTo(0,0,500);
+		}
 
 		/*
 			Find Object by id in Array
