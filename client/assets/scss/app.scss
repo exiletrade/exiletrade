@@ -4,7 +4,7 @@
 $bg_color_corrupted :#C22626;
 $border_color : #646464;
 $border_color_item: $primary-color;
-$link_color: #ababab;
+$link_color: #adadad;
 $color_white : #fff;
 $color_gem_name : #1ba29b;
 $color_unique_name : #af6025;
@@ -21,6 +21,7 @@ $color_chaos: #d02090;
 $color_life: #F10A0A;
 $color_mana: #9898FF;
 $color_quality: #56AB56;
+$color_item_text: #868585;
 
 a {
 	color: $link_color;
@@ -120,6 +121,14 @@ img.pageLogo {
 	.accordion-title, .accordion-content {
 		padding: 0.5rem;
 		font-size: rem-calc(12px);
+		border-color: $primary-color;
+	}
+	&.accordion, .accordion {
+		border-color: $primary-color;
+	}
+	.accordion-title {
+		background-color: $primary-color;
+		color: $body-font-color;
 	}
 	ul, ol {
 		font-size: rem-calc(14px);
@@ -237,6 +246,7 @@ img.gitter-badge {
 		min-width: 600px;
 		margin: 5px 0;
 		padding: 0;
+		color: $color_item_text;
 
 		h5 {
 			margin: 0;
@@ -369,7 +379,7 @@ img.gitter-badge {
 		}
 
 		.item-mod-affix {
-			color: $body-font-color;
+			color: $color_item_text;
 		}
 	}
 
