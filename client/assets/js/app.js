@@ -407,6 +407,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
 			$scope.Response = null;
 			if (limit > 999) limit = 999; // deny power overwhelming
+			ga('send', 'event', 'Button', 'PreFix', createSearchPrefix($scope.options)
 			var finalSearchInput = searchInput + ' ' + createSearchPrefix($scope.options);
 			finalSearchInput = finalSearchInput.trim();
 			$location.search({'q' : searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder, 'limit' : limit});
@@ -545,6 +546,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			Save the current/last search terms to HTML storage
 		*/
 		$scope.saveLastSearch = function(){
+			ga('send', 'event', 'Save', 'Last Search',$scope.searchInput);
 			var search = $scope.searchInput;
 			var savedSearches = [];
 
@@ -638,6 +640,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			Save options to HTML storage
 		*/
 		$scope.saveOptions = function(){
+			ga('send', 'event', 'Save', 'Options',$scope.options);
 			localStorage.setItem("savedOptions", JSON.stringify($scope.options));
 		};
 
@@ -646,7 +649,8 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		};
 
 		$scope.scrollToTop = function() {
-			angular.element(mainGrid).scrollTo(0,0,500);
+			ga('send', 'event', 'Button', 'Scroll To Top');
+			angular.element(mainGrid).scrollTo(0,0,350);
 		}
 
 		/*
@@ -672,6 +676,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			Prepare Whisper Message
 		*/
         $scope.copyWhisperToClipboard = function(item) {
+			ga('send', 'event', 'Click', 'Whisper');
 			var message = item._source.shop.defaultMessage;
 			var seller = item._source.shop.lastCharacterName;
 			var itemName = item._source.info.fullName;
