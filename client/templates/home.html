@@ -54,6 +54,78 @@ url: /
 			</zf-accordion>
 		</div>
 
+		<!-- search terms guide accordion -->
+		<div>
+            <zf-accordion auto-open="false" class="spoiler">
+                <zf-accordion-item title="Terms Guide">
+                    <p>First thing is to set the league you want to search. Click the <b>cog</b> on the left of the search bar to select your league. The default league is <b>Perandus SC</b>. To learn how to search for common stuff, click the spoiler tags below. Always type the search without quotes.</p>
+                    <div>
+                        <zf-accordion auto-open="false" class="spoiler">
+                            <zf-accordion-item title="My first search">
+                                <p>I want to search for a ring with at least 70 life, 60 total elemental resistances and 30% increased weapon elemental damage. Well, it's a ring, so we type <b>'ring'</b>. Life is pretty much life, so we add <b>'70life'</b>, total resistances is usually refered as totaleleres or eleres, so we can type any of those: <b>'60eleres'</b>. Increased Elemental Damage with Weapons is refered to as wed, so we add <b>'wed'</b> to our search. That sums up to <b>'ring 70life 60eleres 30wed'</b>.</p>
+                            </zf-accordion-item>
+                        </zf-accordion>
+                    </div>
+					<div>
+                        <zf-accordion auto-open="false" class="spoiler">
+                            <zf-accordion-item title="Uniques">
+                                <p>If you want to search for a unique item, you simply have to type its name, without spaces.</p><p>Example: If I want a Kaom's Heart, i'll have to type <b>'kaomsheart'</b>, <b>'kaomheart'</b> or <b>kaom'sheart'</b>. As you guys can see, there is space for variations on it. Apostrophes and stuff like 'the' and 'of' are optional.</p>
+                            </zf-accordion-item>
+                        </zf-accordion>
+                    </div>
+					<div>
+                        <zf-accordion auto-open="false" class="spoiler">
+                            <zf-accordion-item title="Base Types">
+                                <p>If you want to search for a specific base type, you also only have to type its name.</p><p>Example: I want the "My first search" ring to be of a specific base, a Diamond Ring, i'll have to add to our search simply <b>'diamond'</b>: <b>'ring 70life 60eleres 30wed diamond'</b></p>
+                            </zf-accordion-item>
+                        </zf-accordion>
+                    </div>
+					<div>
+                        <zf-accordion auto-open="false" class="spoiler">
+                            <zf-accordion-item title="Sockets and Links">
+                                <p>If you want to search for sockets and links, it's also pretty easy.</p><p>Example: I want a 5 linked Lightning Coil. I just have to type: <b>'lightningcoil 5l'</b>. But honestly I want it to already come with the colors I need, 2 red, 2 greens and 1 blue. So I type: <b>'lightningcoil 5l 2r 2g 1b'</b>. Why not have all sockets on it? <b>'lightningcoil 6s 5l 2r 2g 1b'</b>.</p>
+                            </zf-accordion-item>
+                        </zf-accordion>
+                    </div>
+					<div>
+                        <zf-accordion auto-open="false" class="spoiler">
+                            <zf-accordion-item title="Gems">
+                                <p>Searching for gems works in the same way as searching for uniques, type the name of the gem without spaces.</p><p>Example: I want a Blade Vortex: <b>'bladevortex'</b>. I want it to be at least level 18: <b>'bladevortex glvl18'</b>. I also want its quality to be 15+: <b>'bladevortex glvl18 q15'</b></p>
+                            </zf-accordion-item>
+                        </zf-accordion>
+                    </div>
+					<div>
+                        <zf-accordion auto-open="false" class="spoiler">
+                            <zf-accordion-item title="Buyouts">
+                                <p>You can also add b/o's to your search, if you only want to see items under a determined price.</p><p>Example: I want a 6l Vaal Regalia for 1 exalt. <b>'vaalregalia 6l 1ex'</b></p>
+                            </zf-accordion-item>
+                        </zf-accordion>
+                    </div>
+					<div>
+                        <zf-accordion auto-open="false" class="spoiler">
+                            <zf-accordion-item title="Talismans">
+                                <p>Looking for a talisman? You just have to type its name along with the other parameters.</p><p>Example: <b>'ashscale 10firedmg 70life 20res'</b></p>
+                            </zf-accordion-item>
+                        </zf-accordion>
+                    </div>
+					<div>
+                        <zf-accordion auto-open="false" class="spoiler">
+                            <zf-accordion-item title="Excluding results from search">
+                                <p>If you don't want an item to have a specific mod, life life because you're CI, you just need to type <b>'-life'</b> and the results will only display items without life. You can negate any existing search term, so if you want a nice mace but doesn't want to see Voidhomes, you just have to type <b>'-voidhome'</b></p>
+                            </zf-accordion-item>
+                        </zf-accordion>
+                    </div>
+					<div>
+                        <zf-accordion auto-open="false" class="spoiler">
+                            <zf-accordion-item title="Searching for an item OR another">
+                                <p>Exile Tools makes a lot of apparently impossible searches possible. If you need gloves OR boots with 80eleres and 90life, <b>(gloves or boots) 90life 80eleres</b>. Notice that you need to put the items inside parens. You can even do advanced searches like <b>((25fireres 25coldres 25lightres 80res) OR (50res 20int)) -unique</b></p>
+                            </zf-accordion-item>
+                        </zf-accordion>
+                    </div>
+                </zf-accordion-item>
+            </zf-accordion>
+        </div>
+		
 		<!-- search samples accordion -->
 		<div ng-if="!Response">
 			<zf-accordion class="sampleSearches">
