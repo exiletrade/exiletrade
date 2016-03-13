@@ -51,11 +51,11 @@ coldRes(istance)?:
 (\d+)-(\d+)coldRes(istance)?:
   query: modsPseudo.+#% Total to Cold Resistance:[$1 TO $2]
 
-lightRes(istance)?:
+Light(ning)?Res(istance)?:
   query: modsPseudo.+#% Total to Lightning Resistance:>0
-(\d+)lightRes(istance)?:
+(\d+)Light(ning)?Res(istance)?:
   query: modsPseudo.+#% Total to Lightning Resistance:[$1 TO *]
-(\d+)-(\d+)lightRes(istance)?:
+(\d+)-(\d+)Light(ning)?Res(istance)?:
   query: modsPseudo.+#% Total to Lightning Resistance:[$1 TO $2]
 
 cha?(os)?Res(istance)?:
@@ -72,11 +72,11 @@ M(ove(ment)?)?S(p(ee)?d)?:
 (\d+)-(\d+)M(ove(ment)?)?S(p(ee)?d)?:
   query: modsTotal.#% increased Movement Speed:[$1 TO $2]
 
-((i(nc(reased)?)?i(tem)?r(arity)?)|rarity):
+((i(nc(reased)?)?)?i(tem)?r(arity)?)|rarity
   query: modsTotal.#% increased Rarity of Items found:>0
-(\d+)((i(nc(reased)?)?i(tem)?r(arity)?)|rarity):
+(\d+)((i(nc(reased)?)?)?i(tem)?r(arity)?)|rarity
   query: modsTotal.#% increased Rarity of Items found:[$1 TO *]
-(\d+)-(\d+)((i(nc(reased)?)?i(tem)?r(arity)?)|rarity):
+(\d+)-(\d+)((i(nc(reased)?)?)?i(tem)?r(arity)?)|rarity
   query: modsTotal.#% increased Rarity of Items found:[$1 TO $2]  
 
 m(ana)reg(en)?:
@@ -128,11 +128,11 @@ sh(ield)?bloc?k:
 (\d+)-(\d+)sh(ield)?bloc?k:
   query: modsTotal.+#% Chance to Block with Shields:[$1 TO $2]
 
-((i(nc(reased)?)?i(tem)?Q(uant(ity)?)?)|Quant(ity)?):
+((i(nc(reased)?)?)?i(tem)?Q(uant(ity)?)?)|Quant(ity)?:
   query: modsTotal.#% increased Quantity of Items found:>0
-(\d+)((i(nc(reased)?)?i(tem)?Q(uant(ity)?)?)|Quant(ity)?):
+(\d+)((i(nc(reased)?)?)?i(tem)?Q(uant(ity)?)?)|Quant(ity)?:
   query: modsTotal.#% increased Quantity of Items found:[$1 TO *]
-(\d+)-(\d+)((i(nc(reased)?)?i(tem)?Q(uant(ity)?)?)|Quant(ity)?):
+(\d+)-(\d+)((i(nc(reased)?)?)?i(tem)?Q(uant(ity)?)?)|Quant(ity)?:
   query: modsTotal.#% increased Quantity of Items found:[$1 TO $2]
 
 dodge:
