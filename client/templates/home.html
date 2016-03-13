@@ -5,14 +5,14 @@ url: /
 
 <div id="main" class="grid-container" ng-controller="SearchController" >
 	<!-- Open Sidebar Buttons -->
-	<a href="#" zf-toggle="searchOptions" class="openOptions">
-		<img zf-iconic="" icon="cog" size="middle" class="iconic-color-dark">
+	<a href="#" zf-toggle="searchOptions" class="openOptions button">
+		<img zf-iconic="" icon="cog" size="middle" class="">
 	</a>
-	<a href="#" zf-toggle="savedSearchesPanel" class="openSaves">
-		<img zf-iconic="" icon="cart" size="middle" class="iconic-color-dark">
+	<a href="#" zf-toggle="savedSearchesPanel" class="openSaves button">
+		<img zf-iconic="" icon="cart" size="middle" class="">
 	</a>
-	<a href="#" zf-toggle="savedSearchesPanel" class="openSaves bookmark">
-		<img zf-iconic="" icon="bookmark" size="middle" class="iconic-color-dark">
+	<a href="#" zf-toggle="savedSearchesPanel" class="openSaves bookmark button">
+		<img zf-iconic="" icon="bookmark" size="middle" class="">
 	</a>
 
 	<!-- Search Field -->
@@ -29,8 +29,8 @@ url: /
 						<img zf-iconic="" icon="circle-check" size="small">Save
 					</a>
 					<div class="searchStats" title="{{queryString}}" ng-if="Response.took" zf-open="showElasticJsonRequestModal">
-						&nbsp;&nbsp;<img zf-iconic="" icon="dashboard" size="small"> {{Response.took}} ms <br/>
-						&nbsp;&nbsp;<img zf-iconic="" icon="document" size="small"> {{Response.hits.total}} hits
+						&nbsp;&nbsp;<img zf-iconic="" icon="dashboard" size="small"> <span>{{Response.took}} ms</span> <br/>
+						&nbsp;&nbsp;<img zf-iconic="" icon="document" size="small"> <span>{{Response.hits.total}} hits</span>
 					</div>
 				</span>
 			</label>
@@ -183,7 +183,7 @@ url: /
 						<ul>
 							<li class="" ng-repeat="data in savedSearchesList">
 								<a href="#" ng-model="searchInput" ng-click="doSavedSearch(data)">{{data}}</a>
-								<img zf-iconic="" icon="ban" size="small" class="iconic-color-alert" ng-click="removeSearchFromList(data)">
+								<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeSearchFromList(data)">
 							</li>
 						</ul>
 					</section>
@@ -193,7 +193,7 @@ url: /
 						<ul>
 							<li class="" ng-repeat="data in savedItemsList">
 								<a href="#" ng-click="" zf-open="showItemModal">{{data.itemDescription}}</a>
-								<img zf-iconic="" icon="ban" size="small" class="iconic-color-alert" ng-click="removeItemFromList(data.itemId)">
+								<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeItemFromList(data.itemId)">
 							</li>
 						</ul>
 					</section>
@@ -339,20 +339,28 @@ url: /
 				</div>
 
 				<div class="grid-block item-border">
-					<div class="grid-block item-header medium-12 right-ju">
+					<div class="grid-block item-header medium-12">
 						<div class="controls" >
-							<div class="switch small">
-								<input type="checkbox" id="switch-{{item._id}}"
-									ng-model="switchValue"
-                     				ng-true-value="{backgroundColor:'rgba(0,0,0,.1'}" ng-false-value="">
-								<label title="Highlight Item" for="switch-{{item._id}}"></label>
-							</div>
+							<h5 class="item-name" title="Note: {{item._source.shop.note}}">
+								<span class="label corrupted" ng-if="item._source.attributes.corrupted">Corrupted</span>
+								<span class="label mirrored" ng-if="item._source.attributes.mirrored">Mirrored</span>
+								<a class="name {{item._source.attributes.rarity}}"
+								   ngclipboard
+								   data-clipboard-text="{{copyWhisperToClipboard(item)}}">{{item._source.info.fullName}}</a>
+							</h5>
 							<span>
-								<a class="saveNotificationLink" title="Save Item" content="Saved: {{item._source.info.fullName}}" color="success" autoclose="2000" zf-notify="save-notification-{{item._id}}">
+								<a class="saveNotificationLink button float-right" title="Save Item" content="Saved: {{item._source.info.fullName}}"
+								   color="success" autoclose="2000" zf-notify="save-notification-{{item._id}}">
 									<img zf-iconic="" icon="circle-check" size="medium" ng-click="saveItem(item._id, item._source.info.fullName, item._source.shop.lastCharacterName)"
-									 class="float-right iconic-color-secondary">
+									 class="float-right">
 								</a>
 							</span>
+							<div class="switch small float-right">
+								<input type="checkbox" id="switch-{{item._id}}"
+									   ng-model="switchValue"
+									   ng-true-value="{backgroundColor:'rgba(0,0,0,.1'}" ng-false-value="">
+								<label title="Highlight Item" for="switch-{{item._id}}"></label>
+							</div>
 							<zf-notification-set id="save-notification-{{item._id}}" position="top-left"></zf-notification-set>
 						</div>
 					</div>
@@ -372,16 +380,6 @@ url: /
 
 							<div class="grid-block item-info">
 								<div class="vertical grid-block">
-									<div class="grid-block">
-										<h5 class="item-name" title="Note: {{item._source.shop.note}}">
-											<span class="label corrupted" ng-if="item._source.attributes.corrupted">Corrupted</span>
-											<span class="label mirrored" ng-if="item._source.attributes.mirrored">Mirrored</span>
-											<a class="name {{item._source.attributes.rarity}}"
-											   ngclipboard
-											   data-clipboard-text="{{copyWhisperToClipboard(item)}}">{{item._source.info.fullName}}</a>
-										</h5>
-									</div>
-
 									<div class="grid-block requirements">
 										<span class="sortable" ng-show="!isEmpty(item._source.properties.Map)"
 											  ng-repeat="(prop, value) in item._source.properties.Map"

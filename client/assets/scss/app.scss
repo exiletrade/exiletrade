@@ -2,20 +2,31 @@
 @import "foundation";
 
 $bg_color_corrupted :#C22626;
-$border_color_item : #004978;
+$border_color : #646464;
+$border_color_item: $primary-color;
+$link_color: #ababab;
 $color_white : #fff;
 $color_gem_name : #1ba29b;
 $color_unique_name : #af6025;
 $color_rare_name : #a3a314;
-$color_magic_name : #4E4EEB;
+$color_magic_name : #6688ff;
 $color_currency_name : #9c7e38;
-$color_normal_name : #111;
+$color_normal_name : $body-font-color;
 $color_card_name : #dcd3c3;
 $switch_on_color: #43AC6A;
+$color_fire: #D01D1D;
+$color_cold: #00b8e6;
+$color_lightning: #cccc00;
+$color_chaos: #d02090;
+$color_life: #F10A0A;
+$color_mana: #9898FF;
+$color_quality: #56AB56;
 
-
-body {
-	background: rgba(0, 0, 0, 0.06);
+a {
+	color: $link_color;
+}
+a:hover, a:focus {
+	color: $link_color;
 }
 
 li {
@@ -60,8 +71,8 @@ img.pageLogo {
 
 .app-header {
 	color: white;
-	background-color: #00558b;
-	border-bottom: 1px solid #69768b;
+	background-color: #2b2b2b;
+	border-bottom: 1px solid $body-font-color;
 	text-align: right;
 	font-size: rem-calc(12px);
 	span {
@@ -100,6 +111,11 @@ img.pageLogo {
 		margin-top: 5px;
 	}
 }
+#searchField {
+	background-color: $primary-color;
+	color: white;
+	border-color: transparent;
+}
 .badSearchInputTerms, .sampleSearches, .termsGuide, .spoiler {
 	.accordion-title, .accordion-content {
 		padding: 0.5rem;
@@ -121,15 +137,15 @@ img.pageLogo {
 	position: absolute;
 	top: 106px;
 	padding: 6px;
-	box-shadow: 3px 0 10px rgba(0, 0, 0, 0.25);
-	border: 1px solid lightgrey;
+	box-shadow: 3px 0 10px rgba(1, 1, 1, 0.4);
+	border: 1px solid $border_color;
 }
 
 .openOptions {
 	left: 0;
 }
 .openSaves {
-	right:16px;
+	right:5px;
 	&.bookmark {
 		top:136px;
 	}
@@ -140,7 +156,7 @@ img.pageLogo {
 	padding-top: 8px;
 	padding-bottom: 8px;
 	border-bottom: 1px solid grey;
-	background-color:$border_color_item;
+	background-color:$border_color;
 	color: white;
 	font-size: rem-calc(10px);
 }
@@ -206,6 +222,7 @@ img.gitter-badge {
 
 .searchStats {
 	font-size: 12px;
+	color: white;
 }
 
 .code {
@@ -256,47 +273,50 @@ img.gitter-badge {
 		.item-inner-border {
 			border: 1px solid $border_color_item;
 			padding: 5px 5px 0px 5px;
-
 		}
 		.item-header {
 			line-height: 30px;
-			height: 30px;
-			color: $color_white;
+			height: 27px;
+			color: $body-font-color;
 			border-bottom: 1px solid $border_color_item;
+			background-color: $primary-color;
 			width: 100%;
 
 			.controls {
-				background-color: $border_color_item;
 				padding: 0 8px;
-				border: 1px solid $border_color_item;
+				border: 1px;
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
+				width: 100%;
 
-				a > .iconic * {
-					fill: #f1f1f1 !important;
-					stroke: #f1f1f1 !important;
+				h5 {
+					display: inline;
 				}
 
 				svg {
 					width: 25px !important;
 					height: 18px !important;
-					margin-top: 6px;
-					margin-left: 15px;
-					margin-right: 5px;
-
+					margin-top: 4px;
+					margin-left: 8px;
 					&:hover{
 						cursor: pointer;
 					}
-					.iconic {
-						fill: #f1f1f1;
-						stroke: #f1f1f1;
+				}
+
+				.button {
+					margin: 0;
+					padding: 0;
+					//vertical-align: inherit;
+					&:hover {
+						background-color: inherit;
 					}
 				}
 
 				.switch.small {
 					width: 2.2rem;
 					height: 1.325rem;
-					margin-top: 4px;
+					vertical-align: middle;
+					margin-top: 3px;
 				}
 				.switch.small > label::after {
 					width: 1.325rem;
@@ -349,7 +369,7 @@ img.gitter-badge {
 		}
 
 		.item-mod-affix {
-			color: #000;
+			color: $body-font-color;
 		}
 	}
 
@@ -475,7 +495,7 @@ img.gitter-badge {
 			}
 		}
 		.firstExplicit {
-			border-top: 1px dotted #008ee8;
+			border-top: 1px dotted $body-font-color;
 		}
 		.unidentified {
 			color: $bg_color_corrupted;
@@ -505,13 +525,14 @@ img.gitter-badge {
 		max-height: 170px;
 		background-size: contain;
 		padding: 10px;
-		background-repeat: no-repeat;
 		position: absolute;
-		background-position: right 10px;
+		background: no-repeat right 10px;
 
 		img {
 			max-height: 170px;
 			margin: 0 auto;
+			object-fit: contain;
+			object-position: 50% 0;
 		}
 
 		&:hover {
@@ -602,29 +623,29 @@ img.gitter-badge {
 				text-align: right;
 			}
 			a.quality {
-				color: green;
+				color: $color_quality;
 			}
 		}
 	}
 
 	a {
 		&.mod-fire-res, &.mod-fire-dmg {
-			//color: #ff0000;
+			color: $color_fire;
 		}
 		&.mod-cold-res, &.mod-cold-dmg {
-			//color: #00b8e6;
+			color: $color_cold;
 		}
 		&.mod-lightning-res, &.mod-lightning-dmg {
-			//color: #cccc00;
+			color: $color_lightning;
 		}
 		&.mod-chaos-res, &.mod-chaos-dmg {
-			//color: #006600;
+			color: $color_chaos;
 		}
 		&.mod-life {
-			//color: #800000;
+			color: $color_life;
 		}
 		&.mod-mana {
-			//color: #0000cc;
+			color: $color_mana;
 		}
 	}
 }

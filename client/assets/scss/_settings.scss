@@ -90,24 +90,24 @@
 // $font-weight-bold: bold;
 
 // We use these to control various global styles
-// $body-background: #fff;
-// $body-font-color: #222;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+ $body-background: #3c3f41;
+ $body-font-color: #8E8A8A;
+ $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
-// $body-font-style: normal;
-// $body-antialiased: true;
+ $body-font-style: normal;
+ $body-antialiased: true;
 
 // Application Colors
-// $primary-color: #00558b;
-// $secondary-color: #f1f1f1;
-// $alert-color: #F04124;
-// $info-color: #A0D3E8;
-// $success-color: #43AC6A;
-// $warning-color: #F08A24;
-// $dark-color: #232323;
-// $gray: #dfdfdf;
-// $gray-dark: darken($gray, 8);
-// $gray-light: lighten($gray, 8);
+ $primary-color: #2b2b2b;
+ $secondary-color: #f1f1f1;
+ $alert-color: #F04124;
+ $info-color: #A0D3E8;
+ $success-color: #43AC6A;
+ $warning-color: #F08A24;
+ $dark-color: #232323;
+ $gray: #dfdfdf;
+ $gray-dark: darken($gray, 8);
+ $gray-light: lighten($gray, 8);
 
 // We use these to make sure border radius matches unless we want it different.
 // $global-radius: 4px;
@@ -202,7 +202,7 @@
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
 // $hr-border-style: solid;
-// $hr-border-color: #ddd;
+ $hr-border-color: #646464;
 // $hr-margin: rem-calc(20);
 
 // We use these to style lists
@@ -398,10 +398,10 @@
 // 14. Iconic
 // - - - - - - - - - - - - - - -
 
-// $iconic-primary-fill: $primary-color;
-// $iconic-primary-stroke: $primary-color;
-// $iconic-accent-fill: $iconic-primary-fill;
-// $iconic-accent-stroke: $iconic-accent-fill; 
+ $iconic-primary-fill: $secondary-color;
+ $iconic-primary-stroke: $secondary-color;
+ $iconic-accent-fill: $iconic-primary-fill;
+ $iconic-accent-stroke: $iconic-accent-fill;
 
 // 15. Label
 // - - - - - - - - - - - - - - -
