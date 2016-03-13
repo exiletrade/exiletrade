@@ -475,6 +475,8 @@ Heatshiver:
   query: info.name:"Heatshiver"
 Hegemony'?s?Era:
   query: info.name:"Hegemony's Era"
+hereticsveil:
+  query: info.name:"hereticsveil"
 Hezmana'?sBloodlust:
   query: info.name:"Hezmana's Bloodlust"
 HiddenPotential:
