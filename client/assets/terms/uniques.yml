@@ -758,7 +758,9 @@ Rigwald'?s?Savagery:
 RimeGaze:
   query: info.name:"Rime Gaze"
 Rise(of)?(the)?Phoenix:
-  query: info.name:"Rise of the Phoenix"
+  query: info.name:"Rise of the Phoenix
+Rive:
+  query: info.name:"Rive"
 Romira'?s?Banquet:
   query: info.name:"Romira's Banquet"
 Rotgut:
