@@ -93,8 +93,14 @@ function parseSearchInputTokens(input, rerun) {
 		if(rerun['badTokens'].length>0){
 			ga('send', 'event', 'Button', 'Bad Tokens', badTokens.toString());
 		}
+		var badTok = badTokens.slice(0);
 		queryString += " " + rerun['queryString'];
-		badTokens = rerun['badTokens']
+		for(let i of badTok){
+			console.log("i suck: " + i);
+			if(rerun['badTokens'].toString().indexOf(i) == -1){
+				badTokens.splice(badTokens.indexOf(i), 1);
+			}
+		}
 	}
 	return {'queryString' : queryString, 'badTokens' : badTokens};
 }

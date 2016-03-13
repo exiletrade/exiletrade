@@ -160,11 +160,11 @@ spellf(lat)?cold|sf(lat)?cold:
 (\d+)-(\d+)spellf(lat)?cold|sf(lat)?cold:
   query: modsTotal.Adds \#-# Cold Damage to Spells.avg:[$1 TO $2]
 
-atkspeed|attackspeed:
+atkspeed|attackspeed|ias:
   query: modsTotal.#% increased Attack Speed:>0
-(\d+)atkspeed|attackspeed:
+(\d+)atkspeed|attackspeed|ias:
   query: modsTotal.#% increased Attack Speed:[$1 TO *]
-(\d+)-(\d+)atkspeed|attackspeed:
+(\d+)-(\d+)atkspeed|attackspeed|ias:
   query: modsTotal.#% increased Attack Speed:[$1 TO $2]
 
 minusmana|elre?on:
