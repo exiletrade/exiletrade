@@ -212,95 +212,95 @@ AlbinoRhoaFea(the)?r:
 
 #Flasks
 
-AmethystF(la?sk)?:
+Amethyst(F(la?sk)?)?:
   query: info.typeLine:"Amethyst Flask"
-AquamarineF(la?sk)?:
+Aquamarine(F(la?sk)?)?:
   query: info.typeLine:"Aquamarine Flask"
-BasaltF(la?sk)?:
+Basalt(F(la?sk)?)?:
   query: info.typeLine:"Basalt Flask"
-BismuthF(la?sk)?:
+Bismuth(F(la?sk)?)?:
   query: info.typeLine:"Bismuth Flask"
-ColossalHybridF(la?sk)?:
+ColossalHybrid(F(la?sk)?)?:
   query: info.typeLine:"Colossal Hybrid Flask"
-ColossalLifeF(la?sk)?:
+ColossalLife(F(la?sk)?)?:
   query: info.typeLine:"Colossal Life Flask"
-ColossalManaF(la?sk)?:
+ColossalMana(F(la?sk)?)?:
   query: info.typeLine:"Colossal Mana Flask"
 DiamondF(la?sk)?:
   query: info.typeLine:"Diamond Flask"
-DivineLifeF(la?sk)?:
+DivineLife(F(la?sk)?)?:
   query: info.typeLine:"Divine Life Flask"
-DivineManaF(la?sk)?:
+DivineMana(F(la?sk)?)?:
   query: info.typeLine:"Divine Mana Flask"
-EternalLifeF(la?sk)?:
+EternalLife(F(la?sk)?)?:
   query: info.typeLine:"Eternal Life Flask"
-EternalManaF(la?sk)?:
+EternalMana(F(la?sk)?)?:
   query: info.typeLine:"Eternal Mana Flask"
-GiantLifeF(la?sk)?:
+GiantLife(F(la?sk)?)?:
   query: info.typeLine:"Giant Life Flask"
-GiantManaF(la?sk)?:
+GiantMana(F(la?sk)?)?:
   query: info.typeLine:"Giant Mana Flask"
-GrandLifeF(la?sk)?:
+GrandLife(F(la?sk)?)?:
   query: info.typeLine:"Grand Life Flask"
-GrandManaF(la?sk)?:
+GrandMana(F(la?sk)?)?:
   query: info.typeLine:"Grand Mana Flask"
-GraniteF(la?sk)?:
+Granite(F(la?sk)?)?:
   query: info.typeLine:"Granite Flask"
-GreaterLifeF(la?sk)?:
+GreaterLife(F(la?sk)?)?:
   query: info.typeLine:"Greater Life Flask"
-GreaterManaF(la?sk)?:
+GreaterMana(F(la?sk)?)?:
   query: info.typeLine:"Greater Mana Flask"
-HallowedHybridF(la?sk)?:
+HallowedHybrid(F(la?sk)?)?:
   query: info.typeLine:"Hallowed Hybrid Flask"
-HallowedLifeF(la?sk)?:
+HallowedLife(F(la?sk)?)?:
   query: info.typeLine:"Hallowed Life Flask"
-HallowedManaF(la?sk)?:
+HallowedMana(F(la?sk)?)?:
   query: info.typeLine:"Hallowed Mana Flask"
-JadeF(la?sk)?:
+Jade(F(la?sk)?)?:
   query: info.typeLine:"Jade Flask"
-LargeHybridF(la?sk)?:
+LargeHybrid(F(la?sk)?)?:
   query: info.typeLine:"Large Hybrid Flask"
-LargeLifeF(la?sk)?:
+LargeLife(F(la?sk)?)?:
   query: info.typeLine:"Large Life Flask"
-LargeManaF(la?sk)?:
+LargeMana(F(la?sk)?)?:
   query: info.typeLine:"Large Mana Flask"
-MediumHybridF(la?sk)?:
+MediumHybrid(F(la?sk)?)?:
   query: info.typeLine:"Medium Hybrid Flask"
-MediumLifeF(la?sk)?:
+MediumLife(F(la?sk)?)?:
   query: info.typeLine:"Medium Life Flask"
-MediumManaF(la?sk)?:
+MediumMana(F(la?sk)?)?:
   query: info.typeLine:"Medium Mana Flask"
-QuartzF(la?sk)?:
+Quartz(F(la?sk)?)?:
   query: info.typeLine:"Quartz Flask"
-QuicksilverF(la?sk)?:
+Quicksilver(F(la?sk)?)?:
   query: info.typeLine:"Quicksilver Flask"
-RubyF(la?sk)?:
+Ruby(F(la?sk)?)?:
   query: info.typeLine:"Ruby Flask"
-SacredHybridF(la?sk)?:
+SacredHybrid(F(la?sk)?)?:
   query: info.typeLine:"Sacred Hybrid Flask"
-SacredLifeF(la?sk)?:
+SacredLife(F(la?sk)?)?:
   query: info.typeLine:"Sacred Life Flask"
-SacredManaF(la?sk)?:
+SacredMana(F(la?sk)?)?:
   query: info.typeLine:"Sacred Mana Flask"
-SanctifiedLifeF(la?sk)?:
+SanctifiedLife(F(la?sk)?)?:
   query: info.typeLine:"Sanctified Life Flask"
-SanctifiedManaF(la?sk)?:
+SanctifiedMana(F(la?sk)?)?:
   query: info.typeLine:"Sanctified Mana Flask"
-SapphireF(la?sk)?:
+Sapphire(F(la?sk)?)?:
   query: info.typeLine:"Sapphire Flask"
-SilverF(la?sk)?:
+Silver(F(la?sk)?)?:
   query: info.typeLine:"Silver Flask"
-SmallHybridF(la?sk)?:
+SmallHybrid(F(la?sk)?)?:
   query: info.typeLine:"Small Hybrid Flask"
-SmallLifeF(la?sk)?:
+SmallLife(F(la?sk)?)?:
   query: info.typeLine:"Small Life Flask"
-SmallManaF(la?sk)?:
+SmallMana(F(la?sk)?)?:
   query: info.typeLine:"Small Mana Flask"
-StibniteF(la?sk)?:
+Stibnite(F(la?sk)?)?:
   query: info.typeLine:"Stibnite Flask"
-SulphurF(la?sk)?:
+Sulphur(F(la?sk)?)?:
   query: info.typeLine:"Sulphur Flask"
-TopazF(la?sk)?:
+Topaz(F(la?sk)?)?:
   query: info.typeLine:"Topaz Flask"
 
 #Fragments
