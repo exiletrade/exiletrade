@@ -104,6 +104,9 @@ img.pageLogo {
 	h6 {
 		color: #ababab;
 	}
+	&.primary {
+		border-bottom: 1px solid $body-background;
+	}
 }
 
 .searchField {
