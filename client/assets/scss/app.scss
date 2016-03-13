@@ -100,7 +100,7 @@ img.pageLogo {
 		margin-top: 5px;
 	}
 }
-.badSearchInputTerms, .sampleSearches {
+.badSearchInputTerms, .sampleSearches, .termsGuide, .spoiler {
 	.accordion-title, .accordion-content {
 		padding: 0.5rem;
 		font-size: rem-calc(12px);
@@ -109,6 +109,9 @@ img.pageLogo {
 		font-size: rem-calc(14px);
 		margin-bottom: 0px;
 		font-family: monospace;
+	}
+	p {
+		font-size: rem-calc(12px);
 	}
 }
 .openOptions, .openSaves {
