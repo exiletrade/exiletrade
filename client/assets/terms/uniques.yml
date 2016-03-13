@@ -935,6 +935,8 @@ Voideye:
   query: info.name:"Voideye"
 Voidhome:
   query: info.name:"Voidhome"
+VolleyFire:
+  query: info.name:"Volley Fire"
 (Voll'?s?)?Devotion:
   query: info.name:"Voll's Devotion"
 (Voll'?s?)?Protector:
