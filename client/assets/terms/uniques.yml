@@ -133,7 +133,7 @@ AnatomicalKnowledge:
   query: info.name:"Anatomical Knowledge"
 AncientWaystones:
   query: info.name:"Ancient Waystones"
-Andvarius:
+Anda?varius:
   query: info.name:"Andvarius"
 Apep'?s?Rage:
   query: info.name:"Apep's Rage"
@@ -163,6 +163,8 @@ Aurumvorax:
   query: info.name:"Aurumvorax"
 Auxium:
   query: info.name:"Auxium"
+AxiomPerpetuum:
+  query: info.name:"Axiom Perpetuum"
 BatedBreath:
   query: info.name:"Bated Breath"
 Belly(of)?(the)?Beast:
