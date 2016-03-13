@@ -417,6 +417,10 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			var searchQuery = parseResult.queryString;
 			$scope.badSearchInputTerms = parseResult.badTokens;
 			debugOutput("searchQuery=" + searchQuery, 'log');
+
+			if (parseResult.badTokens.length > 0) {
+				return;
+			}
 			
 			var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder);
 			$scope.elasticJsonRequest = angular.toJson(esBody, true);
