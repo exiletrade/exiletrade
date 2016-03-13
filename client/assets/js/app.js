@@ -656,7 +656,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			return list.filter(function( obj ) {
 				// coerce both obj.id and id to numbers
 				// for val & type comparison
-				return +obj.id === +id;
+				return obj.itemId === id;
 			})[ 0 ];
 		}
 
