@@ -407,7 +407,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
 			$scope.Response = null;
 			if (limit > 999) limit = 999; // deny power overwhelming
-			ga('send', 'event', 'Button', 'PreFix', createSearchPrefix($scope.options)
+			ga('send', 'event', 'Button', 'PreFix', createSearchPrefix($scope.options))
 			var finalSearchInput = searchInput + ' ' + createSearchPrefix($scope.options);
 			finalSearchInput = finalSearchInput.trim();
 			$location.search({'q' : searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder, 'limit' : limit});
