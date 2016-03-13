@@ -95,7 +95,8 @@ function parseSearchInputTokens(input, rerun) {
 		}
 		var badTok = badTokens.slice(0);
 		queryString += " " + rerun['queryString'];
-		for(let i of badTok){
+		for( ind in badTok){
+			var i = badTok[ind];
 			console.log("i suck: " + i);
 			if(rerun['badTokens'].toString().indexOf(i) == -1){
 				badTokens.splice(badTokens.indexOf(i), 1);
