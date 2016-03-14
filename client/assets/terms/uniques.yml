@@ -611,7 +611,7 @@ MaoKun:
   query: info.name:"Mao Kun"
 Mark(of)?(the)?DoubtingKnight:
   query: info.name:"Mark of the Doubting Knight"
-MarohiErqi:
+(Marohi|Erqi)+:
   query: info.name:"Marohi Erqi"
 MartialArtistry:
   query: info.name:"Martial Artistry"

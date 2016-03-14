@@ -89,11 +89,11 @@ g(lobal)?crit:
 (\d+)-(\d+)g(lobal)?crit:
   query: modsTotal.#% increased Global Critical Strike Chance:[$1 TO $2]
 
-g(lobal)?critmulti:
+(g(lobal)?)?Crit(ical)?(Strike)?Multi(plier)?:
   query: modsTotal.#% increased Global Critical Strike Multiplier:>0
-(\d+)g(lobal)?critmulti:
+(\d+)(g(lobal)?)?Crit(ical)?(Strike)?Multi(plier)?:
   query: modsTotal.#% increased Global Critical Strike Multiplier:[$1 TO *]
-(\d+)-(\d+)g(lobal)?critmulti:
+(\d+)-(\d+)(g(lobal)?)?Crit(ical)?(Strike)?Multi(plier)?:
   query: modsTotal.#% increased Global Critical Strike Multiplier:[$1 TO $2]
 
 
