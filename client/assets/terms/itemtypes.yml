@@ -50,7 +50,7 @@ belt:
   query: attributes.itemType:Belt
 cur+(en)?(cy)?:
   query: attributes.itemType:Currency
-Div(inatio)?(Card)?:
+((Div(ination)?)|(Card))+:
   query: attributes.itemType:Card
 fish:
   query: attributes.itemType:"Fishing Rod"
