@@ -212,13 +212,20 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 	sortObj[sortKey] = { "order": sortOrder };
 	var esBody = {
 					"sort": [ sortObj ],
-					"filter" : {
-						"query": {
-							"query_string": {
-								"default_operator": "AND",
-								"query": searchQuery
-							}
-						}	
+					"query" : {
+						"filtered" : {
+							//"filter" : {
+							//	"terms" : { "shop.sellerAccount" : [
+									// https://github.com/trackpete/exiletools-indexer/issues/123
+							//	]}
+							//},
+							"query": {
+								"query_string": {
+									"default_operator": "AND",
+									"query": searchQuery
+								}
+							}	
+						}
 					},
 					size:_size
 				};
