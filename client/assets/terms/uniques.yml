@@ -685,6 +685,8 @@ Pacifism:
   query: info.name:"Perandus Blazon"
 (Perandus)?Signet:
   query: info.name:"Perandus Signet"
+(The)?PerandusManor:
+  query: info.name:"Perandus Manor"
 Pillar(of)?(the)?CagedGod:
   query: info.name:"Pillar of the Caged God"
 Piscator'?s?Vigil:
@@ -985,13 +987,13 @@ Wyrmsign:
   query: info.name:"Wyrmsign"
 Ylfeban'?s?Trickery:
   query: info.name:"Ylfeban's Trickery"
-Zahndethus'?Cassock:
-  query: info.name:"Zahndethus' Cassock"
-Zerphi'?s?Last Breath:
-  query: info.name:"Zerphi's Last Breath"
 Trypanon:
   query: info.name:"Trypanon"
 Viper'?s?Scales:
   query: info.name:"Viper's Scales"
 Xirgil'?s?Crank:
   query: info.name:"Xirgil's Crank"
+Zahndethus'?Cassock:
+  query: info.name:"Zahndethus' Cassock"
+Zerphi'?s?LastBreath:
+  query: info.name:"Zerphi's Last Breath"

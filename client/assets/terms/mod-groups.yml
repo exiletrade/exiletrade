@@ -13,4 +13,7 @@ laby?(rinth)?uniq(ues)?:
   query: (`chitusneedle or `glitterdisc or `izarosdilemma or `izarosturmoil or `spineofthefirstclaimant or `vipersscales or `windsofchange or `xirgilscrank) `unid
 
 Treasures:
-  query: (`AegisAurora or `Crownofeyes or `HegemonyEra or `Kaomsheart or `kongorsundyingrage or `mjölner or `PerandusSignet or `shavronneswrappings or `sou)ltaker or `tasteofhate or `voidbattery or `windripper) unid
+  query: (`AegisAurora or `Crownofeyes or `HegemonyEra or `Kaomsheart or `kongorsundyingrage or `mjölner or `PerandusSignet or `shavronneswrappings or `soultaker or `tasteofhate or `voidbattery or `windripper) unid
+  
+(Perandus|Challenge)?LeagueUniq(ues)?:
+    query: (`ThePerandusManor or `Seven-LeagueStep or `Trypanon  or `UmbilicusImmortalis or `Varunastra or `Xirgil'sCrank or `Zerphi'sLastBreath) 
