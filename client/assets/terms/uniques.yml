@@ -769,6 +769,8 @@ Rive:
   query: info.name:"Rive"
 Romira'?s?Banquet:
   query: info.name:"Romira's Banquet"
+RollingFlames:
+  query: info.name:"Rolling Flames"  
 Rotgut:
   query: info.name:"Rotgut"
 Roth'?s?Reach:
