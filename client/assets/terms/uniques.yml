@@ -683,7 +683,7 @@ Pacifism:
   query: info.name:"Pacifism"
 (Perandus)?Blazon:
   query: info.name:"Perandus Blazon"
-PerandusSignet:
+(Perandus)?Signet:
   query: info.name:"Perandus Signet"
 Pillar(of)?(the)?CagedGod:
   query: info.name:"Pillar of the Caged God"

@@ -8,3 +8,9 @@
   query: (`unique `$1-$2rlvl `-map `-jewel `-flask `-VeiloftheNight `-Voidhome)
 le?ve?ling:
   query: (`unique `60rlvl `-map `-jewel `-flask `-VeiloftheNight `-Voidhome)
+  
+laby?(rinth)?uniq(ues)?:
+  query: (`chitusneedle or `glitterdisc or `izarosdilemma or `izarosturmoil or `spineofthefirstclaimant or `vipersscales or `windsofchange or `xirgilscrank) `unid
+
+Treasures:
+  query: (`AegisAurora or `Crownofeyes or `HegemonyEra or `Kaomsheart or `kongorsundyingrage or `mjölner or `PerandusSignet or `shavronneswrappings or `sou)ltaker or `tasteofhate or `voidbattery or `windripper) unid
