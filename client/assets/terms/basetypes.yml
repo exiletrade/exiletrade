@@ -191,6 +191,8 @@ Scholar(of)?(the)?Seas:
   query: info.typeLine:"The Vast"
 (The)?Warden:
   query: info.typeLine:"The Warden"
+The WarlordThe:
+  query: info.typeLine:"Warlord"
 (The)?Watcher:
   query: info.typeLine:"The Watcher"
 (The)?Wind:
