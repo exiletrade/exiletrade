@@ -9,6 +9,43 @@
 	<script src="./assets/js/foundation.js"></script>
 	<script src="./assets/js/templates.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticsearch/10.1.3/elasticsearch.angular.js"></script>
+	<script>
+		var terms = {};
+		// the output from google calls a function 'google.visualization.Query.setResponse()'
+		// and passes a json data that is not so human-readable.
+		window.google = {
+			'visualization' : {
+				'Query' : {
+					'setResponse' : function (data) {
+						var rows = data.table.rows;
+						for(i in rows) {
+							var row = rows[i].c;
+							terms[row[0].v] = {
+								'query' : row[1].v,
+								'filter' : row[2].v
+							};
+						}
+					}
+				}
+			} 
+		}
+	</script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=675822745&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=40738669&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=244311060&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1965399973&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1443807460&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=57824604&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=224979895&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=14190859&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=154866940&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=583395837&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=380600191&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1782931570&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=223573764&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=207179951&headers=1"></script>
+	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1732537543&headers=1"></script>
+	
 	<script src="./assets/js/routes.js"></script>
 	<script src="./assets/js/app.js"></script>
 	<script>
@@ -33,7 +70,8 @@
 	<div class="grid-content shrink" style="padding: 0;">
 		<div class="app-header">
 			<!--a zf-open="showSearchTermsDocModal" class="button small hollow disclaimer">Search Terms</a-->
-			<a href="https://github.com/exiletrade/exiletrade/tree/master/client/assets/terms" class="button small hollow disclaimer" target="_blank">Search Terms</a>
+			<!--a href="https://github.com/exiletrade/exiletrade/tree/master/client/assets/terms" class="button small hollow disclaimer" target="_blank">Search Terms</a-->
+			<a href="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/edit?usp=sharing" class="button small hollow disclaimer" target="_blank">Search Terms</a>
 			
 			<a zf-open="showDisclaimerModal" class="button small hollow disclaimer">About</a>
 			<span class="github">
