@@ -212,13 +212,20 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 	sortObj[sortKey] = { "order": sortOrder };
 	var esBody = {
 					"sort": [ sortObj ],
-					"filter" : {
-						"query": {
-							"query_string": {
-								"default_operator": "AND",
-								"query": searchQuery
-							}
-						}	
+					"query" : {
+						"filtered" : {
+							//"filter" : {
+							//	"terms" : { "shop.sellerAccount" : [
+									// https://github.com/trackpete/exiletools-indexer/issues/123
+							//	]}
+							//},
+							"query": {
+								"query_string": {
+									"default_operator": "AND",
+									"query": searchQuery
+								}
+							}	
+						}
 					},
 					size:_size
 				};
@@ -417,6 +424,10 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			var searchQuery = parseResult.queryString;
 			$scope.badSearchInputTerms = parseResult.badTokens;
 			debugOutput("searchQuery=" + searchQuery, 'log');
+
+			if (parseResult.badTokens.length > 0) {
+				return;
+			}
 			
 			var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder);
 			$scope.elasticJsonRequest = angular.toJson(esBody, true);
