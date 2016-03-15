@@ -19,6 +19,86 @@ function debugOutput(input, outputType){
 
 	}
 }
+// expects array
+//returns {'corrected', 'unCorrectable'
+function badUserInput(badTokens){
+	if(badTokens.length == 0) return;
+	var successArr = [];
+	debugOutput("bad Tokens: " + badTokens.join(" "),'log');
+	//attempt 1 User copy pasted RegEx 
+
+	for (i = 0; i < badTokens.length; i++){
+		badTokens[i] = badTokens[i].replace(/\w\?/gi,"");
+		while(badTokens[i].indexOf(")?")>-1){
+			badTokens[i] = badTokens[i].replace(/\([^\(\)]*\)\?/,"")			
+		}
+	}
+	for (i = 0; i < badTokens.length; i++){
+		var evaluatedToken = evalSearchTerm(badTokens[i]);
+		debugOutput(badTokens[i] + '=' + evaluatedToken,'log');
+		if(evaluatedToken){
+			successArr.push(evaluatedToken);
+			badTokens.splice(i,1);
+			i--;
+		}
+	}
+	
+	debugOutput("bad Tokens attmept 2: " + badTokens.join(" "),'log');
+	//attempt 2 removing spaces
+	if(badTokens.length > 0){ 
+		//all spaces
+		var attmpt = badTokens.join("");
+		var evaluatedToken = evalSearchTerm(attmpt);
+		debugOutput(attmpt + '=' + evaluatedToken,'log');
+		if(evaluatedToken){
+			successArr.push(evaluatedToken);
+			badTokens = [];
+		}
+	}
+	
+	if(badTokens.length > 0){ 
+		//groups of two
+		var attempt = [];
+		for(i = 0; i < badTokens.length; i++){
+			if (!(/^(of|the)$/i.test(badTokens[i]))) {
+				attempt.push(badTokens[i]);
+			}
+		}
+		debugOutput("after filtering",'log');
+		debugOutput(attempt,'log');
+		if((attempt.length>=2)){		
+			for (i = 0; i < attempt.length-1; i++){
+				for (j = i+1; j < attempt.length; j++){
+					var evaluatedToken = evalSearchTerm(attempt[i] + attempt[j]);
+					if(evaluatedToken){
+						successArr.push(evaluatedToken);
+						attempt.splice(j,1);
+						attempt.splice(i,1);
+						i--;
+						break;
+					}
+					evaluatedToken = evalSearchTerm(attempt[j] + attempt[i]);
+					if(evaluatedToken){
+						successArr.push(evaluatedToken);
+						attempt.splice(j,1);
+						attempt.splice(i,1);
+						i--;
+						break;
+					}
+				}
+			}
+		}	
+		badTokens = attempt;
+	}
+
+	debugOutput("Result",'log');
+	debugOutput(successArr,'log');
+	debugOutput("Failure",'log');
+	debugOutput(badTokens,'log');
+	return {'corrected' : successArr, 'unCorrectable' : badTokens};
+}
+
+
 
 var terms = {};
 function parseSearchInput(_terms, input) {
@@ -87,22 +167,9 @@ function parseSearchInputTokens(input, rerun) {
 	var queryString = queryTokens.join(" ");
 
 	//rerun bad tokens
-	debugOutput("bad Tokens: " + badTokens.join(""),"info");
-	if(badTokens.length > 0 && !rerun){	
-		var rerun = parseSearchInputTokens(badTokens.join(""),true)
-		if(rerun['badTokens'].length>0){
-			ga('send', 'event', 'Search', 'Bad Tokens', badTokens.toString());
-		}
-		var badTok = badTokens.slice(0);
-		queryString += " " + rerun['queryString'];
-		for( ind in badTok){
-			var i = badTok[ind];
-			console.log("i suck: " + i);
-			if(rerun['badTokens'].toString().indexOf(i) == -1){
-				badTokens.splice(badTokens.indexOf(i), 1);
-			}
-		}
-	}
+	var correction = badUserInput(badTokens);
+	badTokens = correction['unCorrectable'];
+	queryString += " " +  correction['corrected'].join(" ");
 	return {'queryString' : queryString, 'badTokens' : badTokens};
 }
 
