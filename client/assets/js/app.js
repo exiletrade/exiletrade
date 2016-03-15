@@ -100,10 +100,10 @@ function badUserInput(badTokens){
 
 
 
-var terms = {};
+// var terms = {};
 function parseSearchInput(_terms, input) {
 	debugOutput('parseSearchInput: ' + input, 'trace');
-	terms = _terms;
+// 	terms = _terms;
 	
 	// special search term handling
 	if (/\bfree\b/i.test(input) && /\bbo\b/i.test(input)) {
@@ -423,35 +423,35 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			return searchPrefix;		
 		}
 
-		$scope.termsMap = {};
+// 		$scope.termsMap = {};
 
-		var mergeIntoTermsMap = function(res){
-			var ymlData = jsyaml.load(res.data);
-			jQuery.extend($scope.termsMap, ymlData);
-		};
+// 		var mergeIntoTermsMap = function(res){
+// 			var ymlData = jsyaml.load(res.data);
+// 			jQuery.extend($scope.termsMap, ymlData);
+// 		};
 
-		$q.all([
-			$http.get('assets/terms/itemtypes.yml'),
-			$http.get('assets/terms/gems.yml'),
-			$http.get('assets/terms/mod-ofs.yml'),
-			$http.get('assets/terms/mod-def.yml'),
-			$http.get('assets/terms/mod-vaal.yml'),
-			$http.get('assets/terms/attributes.yml'),
-			$http.get('assets/terms/sockets.yml'),
-			$http.get('assets/terms/buyout.yml'),
-			$http.get('assets/terms/uniques.yml'),
-			$http.get('assets/terms/basetypes.yml'),
-			$http.get('assets/terms/currencies.yml'),
-			$http.get('assets/terms/leagues.yml'),
-			$http.get('assets/terms/seller.yml'),
-			$http.get('assets/terms/mod-jewels.yml'),
-			$http.get('assets/terms/mod-groups.yml')
-		]).then(function (results) {
-			for (var i = 0; i < results.length; i++) {
-				mergeIntoTermsMap(results[i]);
-			}
-			if (typeof httpParams['q'] !== 'undefined') $scope.doSearch();
-		});
+// 		$q.all([
+// 			$http.get('assets/terms/itemtypes.yml'),
+// 			$http.get('assets/terms/gems.yml'),
+// 			$http.get('assets/terms/mod-ofs.yml'),
+// 			$http.get('assets/terms/mod-def.yml'),
+// 			$http.get('assets/terms/mod-vaal.yml'),
+// 			$http.get('assets/terms/attributes.yml'),
+// 			$http.get('assets/terms/sockets.yml'),
+// 			$http.get('assets/terms/buyout.yml'),
+// 			$http.get('assets/terms/uniques.yml'),
+// 			$http.get('assets/terms/basetypes.yml'),
+// 			$http.get('assets/terms/currencies.yml'),
+// 			$http.get('assets/terms/leagues.yml'),
+// 			$http.get('assets/terms/seller.yml'),
+// 			$http.get('assets/terms/mod-jewels.yml'),
+// 			$http.get('assets/terms/mod-groups.yml')
+// 		]).then(function (results) {
+// 			for (var i = 0; i < results.length; i++) {
+// 				mergeIntoTermsMap(results[i]);
+// 			}
+// 			if (typeof httpParams['q'] !== 'undefined') $scope.doSearch();
+// 		});
 
 		
 		/*
@@ -868,6 +868,9 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 
 			return blacklist.indexOf(type) == -1;
 		};
+
+		console.info("Loaded " + Object.keys(terms).length + " terms.")
+		if (typeof httpParams['q'] !== 'undefined') $scope.doSearch();
 	}]);
 
 
