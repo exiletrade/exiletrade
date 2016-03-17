@@ -168,8 +168,10 @@ function parseSearchInputTokens(input, rerun) {
 
 	//rerun bad tokens
 	var correction = badUserInput(badTokens);
-	badTokens = correction['unCorrectable'];
-	queryString += " " +  correction['corrected'].join(" ");
+	if(correction){
+		badTokens = correction['unCorrectable'];
+		queryString += " " +  correction['corrected'].join(" ");
+	}
 	return {'queryString' : queryString, 'badTokens' : badTokens};
 }
 
@@ -754,7 +756,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 			Prepare Whisper Message
 		*/
         $scope.copyWhisperToClipboard = function(item) {
-			ga('send', 'event', 'Feature', 'Whisper', 'item._source.info.fullName');
+			//ga('send', 'event', 'Feature', 'Whisper', 'item._source.info.fullName');
 			var message = item._source.shop.defaultMessage;
 			var seller = item._source.shop.lastCharacterName;
 			var itemName = item._source.info.fullName;
