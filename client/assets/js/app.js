@@ -167,11 +167,17 @@ function parseSearchInputTokens(input, rerun) {
 	var queryString = queryTokens.join(" ");
 
 	//rerun bad tokens
+<<<<<<< HEAD
 	var correction = badUserInput(badTokens);
 	if(correction){
 		badTokens = correction['unCorrectable'];
 		queryString += " " +  correction['corrected'].join(" ");
 	}
+=======
+	//var correction = badUserInput(badTokens);
+	//badTokens = correction['unCorrectable'];
+	//queryString += " " +  correction['corrected'].join(" ");
+>>>>>>> 204764816e33700705586954a9f9e6cd00174d10
 	return {'queryString' : queryString, 'badTokens' : badTokens};
 }
 
@@ -249,7 +255,7 @@ function escapeField(result) {
 	var delimIdx = result.indexOf(':');
 	if (delimIdx != -1) {
 		var field = res.substr(0, delimIdx);
-		res = res.replace(field, field.replace(/\s/g, '\\ '));
+		res = res.replace(field, field.replace(/(\s|\*)/g, '\\$1'));
 	}
 	return res;
 }

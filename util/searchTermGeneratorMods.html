@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" ng-app="EsConnector">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ExileTradeModTermGenerator</title>
+
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script>
+  
+    $( document ).ready(function() {
+		console.log( "ready!" );
+		//$.get( "http://api.exiletools.com/endpoints/mapping?field=mods.*.explicit", function( data ) {
+		  var data = "mods.Boots.explicit.# Life Regenerated per second\nmods.Amulet.explicit.# Life Regenerated per second\nmods.Amulet.explicit.#% Chance to Block\nmods.Amulet.explicit.#% chance to Avoid Elemental Status Ailments\nmods.Amulet.explicit.#% chance to Freeze, Shock and Ignite"
+		  
+		  process(data)
+		//});
+	});
+
+	function process(data) {
+	  // prepare data
+	  var lines = data.split('\n')
+	  lines = lines.map( function (line) {
+		return line.replace(/mods\..+\.explicit/i, 'mods.*.explicit')
+	  })
+	  lines = uniq(lines)
+	  
+	  // magic
+	  var mods = linesToMods(lines)
+	  console.log(mods)
+	  
+	  // output
+	  var table = $("#table");
+	  $.each(mods, function(idx, elem){
+			table.append("<tr><td>"+elem.regex+"</td><td>"+elem.query+"</td></tr>");
+	  });
+	}
+
+	function linesToMods(lines) {
+		var mods = []
+		$.each(lines, function(idx, line) {
+		var mod = line.split("explicit.")[1]
+		// for boolean typed mods
+		// we only have 1 search term
+		if (isBooleanTyped(mod)) {
+		  mods.push({
+			'regex' : modToRegex(mod),
+			'query' : line
+		  })
+		} else {
+		  // todo, generate 3 std here
+		  // for example:
+			// liferegen    			mods.*.explicit.# Life Regenerated per second:>0
+			// (\d+)liferegen    		modsTotal.# Life Regenerated per second:>$1
+			// (\d+)-(\d+)liferegen     modsTotal.# Life Regenerated per second:[$1 TO $2]
+		  mods.push({
+			'regex' : modToRegex(mod),
+			'query' : line
+		  })
+		}
+	  });
+	  return mods
+	}
+
+	function modToRegex(mod) {
+		mod = mod.replace(/[#%\s]/ig, "")
+		return mod;
+	}
+  
+    function isBooleanTyped(mod) {
+		return mod.indexOf('#') != -1
+	}
+	  
+	function uniq(a) {
+			var seen = {};
+			return a.filter(function(item) {
+				return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+			});
+	}
+  </script>
+
+</head>
+<body>
+<!-- Main div starts at 0 spacing for simplicity -->
+<div id="main" style="width:100%;padding-left:50px;padding-right:50px">
+  <div>
+	<table id="table">
+	</table>
+  </div>
+</div>
+</body>
+</html>
