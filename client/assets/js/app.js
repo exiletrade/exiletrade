@@ -276,6 +276,66 @@ function modToDisplay(value, mod) {
 	return mod;
 }
 
+function buildPlayerStashOnlineElasticJSONRequestBody() {
+	return {
+		"aggs" : {
+			"filtered" : {
+				"filter" : {
+					"bool" : {
+						"should" : [{
+								"range" : {
+									"shop.updated" : {
+										"gte" : 'now-1h'
+									}
+								}
+							}, {
+								"range" : {
+									"shop.modified" : {
+										"gte" : 'now-1h'
+									}
+								}
+							}, {
+								"range" : {
+									"shop.added" : {
+										"gte" : 'now-1h'
+									}
+								}
+							}
+						]
+					}
+				},
+				"aggs" : {
+					"sellers" : {
+						"terms" : {
+							"field" : "shop.sellerAccount",
+							size : 100000
+						}
+					}
+				}
+			}
+		},
+		"size" : 0
+	};
+}
+
+function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
+	var players = Object.keys(onlineplayersLadder).map(function(key) { 
+	    var accName = key.split('.')[1];
+	    return accName; 
+	});
+	debugOutput('Number of online players in ladder: ' + players.length, 'trace');
+	debugOutput('Number of online players in stash:  ' + onlineplayersStash.length, 'trace');
+
+	$.each(onlineplayersStash, function(playerBucket) {
+		var accountName = onlineplayersStash[playerBucket].key;
+		if ($.inArray(players, accountName) == -1) {
+			players.push(accountName);
+		}
+	});
+	debugOutput('Number of online players merged: ' + players.length, 'trace');
+	return players;
+}
+
 function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onlinePlayers) {
 	var sortObj = {}
 	sortObj[sortKey] = { "order": sortOrder };
@@ -343,12 +403,19 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 		return esFactory({ host: 'http://apikey:07e669ae1b2a4f517d68068a8e24cfe4@api.exiletools.com' }); // poeblackmarketweb@gmail.com
 	});
 
-	appModule.service('ladderApiService', function ($http, CacheFactory) {
-	  var onlinePlayerCache;
+	appModule.service('playerOnlineService', function ($q, $http, CacheFactory) {
+	  var ladderOnlinePlayerCache;
+	  var stashOnlinePlayerCache;
 
 	  // Check to make sure the cache doesn't already exist
-	  if (!CacheFactory.get('onlinePlayerCache')) {
-		onlinePlayerCache = CacheFactory('onlinePlayerCache', {
+	  if (!CacheFactory.get('ladderOnlinePlayerCache')) {
+		ladderOnlinePlayerCache = CacheFactory('ladderOnlinePlayerCache', {
+			maxAge: 15 * 60 * 1000,
+  			deleteOnExpire: 'aggressive'
+		});
+	  }
+	  if (!CacheFactory.get('stashOnlinePlayerCache')) {
+		stashOnlinePlayerCache = CacheFactory('stashOnlinePlayerCache', {
 			maxAge: 15 * 60 * 1000,
   			deleteOnExpire: 'aggressive'
 		});
@@ -356,7 +423,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 
       return {
         getLadderOnlinePlayers: function (league) {
-        	console.info("Loading up online players from league: " + league)
+        	debugOutput("Loading up online players from league: " + league, 'trace')
 			var ladderLeagues = {
 				"Perandus SC" : "perandus", 
 				"Perandus HC" : "perandushc", 
@@ -365,12 +432,32 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 			};
 			var ladderLeague = ladderLeagues[league];
 			var url = "http://api.exiletools.com/ladder?showAllOnline=1&league=" + ladderLeague;
-			return $http.get(url, { cache: onlinePlayerCache });
+			return $http.get(url, { cache: ladderOnlinePlayerCache });
+        },
+        getStashOnlinePlayers: function (es) {
+        	debugOutput("Loading up online players from indexer", 'trace')
+        	var stashOnlinePlayers = stashOnlinePlayerCache.get('stashOnlinePlayers');
+        	var promise;
+        	if (stashOnlinePlayers) {
+        		promise = $q.resolve(stashOnlinePlayers);
+        	} else {
+				promise = es.search({
+					  index: 'index',
+						  body: buildPlayerStashOnlineElasticJSONRequestBody()
+				  		});
+        	}
+        	return promise;
+        },
+        cacheStashOnlinePlayers: function(stashOnlinePlayers) {
+        	var e = stashOnlinePlayerCache.get('stashOnlinePlayers');
+        	if (!e) {
+        		stashOnlinePlayerCache.put('stashOnlinePlayers', stashOnlinePlayers);
+        	}
         }
       };
 	});
 
-	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', 'es', 'ladderApiService', function($q, $scope, $http, $location, es, ladderApiService) {
+	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', 'es', 'playerOnlineService', function($q, $scope, $http, $location, es, playerOnlineService) {
 		debugOutput('controller', 'info');
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
@@ -527,10 +614,18 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 				return;
 			}
 			
-			var onlineplayersPromise = ladderApiService.getLadderOnlinePlayers($scope.options.leagueSelect.value);
-			
-			onlineplayersPromise.then(function(response) {
-				$scope.onlinePlayers = Object.keys(response.data).map(function(key) { return key.split('.')[1]; });
+			var onlineplayersLadderPromise = playerOnlineService.getLadderOnlinePlayers($scope.options.leagueSelect.value);
+			var onlineplayersStashPromise = playerOnlineService.getStashOnlinePlayers(es);
+
+			$q.all({
+			  onlineplayersLadder: onlineplayersLadderPromise,
+			  onlineplayersStash: onlineplayersStashPromise
+			}).then(function(results) {
+				var onlineplayersLadder = results.onlineplayersLadder.data;
+				var onlineplayersStash  = results.onlineplayersStash.aggregations.filtered.sellers.buckets;
+				playerOnlineService.cacheStashOnlinePlayers(results.onlineplayersStash)
+				$scope.onlinePlayers = buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash);
+				
 			   	var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder, $scope.onlinePlayers);
 			   	$scope.elasticJsonRequest = angular.toJson(esBody, true);
 			   	return es.search({
