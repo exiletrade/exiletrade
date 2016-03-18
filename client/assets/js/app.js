@@ -341,17 +341,17 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 	sortObj[sortKey] = { "order": sortOrder };
 	var esBody = {
 					"sort": [ sortObj ],
-					"query" : {
-						"filtered" : {
-							"filter" : {
-								"terms" : { "shop.sellerAccount" : onlinePlayers }
+					"query": {
+						"bool" : {
+							"filter" : { 
+								"terms" : { "shop.sellerAccount" : onlinePlayers } 
 							},
-							"query": {
-								"query_string": {
+							"filter" : { 
+								"query_string" : {
 									"default_operator": "AND",
 									"query": searchQuery
 								}
-							}	
+							}
 						}
 					},
 					size:_size
@@ -408,12 +408,12 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 	  var stashOnlinePlayerCache;
 
 	  // Check to make sure the cache doesn't already exist
-	  if (!CacheFactory.get('ladderOnlinePlayerCache')) {
-		ladderOnlinePlayerCache = CacheFactory('ladderOnlinePlayerCache', {
-			maxAge: 15 * 60 * 1000,
-  			deleteOnExpire: 'aggressive'
-		});
-	  }
+// 	  if (!CacheFactory.get('ladderOnlinePlayerCache')) {
+// 		ladderOnlinePlayerCache = CacheFactory('ladderOnlinePlayerCache', {
+// 			maxAge: 15 * 60 * 1000,
+//   			deleteOnExpire: 'aggressive'
+// 		});
+// 	  }
 	  if (!CacheFactory.get('stashOnlinePlayerCache')) {
 		stashOnlinePlayerCache = CacheFactory('stashOnlinePlayerCache', {
 			maxAge: 15 * 60 * 1000,
@@ -611,20 +611,21 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 			debugOutput("searchQuery=" + searchQuery, 'log');
 
 			if (parseResult.badTokens.length > 0) {
+				$scope.showSpinner = false;
 				return;
 			}
 			
-			var onlineplayersLadderPromise = playerOnlineService.getLadderOnlinePlayers($scope.options.leagueSelect.value);
+			//var onlineplayersLadderPromise = playerOnlineService.getLadderOnlinePlayers($scope.options.leagueSelect.value);
 			var onlineplayersStashPromise = playerOnlineService.getStashOnlinePlayers(es);
 
 			$q.all({
-			  onlineplayersLadder: onlineplayersLadderPromise,
+			  //onlineplayersLadder: onlineplayersLadderPromise,
 			  onlineplayersStash: onlineplayersStashPromise
 			}).then(function(results) {
-				var onlineplayersLadder = results.onlineplayersLadder.data;
+				//var onlineplayersLadder = results.onlineplayersLadder.data;
 				var onlineplayersStash  = results.onlineplayersStash.aggregations.filtered.sellers.buckets;
 				playerOnlineService.cacheStashOnlinePlayers(results.onlineplayersStash)
-				$scope.onlinePlayers = buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash);
+				$scope.onlinePlayers = buildListOfOnlinePlayers([], onlineplayersStash);
 				
 			   	var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder, $scope.onlinePlayers);
 			   	$scope.elasticJsonRequest = angular.toJson(esBody, true);
