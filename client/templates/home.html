@@ -4,6 +4,9 @@ url: /
 ---
 
 <div id="main" class="grid-container" ng-controller="SearchController" >
+	<!-- Spinner -->
+	<span us-spinner="{radius:30, width:8, length: 16}" spinner-on="showSpinner"></span>
+
 	<!-- Open Sidebar Buttons -->
 	<a href="#" zf-toggle="searchOptions" class="openOptions button">
 		<img zf-iconic="" icon="cog" size="middle" class="">

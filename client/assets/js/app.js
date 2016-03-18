@@ -274,18 +274,16 @@ function modToDisplay(value, mod) {
 	return mod;
 }
 
-function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
+function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onlinePlayers) {
 	var sortObj = {}
 	sortObj[sortKey] = { "order": sortOrder };
 	var esBody = {
 					"sort": [ sortObj ],
 					"query" : {
 						"filtered" : {
-							//"filter" : {
-							//	"terms" : { "shop.sellerAccount" : [
-									// https://github.com/trackpete/exiletools-indexer/issues/123
-							//	]}
-							//},
+							"filter" : {
+								"terms" : { "shop.sellerAccount" : onlinePlayers }
+							},
 							"query": {
 								"query_string": {
 									"default_operator": "AND",
@@ -313,7 +311,9 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		'foundation.dynamicRouting',
 		'foundation.dynamicRouting.animations',
 		'ngclipboard',
-		'duScroll'
+		'duScroll',
+		'angular-cache',
+		'angularSpinner'
 	]);
 
 	appModule.config(config);
@@ -341,11 +341,39 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		return esFactory({ host: 'http://apikey:07e669ae1b2a4f517d68068a8e24cfe4@api.exiletools.com' }); // poeblackmarketweb@gmail.com
 	});
 
-	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', 'es', function($q, $scope, $http, $location, es) {
+	appModule.service('ladderApiService', function ($http, CacheFactory) {
+	  var onlinePlayerCache;
+
+	  // Check to make sure the cache doesn't already exist
+	  if (!CacheFactory.get('onlinePlayerCache')) {
+		onlinePlayerCache = CacheFactory('onlinePlayerCache', {
+			maxAge: 15 * 60 * 1000,
+  			deleteOnExpire: 'aggressive'
+		});
+	  }
+
+      return {
+        getLadderOnlinePlayers: function (league) {
+        	console.info("Loading up online players from league: " + league)
+			var ladderLeagues = {
+				"Perandus SC" : "perandus", 
+				"Perandus HC" : "perandushc", 
+				"Standard" : "standard", 
+				"Hardcore" : "hardcore"
+			};
+			var ladderLeague = ladderLeagues[league];
+			var url = "http://api.exiletools.com/ladder?showAllOnline=1&league=" + ladderLeague;
+			return $http.get(url, { cache: onlinePlayerCache });
+        }
+      };
+	});
+
+	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', 'es', 'ladderApiService', function($q, $scope, $http, $location, es, ladderApiService) {
 		debugOutput('controller', 'info');
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
 		$scope.elasticJsonRequest = "";
+		$scope.showSpinner = false;
 
 		var httpParams = $location.search();
 		debugOutput('httpParams:' + angular.toJson(httpParams, true), 'trace');
@@ -479,6 +507,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 		};
 
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
+			$scope.showSpinner = true;
 			$scope.Response = null;
 			if (limit > 999) limit = 999; // deny power overwhelming
 			ga('send', 'event', 'Search', 'PreFix', createSearchPrefix($scope.options))
@@ -496,21 +525,27 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder) {
 				return;
 			}
 			
-			var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder);
-			$scope.elasticJsonRequest = angular.toJson(esBody, true);
-			debugOutput("Final search json: " +  $scope.elasticJsonRequest, 'info');
+			var onlineplayersPromise = ladderApiService.getLadderOnlinePlayers($scope.options.leagueSelect.value);
 			
-			es.search({
-				index: 'index',
-				body: esBody
-			}).then(function (response) {
-				$.each(response.hits.hits, function( index, value ) {
-					addCustomFields(value._source);
-					addCustomFields(value._source.properties);
+			onlineplayersPromise.then(function(response) {
+				$scope.onlinePlayers = Object.keys(response.data).map(function(key) { return key.split('.')[1]; });
+			   	var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder, $scope.onlinePlayers);
+			   	$scope.elasticJsonRequest = angular.toJson(esBody, true);
+			   	debugOutput("Final search json: " +  $scope.elasticJsonRequest, 'info');
+			   	return es.search({
+					index: 'index',
+					body: esBody
+				}).then(function (response) {
+					$.each(response.hits.hits, function( index, value ) {
+						addCustomFields(value._source);
+						addCustomFields(value._source.properties);
+					});
+					$scope.Response = response;
+					$scope.showSpinner = false;
+				}, function (err) {
+					debugOutput(err.message, 'trace');
+					$scope.showSpinner = false;
 				});
-				$scope.Response = response;
-			}, function (err) {
-				debugOutput(err.message, 'trace');
 			});
 		}
 
