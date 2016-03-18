@@ -167,17 +167,11 @@ function parseSearchInputTokens(input, rerun) {
 	var queryString = queryTokens.join(" ");
 
 	//rerun bad tokens
-<<<<<<< HEAD
 	var correction = badUserInput(badTokens);
 	if(correction){
 		badTokens = correction['unCorrectable'];
 		queryString += " " +  correction['corrected'].join(" ");
 	}
-=======
-	//var correction = badUserInput(badTokens);
-	//badTokens = correction['unCorrectable'];
-	//queryString += " " +  correction['corrected'].join(" ");
->>>>>>> 204764816e33700705586954a9f9e6cd00174d10
 	return {'queryString' : queryString, 'badTokens' : badTokens};
 }
 
@@ -539,7 +533,6 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 				$scope.onlinePlayers = Object.keys(response.data).map(function(key) { return key.split('.')[1]; });
 			   	var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder, $scope.onlinePlayers);
 			   	$scope.elasticJsonRequest = angular.toJson(esBody, true);
-			   	debugOutput("Final search json: " +  $scope.elasticJsonRequest, 'info');
 			   	return es.search({
 					index: 'index',
 					body: esBody
