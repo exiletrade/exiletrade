@@ -167,9 +167,17 @@ function parseSearchInputTokens(input, rerun) {
 	var queryString = queryTokens.join(" ");
 
 	//rerun bad tokens
+<<<<<<< HEAD
+	var correction = badUserInput(badTokens);
+	if(correction){
+		badTokens = correction['unCorrectable'];
+		queryString += " " +  correction['corrected'].join(" ");
+	}
+=======
 	//var correction = badUserInput(badTokens);
 	//badTokens = correction['unCorrectable'];
 	//queryString += " " +  correction['corrected'].join(" ");
+>>>>>>> 204764816e33700705586954a9f9e6cd00174d10
 	return {'queryString' : queryString, 'badTokens' : badTokens};
 }
 
@@ -789,7 +797,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 			Prepare Whisper Message
 		*/
         $scope.copyWhisperToClipboard = function(item) {
-			ga('send', 'event', 'Feature', 'Whisper', 'item._source.info.fullName');
+			//ga('send', 'event', 'Feature', 'Whisper', 'item._source.info.fullName');
 			var message = item._source.shop.defaultMessage;
 			var seller = item._source.shop.lastCharacterName;
 			var itemName = item._source.info.fullName;
