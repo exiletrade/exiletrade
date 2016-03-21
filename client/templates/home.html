@@ -242,8 +242,8 @@ url: /
 						<li>
 							<span>Online Players Only</span>
 							<div class="switch small">
-								<input type="checkbox" checked disabled id="switch-onlinePlayersOnly"
-									   ng-true-value="" ng-false-value="" ng-change="">
+								<input type="checkbox" ng-model="switchOnlinePlayersOnly" id="switch-onlinePlayersOnly"
+									ng-change="stateChanged()">
 								<label for="switch-onlinePlayersOnly"></label>
 							</div>
 						</li>

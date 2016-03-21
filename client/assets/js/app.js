@@ -341,15 +341,19 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 	sortObj[sortKey] = { "order": sortOrder };
 	var esBody = {
 					"sort": [ sortObj ],
-					"query": {
-						"bool" : {
-							"filter" : { 
-								"terms" : { "shop.sellerAccount" : onlinePlayers } 
-							},
-							"filter" : { 
-								"query_string" : {
-									"default_operator": "AND",
-									"query": searchQuery
+					 "query": {
+						"filtered" : {
+							"filter" : {
+								 "bool" : {
+									"must" : [
+										{ "terms" : { "shop.sellerAccount" : onlinePlayers } }, 
+										{ 
+										  "query_string" : {
+												"default_operator": "AND",
+												"query": searchQuery
+											}
+										} 
+									]
 								}
 							}
 						}
@@ -462,6 +466,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
 		$scope.elasticJsonRequest = "";
+		$scope.switchOnlinePlayersOnly = true;
 		$scope.showSpinner = false;
 
 		var httpParams = $location.search();
@@ -581,6 +586,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 
 		$scope.stateChanged = function() {
 			debugOutput('stateChanged', 'log')
+			debugOutput($scope.switchOnlinePlayersOnly, 'log')
 		};
 
 		/*
@@ -596,6 +602,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 		};
 
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
+			console.info("$scope.switchOnlinePlayersOnly = " + $scope.switchOnlinePlayersOnly)
 			$scope.showSpinner = true;
 			$scope.Response = null;
 			if (limit > 999) limit = 999; // deny power overwhelming
