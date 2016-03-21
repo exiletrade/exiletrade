@@ -117,7 +117,7 @@ function parseSearchInput(_terms, input) {
 	var lsts = input.match(regex);
 	var _input = input.replace(regex, 'LST');
 	var parseResult = parseSearchInputTokens(_input);
-	debugOutput(parseResult, 'info');
+	
 	var i = 0;
 	parseResult.queryString = parseResult.queryString.replace('LST', function (match) {
 		var lst = lsts[i];
@@ -622,26 +622,22 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 				$scope.showSpinner = false;
 				return;
 			}
-
-			// TODO, this is a bit messy here
 			
 			//var onlineplayersLadderPromise = playerOnlineService.getLadderOnlinePlayers($scope.options.leagueSelect.value);
-			var onlineplayersStashPromise = $scope.switchOnlinePlayersOnly ? playerOnlineService.getStashOnlinePlayers(es) : $q.when([]);
+			var onlineplayersStashPromise = playerOnlineService.getStashOnlinePlayers(es);
 
 			$q.all({
 			  //onlineplayersLadder: onlineplayersLadderPromise,
 			  onlineplayersStash: onlineplayersStashPromise
 			}).then(function(results) {
-				$scope.onlinePlayers = [];
-
-				if ($scope.switchOnlinePlayersOnly) {
-					//var onlineplayersLadder = results.onlineplayersLadder.data;
-					var onlineplayersStash  = results.onlineplayersStash.aggregations.filtered.sellers.buckets;
-					playerOnlineService.cacheStashOnlinePlayers(results.onlineplayersStash)
-					$scope.onlinePlayers = buildListOfOnlinePlayers([], onlineplayersStash);
-				}
 				
-			   	var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder, $scope.onlinePlayers);
+				//var onlineplayersLadder = results.onlineplayersLadder.data;
+				var onlineplayersStash  = results.onlineplayersStash.aggregations.filtered.sellers.buckets;
+				playerOnlineService.cacheStashOnlinePlayers(results.onlineplayersStash)
+				$scope.onlinePlayers = buildListOfOnlinePlayers([], onlineplayersStash);
+				
+				var accountNamesFilter = $scope.switchOnlinePlayersOnly ? $scope.onlinePlayers : [];
+			   	var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder, accountNamesFilter);
 			   	$scope.elasticJsonRequest = angular.toJson(esBody, true);
 			   	return es.search({
 					index: 'index',
