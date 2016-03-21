@@ -361,6 +361,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 					size:_size
 				};
 	if(!searchQuery) delete esBody['query'];
+	if(searchQuery && onlinePlayers.length < 1) esBody.query.filtered.filter.bool.must.shift();
 	return esBody;
 }
 
@@ -586,7 +587,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 
 		$scope.stateChanged = function() {
 			debugOutput('stateChanged', 'log')
-			debugOutput($scope.switchOnlinePlayersOnly, 'log')
+			$scope.switchOnlinePlayersOnly = !$scope.switchOnlinePlayersOnly;
 		};
 
 		/*
@@ -621,18 +622,24 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 				$scope.showSpinner = false;
 				return;
 			}
+
+			// TODO, this is a bit messy here
 			
 			//var onlineplayersLadderPromise = playerOnlineService.getLadderOnlinePlayers($scope.options.leagueSelect.value);
-			var onlineplayersStashPromise = playerOnlineService.getStashOnlinePlayers(es);
+			var onlineplayersStashPromise = $scope.switchOnlinePlayersOnly ? playerOnlineService.getStashOnlinePlayers(es) : $q.when([]);
 
 			$q.all({
 			  //onlineplayersLadder: onlineplayersLadderPromise,
 			  onlineplayersStash: onlineplayersStashPromise
 			}).then(function(results) {
-				//var onlineplayersLadder = results.onlineplayersLadder.data;
-				var onlineplayersStash  = results.onlineplayersStash.aggregations.filtered.sellers.buckets;
-				playerOnlineService.cacheStashOnlinePlayers(results.onlineplayersStash)
-				$scope.onlinePlayers = buildListOfOnlinePlayers([], onlineplayersStash);
+				$scope.onlinePlayers = [];
+
+				if ($scope.switchOnlinePlayersOnly) {
+					//var onlineplayersLadder = results.onlineplayersLadder.data;
+					var onlineplayersStash  = results.onlineplayersStash.aggregations.filtered.sellers.buckets;
+					playerOnlineService.cacheStashOnlinePlayers(results.onlineplayersStash)
+					$scope.onlinePlayers = buildListOfOnlinePlayers([], onlineplayersStash);
+				}
 				
 			   	var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder, $scope.onlinePlayers);
 			   	$scope.elasticJsonRequest = angular.toJson(esBody, true);
