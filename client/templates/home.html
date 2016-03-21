@@ -802,11 +802,12 @@ url: /
 								<i class="seperator"></i>
 							</span>
 
-							<!--span class="click verified {{item._source.shop.verified}}">
-								Verify
-								<span class=""></span>
+							<span 
+								ng-show="item._source.isOnline"
+								style="color: green;">
+								Online
 								<i class="seperator"></i>
-							</span-->
+							</span>
 
 							<span class="" data-ign="{{item._source.shop.lastCharacterName}}">
 								IGN: {{item._source.shop.lastCharacterName}}
@@ -819,8 +820,9 @@ url: /
 								   color="success" autoclose="2000" zf-open="save-notification-whisper">
 								   Whisper<span ng-if="counter > 0"> ({{counter}})</span>
 								</a>
-								<span ng-if="item._source.shop.note">Note: {{item._source.shop.note}}</span>
+								<i class="seperator"></i>
 							</span>
+							<span ng-if="item._source.shop.note">Note: {{item._source.shop.note}}</span>
 						</div>
 					</div>
 				</div>

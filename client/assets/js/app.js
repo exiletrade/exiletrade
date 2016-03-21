@@ -679,6 +679,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 				item.shop['addedHoursAgo'] = (Math.abs(now.getTime() - added.getTime()) / hourInMillis).toFixed(2);
 				item.shop['modifiedHoursAgo'] = (Math.abs(now.getTime() - modified.getTime()) / hourInMillis).toFixed(2);
 				item.shop['updatedHoursAgo'] = (Math.abs(now.getTime() - updated.getTime()) / hourInMillis).toFixed(2);
+				item.isOnline = $scope.onlinePlayers.indexOf(item.shop['sellerAccount']) != -1;
 			}
 		}
 
