@@ -1065,24 +1065,28 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 
 
 	// Custom filters
-	appModule.filter("currencyToCssClass", () => str => {
-		var currencyCssClassMap = new Map([
-			["Chaos Orb", "chaos-orb"],
-			["Exalted Orb", "exalt-orb"]
-		]);
-		var result = currencyCssClassMap.get(str);
-		if (!result) result = str;
-		return result;
-	});
+	appModule.filter("currencyToCssClass", [function() {
+		return function (str) {
+			var currencyCssClassMap = new Map([
+				["Chaos Orb", "chaos-orb"],
+				["Exalted Orb", "exalt-orb"]
+			]);
+			var result = currencyCssClassMap.get(str);
+			if (!result) result = str;
+			return result;
+		};
+	}]);
 
-	appModule.filter("defaultToValue", () => str => {
-		var defaultValues = new Map([
-			[undefined, "0"]
-		]);
-		var result = defaultValues.get(str);
-		if (!result) result = str;
-		return result;
-	});
+	appModule.filter("defaultToValue", [function() {
+		return function(str) {
+			var defaultValues = new Map([
+				[undefined, "0"]
+			]);
+			var result = defaultValues.get(str);
+			if (!result) result = str;
+			return result;			
+		};
+	}]);
 
 	appModule.filter('isEmpty', [function () {
 		return function (object) {
