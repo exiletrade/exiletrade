@@ -279,19 +279,19 @@ function buildPlayerStashOnlineElasticJSONRequestBody() {
 						"should" : [{
 								"range" : {
 									"shop.updated" : {
-										"gte" : 'now-1h'
+										"gte" : 'now-15m'
 									}
 								}
 							}, {
 								"range" : {
 									"shop.modified" : {
-										"gte" : 'now-1h'
+										"gte" : 'now-15m'
 									}
 								}
 							}, {
 								"range" : {
 									"shop.added" : {
-										"gte" : 'now-1h'
+										"gte" : 'now-15m'
 									}
 								}
 							}
@@ -302,7 +302,7 @@ function buildPlayerStashOnlineElasticJSONRequestBody() {
 					"sellers" : {
 						"terms" : {
 							"field" : "shop.sellerAccount",
-							size : 100000
+							size : 900
 						}
 					}
 				}
@@ -333,29 +333,25 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onlinePlayers) {
 	var sortObj = {}
 	sortObj[sortKey] = { "order": sortOrder };
+
+	if (onlinePlayers.length > 0) {
+		var onlinePlayersTerm = onlinePlayers.map(function(p) { return 'shop.sellerAccount:' + p }).join(" OR ");
+		searchQuery = '(' + searchQuery + ') AND (' + onlinePlayersTerm + ')';
+	}
+
 	var esBody = {
 					"sort": [ sortObj ],
-					 "query": {
-						"filtered" : {
-							"filter" : {
-								 "bool" : {
-									"must" : [
-										{ 
-										  "query_string" : {
-												"default_operator": "AND",
-												"query": searchQuery
-											}
-										},
-										{ "terms" : { "shop.sellerAccount" : onlinePlayers } } 										
-									]
-								}
+					"filter" : {
+						"query": {
+							"query_string": {
+								"default_operator": "AND",
+								"query": searchQuery
 							}
 						}
 					},
 					size:_size
 				};
 	if(!searchQuery) delete esBody['query'];
-	if(searchQuery && onlinePlayers.length < 1) esBody.query.filtered.filter.bool.must.pop();
 	return esBody;
 }
 
