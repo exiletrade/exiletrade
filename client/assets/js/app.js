@@ -847,8 +847,26 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 		};
 
 		$scope.requestSavedItem = function (itemId) {
-			$scope.lastRequestedSavedItem = {};
+			var esPayload = {
+				index: 'index',
+				body: {
+					"filter": {
+						"term": {
+						  "_id": itemId
+						}
+					  }
+				}
+			};
+			debugOutput("Gonna run elastic: " + angular.toJson(esPayload, true), 'info');
+			es.search(esPayload).then(function (response) {
+				// this causes errors on the UI?
+				//$scope.lastRequestedSavedItem = response;
+				console.info(response)
+			});
 		};
+
+		// REMOVE ME, for testing only
+		$scope.requestSavedItem('f750ef8eb745f9c8cd913164da44492f133e2dedee6cbcbbd19c0a80bd10833c')
 
 		/*
 		 Delete selected saved search terms from HTML storage
