@@ -355,7 +355,7 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 					size:_size
 				};
 	if(!searchQuery) delete esBody['query'];
-	if(searchQuery && onlinePlayers.length < 1) esBody.query.filtered.filter.bool.must.shift();
+	if(searchQuery && onlinePlayers.length < 1) esBody.query.filtered.filter.bool.must.pop();
 	return esBody;
 }
 
