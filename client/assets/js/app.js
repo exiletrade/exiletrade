@@ -645,7 +645,7 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 
 				var accountNamesFilter = $scope.switchOnlinePlayersOnly ? $scope.onlinePlayers : [];
 				var from = 0;
-				var fetchSize = 500;
+				var fetchSize = 100;
 				var actualSearchDuration = 0;
 				var items = [];
 
