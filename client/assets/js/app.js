@@ -654,16 +654,16 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 						.then(function (response) {
 							actualSearchDuration += response.took;
 							response.hits.hits = response.hits.hits.filter(function (item) {
-								return accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1;
+								return accountNamesFilter.length == 0 || accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1;
 							});
 							$.merge(items, response.hits.hits);
 
-							if (items.length < limit && response.hits.total > limit && from < (fetchSize * 15)) {
+							if (accountNamesFilter.length != 0 && items.length < limit && response.hits.total > limit && from < (fetchSize * 15)) {
 								from = from + fetchSize;
 								return runElastic();
 							}
 
-							response.hits.hits = items;
+							response.hits.hits = items.slice(0, limit);
 							response.took = actualSearchDuration;
 							$scope.Response = response;
 
