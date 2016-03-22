@@ -1071,4 +1071,13 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 			});
 		};
 	});
+
+	appModule.directive('item', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/item.html',
+			// todo: shouldn't need to inherit entire scope
+			scope: true
+		};
+	});
 })();
