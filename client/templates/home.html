@@ -191,11 +191,11 @@ url: /
 						</ul>
 					</section>
 				</zf-accordion-item>
-				<zf-accordion-item title="Saved Items (no display yet)">
+				<zf-accordion-item title="Saved Items">
 					<section class="block-list">
 						<ul>
 							<li class="" ng-repeat="data in savedItemsList">
-								<a href="#" ng-click="" zf-open="showItemModal">{{data.itemDescription}}</a>
+								<a href="#" ng-click="requestSavedItem(data.itemId)" zf-open="showItemModal">{{data.itemDescription}}</a>
 								<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeItemFromList(data.itemId)">
 							</li>
 						</ul>
@@ -283,9 +283,13 @@ url: /
 		</div>
 
 		<!-- Show Item Modal -->
-		<div zf-modal="" id="showItemModal">
+		<div zf-modal="" id="showItemModal" class="collapse">
 			<a zf-close="" class="close-button">×</a>
-			Placeholder text for saved Item.
+			<div class="grid-block">
+				<div class="grid-content item" ng-repeat="item in lastRequestedSavedItem">
+					<div item></div>
+				</div>
+			</div>
 		</div>
 
 		<!-- Show Search Terms Doc Modal -->

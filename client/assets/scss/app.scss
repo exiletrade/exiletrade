@@ -246,8 +246,7 @@ img.gitter-badge {
     font-size: 14px;
 }
 
-.search-results {
-
+.search-results, #showItemModal {
 	.item {
 		min-width: 600px;
 		margin: 5px 0;
@@ -667,6 +666,17 @@ img.gitter-badge {
 	}
 }
 
+#showItemModal{
+	.modal {
+		max-width: 95%;
+	}
+	.item {
+		margin-top: 50px;
+	}
+	.switch, .saveNotificationLink {
+		display: none;
+	}
+}
 
 .panel {
 	width: 400px;
