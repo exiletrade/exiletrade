@@ -214,13 +214,7 @@ function evalSearchTerm(token) {
 }
 
 function createMissingQuery(evaluatedToken) {
-	if (evaluatedToken.indexOf('#') > -1) {
-		var rgex = new RegExp(':.+', 'i')
-		evaluatedToken = "_missing_:" + evaluatedToken.replace(rgex,"")					
-	} else {
-		evaluatedToken = "-" + evaluatedToken;
-	}
-	return evaluatedToken;
+	return "-" + evaluatedToken;
 }
 
 function removeParensAndBackTick(token) {
@@ -346,13 +340,13 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 							"filter" : {
 								 "bool" : {
 									"must" : [
-										{ "terms" : { "shop.sellerAccount" : onlinePlayers } }, 
 										{ 
 										  "query_string" : {
 												"default_operator": "AND",
 												"query": searchQuery
 											}
-										} 
+										},
+										{ "terms" : { "shop.sellerAccount" : onlinePlayers } } 										
 									]
 								}
 							}
