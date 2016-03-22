@@ -279,19 +279,19 @@ function buildPlayerStashOnlineElasticJSONRequestBody() {
 						"should" : [{
 								"range" : {
 									"shop.updated" : {
-										"gte" : 'now-15m'
+										"gte" : 'now-30m'
 									}
 								}
 							}, {
 								"range" : {
 									"shop.modified" : {
-										"gte" : 'now-15m'
+										"gte" : 'now-30m'
 									}
 								}
 							}, {
 								"range" : {
 									"shop.added" : {
-										"gte" : 'now-15m'
+										"gte" : 'now-30m'
 									}
 								}
 							}
@@ -302,7 +302,7 @@ function buildPlayerStashOnlineElasticJSONRequestBody() {
 					"sellers" : {
 						"terms" : {
 							"field" : "shop.sellerAccount",
-							size : 900
+							size : 100000
 						}
 					}
 				}
@@ -328,31 +328,6 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 	});
 	debugOutput('Number of online players merged: ' + players.length, 'trace');
 	return players;
-}
-
-function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onlinePlayers) {
-	var sortObj = {}
-	sortObj[sortKey] = { "order": sortOrder };
-
-	if (onlinePlayers.length > 0) {
-		var onlinePlayersTerm = onlinePlayers.map(function(p) { return 'shop.sellerAccount:' + p }).join(" OR ");
-		searchQuery = '(' + searchQuery + ') AND (' + onlinePlayersTerm + ')';
-	}
-
-	var esBody = {
-					"sort": [ sortObj ],
-					"filter" : {
-						"query": {
-							"query_string": {
-								"default_operator": "AND",
-								"query": searchQuery
-							}
-						}
-					},
-					size:_size
-				};
-	if(!searchQuery) delete esBody['query'];
-	return esBody;
 }
 
 (function() {
@@ -592,10 +567,17 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 			doActualSearch($scope.searchInput, limit, sortKey, sortOrder);
 		};
 
+		/*
+			Runs the actual search code. For online only, we do a search-and-collect-till-we-get-enough strategy.
+			See also:
+			 - https://github.com/trackpete/exiletools-indexer/issues/123
+			 - http://stackoverflow.com/questions/20607313/angularjs-promise-with-recursive-function
+		*/
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
 			console.info("$scope.switchOnlinePlayersOnly = " + $scope.switchOnlinePlayersOnly)
 			$scope.showSpinner = true;
 			$scope.Response = null;
+			limit = Number(limit);
 			if (limit > 999) limit = 999; // deny power overwhelming
 			ga('send', 'event', 'Search', 'PreFix', createSearchPrefix($scope.options))
 			var finalSearchInput = searchInput + ' ' + createSearchPrefix($scope.options);
@@ -613,6 +595,29 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 				return;
 			}
 			
+			function doElasticSearch(searchQuery, _from, _size, sortKey, sortOrder) {
+				var esBody = {
+								"filter" : {
+									"query": {
+										"query_string": {
+											"default_operator": "AND",
+											"query": searchQuery
+										}
+									}
+								}
+							};
+				var esPayload = {
+								index: 'index',
+								sort: [sortKey + ':' + sortOrder],
+								from: _from,
+								size: _size,
+								body: esBody
+							};
+				$scope.elasticJsonRequest = angular.toJson(esPayload, true);
+				debugOutput("Gonna run elastic: " + $scope.elasticJsonRequest, 'info');
+				return es.search(esPayload)
+			}
+			
 			//var onlineplayersLadderPromise = playerOnlineService.getLadderOnlinePlayers($scope.options.leagueSelect.value);
 			var onlineplayersStashPromise = playerOnlineService.getStashOnlinePlayers(es);
 
@@ -620,29 +625,48 @@ function buildElasticJSONRequestBody(searchQuery, _size, sortKey, sortOrder, onl
 			  //onlineplayersLadder: onlineplayersLadderPromise,
 			  onlineplayersStash: onlineplayersStashPromise
 			}).then(function(results) {
-				
-				//var onlineplayersLadder = results.onlineplayersLadder.data;
+				var onlineplayersLadder = []//results.onlineplayersLadder.data;
 				var onlineplayersStash  = results.onlineplayersStash.aggregations.filtered.sellers.buckets;
 				playerOnlineService.cacheStashOnlinePlayers(results.onlineplayersStash)
-				$scope.onlinePlayers = buildListOfOnlinePlayers([], onlineplayersStash);
+				$scope.onlinePlayers = buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash);
 				
 				var accountNamesFilter = $scope.switchOnlinePlayersOnly ? $scope.onlinePlayers : [];
-			   	var esBody = buildElasticJSONRequestBody(searchQuery, limit, sortKey, sortOrder, accountNamesFilter);
-			   	$scope.elasticJsonRequest = angular.toJson(esBody, true);
-			   	return es.search({
-					index: 'index',
-					body: esBody
-				}).then(function (response) {
-					$.each(response.hits.hits, function( index, value ) {
-						addCustomFields(value._source);
-						addCustomFields(value._source.properties);
+				var from = 0;
+				var fetchSize = 500;
+				var actualSearchDuration = 0;
+				var items = [];
+			   	
+			   	function runElastic() {
+			   		doElasticSearch(searchQuery, from, fetchSize, sortKey, sortOrder)
+					.then(function (response) {
+						actualSearchDuration += response.took; 
+						response.hits.hits = response.hits.hits.filter(function(item) {
+							return accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1;
+						});
+						$.merge(items, response.hits.hits);
+
+						if (items.length < limit && response.hits.total > limit && from < (fetchSize * 15)) {
+							from = from + fetchSize;
+							return runElastic();
+						}
+
+						response.hits.hits = items;
+						response.took = actualSearchDuration;
+						$scope.Response = response;
+
+						$.each(response.hits.hits, function( index, value ) {
+							addCustomFields(value._source);
+							addCustomFields(value._source.properties);
+						});
+
+						$scope.showSpinner = false;
+					}, function (err) {
+						debugOutput(err.message, 'trace');
+						$scope.showSpinner = false;
 					});
-					$scope.Response = response;
-					$scope.showSpinner = false;
-				}, function (err) {
-					debugOutput(err.message, 'trace');
-					$scope.showSpinner = false;
-				});
+			   	}
+
+			   	return runElastic();
 			});
 		}
 
