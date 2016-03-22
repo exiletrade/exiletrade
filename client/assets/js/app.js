@@ -627,7 +627,7 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 					body: esBody
 				};
 				$scope.elasticJsonRequest = angular.toJson(esPayload, true);
-				debugOutput("Gonna run elastic: " + $scope.elasticJsonRequest, 'info');
+				debugOutput("Gonna run elastic: " + $scope.elasticJsonRequest, 'trace');
 				return es.search(esPayload)
 			}
 
@@ -669,7 +669,6 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 
 							$.each(response.hits.hits, function (index, value) {
 								addCustomFields(value._source);
-								addCustomFields(value._source.properties);
 							});
 
 							$scope.showSpinner = false;
@@ -857,16 +856,13 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 					  }
 				}
 			};
-			debugOutput("Gonna run elastic: " + angular.toJson(esPayload, true), 'info');
+			debugOutput("Gonna run elastic: " + angular.toJson(esPayload, true), 'trace');
 			es.search(esPayload).then(function (response) {
-				// this causes errors on the UI?
-				//$scope.lastRequestedSavedItem = response;
-				console.info(response)
+				debugOutput("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
+				if (response.hits.total == 1) addCustomFields(response.hits.hits[0]);
+				$scope.lastRequestedSavedItem = response.hits.hits;
 			});
 		};
-
-		// REMOVE ME, for testing only
-		$scope.requestSavedItem('f750ef8eb745f9c8cd913164da44492f133e2dedee6cbcbbd19c0a80bd10833c')
 
 		/*
 		 Delete selected saved search terms from HTML storage
