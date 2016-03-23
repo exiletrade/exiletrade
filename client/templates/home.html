@@ -32,8 +32,14 @@ url: /
 						<img zf-iconic="" icon="circle-check" size="small">Save
 					</a>
 					<div class="searchStats" title="{{queryString}}" ng-if="Response.took" zf-open="showElasticJsonRequestModal">
-						&nbsp;&nbsp;<img zf-iconic="" icon="dashboard" size="small"> <span>{{Response.took}} ms</span> <br/>
-						&nbsp;&nbsp;<img zf-iconic="" icon="document" size="small"> <span>{{Response.hits.total}} hits</span>
+						<div>
+							<img zf-iconic="" icon="dashboard" size="small">
+							<span>{{Response.took}} ms</span>
+						</div>
+						<div>
+							<img zf-iconic="" icon="document" size="small">
+							<span>{{Response.hits.total}} hits</span>
+						</div>
 					</div>
 				</span>
 			</label>

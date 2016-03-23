@@ -260,6 +260,16 @@ img.gitter-badge {
 .searchStats {
 	font-size: 12px;
 	color: white;
+	div {
+		line-height: 16px;
+		padding-left:5px;
+		padding-top:1px;
+	}
+	img, span {
+		display: inline-block;
+		vertical-align: middle;
+	}
+
 }
 
 .code {
@@ -267,6 +277,7 @@ img.gitter-badge {
     font-weight:100;
     font-size: 14px;
 }
+
 
 .search-results, #showItemModal, .panel {
 	.item {
@@ -433,6 +444,9 @@ img.gitter-badge {
 			padding-right: 35px;
 			background: url('../img/currency_icons.png') no-repeat;
 
+			&.Unknown {
+				background-position: right -750px;
+			}
 			&.Regal {
 				background-position: right 0;
 			}
