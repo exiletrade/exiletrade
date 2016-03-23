@@ -22,7 +22,8 @@ $color_life: #F10A0A;
 $color_mana: #9898FF;
 $color_quality: #56AB56;
 $color_item_text: #868585;
-$color_input_bg: #353535;
+//$color_input_bg: #353535;
+$color_input_bg: rgba(0,0,0,0.1);
 
 a {
 	color: $link_color;
@@ -310,6 +311,7 @@ img.gitter-badge {
 			border: 1px solid $border_color_item;
 			padding: 5px 5px 0px 5px;
 			background-color: #1D1D1D;
+			background-color:rgba(0,0,0,.1);
 		}
 		.item-header {
 			line-height: 30px;
@@ -728,6 +730,9 @@ img.gitter-badge {
 	}
 	.block-list input {
 		background-color: $color_input_bg;
+		&:focus {
+			color: $link_color;
+		}
 	}
 	.block-list li {
 		border-bottom: 1px solid $hr-border-color;
