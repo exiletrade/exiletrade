@@ -22,6 +22,7 @@ $color_life: #F10A0A;
 $color_mana: #9898FF;
 $color_quality: #56AB56;
 $color_item_text: #868585;
+$color_input_bg: #353535;
 
 a {
 	color: $link_color;
@@ -119,9 +120,12 @@ img.pageLogo {
 	}
 }
 #searchField {
-	background-color: $primary-color;
+	background-color: $color_input_bg;
 	color: white;
-	border-color: transparent;
+	border-color: $primary-color;
+}
+.guide {
+	margin-bottom: 20px;
 }
 .badSearchInputTerms, .sampleSearches, .termsGuide, .spoiler, .panel {
 	.accordion-title, .accordion-content {
@@ -152,6 +156,7 @@ img.pageLogo {
 		background: transparent;
 		border:none;
 		color: $link_color;
+		padding: 0;
 	}
 }
 
@@ -722,7 +727,7 @@ img.gitter-badge {
 		color: $link_color;
 	}
 	.block-list input {
-		background-color: $primary-color;
+		background-color: $color_input_bg;
 	}
 	.block-list li {
 		border-bottom: 1px solid $hr-border-color;
