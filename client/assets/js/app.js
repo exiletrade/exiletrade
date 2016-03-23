@@ -1,7 +1,5 @@
-var debug = true;
-
 function debugOutput(input, outputType) {
-	if (!debug) return;
+	if (typeof debugDevBuild === 'undefined') return;
 	try {
 		if (outputType == "log") {
 			console.log(input);
@@ -587,7 +585,7 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 		 - http://stackoverflow.com/questions/20607313/angularjs-promise-with-recursive-function
 		 */
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
-			console.info("$scope.switchOnlinePlayersOnly = " + $scope.switchOnlinePlayersOnly);
+			debugOutput("$scope.switchOnlinePlayersOnly = " + $scope.switchOnlinePlayersOnly, 'info');
 			$scope.showSpinner = true;
 			$scope.Response = null;
 			limit = Number(limit);
@@ -864,6 +862,18 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 			});
 		};
 
+		$scope.resizeGridFrame = function (opened) {
+			if ( opened === true ){
+				jQuery('#mainGrid').animate({
+					marginRight: "400px"
+				}, 500, 'swing');
+			} else {
+				jQuery('#mainGrid').animate({
+					marginRight: "0px"
+				}, 380, 'swing');
+			}
+		};
+
 		/*
 		 Delete selected saved search terms from HTML storage
 		 */
@@ -1072,8 +1082,7 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 
 			return blacklist.indexOf(type) == -1;
 		};
-
-		console.info("Loaded " + Object.keys(terms).length + " terms.")
+		debugOutput("Loaded " + Object.keys(terms).length + " terms.", "info");
 		if (typeof httpParams['q'] !== 'undefined') $scope.doSearch();
 	}]);
 

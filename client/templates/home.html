@@ -8,13 +8,13 @@ url: /
 	<span us-spinner="{radius:30, width:8, length: 16}" spinner-on="showSpinner"></span>
 
 	<!-- Open Sidebar Buttons -->
-	<a href="#" zf-toggle="searchOptions" class="openOptions button">
+	<a href="#" zf-toggle="searchOptions"  class="openOptions button">
 		<img zf-iconic="" icon="cog" size="middle" class="">
 	</a>
-	<a href="#" zf-toggle="savedSearchesPanel" class="openSaves button">
+	<a href="#" zf-toggle="savedItemsPanel" class="openSaves button">
 		<img zf-iconic="" icon="cart" size="middle" class="">
 	</a>
-	<a href="#" zf-toggle="savedSearchesPanel" class="openSaves bookmark button">
+	<a href="#" zf-toggle="savedSearchesPanel" ng-click="resizeGridFrame(true)" class="openSaves bookmark button">
 		<img zf-iconic="" icon="bookmark" size="middle" class="">
 	</a>
 
@@ -61,67 +61,114 @@ url: /
 		<div>
             <zf-accordion auto-open="false" class="spoiler">
                 <zf-accordion-item title="Terms Guide">
-                    <p>First thing is to set the league you want to search. Click the <b>cog</b> on the left of the search bar to select your league. The default league is <b>Perandus SC</b>. To learn how to search for common stuff, click the spoiler tags below. Always type the search without quotes.</p>
+                    <p>First thing is to set the league you want to search. Click the <b>cog</b> on the left of the search bar to select your
+						league. The default league is<b>Perandus SC</b>. To learn how to search for common stuff, click the spoiler tags below.
+						Always type the search without quotes.
+					</p>
                     <div>
                         <zf-accordion auto-open="false" class="spoiler">
                             <zf-accordion-item title="My first search">
-                                <p>I want to search for a ring with at least 70 life, 60 total elemental resistances and 30% increased weapon elemental damage. Well, it's a ring, so we type <b>'ring'</b>. Life is pretty much life, so we add <b>'70life'</b>, total resistances is usually refered as totaleleres or eleres, so we can type any of those: <b>'60eleres'</b>. Increased Elemental Damage with Weapons is refered to as wed, so we add <b>'wed'</b> to our search. That sums up to <b>'ring 70life 60eleres 30wed'</b>.</p>
+                                <p>I want to search for a ring with at least 70 life, 60 total elemental resistances and 30% increased weapon
+									elemental damage. Well, it's a ring, so we type <code>'ring'</code>. Life is pretty much life, so we add
+									<code>'70life'</code>, total resistances is usually refered as totaleleres or eleres, so we can type any of those:
+									<code>'60eleres'</code>. Increased Elemental Damage with Weapons is refered to as wed, so we add <code>'wed'</code> to
+									our search. That sums up to <code>'ring 70life 60eleres 30wed'</code>.
+								</p>
                             </zf-accordion-item>
                         </zf-accordion>
                     </div>
 					<div>
                         <zf-accordion auto-open="false" class="spoiler">
                             <zf-accordion-item title="Uniques">
-                                <p>If you want to search for a unique item, you simply have to type its name, without spaces.</p><p>Example: If I want a Kaom's Heart, i'll have to type <b>'kaomsheart'</b>, <b>'kaomheart'</b> or <b>kaom'sheart'</b>. As you guys can see, there is space for variations on it. Apostrophes and stuff like 'the' and 'of' are optional.</p>
+                                <p>
+									If you want to search for a unique item, you simply have to type its name, without spaces.</p><p>Example: If I
+									want a Kaom's Heart, i'll have to type <code>'kaomsheart'</code>, <code>'kaomheart'</code> or <code>kaom'sheart'</code>. As you guys
+									can see, there is space for variations on it. Apostrophes and stuff like <code>'the'</code> and <code>'of'</code> are optional.
+								</p>
                             </zf-accordion-item>
                         </zf-accordion>
                     </div>
 					<div>
                         <zf-accordion auto-open="false" class="spoiler">
                             <zf-accordion-item title="Base Types">
-                                <p>If you want to search for a specific base type, you also only have to type its name.</p><p>Example: I want the "My first search" ring to be of a specific base, a Diamond Ring, i'll have to add to our search simply <b>'diamond'</b>: <b>'ring 70life 60eleres 30wed diamond'</b></p>
+                                <p>
+									If you want to search for a specific base type, you also only have to type its name.</p><p>Example: I want
+									the "My first search" ring to be of a specific base, a Diamond Ring, i'll have to add to our search simply
+									<code>'diamond'</code>: <code>'ring 70life 60eleres 30wed diamond'</code>
+								</p>
                             </zf-accordion-item>
                         </zf-accordion>
                     </div>
 					<div>
                         <zf-accordion auto-open="false" class="spoiler">
                             <zf-accordion-item title="Sockets and Links">
-                                <p>If you want to search for sockets and links, it's also pretty easy.</p><p>Example: I want a 5 linked Lightning Coil. I just have to type: <b>'lightningcoil 5l'</b>. But honestly I want it to already come with the colors I need, 2 red, 2 greens and 1 blue. So I type: <b>'lightningcoil 5l 2r 2g 1b'</b>. Why not have all sockets on it? <b>'lightningcoil 6s 5l 2r 2g 1b'</b>.</p>
+                                <p>
+									If you want to search for sockets and links, it's also pretty easy.</p><p>Example: I want a 5 linked Lightning Coil.
+									I just have to type: <code>'lightningcoil 5l'</code>. But honestly I want it to already come with the colors
+									I need, 2 red, 2 greens and 1 blue. So I type: <code>'lightningcoil 5l 2r 2g 1b'</code>. Why not have all sockets on it?
+									<code>'lightningcoil 6s 5l 2r 2g 1b'</code>.
+								</p>
                             </zf-accordion-item>
                         </zf-accordion>
                     </div>
 					<div>
                         <zf-accordion auto-open="false" class="spoiler">
                             <zf-accordion-item title="Gems">
-                                <p>Searching for gems works in the same way as searching for uniques, type the name of the gem without spaces.</p><p>Example: I want a Blade Vortex: <b>'bladevortex'</b>. I want it to be at least level 18: <b>'bladevortex glvl18'</b>. I also want its quality to be 15+: <b>'bladevortex glvl18 q15'</b></p>
+                                <p>
+									Searching for gems works in the same way as searching for uniques, type the name of the gem without spaces.
+								</p>
+								<p>
+									Example: I want a Blade Vortex: <code>'bladevortex'</code>. I want it to be at least level 18:
+									<code>'bladevortex glvl18'</code>. I also want its quality to be 15+: <code>'bladevortex glvl18 q15'</code>
+								</p>
                             </zf-accordion-item>
                         </zf-accordion>
                     </div>
 					<div>
                         <zf-accordion auto-open="false" class="spoiler">
                             <zf-accordion-item title="Buyouts">
-                                <p>You can also add b/o's to your search, if you only want to see items under a determined price.</p><p>Example: I want a 6l Vaal Regalia for 1 exalt. <b>'vaalregalia 6l 1ex'</b></p>
+                                <p>
+									You can also add b/o's to your search, if you only want to see items under a determined price.
+								</p>
+								<p>
+									Example: I want a 6l Vaal Regalia for 1 exalt. <code>'vaalregalia 6l 1ex'</code>
+								</p>
                             </zf-accordion-item>
                         </zf-accordion>
                     </div>
 					<div>
                         <zf-accordion auto-open="false" class="spoiler">
                             <zf-accordion-item title="Talismans">
-                                <p>Looking for a talisman? You just have to type its name along with the other parameters.</p><p>Example: <b>'ashscale 10firedmg 70life 20res'</b></p>
+                                <p>
+									Looking for a talisman? You just have to type its name along with the other parameters.
+								</p>
+								<p>
+									Example: <code>'ashscale 10firedmg 70life 20res'</code>
+								</p>
                             </zf-accordion-item>
                         </zf-accordion>
                     </div>
 					<div>
                         <zf-accordion auto-open="false" class="spoiler">
                             <zf-accordion-item title="Excluding results from search">
-                                <p>If you don't want an item to have a specific mod, life life because you're CI, you just need to type <b>'-life'</b> and the results will only display items without life. You can negate any existing search term, so if you want a nice mace but doesn't want to see Voidhomes, you just have to type <b>'-voidhome'</b></p>
+                                <p>
+									If you don't want an item to have a specific mod, life life because you're CI, you just
+									need to type <code>'-life'</code> and the results will only display items without life. You can
+									negate any existing search term, so if you want a nice mace but doesn't want to see
+									Voidhomes, you just have to type <code>'-voidhome'</code>
+								</p>
                             </zf-accordion-item>
                         </zf-accordion>
                     </div>
 					<div>
                         <zf-accordion auto-open="false" class="spoiler">
                             <zf-accordion-item title="Searching for an item OR another">
-                                <p>Exile Tools makes a lot of apparently impossible searches possible. If you need gloves OR boots with 80eleres and 90life, <b>(gloves or boots) 90life 80eleres</b>. Notice that you need to put the items inside parens. You can even do advanced searches like <b>((25fireres 25coldres 25lightres 80res) OR (50res 20int)) -unique</b></p>
+                                <p>
+									Exile Tools makes a lot of apparently impossible searches possible. If you need gloves OR
+									boots with 80eleres and 90life, <code>(gloves or boots) 90life 80eleres</code>. Notice that you
+									need to put the items inside parens. You can even do advanced searches like
+									<code>((25fireres 25coldres 25lightres 80res) OR (50res 20int)) -unique</code>
+								</p>
                             </zf-accordion-item>
                         </zf-accordion>
                     </div>
@@ -176,10 +223,9 @@ url: /
 			</span>
 		</div>
 
-		<!-- Saved Searches / Items Sidebar -->
+		<!-- Saved Searches Sidebar -->
 		<div zf-panel="" id="savedSearchesPanel" position="right">
-			<a zf-close="" class="close-button ng-scope">×</a>
-
+			<a zf-close="" ng-click="resizeGridFrame(false)" class="close-button ng-scope">×</a>
 			<zf-accordion class="saved-search">
 				<zf-accordion-item title="Saved Searches">
 					<section class="block-list">
@@ -191,16 +237,29 @@ url: /
 						</ul>
 					</section>
 				</zf-accordion-item>
-				<zf-accordion-item title="Saved Items">
-					<section class="block-list">
-						<ul>
-							<li class="" ng-repeat="data in savedItemsList">
-								<a href="#" ng-click="requestSavedItem(data.itemId)" zf-open="showItemModal">{{data.itemDescription}}</a>
-								<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeItemFromList(data.itemId)">
-							</li>
-						</ul>
-					</section>
-				</zf-accordion-item>
+			</zf-accordion>
+		</div>
+
+		<!-- Saved Items Sidebar -->
+		<div zf-panel="" id="savedItemsPanel" position="right">
+			<a zf-close="" class="close-button ng-scope">×</a>
+			<zf-accordion>
+				<div class="accordion-item-wrapper" ng-repeat="data in savedItemsList" >
+					<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeItemFromList(data.itemId)">
+					<zf-accordion-item title="{{data.itemDescription}}" ng-click="requestSavedItem(data.itemId)">
+
+						<div class="grid-content">
+							<div class="grid-block">
+								<div class="grid-content item" ng-repeat="item in lastRequestedSavedItem" ng-if="item._source.shop.verified=='YES'">
+									<div item></div>
+								</div>
+								<span class="availablity" ng-repeat="item in lastRequestedSavedItem" ng-if="item._source.shop.verified=='GONE'">
+									Item available: {{item._source.shop.verified}}
+								</span>
+							</div>
+						</div>
+					</zf-accordion-item>
+				</div>
 			</zf-accordion>
 		</div>
 
@@ -282,12 +341,19 @@ url: /
 			</div>
 		</div>
 
-		<!-- Show Item Modal -->
-		<div zf-modal="" id="showItemModal" class="collapse">
-			<a zf-close="" class="close-button">×</a>
-			<div class="grid-block">
-				<div class="grid-content item" ng-repeat="item in lastRequestedSavedItem">
-					<div item></div>
+		<div zf-modal="" id="advancedModal" class="collapse">
+			<div class="grid-block vertical">
+				<div class="primary title-bar">
+					<div class="center title">Title Bar</div>
+					<span zf-close="" class="left"><a>Close</a></span>
+					<span zf-close="" class="right"><a>Done</a></span>
+				</div>
+				<div class="grid-content padding" style="padding-top: 1rem;">
+					<p>
+						<img src="assets/img/mountain.jpg">
+					</p>
+					<a zf-close="" class="button">OK</a>
+					<a zf-close="" class="button">Cancel</a>
 				</div>
 			</div>
 		</div>

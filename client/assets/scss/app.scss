@@ -123,7 +123,7 @@ img.pageLogo {
 	color: white;
 	border-color: transparent;
 }
-.badSearchInputTerms, .sampleSearches, .termsGuide, .spoiler {
+.badSearchInputTerms, .sampleSearches, .termsGuide, .spoiler, .panel {
 	.accordion-title, .accordion-content {
 		padding: 0.5rem;
 		font-size: rem-calc(12px);
@@ -135,6 +135,9 @@ img.pageLogo {
 	.accordion-title {
 		background-color: $primary-color;
 		color: $body-font-color;
+		&:hover {
+			background-color: darken($primary-color, 2%)
+		}
 	}
 	ul, ol {
 		font-size: rem-calc(14px);
@@ -143,8 +146,21 @@ img.pageLogo {
 	}
 	p {
 		font-size: rem-calc(12px);
+		margin-bottom: 0.5rem;
+	}
+	code {
+		background: transparent;
+		border:none;
+		color: $link_color;
 	}
 }
+
+.accordion-title {
+	&:hover {
+		background-color: darken($primary-color, 2%)
+	}
+}
+
 .openOptions, .openSaves {
 	width: 30px;
 	height:30px;
@@ -203,7 +219,7 @@ img.gitter-badge {
 	padding-top: 15px;
 }
 
-.grid-content.search-results .grid-block {
+.grid-content.search-results .grid-block, .panel .grid-content .grid-block {
 	margin-left: 0;
 	margin-right: 0;
 }
@@ -246,7 +262,7 @@ img.gitter-badge {
     font-size: 14px;
 }
 
-.search-results, #showItemModal {
+.search-results, #showItemModal, .panel {
 	.item {
 		min-width: 600px;
 		margin: 5px 0;
@@ -689,7 +705,7 @@ img.gitter-badge {
 
 		svg {
 			position: absolute;
-			right: 10px;
+			right: 18px;
 			top:10px;
 			width: 21px;
 			height: 21px;
@@ -701,6 +717,25 @@ img.gitter-badge {
 
 	.block-list li > a, .block-list li > span, .block-list li > label {
 		font-size: rem-calc(12);
+	}
+	.block-list header {
+		color: $link_color;
+	}
+	.block-list input {
+		background-color: $primary-color;
+	}
+	.block-list li {
+		border-bottom: 1px solid $hr-border-color;
+	}
+	.block-list li > a:hover, .block-list li > label:hover, .block-list li select:hover {
+		background-color: $hr-border-color;
+	}
+	.button.hollow {
+		background-color: $hr-border-color;
+		&:hover, &:focus {
+			background: transparent;
+		}
+		color: $link_color;
 	}
 
 	.search-options {
@@ -719,5 +754,49 @@ img.gitter-badge {
 		position: absolute;
 		top: 10px;
 		left: 10px;
+	}
+}
+
+#savedSearchesPanel {
+	width: 400px;
+	.block-list li:first-child {
+		border-top: none;
+	}
+	.accordion-content {
+		padding-top: 0;
+	}
+	.accordion {
+		border: none;
+	}
+
+}
+#savedSearchesPanel, #savedItemsPanel {
+	margin-top: 87px;
+}
+#savedItemsPanel {
+	width: 650px;
+	padding-top: 50px;
+	.accordion {
+		.grid-content, .accordion-content {
+			padding: 0;
+		}
+		.availablity {
+			padding: 1rem;
+		}
+		.accordion-item-wrapper {
+			position: relative;
+		}
+		svg {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			cursor: pointer;
+		}
+
+	}
+	.controls {
+		.saveNotificationLink, .switch {
+			display: none;
+		}
 	}
 }

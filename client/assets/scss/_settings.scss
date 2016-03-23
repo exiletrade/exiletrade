@@ -298,6 +298,7 @@
 
 // $blocklist-item-padding: 0.8rem 1rem;
 // $blocklist-item-color: isitlight($blocklist-background, #000, #fff);
+$blocklist-item-color: $body-font-color;
 // $blocklist-item-background-hover: smartscale($blocklist-background, 4.5%);
 // $blocklist-item-color-disabled: #999;
 // $blocklist-item-border: 1px solid smartscale($blocklist-background, 18.5%);
@@ -528,14 +529,14 @@
 // 20. Off-canvas
 // - - - - - - - - - - - - - - -
 
-$offcanvas-size-horizontal: 80%;
+$offcanvas-size-horizontal: 300px;
 // $offcanvas-size-vertical: 250px;
 
 // $offcanvas-background: #fff;
 // $offcanvas-color: isitlight($offcanvas-background);
 // $offcanvas-padding: 0;
 // $offcanvas-shadow: 3px 0 10px rgba(black, 0.25);
-// $offcanvas-animation-speed: 0.25s;
+ $offcanvas-animation-speed: 0.25s;
 
 // $offcanvas-frame-selector: '.grid-frame'; 
 
@@ -546,9 +547,9 @@ $offcanvas-size-horizontal: 80%;
 // $panel-size-vertical: 300px;
 // $panel-padding: 0;
 
-// $panel-background: #fff;
+$panel-background: $body-background;
 // $panel-shadow: 3px 0 10px rgba(black, 0.25);
-// $panel-animation-speed: 0.25s; 
+// $panel-animation-speed: 0.25s;
 
 // 22. Popup
 // - - - - - - - - - - - - - - -

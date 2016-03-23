@@ -20,7 +20,7 @@ var isProduction = !!(argv.production);
 var isDemo = !!(argv.demo);
 
 var destination = (isDemo ? './demo' : './build' );
-var destinationDemo =  '../exiletrade.github.io';
+var destinationDemo = '../exiletrade.github.io';
 var routerPath = (isDemo ? 'demo' : 'build' );
 
 
@@ -54,13 +54,13 @@ var paths = {
 		'bower_components/jquery/dist/jquery.min.js',
 		//'bower_components/elasticsearch/elasticsearch.angular.js',
 		'node_modules/js-yaml/dist/js-yaml.min.js',
-        'node_modules/ngclipboard/dist/ngclipboard.js',
+		'node_modules/ngclipboard/dist/ngclipboard.js'
 	],
 	// These files are for your app's JavaScript
 	appJS: [
-		// 'client/assets/js/blackmarket.js' merged into app.js, as this messes up my workflow with chrome dev tools
 		'client/assets/js/affixes.js',
 		'client/assets/js/fm.js',
+		(isProduction) ? '' : 'client/assets/js/debug.js',
 		'client/assets/js/app.js'
 	]
 }
@@ -70,13 +70,13 @@ var paths = {
 
 // Cleans the build directory
 gulp.task('clean', function (cb) {
-	if(!isDemo) {
+	if (!isDemo) {
 		rimraf(destination, cb);
 	}
 	else {
-		return gulp.src('../exiletrade.github.io/**/*', { read: false })
+		return gulp.src('../exiletrade.github.io/**/*', {read: false})
 			.pipe(ignore('.git/**'))
-			.pipe(gulpRimraf({ force: true }));
+			.pipe(gulpRimraf({force: true}));
 		cb();
 	}
 });
@@ -140,8 +140,7 @@ gulp.task('copy:build', function (cb) {
 			'LICENSE',
 			'README.md'
 		])
-			.pipe(gulp.dest(destinationDemo))
-		;
+		.pipe(gulp.dest(destinationDemo));
 	}
 
 	cb();
@@ -161,8 +160,7 @@ gulp.task('sass', function () {
 			browsers: ['last 2 versions', 'ie 10']
 		}))
 		.pipe(minifyCss)
-		.pipe(gulp.dest(destination + '/assets/css/'))
-		;
+		.pipe(gulp.dest(destination + '/assets/css/'));
 });
 
 // Compiles and copies the Foundation for Apps JavaScript, as well as your app's custom JS
@@ -177,8 +175,7 @@ gulp.task('uglify:foundation', function (cb) {
 	return gulp.src(paths.foundationJS)
 		.pipe(uglify)
 		.pipe($.concat('foundation.js'))
-		.pipe(gulp.dest(destination + '/assets/js/'))
-		;
+		.pipe(gulp.dest(destination + '/assets/js/'));
 });
 
 gulp.task('uglify:app', function () {
@@ -187,11 +184,13 @@ gulp.task('uglify:app', function () {
 			console.log(e);
 		}));
 
+	if (isProduction) {
+		console.log('Removing all console debug output for production build.');
+	}
 	return gulp.src(paths.appJS)
 		.pipe(uglify)
 		.pipe($.concat('app.js'))
-		.pipe(gulp.dest(destination + '/assets/js/'))
-		;
+		.pipe(gulp.dest(destination + '/assets/js/'));
 });
 
 // Starts a test server, which you can view at http://localhost:8079
