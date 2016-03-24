@@ -120,14 +120,12 @@ function parseSearchInput(_terms, input) {
 	parseResult.queryString = parseResult.queryString.replace('LST', function (match) {
 		var lst = lsts[i];
 		i++;
-		return lst.toLowerCase();
-	});
-
-	if (/^name[:=]"(.+)"$/i.test(parseResult.queryString)) {
-		parseResult.queryString = parseResult.queryString
+		var lstStr = lst.toLowerCase()
 			.replace("name", "info.tokenized.fullName")
 			.replace("=", ":");
-	}
+		return lstStr;
+	});
+
 	return parseResult;
 }
 
