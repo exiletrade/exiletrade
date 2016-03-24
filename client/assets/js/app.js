@@ -462,6 +462,7 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 		$scope.elasticJsonRequest = "";
 		$scope.switchOnlinePlayersOnly = true;
 		$scope.showSpinner = false;
+		$scope.onlinePlayers = [];
 
 		var httpParams = $location.search();
 		debugOutput('httpParams:' + angular.toJson(httpParams, true), 'trace');
@@ -890,12 +891,9 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 			es.search(esPayload).then(function (response) {
 				debugOutput("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
 				if (response.hits.total == 1) {
-					addCustomFields(response.hits.hits[0]);
+					addCustomFields(response.hits.hits[0]._source);
 				}
 				$scope.lastRequestedSavedItem = response.hits.hits;
-
-				debugOutput('Requested Item after adding custom fields: ', 'info');
-				debugOutput($scope.lastRequestedSavedItem, 'log');
 			});
 		};
 
