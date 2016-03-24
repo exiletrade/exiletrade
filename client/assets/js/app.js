@@ -867,8 +867,13 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 			debugOutput("Gonna run elastic: " + angular.toJson(esPayload, true), 'trace');
 			es.search(esPayload).then(function (response) {
 				debugOutput("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
-				if (response.hits.total == 1) addCustomFields(response.hits.hits[0]);
+				if (response.hits.total == 1) {
+					addCustomFields(response.hits.hits[0]);
+				}
 				$scope.lastRequestedSavedItem = response.hits.hits;
+
+				debugOutput('Requested Item after adding custom fields: ', 'info');
+				debugOutput($scope.lastRequestedSavedItem, 'log');
 			});
 		};
 
