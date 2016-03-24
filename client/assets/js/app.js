@@ -666,14 +666,7 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 				return es.search(esPayload)
 			}
 
-			$q.all({
-				//onlineplayersLadder: playerOnlineService.getLadderOnlinePlayers($scope.options.leagueSelect.value),
-				onlineplayersStash: playerOnlineService.getStashOnlinePlayers()
-			}).then(function (results) {
-				var onlineplayersLadder = []; //results.onlineplayersLadder.data;
-				var onlineplayersStash = results.onlineplayersStash.aggregations.filtered.sellers.buckets;
-				$scope.onlinePlayers = buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash);
-
+			loadOnlinePlayersIntoScope().then(function () {
 				var accountNamesFilter = $scope.switchOnlinePlayersOnly ? $scope.onlinePlayers : [];
 				var from = 0;
 				var fetchSize = $scope.switchOnlinePlayersOnly ? 100 : limit;
@@ -710,6 +703,17 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 				}
 
 				return runElastic();
+			});
+		}
+
+		function loadOnlinePlayersIntoScope() {
+			return $q.all({
+				//onlineplayersLadder: playerOnlineService.getLadderOnlinePlayers($scope.options.leagueSelect.value),
+				onlineplayersStash: playerOnlineService.getStashOnlinePlayers()
+			}).then(function (results) {
+				var onlineplayersLadder = []; //results.onlineplayersLadder.data;
+				var onlineplayersStash = results.onlineplayersStash.aggregations.filtered.sellers.buckets;
+				$scope.onlinePlayers = buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash);
 			});
 		}
 
@@ -887,13 +891,15 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 					  }
 				}
 			};
-			debugOutput("Gonna run elastic: " + angular.toJson(esPayload, true), 'trace');
-			es.search(esPayload).then(function (response) {
-				debugOutput("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
-				if (response.hits.total == 1) {
-					addCustomFields(response.hits.hits[0]._source);
-				}
-				$scope.lastRequestedSavedItem = response.hits.hits;
+			loadOnlinePlayersIntoScope().then(function() {
+				debugOutput("Gonna run elastic: " + angular.toJson(esPayload, true), 'trace');
+				es.search(esPayload).then(function (response) {
+					debugOutput("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
+					if (response.hits.total == 1) {
+						addCustomFields(response.hits.hits[0]._source);
+					}
+					$scope.lastRequestedSavedItem = response.hits.hits;
+				});
 			});
 		};
 
