@@ -608,11 +608,17 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 
 			function doElasticSearch(searchQuery, _from, _size, sortKey, sortOrder) {
 				var esBody = {
-					"filter": {
-						"query": {
-							"query_string": {
-								"default_operator": "AND",
-								"query": searchQuery
+					"query": {
+						"filtered": {
+							"filter": {
+								"bool": {
+									"must": {
+										"query_string": {
+											"default_operator": "AND",
+											"query": searchQuery
+										}
+									}
+								}
 							}
 						}
 					}
