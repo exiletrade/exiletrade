@@ -76,6 +76,7 @@ gulp.task('clean', function (cb) {
 	else {
 		return gulp.src('../exiletrade.github.io/**/*', {read: false})
 			.pipe(ignore('.git/**'))
+			.pipe(ignore('.gitignore'))
 			.pipe(gulpRimraf({force: true}));
 
 		cb();
@@ -185,7 +186,7 @@ gulp.task('uglify:app', function () {
 			console.log(e);
 		}));
 
-	if (isProduction) {
+	if (isProduction || isDemo) {
 		console.log('Removing all console debug output for production build.');
 	}
 	return gulp.src(paths.appJS)
