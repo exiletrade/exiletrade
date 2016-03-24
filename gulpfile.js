@@ -60,10 +60,10 @@ var paths = {
 	appJS: [
 		'client/assets/js/affixes.js',
 		'client/assets/js/fm.js',
-		(isProduction) ? '' : 'client/assets/js/debug.js',
+		(isDemo || isProduction) ? '' : 'client/assets/js/debug.js',
 		'client/assets/js/app.js'
 	]
-}
+};
 
 // 3. TASKS
 // - - - - - - - - - - - - - - -
@@ -77,8 +77,8 @@ gulp.task('clean', function (cb) {
 		return gulp.src('../exiletrade.github.io/**/*', {read: false})
 			.pipe(ignore('.git/**'))
 			.pipe(gulpRimraf({force: true}));
-		cb();
 	}
+	cb();
 });
 
 // Copies everything in the client folder except templates, Sass, and JS
