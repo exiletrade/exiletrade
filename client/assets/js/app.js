@@ -1132,6 +1132,12 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 		}
 	}]);
 
+	appModule.filter('cleanCurrency', [function () {
+		return function (str) {
+			return str.replace(/[^\w\s]/gi, '').toLowerCase();
+		}
+	}]);
+
 	// Custom Directive
 	appModule.directive('myEnter', function () {
 		return function (scope, element, attrs) {
