@@ -1160,7 +1160,10 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 
 	appModule.filter('cleanCurrency', [function () {
 		return function (str) {
-			return str.replace(/[^\w\s]/gi, '').toLowerCase();
+			if (typeof str === 'undefined') {
+				return
+			}
+			return str.replace(/[^\w\s]/gi, '').replace(/[0-9]/g, '').toLowerCase();
 		}
 	}]);
 

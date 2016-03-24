@@ -453,7 +453,7 @@
 					   data-sort-key="shop.chaosEquiv"
 					   data-sort-order="asc"
 					   ng-click="doSearchWithSort($event)">
-						<span class="currency {{item._source.shop.currency | cleanCurrency}}"></span>
+						<span class="currency {{item._source.shop.currency | cleanCurrency}} {{item._source.shop.note | cleanCurrency}}"></span>
 					</a>
 					<i class="seperator"></i>
 				</span>
