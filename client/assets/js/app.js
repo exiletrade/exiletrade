@@ -277,19 +277,19 @@ function buildPlayerStashOnlineElasticJSONRequestBody() {
 						"should": [{
 							"range": {
 								"shop.updated": {
-									"gte": 'now-30m'
+									"gte": 'now-15m'
 								}
 							}
 						}, {
 							"range": {
 								"shop.modified": {
-									"gte": 'now-30m'
+									"gte": 'now-15m'
 								}
 							}
 						}, {
 							"range": {
 								"shop.added": {
-									"gte": 'now-30m'
+									"gte": 'now-15m'
 								}
 							}
 						}
@@ -372,22 +372,25 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 	});
 
 	appModule.service('playerOnlineService', function ($q, $http, CacheFactory, es) {
-		var ladderOnlinePlayerCache;
+		var ladderPlayerCache;
 		var stashOnlinePlayerCache;
 
 		// Check to make sure the cache doesn't already exist
-// 	    if (!CacheFactory.get('ladderOnlinePlayerCache')) {
-// 		  		ladderOnlinePlayerCache = CacheFactory('ladderOnlinePlayerCache', {
-// 		  		maxAge: 15 * 60 * 1000,
-//   		  		deleteOnExpire: 'aggressive',
-// 				storageMode: 'localStorage',
-// 				storagePrefix: 'exiletrade-cache-v1',
-// 				storeOnResolve: true,
-// 				onExpire: function (key, value) {
-// 					refreshLadderOnlinePlayerCache();
-// 				}
-// 		  	});
-// 	    }
+	    if (!CacheFactory.get('ladderPlayerCache')) {
+		  		ladderPlayerCache = CacheFactory('ladderPlayerCache', {
+		  		maxAge: 15 * 60 * 1000,
+  		  		deleteOnExpire: 'aggressive',
+				storageMode: 'localStorage',
+				storagePrefix: 'exiletrade-cache-v1',
+				storeOnResolve: true,
+				onExpire: function (key, value) {
+					var split = key.split('.');
+					var league = split[0];
+					var accountName = split[1];
+					refreshLadderPlayerCache(league, [accountName]);
+				}
+		  	});
+	    }
 
 		if (!CacheFactory.get('stashOnlinePlayerCache')) {
 			stashOnlinePlayerCache = CacheFactory('stashOnlinePlayerCache', {
@@ -412,34 +415,78 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 			return promise;
 		}
 
-// 		function refreshLadderOnlinePlayerCache(league) {
-// 			debugOutput("Loading up online players from ladder: " + league, 'trace')
-// 			var ladderLeagues = {
-// 				"Perandus SC": "perandus",
-// 				"Perandus HC": "perandushc",
-// 				"Standard": "standard",
-// 				"Hardcore": "hardcore"
-// 			};
-// 			var ladderLeague = ladderLeagues[league];
-// 			var url = "http://api.exiletools.com/ladder?showAllOnline=1&league=" + ladderLeague;
-// 			var promise = $http.get(url);
-// 			ladderOnlinePlayerCache.put(league, promise);
-// 			return promise;
-// 		}
+		function refreshLadderPlayerCache(league, accountNames) {
+			var accountNamesParam = accountNames.join(':')
+			debugOutput("Loading up players from ladder: " + accountNamesParam, 'trace')
+			var url = "http://api.exiletools.com/ladder?league=" + league + "&short=1&accountName=" + accountNamesParam;
+			var promise = $http.get(url);
+			promise.then(function (result) {
+				if (typeof result.data === 'object') {
+					// TODO: Figure out how to handle player with multiple toons in the ladder
+					// right now we just remove any 'extra' toons that are offline
+					var toons = {};
+					$.each(result.data, function (key, value) {
+						var key = league + '.' + value.accountName;
+						if (toons.hasOwnProperty(key)) {
+							if (toons[key].isOnline == "0") {
+								toons[key] = value;
+							}
+						} else {
+							toons[key] = value;
+						}
+					});
+					$.each(toons, function (key, value) {
+						ladderPlayerCache.put(key, value);
+					});
+				}
+			});
+			return promise;
+		}
 
 		return {
-// 			getLadderOnlinePlayers: function (league) {
-// 				var ladderOnlinePlayers = ladderOnlinePlayerCache.get(league);
-// 				var foundInCache = typeof ladderOnlinePlayers !== 'undefined';
-// 				debugOutput('ladderOnlinePlayers found from cache: ' + foundInCache, 'trace')
-// 				var promise;
-// 				if (foundInCache) {
-// 					promise = $q.resolve(ladderOnlinePlayers);
-// 				} else {
-// 					promise = refreshLadderOnlinePlayerCache(league);
-// 				}
-// 				return promise;
-// 			},
+			addCustomFieldLadderData: function (_league, items) {
+				var ladderLeaguesMap = {
+					"Perandus SC": "perandus",
+					"Perandus HC": "perandushc",
+					"Standard": "standard",
+					"Hardcore": "hardcore"
+				};
+				var league = ladderLeaguesMap[_league];
+
+				function getPlayerDataFromCache(item) {
+					var accountName = item.shop.sellerAccount;
+					return ladderPlayerCache.get(league + '.' + accountName);
+				}
+
+				var cacheMisses = {};
+				$.each(items, function (index, value) {
+					var playerData = getPlayerDataFromCache(value);
+					var foundInCache = typeof playerData !== 'undefined';
+					if (foundInCache) {
+						value.ladder = playerData;
+						value.isOnline = playerData.online == "1";
+					} else {
+						cacheMisses[value.shop.sellerAccount] = null;
+					}
+				});
+
+				debugOutput('Ladder cacheMisses count: ' + Object.keys(cacheMisses).length, 'trace');
+
+				refreshLadderPlayerCache(league, Object.keys(cacheMisses)).then(function () {
+					$.each(cacheMisses, function (key, value) {
+						$.each(items, function (index, item) {
+							if (item.shop.sellerAccount == value) {
+								var playerData = getPlayerDataFromCache(value);
+								var foundInCache = typeof playerData !== 'undefined';
+								if (foundInCache) {
+									item.ladder = playerData;
+									item.isOnline = playerData.online == "1";
+								}
+							}
+						});
+					});
+				});
+			},
 			getStashOnlinePlayers: function () {
 				var stashOnlinePlayers = stashOnlinePlayerCache.get('stashOnlinePlayers');
 				var foundInCache = typeof stashOnlinePlayers !== 'undefined';
@@ -677,9 +724,14 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 					doElasticSearch(searchQuery, from, fetchSize, sortKey, sortOrder)
 						.then(function (response) {
 							actualSearchDuration += response.took;
+							
+							var hitsItems = response.hits.hits.map(function(value) { return value._source; });
+							playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, hitsItems);
+
 							response.hits.hits = response.hits.hits.filter(function (item) {
-								return accountNamesFilter.length == 0 || accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1;
+								return accountNamesFilter.length == 0 || accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1 || item._source.isOnline;
 							});
+							
 							$.merge(items, response.hits.hits);
 
 							if (accountNamesFilter.length != 0 && items.length < limit && response.hits.total > limit && from < (fetchSize * 15)) {
@@ -694,7 +746,7 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 							$.each(response.hits.hits, function (index, value) {
 								addCustomFields(value._source);
 							});
-
+							
 							$scope.showSpinner = false;
 						}, function (err) {
 							debugOutput(err.message, 'trace');
@@ -736,7 +788,9 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 				item.shop['addedHoursAgo'] = (Math.abs(now.getTime() - added.getTime()) / hourInMillis).toFixed(2);
 				item.shop['modifiedHoursAgo'] = (Math.abs(now.getTime() - modified.getTime()) / hourInMillis).toFixed(2);
 				item.shop['updatedHoursAgo'] = (Math.abs(now.getTime() - updated.getTime()) / hourInMillis).toFixed(2);
-				item.isOnline = $scope.onlinePlayers.indexOf(item.shop['sellerAccount']) != -1;
+				if (!item.isOnline) {
+					item.isOnline = $scope.onlinePlayers.indexOf(item.shop['sellerAccount']) != -1;
+				}
 			}
 		}
 
@@ -897,6 +951,7 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 					debugOutput("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
 					if (response.hits.total == 1) {
 						addCustomFields(response.hits.hits[0]._source);
+						playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, [response.hits.hits[0]._source]);
 					}
 					$scope.lastRequestedSavedItem = response.hits.hits;
 				});
