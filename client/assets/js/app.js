@@ -483,7 +483,7 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 						});
 					});
 				} else {
-					return $q.defer().resolve(null);
+					return $q.resolve([]);
 				}
 			},
 			getStashOnlinePlayers: function () {
