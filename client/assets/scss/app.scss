@@ -444,82 +444,94 @@ img.gitter-badge {
 			padding-right: 35px;
 			background: url('../img/currency_icons.png') no-repeat;
 
-			&.Unknown {
+			&.unknown {
 				background-position: right -750px;
 			}
-			&.Regal {
+			&.regal {
 				background-position: right 0;
 			}
-			&.Augmentation {
+			&.augmentation {
 				background-position: right -30px;
 			}
-			&.Wisdom {
+			&.aug {
+				background-position: right -30px;
+			}
+			&.wisdom {
 				background-position: right -60px;
 			}
-			&.Portal {
+			&.portal {
 				background-position: right -90px;
 			}
-			&.Alchemy {
+			&.alchemy {
 				background-position: right -120px;
 			}
-			&.Mirror {
+			&.mirror {
 				background-position: right -150px;
 			}
-			&.Blessed {
+			&.blessed {
 				background-position: right -180px;
 			}
-			&.Whetstone {
+			&.whetstone {
 				background-position: right -210px;
 			}
-			&.Scrap {
+			&.scrap {
 				 background-position: right -240px;
 			}
-			&.Vaal {
+			&.vaal {
 				background-position: right -270px;
 			}
-			&.Bauble {
+			&.bauble {
 				background-position: right -300px;
 			}
-			&.Chaos {
+			&.chaos {
 				background-position: right -330px;
 			}
-			&.Chisel {
+			&.chisel {
 				background-position: right -360px;
 			}
-			&.Chromatic {
+			&.chromatic {
 				background-position: right -390px;
 			}
-			&.Divine {
+			&.divine {
 				 background-position: right -420px;
 			}
-			&.Exalted {
+			&.exalted {
 				background-position: right -450px;
 			}
-			&.Transmutation {
+			&.transmutation {
 				background-position: right -480px;
 			}
-			&.Scouring {
+			&.scouring {
 				background-position: right -510px;
 			}
-			&.Regret {
+			&.regret {
 				background-position: right -540px;
 			}
-			&.Fusing {
+			&.fusing {
 				background-position: right -570px;
 			}
-			&.Prism {
+			&.prism {
 				background-position: right -600px;
 			}
-			&.Jewellers {
+			&.jewellers {
 				background-position: right -630px;
 			}
-			&.Alteration {
+			&.jeweller {
+				background-position: right -630px;
+			}
+			&.alteration {
 				background-position: right -660px;
 			}
-			&.Chance {
+			&.chance {
 				background-position: right -690px;
 			}
-			&.Coins {
+			&.coins {
+				background-position: right -720px;
+			}
+			&.pc {
+				background-position: right -720px;
+			}
+			&.per {
 				background-position: right -720px;
 			}
 		}
