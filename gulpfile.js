@@ -77,8 +77,9 @@ gulp.task('clean', function (cb) {
 		return gulp.src('../exiletrade.github.io/**/*', {read: false})
 			.pipe(ignore('.git/**'))
 			.pipe(gulpRimraf({force: true}));
+
+		cb();
 	}
-	cb();
 });
 
 // Copies everything in the client folder except templates, Sass, and JS
