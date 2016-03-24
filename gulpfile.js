@@ -140,7 +140,8 @@ gulp.task('copy:build', function (cb) {
 			'./demo/**/*',
 			'LICENSE',
 			'README.md',
-			'./client/.gitignore'
+			'!./demo/**/*.psd',
+			'!./demo/**/{logo_assets,logo_assets/*.*}'
 		])
 		.pipe(gulp.dest(destinationDemo));
 	}
