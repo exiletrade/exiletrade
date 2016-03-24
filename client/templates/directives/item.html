@@ -448,7 +448,7 @@
 				</span>
 				<span class="sortable price"
 					  ng-if="item._source.shop.amount > 0"
-					  title="{{item._source.shop.amount}} {{item._source.shop.currency}}">
+					  title="{{item._source.shop.amount}} {{item._source.shop.currency | cleanCurrency}}">
 					<a href=""
 					   data-sort-key="shop.chaosEquiv"
 					   data-sort-order="asc"
