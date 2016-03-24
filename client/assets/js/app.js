@@ -468,11 +468,11 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 				debugOutput('Ladder cacheMisses count: ' + cacheMissesLength, 'trace');
 
 				if (cacheMissesLength > 0) {
-					refreshLadderPlayerCache(league, Object.keys(cacheMisses)).then(function () {
+					return refreshLadderPlayerCache(league, Object.keys(cacheMisses)).then(function () {
 						$.each(cacheMisses, function (key, value) {
 							$.each(items, function (index, item) {
-								if (item.shop.sellerAccount == value) {
-									var playerData = getPlayerDataFromCache(value);
+								if (item.shop.sellerAccount == key) {
+									var playerData = getPlayerDataFromCache(item);
 									var foundInCache = typeof playerData !== 'undefined';
 									if (foundInCache) {
 										item.ladder = playerData;
@@ -482,6 +482,8 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 							});
 						});
 					});
+				} else {
+					return $q.defer().resolve(null);
 				}
 			},
 			getStashOnlinePlayers: function () {
@@ -723,28 +725,28 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 							actualSearchDuration += response.took;
 							
 							var hitsItems = response.hits.hits.map(function(value) { return value._source; });
-							playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, hitsItems);
+							playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, hitsItems).then(function () {
+								response.hits.hits = response.hits.hits.filter(function (item) {
+									return accountNamesFilter.length == 0 
+										|| accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1 || item._source.isOnline;
+								});
 
-							response.hits.hits = response.hits.hits.filter(function (item) {
-								return accountNamesFilter.length == 0 || accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1 || item._source.isOnline;
+								$.merge(items, response.hits.hits);
+								if (accountNamesFilter.length != 0 && items.length < limit && response.hits.total > limit && from < (fetchSize * 15)) {
+									from = from + fetchSize;
+									return runElastic();
+								}
+
+								response.hits.hits = items.slice(0, limit);
+								response.took = actualSearchDuration;
+								$scope.Response = response;
+
+								$.each(response.hits.hits, function (index, value) {
+									addCustomFields(value._source);
+								});
+
+								$scope.showSpinner = false;
 							});
-							
-							$.merge(items, response.hits.hits);
-
-							if (accountNamesFilter.length != 0 && items.length < limit && response.hits.total > limit && from < (fetchSize * 15)) {
-								from = from + fetchSize;
-								return runElastic();
-							}
-
-							response.hits.hits = items.slice(0, limit);
-							response.took = actualSearchDuration;
-							$scope.Response = response;
-
-							$.each(response.hits.hits, function (index, value) {
-								addCustomFields(value._source);
-							});
-							
-							$scope.showSpinner = false;
 						}, function (err) {
 							debugOutput(err.message, 'trace');
 							$scope.showSpinner = false;
