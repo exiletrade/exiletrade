@@ -376,12 +376,19 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 		var stashOnlinePlayerCache;
 
 		// Check to make sure the cache doesn't already exist
-// 	  if (!CacheFactory.get('ladderOnlinePlayerCache')) {
-// 		ladderOnlinePlayerCache = CacheFactory('ladderOnlinePlayerCache', {
-// 			maxAge: 15 * 60 * 1000,
-//   			deleteOnExpire: 'aggressive'
-// 		});
-// 	  }
+// 	    if (!CacheFactory.get('ladderOnlinePlayerCache')) {
+// 		  		ladderOnlinePlayerCache = CacheFactory('ladderOnlinePlayerCache', {
+// 		  		maxAge: 15 * 60 * 1000,
+//   		  		deleteOnExpire: 'aggressive',
+// 				storageMode: 'localStorage',
+// 				storagePrefix: 'exiletrade-cache-v1',
+// 				storeOnResolve: true,
+// 				onExpire: function (key, value) {
+// 					refreshLadderOnlinePlayerCache();
+// 				}
+// 		  	});
+// 	    }
+
 		if (!CacheFactory.get('stashOnlinePlayerCache')) {
 			stashOnlinePlayerCache = CacheFactory('stashOnlinePlayerCache', {
 				maxAge: 10 * 60 * 1000,
@@ -405,18 +412,33 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 			return promise;
 		}
 
+// 		function refreshLadderOnlinePlayerCache(league) {
+// 			debugOutput("Loading up online players from ladder: " + league, 'trace')
+// 			var ladderLeagues = {
+// 				"Perandus SC": "perandus",
+// 				"Perandus HC": "perandushc",
+// 				"Standard": "standard",
+// 				"Hardcore": "hardcore"
+// 			};
+// 			var ladderLeague = ladderLeagues[league];
+// 			var url = "http://api.exiletools.com/ladder?showAllOnline=1&league=" + ladderLeague;
+// 			var promise = $http.get(url);
+// 			ladderOnlinePlayerCache.put(league, promise);
+// 			return promise;
+// 		}
+
 		return {
 // 			getLadderOnlinePlayers: function (league) {
-// 				debugOutput("Loading up online players from league: " + league, 'trace')
-// 				var ladderLeagues = {
-// 					"Perandus SC": "perandus",
-// 					"Perandus HC": "perandushc",
-// 					"Standard": "standard",
-// 					"Hardcore": "hardcore"
-// 				};
-// 				var ladderLeague = ladderLeagues[league];
-// 				var url = "http://api.exiletools.com/ladder?showAllOnline=1&league=" + ladderLeague;
-// 				return $http.get(url, {cache: ladderOnlinePlayerCache});
+// 				var ladderOnlinePlayers = ladderOnlinePlayerCache.get(league);
+// 				var foundInCache = typeof ladderOnlinePlayers !== 'undefined';
+// 				debugOutput('ladderOnlinePlayers found from cache: ' + foundInCache, 'trace')
+// 				var promise;
+// 				if (foundInCache) {
+// 					promise = $q.resolve(ladderOnlinePlayers);
+// 				} else {
+// 					promise = refreshLadderOnlinePlayerCache(league);
+// 				}
+// 				return promise;
 // 			},
 			getStashOnlinePlayers: function () {
 				var stashOnlinePlayers = stashOnlinePlayerCache.get('stashOnlinePlayers');
