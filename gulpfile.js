@@ -88,8 +88,7 @@ gulp.task('copy', function () {
 	return gulp.src(paths.assets, {
 		base: './client/'
 	})
-		.pipe(gulp.dest(destination))
-		;
+		.pipe(gulp.dest(destination));
 });
 
 // Copies your app's page templates and generates URLs for them
@@ -140,7 +139,8 @@ gulp.task('copy:build', function (cb) {
 		gulp.src([
 			'./demo/**/*',
 			'LICENSE',
-			'README.md'
+			'README.md',
+			'./client/.gitignore'
 		])
 		.pipe(gulp.dest(destinationDemo));
 	}
