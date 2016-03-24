@@ -249,7 +249,7 @@ url: /
 		<!-- Saved Items Sidebar -->
 		<div zf-panel="" id="savedItemsPanel" position="right">
 			<a zf-close="" class="close-button ng-scope">×</a>
-			<zf-accordion>
+			<zf-accordion auto-open="false">
 				<div class="accordion-item-wrapper" ng-repeat="data in savedItemsList" >
 					<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeItemFromList(data.itemId)">
 					<zf-accordion-item title="{{data.itemDescription}}" ng-click="requestSavedItem(data.itemId)">
@@ -262,7 +262,7 @@ url: /
 								<span class="availablity" ng-repeat="item in lastRequestedSavedItem" ng-if="item._source.shop.verified=='GONE'">
 									Item available: {{item._source.shop.verified}}
 								</span>
-								<span></span>
+								<span ng-show="isEmpty(lastRequestedSavedItem)">Requesting Item...</span>
 							</div>
 						</div>
 					</zf-accordion-item>
