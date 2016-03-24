@@ -430,7 +430,7 @@ function buildListOfOnlinePlayers(onlineplayersLadder, onlineplayersStash) {
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
 		$scope.elasticJsonRequest = "";
-		$scope.switchOnlinePlayersOnly = false;
+		$scope.switchOnlinePlayersOnly = true;
 		$scope.showSpinner = false;
 
 		var httpParams = $location.search();
