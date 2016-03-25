@@ -168,7 +168,7 @@ function parseSearchInputTokens(input, rerun) {
 		badTokens = correction['unCorrectable'];
 		queryString += " " + correction['corrected'].join(" ");
 	}
-	ga('send', 'event', 'Search', 'Bad Tokens', badTokens);
+	if(badTokens.length > 0) ga('send', 'event', 'Search', 'Bad Tokens', badTokens);
 	return {'queryString': queryString, 'badTokens': badTokens};
 }
 
