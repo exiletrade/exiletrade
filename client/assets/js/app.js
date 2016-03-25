@@ -512,6 +512,7 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 		$scope.switchOnlinePlayersOnly = true;
 		$scope.showSpinner = false;
 		$scope.disableScroll = true;
+		$scope.isScrollBusy = false;
 		$scope.onlinePlayers = [];
 
 		var httpParams = $location.search();
@@ -711,6 +712,7 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 		$scope.scrollNext = function () {
 			debugOutput('scrollNext called, $scope.disableScroll = ' + $scope.disableScroll, 'trace')
 			if ($scope.disableScroll) { return; }
+			$scope.isScrollBusy = true && $scope.Response; // false if call was from doSearch
 			$scope.disableScroll = true;
 			var actualSearchDuration = 0;
 			var items = [];
@@ -756,11 +758,13 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 							}
 
 							$scope.showSpinner = false;
+							$scope.isScrollBusy = false;
 							debugOutput('scrollNext finished, $scope.disableScroll = ' + $scope.disableScroll, 'trace')
 						});
 					}, function (err) {
 						debugOutput(err.message, 'trace');
 						$scope.showSpinner = false;
+						$scope.isScrollBusy = false;
 					});
 			}
 			fetch();
