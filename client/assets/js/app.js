@@ -1,5 +1,6 @@
 function debugOutput(input, outputType) {
 	if (typeof debugDevBuild === 'undefined') return;
+	return;
 	try {
 		if (outputType == "log") {
 			console.log(input);
@@ -549,16 +550,18 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 			"verificationSelect": {
 				"type": "select",
 				"name": "Verified",
-				"value": 'Status: New',
-				"options": ["Status: New", "Status: All", "Status: Gone"]
+				"value": 'Status: Verified',
+				"options": ["Status: Verified", "Status: All", "Status: Gone"]
 			},
-			"searchPrefixInputs": []
+			"searchPrefixInputs": [],
+			"switchPseudoMods" : true
 		};
+
+		console.log($scope.loadedOptions);
 
 		if ($scope.loadedOptions) checkDefaultOptions();
 
 		function checkDefaultOptions() {
-
 			if (typeof $scope.loadedOptions.leagueSelect !== 'undefined') {
 				$scope.options.leagueSelect.value = $scope.loadedOptions.leagueSelect.value;
 			}
@@ -570,6 +573,15 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 			}
 			if (typeof $scope.loadedOptions.searchPrefixInputs !== 'undefined' && $scope.loadedOptions.searchPrefixInputs !== null) {
 				$scope.options.searchPrefixInputs = $scope.loadedOptions.searchPrefixInputs;
+			}
+			if (typeof $scope.loadedOptions.switchPseudoMods !== 'undefined' && $scope.loadedOptions.switchPseudoMods !== null) {
+				$scope.options.switchPseudoMods = $scope.loadedOptions.switchPseudoMods;
+			}
+			if (typeof $scope.loadedOptions.switchItemsPerRow !== 'undefined' && $scope.loadedOptions.switchItemsPerRow !== null) {
+				$scope.options.switchItemsPerRow = $scope.loadedOptions.switchItemsPerRow;
+			}
+			if (typeof $scope.loadedOptions.showAdvancedStats !== 'undefined' && $scope.loadedOptions.showAdvancedStats !== null) {
+				$scope.options.showAdvancedStats = $scope.loadedOptions.showAdvancedStats;
 			}
 		}
 
@@ -588,6 +600,9 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 					break;
 			}
 			switch (options['verificationSelect']['value']) {
+				case "Status: Verified":
+					searchPrefix += " new";
+					break;
 				case "Status: New":
 					searchPrefix += " new";
 					break;

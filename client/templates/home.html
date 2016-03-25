@@ -220,9 +220,9 @@ url: /
 			</span>
 			<span class="inline-label">
 				<div class="switch small">
-					<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
+					<!--<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
 						   ng-true-value="" ng-false-value="" ng-change="stateChanged()">
-					<label for="switch-itemsPerRow"></label>
+					<label for="switch-itemsPerRow"></label>-->
 				</div>
 
 				<label class="label-pseudoMods">1 item per Row</label>
@@ -301,7 +301,7 @@ url: /
 							<span>Show 1 Item per row</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
-									   ng-true-value="" ng-false-value="" ng-change="">
+									   ng-true-value="{maxWidth:'100%',flexBasis:'100%'}" ng-false-value="">
 								<label for="switch-itemsPerRow"></label>
 							</div>
 						</li>
