@@ -136,6 +136,17 @@ img.pageLogo {
 	}
 	&.accordion, .accordion {
 		border-color: $primary-color;
+
+		&.showArrow {
+			.accordion-title::after {
+				content: "▼";
+				float: right;
+				font-size: 10px;
+			}
+			.is-active > .accordion-title::after {
+				content: "▲";
+			}
+		}
 	}
 	.accordion-title {
 		background-color: $primary-color;
