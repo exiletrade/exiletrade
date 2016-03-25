@@ -1256,12 +1256,15 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 
 			var currencyMap = new Map([
 				["unknown shekel", "coins"],
+				["unknown shekels", "coins"],
 				["unknown pc", "coins"],
 				["unknown p", "coins"],
 				["unknown perandus", "coins"],
 				["unknown perandus coin", "coins"],
 				["unknown perandus coins", "coins"],
 				["unknown peranduscoins", "coins"],
+				["unknown pcoins", "coins"],
+				["unknown pcoin", "coins"],
 				["unknown per", "coins"],
 				["unknown exa", "exalted"],
 				["unknown fuse", "fusing"],
