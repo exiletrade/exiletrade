@@ -2,7 +2,7 @@
 
 # ExileTrade - An Advanced Search Engine
 
-![3capture](https://cloud.githubusercontent.com/assets/75921/13552334/6761a29e-e399-11e5-8f9c-65d25a1d578d.PNG)
+![3capture](https://cloud.githubusercontent.com/assets/75921/14044084/09984126-f2c7-11e5-8796-7986b1aeef17.PNG)
 
 ## Requirements
 
