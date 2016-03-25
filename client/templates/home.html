@@ -200,35 +200,6 @@ url: /
 			</zf-accordion>
 		</div>
 
-		<!-- Hidden Options, other the checkboxes in sidebar don't work -->
-		<div class="grid-block search-options" ng-show="false">
-			<span class="inline-label">
-				<div class="switch small">
-					<input type="checkbox" ng-model="options.switchPseudoMods" id="switch-pseudoMods">
-					<label for="switch-pseudoMods"></label>
-				</div>
-
-				<label class="label-pseudoMods">Show PseudoMods</label>
-			</span>
-			<span class="inline-label">
-				<div class="switch small">
-					<input type="checkbox" ng-model="options.showAdvancedStats" id="showAdvancedStats">
-					<label for="showAdvancedStats"></label>
-				</div>
-
-				<label class="label-advancedStats">Show Advanced Item Stats</label>
-			</span>
-			<span class="inline-label">
-				<div class="switch small">
-					<!--<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
-						   ng-true-value="" ng-false-value="" ng-change="stateChanged()">
-					<label for="switch-itemsPerRow"></label>-->
-				</div>
-
-				<label class="label-pseudoMods">1 item per Row</label>
-			</span>
-		</div>
-
 		<!-- Saved Searches Sidebar -->
 		<div zf-panel="" id="savedSearchesPanel" position="right">
 			<a zf-close="" ng-click="resizeGridFrame(false)" class="close-button ng-scope">×</a>
@@ -308,8 +279,7 @@ url: /
 						<li>
 							<span>Online Players Only</span>
 							<div class="switch small">
-								<input type="checkbox" ng-model="switchOnlinePlayersOnly" id="switch-onlinePlayersOnly"
-									ng-change="toggleOnlinePlayersOnly()">
+								<input type="checkbox" ng-model="options.switchOnlinePlayersOnly" id="switch-onlinePlayersOnly">
 								<label for="switch-onlinePlayersOnly"></label>
 							</div>
 						</li>
