@@ -3,7 +3,7 @@ name: home
 url: /
 ---
 
-<div id="main" class="grid-container" ng-controller="SearchController" >
+<div id="main" class="grid-container" ng-controller="SearchController" exec-on-scroll-to-bottom="scrollNext()">
 	<!-- Spinner -->
 	<span us-spinner="{radius:30, width:8, length: 16}" spinner-on="showSpinner"></span>
 
@@ -309,7 +309,7 @@ url: /
 							<span>Online Players Only</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="switchOnlinePlayersOnly" id="switch-onlinePlayersOnly"
-									ng-change="stateChanged()">
+									ng-change="toggleOnlinePlayersOnly()">
 								<label for="switch-onlinePlayersOnly"></label>
 							</div>
 						</li>

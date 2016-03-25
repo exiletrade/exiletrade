@@ -509,6 +509,7 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 		$scope.elasticJsonRequest = "";
 		$scope.switchOnlinePlayersOnly = true;
 		$scope.showSpinner = false;
+		$scope.disableScroll = true;
 		$scope.onlinePlayers = [];
 
 		var httpParams = $location.search();
@@ -635,12 +636,16 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 		 Runs the current searchInput with default sort
 		 */
 		$scope.doSearch = function () {
+			debugOutput('doSearch called, $scope.searchInput = ' + $scope.searchInput, 'info');
 			doActualSearch($scope.searchInput, limitDefault, sortKeyDefault, sortOrderDefault);
 			ga('send', 'event', 'Search', 'User Input', $scope.searchInput);
 		};
 
 		$scope.stateChanged = function () {
 			debugOutput('stateChanged', 'log');
+		};
+
+		$scope.toggleOnlinePlayersOnly = function () {
 			$scope.switchOnlinePlayersOnly = !$scope.switchOnlinePlayersOnly;
 		};
 
@@ -664,8 +669,9 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 		 */
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
 			debugOutput("$scope.switchOnlinePlayersOnly = " + $scope.switchOnlinePlayersOnly, 'info');
-			$scope.showSpinner = true;
 			$scope.Response = null;
+			$scope.disableScroll = true;
+			$scope.showSpinner = true;
 			limit = Number(limit);
 			if (limit > 999) limit = 999; // deny power overwhelming
 			ga('send', 'event', 'Search', 'PreFix', createSearchPrefix($scope.options));
@@ -675,86 +681,21 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 			$location.replace();
 			debugOutput('changed location to: ' + $location.absUrl(), 'trace');
 			var parseResult = parseSearchInput($scope.termsMap, finalSearchInput);
-			var searchQuery = parseResult.queryString;
+			$scope.searchQuery = parseResult.queryString;
 			$scope.badSearchInputTerms = parseResult.badTokens;
-			debugOutput("searchQuery=" + searchQuery, 'log');
+			debugOutput("searchQuery=" + $scope.searchQuery, 'log');
 
 			if (parseResult.badTokens.length > 0) {
 				$scope.showSpinner = false;
 				return;
 			}
 
-			function doElasticSearch(searchQuery, _from, _size, sortKey, sortOrder) {
-				var esBody = {
-					"query": {
-						"filtered": {
-							"filter": {
-								"bool": {
-									"must": {
-										"query_string": {
-											"default_operator": "AND",
-											"query": searchQuery
-										}
-									}
-								}
-							}
-						}
-					}
-				};
-				var esPayload = {
-					index: 'index',
-					sort: [sortKey + ':' + sortOrder],
-					from: _from,
-					size: _size,
-					body: esBody
-				};
-				$scope.elasticJsonRequest = angular.toJson(esPayload, true);
-				debugOutput("Gonna run elastic: " + $scope.elasticJsonRequest, 'trace');
-				return es.search(esPayload)
-			}
-
 			loadOnlinePlayersIntoScope().then(function () {
-				var accountNamesFilter = $scope.switchOnlinePlayersOnly ? $scope.onlinePlayers : [];
-				var from = 0;
-				var fetchSize = $scope.switchOnlinePlayersOnly ? 100 : limit;
-				var actualSearchDuration = 0;
-				var items = [];
-
-				function runElastic() {
-					doElasticSearch(searchQuery, from, fetchSize, sortKey, sortOrder)
-						.then(function (response) {
-							actualSearchDuration += response.took;
-							
-							var hitsItems = response.hits.hits.map(function(value) { return value._source; });
-							playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, hitsItems).then(function () {
-								response.hits.hits = response.hits.hits.filter(function (item) {
-									return accountNamesFilter.length == 0 
-										|| accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1 || item._source.isOnline;
-								});
-
-								$.merge(items, response.hits.hits);
-								if (accountNamesFilter.length != 0 && items.length < limit && response.hits.total > limit && from < (fetchSize * 15)) {
-									from = from + fetchSize;
-									return runElastic();
-								}
-
-								response.hits.hits = items.slice(0, limit);
-								response.took = actualSearchDuration;
-								$scope.Response = response;
-
-								$.each(response.hits.hits, function (index, value) {
-									addCustomFields(value._source);
-								});
-
-								$scope.showSpinner = false;
-							});
-						}, function (err) {
-							debugOutput(err.message, 'trace');
-							$scope.showSpinner = false;
-						});
-				}
-
-				return runElastic();
+				$scope.from = 0;
+				$scope.sortKey = sortKey;
+				$scope.sortOrder = sortOrder;
+				$scope.disableScroll = false;
+				$scope.scrollNext();
 			});
 		}
 
@@ -763,6 +704,93 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 				var onlineplayersStash = results.aggregations.filtered.sellers.buckets;
 				$scope.onlinePlayers = buildListOfOnlinePlayers(onlineplayersStash);
 			});
+		}
+
+		$scope.scrollNext = function () {
+			debugOutput('scrollNext called, $scope.disableScroll = ' + $scope.disableScroll, 'trace')
+			if ($scope.disableScroll) { return; }
+			$scope.disableScroll = true;
+			var actualSearchDuration = 0;
+			var items = [];
+			var limit = 6;
+			var fetchSize = $scope.switchOnlinePlayersOnly ? 30 : limit;
+			function fetch() {
+				doElasticSearch($scope.searchQuery, $scope.from, fetchSize, $scope.sortKey, $scope.sortOrder)
+					.then(function (response) {
+						actualSearchDuration += response.took;
+
+						var hitsItems = response.hits.hits.map(function(value) { return value._source; });
+						playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, hitsItems).then(function () {
+							var accountNamesFilter = $scope.switchOnlinePlayersOnly ? $scope.onlinePlayers : [];
+							response.hits.hits = response.hits.hits.filter(function (item) {
+								var onlineInTheRiver = accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1;
+								return item._source.isOnline || onlineInTheRiver || !$scope.switchOnlinePlayersOnly;
+							});
+
+							$.merge(items, response.hits.hits);
+							$scope.from = $scope.from + fetchSize;
+							if (accountNamesFilter.length != 0 && items.length < limit && response.hits.total > limit && $scope.from < (fetchSize * 10)) {
+								return fetch();
+							}
+
+							response.took = actualSearchDuration;
+							$.each(items, function (index, value) {
+								addCustomFields(value._source);
+							});
+							
+							if (!$scope.Response) {
+								$scope.Response = response;
+								$scope.Response.hits.hits = items;
+							} else {
+								// probably from scrolling, so we just append
+								$.merge($scope.Response.hits.hits, items);
+							}
+
+							if (hitsItems.length < fetchSize) {
+								// no more data to scroll
+								$scope.disableScroll = true;
+							} else {
+								$scope.disableScroll = false;
+							}
+
+							$scope.showSpinner = false;
+							debugOutput('scrollNext finished, $scope.disableScroll = ' + $scope.disableScroll, 'trace')
+						});
+					}, function (err) {
+						debugOutput(err.message, 'trace');
+						$scope.showSpinner = false;
+					});
+			}
+			fetch();
+		}
+
+		function doElasticSearch(searchQuery, _from, _size, sortKey, sortOrder) {
+			var esBody = {
+				"query": {
+					"filtered": {
+						"filter": {
+							"bool": {
+								"must": {
+									"query_string": {
+										"default_operator": "AND",
+										"query": searchQuery
+									}
+								}
+							}
+						}
+					}
+				}
+			};
+			var esPayload = {
+				index: 'index',
+				sort: [sortKey + ':' + sortOrder],
+				from: _from,
+				size: _size,
+				body: esBody
+			};
+			$scope.elasticJsonRequest = angular.toJson(esPayload, true);
+			debugOutput("Gonna run elastic: " + $scope.elasticJsonRequest, 'trace');
+			return es.search(esPayload)
 		}
 
 		/*
@@ -1261,6 +1289,26 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 				}
 			});
 		};
+	});
+
+	appModule.directive('execOnScrollToBottom', function () {
+	  return {
+		restrict: 'A',
+        scope: true,
+		link: function (scope, element, attrs) {
+		  var mainGrid = element[0].parentElement;
+		  mainGrid.onscroll = function (e) {
+			var el = e.target;
+			var allowance = 340;
+			var clientHeight = mainGrid.clientHeight;
+			// console.log("Scrolling = " + (el.scrollHeight - el.scrollTop) + " to " + clientHeight + " with allowance " + allowance);
+			if ((el.scrollHeight - el.scrollTop) <= (clientHeight + allowance)) { // fully scrolled
+			  debugOutput("Scrolled to bottom", 'trace');
+			  scope.$apply(attrs.execOnScrollToBottom); 
+			}
+		  };
+		}
+	  };
 	});
 
 	appModule.directive('item', function () {
