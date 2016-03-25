@@ -715,9 +715,8 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 			$scope.isScrollBusy = true && $scope.Response; // false if call was from doSearch
 			$scope.disableScroll = true;
 			var actualSearchDuration = 0;
-			var items = [];
-			var limit = 6;
-			var fetchSize = $scope.switchOnlinePlayersOnly ? 30 : limit;
+			var limit = 20;
+			var fetchSize = $scope.switchOnlinePlayersOnly ? 50 : limit;
 			function fetch() {
 				doElasticSearch($scope.searchQuery, $scope.from, fetchSize, $scope.sortKey, $scope.sortOrder)
 					.then(function (response) {
@@ -731,25 +730,25 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 								return item._source.isOnline || onlineInTheRiver || !$scope.switchOnlinePlayersOnly;
 							});
 
-							$.merge(items, response.hits.hits);
+							$.each(response.hits.hits, function (index, value) {
+								addCustomFields(value._source);
+							});
+
 							$scope.from = $scope.from + fetchSize;
-							if (accountNamesFilter.length != 0 && items.length < limit && response.hits.total > limit && $scope.from < (fetchSize * 10)) {
+
+							if (!$scope.Response) {
+								$scope.Response = response;
+								$scope.showSpinner = false;
+							} else {
+								$.merge($scope.Response.hits.hits, response.hits.hits);
+							}
+
+							if (accountNamesFilter.length != 0 && $scope.Response.hits.hits.length < limit && response.hits.total > limit && $scope.from < (fetchSize * 10)) {
 								return fetch();
 							}
 
 							response.took = actualSearchDuration;
-							$.each(items, function (index, value) {
-								addCustomFields(value._source);
-							});
 							
-							if (!$scope.Response) {
-								$scope.Response = response;
-								$scope.Response.hits.hits = items;
-							} else {
-								// probably from scrolling, so we just append
-								$.merge($scope.Response.hits.hits, items);
-							}
-
 							if (hitsItems.length < fetchSize) {
 								// no more data to scroll
 								$scope.disableScroll = true;
