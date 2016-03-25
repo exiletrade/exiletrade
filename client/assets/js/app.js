@@ -241,8 +241,10 @@ function escapeField(result) {
 	if (delimIdx != -1) {
 		var field = res.substr(0, delimIdx);
 		res = res.replace(field, field.replace(/(\s|\*)/g, '\\$1'));
-		var value = res.substr(delimIdx);
-		res = res.replace(value, value.replace(/(\s)/g, '\\$1'));
+		if (field == 'info.name') {
+			var value = res.substr(delimIdx);
+			res = res.replace(value, value.replace(/(\s)/g, '\\$1'));
+		}
 	}
 	return res;
 }
