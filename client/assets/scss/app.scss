@@ -125,9 +125,7 @@ img.pageLogo {
 	color: white;
 	border-color: $primary-color;
 }
-.guide {
-	margin-bottom: 20px;
-}
+
 .badSearchInputTerms, .sampleSearches, .termsGuide, .spoiler, .panel {
 	.accordion-title, .accordion-content {
 		padding: 0.5rem;
@@ -158,7 +156,7 @@ img.pageLogo {
 	ul, ol {
 		font-size: rem-calc(14px);
 		margin-bottom: 0px;
-		font-family: monospace;
+		//font-family: monospace;
 	}
 	p {
 		font-size: rem-calc(12px);
@@ -169,6 +167,27 @@ img.pageLogo {
 		border:none;
 		color: $link_color;
 		padding: 0;
+	}
+}
+
+.guide {
+	margin-bottom: 20px;
+	ol {
+		li {
+			list-style-type: decimal;
+		}
+	}
+	ul {
+		margin-left: 1.1rem;
+		li {
+			list-style-type: circle;
+		}
+	}
+	ul, ol {
+		font-size: rem-calc(12px);
+	}
+	a {
+		color: #FFFCFC;
 	}
 }
 
