@@ -4,7 +4,7 @@
 $bg_color_corrupted :#C22626;
 $border_color : #646464;
 $border_color_item: $primary-color;
-$link_color: #C3C3C3;
+$link_color: #DCD7D7;
 $color_white : #fff;
 $color_gem_name : #1ba29b;
 $color_unique_name : #af6025;
@@ -205,7 +205,7 @@ img.pageLogo {
 		}
 	}
 	ul, ol {
-		font-size: 0.8rem;
+		font-size: rem-calc(12px);
 		margin-bottom: 0px;
 		//font-family: monospace;
 	}
