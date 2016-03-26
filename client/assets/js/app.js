@@ -617,12 +617,21 @@ function indexerLeagueToLadder(league) {
 					}).then(function (response) {
 						var count = response.count;
 						search.count = count;
+						return count;
 					}, function (err) {
 					  	debugOutput(err.message, 'trace');
 					});
 					return promise;
 				});
-				$q.all(countPromises);
+				$q.all(countPromises).then(function (results) {
+					var total = results
+						.reduce(function (a, b) { return a + b; });
+					if (total > 0) {
+						console.info("Eruyome, pls make this play a sound");
+						var snd = new Audio("img/Tinkle-Lisa_Redfern-1916445296.mp3"); // buffers automatically when created
+						snd.play();
+					}
+				});
 			}
 		};
 		automatedSearchIntervalFn();
