@@ -170,7 +170,7 @@ function parseSearchInputTokens(input, rerun) {
 	}
 	
 	if(badTokens.length > 0) {
-		ga('send', 'event', 'Search', 'Bad Tokens', badTokens);
+		ga('send', 'event', 'Search', 'Bad Tokens', badTokens.join(","));
 	}
 	return {'queryString': queryString, 'badTokens': badTokens};
 }
