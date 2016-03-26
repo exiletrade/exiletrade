@@ -627,7 +627,6 @@ function indexerLeagueToLadder(league) {
 					var total = results
 						.reduce(function (a, b) { return a + b; });
 					if (total > 0) {
-						console.info("Eruyome, pls make this play a sound");
 						var snd = new Audio("./assets/sound/Tinkle-Lisa_Redfern-1916445296.mp3"); // buffers automatically when created
 						snd.play();
 					}
@@ -637,15 +636,9 @@ function indexerLeagueToLadder(league) {
 		automatedSearchIntervalFn();
 		$interval(automatedSearchIntervalFn, 30000);
 
-
 		$scope.playTestSound = function () {
 			console.log('play');
 			var snd = new Audio("./assets/sound/Tinkle-Lisa_Redfern-1916445296.mp3"); // buffers automatically when created
-			snd.play();
-		};
-		$scope.playTestSound2 = function () {
-			console.log('play');
-			var snd = new Audio("https://raw.githubusercontent.com/exiletrade/exiletrade/master/client/assets/sound/Tinkle-Lisa_Redfern-1916445296.mp3"); // buffers automatically when created
 			snd.play();
 		};
 
@@ -880,7 +873,7 @@ function indexerLeagueToLadder(league) {
 					});
 			}
 			fetch();
-		}
+		};
 
 		function buildEsBody(searchQuery) {
 			return {

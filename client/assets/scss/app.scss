@@ -4,7 +4,7 @@
 $bg_color_corrupted :#C22626;
 $border_color : #646464;
 $border_color_item: $primary-color;
-$link_color: #C3C3C3;
+$link_color: #DCD7D7;
 $color_white : #fff;
 $color_gem_name : #1ba29b;
 $color_unique_name : #af6025;
@@ -24,6 +24,57 @@ $color_quality: #56AB56;
 $color_item_text: #adadad;
 //$color_input_bg: #353535;
 $color_input_bg: rgba(0,0,0,0.1);
+
+/* A font by Jos Buivenga (exljbris) -> www.exljbris.com */
+
+@font-face {
+	font-family: 'fontinregular';
+	src: url('/font/fontin-regular-webfont.eot');
+	src: url('/font/fontin-regular-webfont.eot?#iefix') format('embedded-opentype'),
+	url('/font/fontin-regular-webfont.woff2') format('woff2'),
+	url('/font/fontin-regular-webfont.woff') format('woff'),
+	url('/font/fontin-regular-webfont.ttf') format('truetype'),
+	url('/font/fontin-regular-webfont.svg#fontinregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'fontinbold';
+	src: url('/font/fontin-bold-webfont.eot');
+	src: url('/font/fontin-bold-webfont.eot?#iefix') format('embedded-opentype'),
+	url('/font/fontin-bold-webfont.woff2') format('woff2'),
+	url('/font/fontin-bold-webfont.woff') format('woff'),
+	url('/font/fontin-bold-webfont.ttf') format('truetype'),
+	url('/font/fontin-bold-webfont.svg#fontinbold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'fontinitalic';
+	src: url('/font/fontin-italic-webfont.eot');
+	src: url('/font/fontin-italic-webfont.eot?#iefix') format('embedded-opentype'),
+	url('/font/fontin-italic-webfont.woff2') format('woff2'),
+	url('/font/fontin-italic-webfont.woff') format('woff'),
+	url('/font/fontin-italic-webfont.ttf') format('truetype'),
+	url('/font/fontin-italic-webfont.svg#fontinitalic') format('svg');
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'fontin_smallcapssmallcaps';
+	src: url('/font/fontin-smallcaps-webfont.eot');
+	src: url('/font/fontin-smallcaps-webfont.eot?#iefix') format('embedded-opentype'),
+	url('/font/fontin-smallcaps-webfont.woff2') format('woff2'),
+	url('/font/fontin-smallcaps-webfont.woff') format('woff'),
+	url('/font/fontin-smallcaps-webfont.ttf') format('truetype'),
+	url('/font/fontin-smallcaps-webfont.svg#fontin_smallcapssmallcaps') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
 
 a {
 	color: $link_color;
@@ -154,7 +205,7 @@ img.pageLogo {
 		}
 	}
 	ul, ol {
-		font-size: 0.8rem;
+		font-size: rem-calc(12px);
 		margin-bottom: 0px;
 		//font-family: monospace;
 	}
