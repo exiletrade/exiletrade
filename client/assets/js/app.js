@@ -578,6 +578,10 @@ function indexerLeagueToLadder(league) {
 		$scope.savedItemsList = JSON.parse(localStorage.getItem("savedItems"));
 		$scope.loadedOptions = JSON.parse(localStorage.getItem("savedOptions"));
 		$scope.lastRequestedSavedItem = {};
+		$scope.audioPath = './assets/sound/';
+		$scope.audioAlerts = [
+			'Tinkle-Lisa_Redfern-1916445296.mp3'
+		];
 
 		$scope.options = {
 			"leagueSelect": {
@@ -627,7 +631,7 @@ function indexerLeagueToLadder(league) {
 					var total = results
 						.reduce(function (a, b) { return a + b; });
 					if (total > 0) {
-						var snd = new Audio("./assets/sound/Tinkle-Lisa_Redfern-1916445296.mp3"); // buffers automatically when created
+						var snd = new Audio($scope.audioPath+$scope.audioAlerts[0]); // buffers automatically when created
 						snd.play();
 					}
 				});
@@ -638,7 +642,7 @@ function indexerLeagueToLadder(league) {
 
 		$scope.playTestSound = function () {
 			console.log('play');
-			var snd = new Audio("./assets/sound/Tinkle-Lisa_Redfern-1916445296.mp3"); // buffers automatically when created
+			var snd = new Audio($scope.audioPath+$scope.audioAlerts[0]); // buffers automatically when created
 			snd.play();
 		};
 
