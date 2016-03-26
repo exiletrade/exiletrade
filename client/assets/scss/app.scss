@@ -4,7 +4,7 @@
 $bg_color_corrupted :#C22626;
 $border_color : #646464;
 $border_color_item: $primary-color;
-$link_color: #adadad;
+$link_color: #FFFCFC;
 $color_white : #fff;
 $color_gem_name : #1ba29b;
 $color_unique_name : #af6025;
@@ -14,14 +14,14 @@ $color_currency_name : #9c7e38;
 $color_normal_name : $body-font-color;
 $color_card_name : #dcd3c3;
 $switch_on_color: #43AC6A;
-$color_fire: #D01D1D;
+$color_fire: #F04124;
 $color_cold: #00b8e6;
 $color_lightning: #cccc00;
 $color_chaos: #d02090;
-$color_life: #F10A0A;
+$color_life: #F04124;
 $color_mana: #9898FF;
 $color_quality: #56AB56;
-$color_item_text: #868585;
+$color_item_text: #adadad;
 //$color_input_bg: #353535;
 $color_input_bg: rgba(0,0,0,0.1);
 
@@ -125,9 +125,7 @@ img.pageLogo {
 	color: white;
 	border-color: $primary-color;
 }
-.guide {
-	margin-bottom: 20px;
-}
+
 .badSearchInputTerms, .sampleSearches, .termsGuide, .spoiler, .panel {
 	.accordion-title, .accordion-content {
 		padding: 0.5rem;
@@ -158,7 +156,7 @@ img.pageLogo {
 	ul, ol {
 		font-size: rem-calc(14px);
 		margin-bottom: 0px;
-		font-family: monospace;
+		//font-family: monospace;
 	}
 	p {
 		font-size: rem-calc(12px);
@@ -169,6 +167,33 @@ img.pageLogo {
 		border:none;
 		color: $link_color;
 		padding: 0;
+	}
+}
+
+.sampleSearches {
+	a {
+		font-family: monospace;
+	}
+}
+
+.guide {
+	margin-bottom: 20px;
+	ol {
+		li {
+			list-style-type: decimal;
+		}
+	}
+	ul {
+		margin-left: 1.1rem;
+		li {
+			list-style-type: circle;
+		}
+	}
+	ul, ol {
+		font-size: rem-calc(12px);
+	}
+	a {
+		color: #FFFCFC;
 	}
 }
 
