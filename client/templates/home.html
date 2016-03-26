@@ -31,6 +31,10 @@ url: /
 					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
 						<img zf-iconic="" icon="circle-check" size="small">Save
 					</a>
+					<a href="#" ng-click="saveAutomatedSearch()" class="button small saveSearchNotificationLink" title="Save Automated Search"
+					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
+						<img zf-iconic="" icon="circle-check" size="small">Auto
+					</a>
 					<div class="searchStats" title="{{queryString}}" ng-if="Response.took" zf-open="showElasticJsonRequestModal">
 						<div>
 							<img zf-iconic="" icon="dashboard" size="small">
@@ -204,6 +208,18 @@ url: /
 					</section>
 				</zf-accordion-item>
 			</zf-accordion>
+			<zf-accordion class="saved-search">
+				<zf-accordion-item title="Automated Searches">
+					<section class="block-list">
+						<ul>
+							<li class="" ng-repeat="data in savedAutomatedSearches">
+								<a href="#" ng-model="data.searchInput" ng-click="doSavedSearch(data.searchInput)">{{data.searchInput}}&nbsp;&nbsp;{{data.count}}</a>
+								<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeAutomatedSearchFromList(data)">
+							</li>
+						</ul>
+					</section>
+				</zf-accordion-item>
+			</zf-accordion>				
 		</div>
 
 		<!-- Saved Items Sidebar -->

@@ -552,7 +552,7 @@ function indexerLeagueToLadder(league) {
 		};
 	});
 
-	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', 'es', 'playerOnlineService', function ($q, $scope, $http, $location, es, playerOnlineService) {
+	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService', function ($q, $scope, $http, $location, $interval, es, playerOnlineService) {
 		debugOutput('controller', 'info');
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
@@ -574,6 +574,7 @@ function indexerLeagueToLadder(league) {
 		if (httpParams['limit'])     limitDefault = httpParams['limit'];
 
 		$scope.savedSearchesList = JSON.parse(localStorage.getItem("savedSearches"));
+		$scope.savedAutomatedSearches = JSON.parse(localStorage.getItem("savedAutomatedSearches"));
 		$scope.savedItemsList = JSON.parse(localStorage.getItem("savedItems"));
 		$scope.loadedOptions = JSON.parse(localStorage.getItem("savedOptions"));
 		$scope.lastRequestedSavedItem = {};
@@ -602,6 +603,30 @@ function indexerLeagueToLadder(league) {
 		};
 
 		if ($scope.loadedOptions) checkDefaultOptions();
+
+		var automatedSearchIntervalFn = function () {
+			if ($scope.savedAutomatedSearches && $scope.savedAutomatedSearches.length > 0) {
+				debugOutput('Gonna run counts on automated searches: ' + $scope.savedAutomatedSearches.length, 'trace');
+				var countPromises = $scope.savedAutomatedSearches.map(function (search) {
+					var finalSearchInput = buildSearchInputWithPrefixTerms(search.searchInput)
+					var parseResult = parseSearchInput($scope.termsMap, finalSearchInput);
+					var promise = es.count({
+					  index: 'index',
+					  body: buildEsBody(parseResult.queryString),
+					  size: 0
+					}).then(function (response) {
+						var count = response.count;
+						search.count = count;
+					}, function (err) {
+					  	debugOutput(err.message, 'trace');
+					});
+					return promise;
+				});
+				$q.all(countPromises);
+			}
+		};
+		automatedSearchIntervalFn();
+		$interval(automatedSearchIntervalFn, 30000);
 
 		function checkDefaultOptions() {
 			if (typeof $scope.loadedOptions.leagueSelect !== 'undefined') {
@@ -737,8 +762,7 @@ function indexerLeagueToLadder(league) {
 			limit = Number(limit);
 			if (limit > 999) limit = 999; // deny power overwhelming
 			ga('send', 'event', 'Search', 'PreFix', createSearchPrefix($scope.options));
-			var finalSearchInput = searchInput + ' ' + createSearchPrefix($scope.options);
-			finalSearchInput = finalSearchInput.trim();
+			var finalSearchInput = buildSearchInputWithPrefixTerms(searchInput);
 			$location.search({'q': searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder, 'limit': limit});
 			$location.replace();
 			debugOutput('changed location to: ' + $location.absUrl(), 'trace');
@@ -759,6 +783,12 @@ function indexerLeagueToLadder(league) {
 				$scope.disableScroll = false;
 				$scope.scrollNext();
 			});
+		}
+
+		function buildSearchInputWithPrefixTerms(searchInput) {
+			var finalSearchInput = searchInput + ' ' + createSearchPrefix($scope.options);
+			finalSearchInput = finalSearchInput.trim();
+			return finalSearchInput;
 		}
 
 		function loadOnlinePlayersIntoScope() {
@@ -831,8 +861,8 @@ function indexerLeagueToLadder(league) {
 			fetch();
 		}
 
-		function doElasticSearch(searchQuery, _from, _size, sortKey, sortOrder) {
-			var esBody = {
+		function buildEsBody(searchQuery) {
+			return {
 				"query": {
 					"filtered": {
 						"filter": {
@@ -848,6 +878,10 @@ function indexerLeagueToLadder(league) {
 					}
 				}
 			};
+		}
+
+		function doElasticSearch(searchQuery, _from, _size, sortKey, sortOrder) {
+			var esBody = buildEsBody(searchQuery);
 			var esPayload = {
 				index: 'index',
 				sort: [sortKey + ':' + sortOrder],
@@ -967,7 +1001,6 @@ function indexerLeagueToLadder(league) {
 			});
 		}
 
-
 		/*
 		 Save the current/last search terms to HTML storage
 		 */
@@ -1000,6 +1033,41 @@ function indexerLeagueToLadder(league) {
 				savedSearches.splice(pos, 1);
 				localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
 				$scope.savedSearchesList = savedSearches.reverse();
+			}
+		};
+
+		/*
+		 Save the current/last search terms to HTML storage - automated
+		 */
+		$scope.saveAutomatedSearch = function () {
+			//ga('send', 'event', 'Save', 'Last Search', $scope.searchInput);
+			var search = { searchInput: $scope.searchInput };
+			var savedSearches = [];
+
+			if (localStorage.getItem("savedAutomatedSearches") !== null) {
+				savedSearches = JSON.parse(localStorage.getItem("savedAutomatedSearches"));
+			}
+
+			// return if search is already saved
+			if (savedSearches.map(function (s) { return s.searchInput; }).indexOf(search) != -1) {
+				return;
+			}
+			savedSearches.push(search);
+			localStorage.setItem("savedAutomatedSearches", JSON.stringify(savedSearches));
+			$scope.savedAutomatedSearches = savedSearches.reverse();
+		};
+
+		/*
+		 Delete selected saved search terms from HTML storage - automated
+		 */
+		$scope.removeAutomatedSearchFromList = function (x) {
+			var savedSearches = JSON.parse(localStorage.getItem("savedAutomatedSearches"));
+			var pos = savedSearches.map(function (s) { return s.searchInput; }).indexOf(x.searchInput);
+
+			if (pos != -1) {
+				savedSearches.splice(pos, 1);
+				localStorage.setItem("savedAutomatedSearches", JSON.stringify(savedSearches));
+				$scope.savedAutomatedSearches = savedSearches.reverse();
 			}
 		};
 
