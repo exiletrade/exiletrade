@@ -665,7 +665,7 @@ function buildListOfOnlinePlayers(onlineplayersStash) {
 		$scope.stateChanged = function () {
 			debugOutput('stateChanged', 'log');
 		};
-		
+
 		/*
 		 Runs the current searchInput with a custom sort
 		 */
