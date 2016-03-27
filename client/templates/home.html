@@ -3,7 +3,7 @@ name: home
 url: /
 ---
 
-<div id="main" class="grid-container" ng-controller="SearchController" exec-on-scroll-to-bottom="scrollNext()">
+<div id="main" class="grid-container" ng-controller="SearchController" exec-on-scroll-to-bottom="scrollNext()" ng-style="selectedFont">
 	<!-- Spinner -->
 	<span us-spinner="{radius:30, width:8, length: 16}" spinner-on="showSpinner"></span>
 
@@ -330,6 +330,12 @@ url: /
 								<label for="switch-onlinePlayersOnly"></label>
 							</div>
 						</li>
+						<header>Select Font</header>
+						<li class="with-dropdown">
+							<select name="" ng-model="options.fontSelect.value" id="option-font"
+									ng-options="v for v in options.fontSelect.options" ng-change="setFontFamily()">
+							</select>
+						</li>
 					</ul>
 				</section>
 				<section class="block-list">
@@ -347,7 +353,6 @@ url: /
 						</li>
 						<li ng-repeat="input in options.searchPrefixInputs track by $index">
 							<input type="text" ng-model="input.value" placeholder="Custom prefix">
-							<!--<img zf-iconic="" icon="ban" size="small" class="iconic-color-alert" ng-click="removeInputFromList(input)">-->
 						</li>
 					</ul>
 					<a href="" class="button small hollow" ng-click="addInputField()">Add Field</a>
@@ -394,6 +399,7 @@ url: /
 			<h3>About</h3>
 			<p>This site is fan-made and not affiliated with Grinding Gear Games in any way. ExileTrade is fully open source under GNU General Public License v2.0.</p>
 			<p>ExileTrade is powered by <a href="https://github.com/trackpete/exiletools-indexer">ExileTools Indexer Public API</a>.</p>
+			<p>We use some sound effects from <a href="http://www.freesfx.co.uk" target="_blank">http://www.freesfx.co.uk</a></p>
 			<p>Visit our official forum thread at <a href="https://www.pathofexile.com/forum/view-thread/1602257">view-thread/1602257</a>.</p>
 			<h5>Support Us</h5>
 			<p>Buy us a couple of beer!</p>

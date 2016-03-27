@@ -578,9 +578,12 @@ function indexerLeagueToLadder(league) {
 		$scope.savedItemsList = JSON.parse(localStorage.getItem("savedItems"));
 		$scope.loadedOptions = JSON.parse(localStorage.getItem("savedOptions"));
 		$scope.lastRequestedSavedItem = {};
+		$scope.selectedFont = {};
 		$scope.audioPath = './assets/sound/';
 		$scope.audioAlerts = [
-			'Tinkle-Lisa_Redfern-1916445296.mp3'
+			'Tinkle-Lisa_Redfern-1916445296.mp3',
+			'double_tone.mp3',
+			'alarm_to_the_extreme.mp3'
 		];
 
 		$scope.options = {
@@ -602,11 +605,57 @@ function indexerLeagueToLadder(league) {
 				"value": 'Status: Verified',
 				"options": ["Status: Verified", "Status: Gone", "Status: Either"]
 			},
+			"fontSelect": {
+				"type": "select",
+				"name": "Font",
+				"value": 'Fontin',
+				"options": ["Fontin", "Verdana", "Helvetica Neue"]
+			},
 			"searchPrefixInputs": [],
 			"switchOnlinePlayersOnly" : true
 		};
 
+		$scope.setFontFamily = function(){
+			$scope.selectedFont = {
+				"font-family": "'"+ $scope.options.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
+			};
+		};
+
 		if ($scope.loadedOptions) checkDefaultOptions();
+
+		function checkDefaultOptions() {
+			if (typeof $scope.loadedOptions.leagueSelect !== 'undefined') {
+				$scope.options.leagueSelect.value = $scope.loadedOptions.leagueSelect.value;
+			}
+			if (typeof $scope.loadedOptions.buyoutSelect !== 'undefined') {
+				$scope.options.buyoutSelect.value = $scope.loadedOptions.buyoutSelect.value;
+			}
+			if (typeof $scope.loadedOptions.verificationSelect !== 'undefined') {
+				$scope.options.verificationSelect.value = $scope.loadedOptions.verificationSelect.value;
+			}
+			if (typeof $scope.loadedOptions.fontSelect !== 'undefined') {
+				$scope.options.fontSelect.value = $scope.loadedOptions.fontSelect.value;
+				console.log($scope.loadedOptions.fontSelect.value);
+				$scope.selectedFont = {
+					"font-family": "'"+ $scope.loadedOptions.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
+				};
+			}
+			if (typeof $scope.loadedOptions.searchPrefixInputs !== 'undefined' && $scope.loadedOptions.searchPrefixInputs !== null) {
+				$scope.options.searchPrefixInputs = $scope.loadedOptions.searchPrefixInputs;
+			}
+			if (typeof $scope.loadedOptions.switchPseudoMods !== 'undefined' && $scope.loadedOptions.switchPseudoMods !== null) {
+				$scope.options.switchPseudoMods = $scope.loadedOptions.switchPseudoMods;
+			}
+			if (typeof $scope.loadedOptions.switchItemsPerRow !== 'undefined' && $scope.loadedOptions.switchItemsPerRow !== null) {
+				$scope.options.switchItemsPerRow = $scope.loadedOptions.switchItemsPerRow;
+			}
+			if (typeof $scope.loadedOptions.showAdvancedStats !== 'undefined' && $scope.loadedOptions.showAdvancedStats !== null) {
+				$scope.options.showAdvancedStats = $scope.loadedOptions.showAdvancedStats;
+			}
+			if (typeof $scope.loadedOptions.switchOnlinePlayersOnly !== 'undefined' && $scope.loadedOptions.switchOnlinePlayersOnly !== null) {
+				$scope.options.switchOnlinePlayersOnly = $scope.loadedOptions.switchOnlinePlayersOnly;
+			}
+		}
 
 		var automatedSearchIntervalFn = function () {
 			if ($scope.savedAutomatedSearches && $scope.savedAutomatedSearches.length > 0) {
@@ -644,33 +693,6 @@ function indexerLeagueToLadder(league) {
 			var snd = new Audio($scope.audioPath+$scope.audioAlerts[0]); // buffers automatically when created
 			snd.play();
 		};
-
-		function checkDefaultOptions() {
-			if (typeof $scope.loadedOptions.leagueSelect !== 'undefined') {
-				$scope.options.leagueSelect.value = $scope.loadedOptions.leagueSelect.value;
-			}
-			if (typeof $scope.loadedOptions.buyoutSelect !== 'undefined') {
-				$scope.options.buyoutSelect.value = $scope.loadedOptions.buyoutSelect.value;
-			}
-			if (typeof $scope.loadedOptions.verificationSelect !== 'undefined') {
-				$scope.options.verificationSelect.value = $scope.loadedOptions.verificationSelect.value;
-			}
-			if (typeof $scope.loadedOptions.searchPrefixInputs !== 'undefined' && $scope.loadedOptions.searchPrefixInputs !== null) {
-				$scope.options.searchPrefixInputs = $scope.loadedOptions.searchPrefixInputs;
-			}
-			if (typeof $scope.loadedOptions.switchPseudoMods !== 'undefined' && $scope.loadedOptions.switchPseudoMods !== null) {
-				$scope.options.switchPseudoMods = $scope.loadedOptions.switchPseudoMods;
-			}
-			if (typeof $scope.loadedOptions.switchItemsPerRow !== 'undefined' && $scope.loadedOptions.switchItemsPerRow !== null) {
-				$scope.options.switchItemsPerRow = $scope.loadedOptions.switchItemsPerRow;
-			}
-			if (typeof $scope.loadedOptions.showAdvancedStats !== 'undefined' && $scope.loadedOptions.showAdvancedStats !== null) {
-				$scope.options.showAdvancedStats = $scope.loadedOptions.showAdvancedStats;
-			}
-			if (typeof $scope.loadedOptions.switchOnlinePlayersOnly !== 'undefined' && $scope.loadedOptions.switchOnlinePlayersOnly !== null) {
-				$scope.options.switchOnlinePlayersOnly = $scope.loadedOptions.switchOnlinePlayersOnly;
-			}
-		}
 
 		function createSearchPrefix(options, containsLeagueTerm = false, containsBuyoutTerm = false, containsVerifyTerm = false) {
 			var searchPrefix = "";
