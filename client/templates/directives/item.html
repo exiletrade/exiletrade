@@ -15,13 +15,13 @@
 					   ngclipboard
 					   data-clipboard-text="{{copyWhisperToClipboard(item)}}">{{item._source.info.fullName}}</a>
 				</h5>
-					<span>
-						<a class="saveNotificationLink button float-right" title="Save Item" content="Saved: {{item._source.info.fullName}}"
-						   color="success" autoclose="2000" zf-notify="save-notification-{{item._id}}">
-							<img zf-iconic="" icon="circle-check" size="medium" ng-click="saveItem(item._id, item._source.info.fullName, item._source.shop.lastCharacterName)"
-								 class="float-right">
-						</a>
-					</span>
+				<span>
+					<a class="saveNotificationLink button float-right" title="Save Item" content="Saved: {{item._source.info.fullName}}"
+					   color="success" autoclose="2000" zf-notify="save-notification-{{item._id}}">
+						<img zf-iconic="" icon="circle-check" size="medium" ng-click="saveItem(item._id, item._source.info.fullName, item._source.shop.lastCharacterName)"
+							 class="float-right">
+					</a>
+				</span>
 				<div class="switch small float-right">
 					<input type="checkbox" id="switch-{{item._id}}"
 					   ng-model="switchValue"
@@ -432,7 +432,7 @@
 					</table>
 				</div>
 			</div>
-			<div class="grid-block sell-infos medium-12">
+			<div class="grid-block sell-infos medium-12" ng-if="true">
 				<span class=""  ng-if="item._source.shop.saleType && item._source.shop.amount > 0">
 					{{item._source.shop.saleType}}:
 				</span>
