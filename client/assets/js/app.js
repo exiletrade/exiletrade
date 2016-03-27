@@ -591,6 +591,9 @@ function indexerLeagueToLadder(league) {
 			'alarm_to_the_extreme.mp3'
 		];
 
+		/*
+		* Create options
+		* */
 		$scope.options = {
 			"leagueSelect": {
 				"type": "select",
@@ -626,6 +629,19 @@ function indexerLeagueToLadder(league) {
 			};
 		};
 
+		/*
+		 * Create tabs
+		 * */
+		$scope.tabs = [{
+			title: 'Results',
+			id: 0,
+			newItems: 0
+		}];
+		$scope.currentTab = 0;
+
+		/*
+		 * Check if options are being loaded and assign values
+		 * */
 		if ($scope.loadedOptions) checkDefaultOptions();
 
 		function checkDefaultOptions() {
@@ -1420,6 +1436,17 @@ function indexerLeagueToLadder(league) {
 				b: playerOnlineService.getStashOnlinePlayers()
 			});
 		}
+
+		/*
+			Handle tabs
+		*/
+		$scope.onClickTab = function (tab) {
+			$scope.currentTab = tab.id;
+			$scope.tabs[tab.id].newItems = 0;
+		};
+		$scope.isActiveTab = function(tabId) {
+			return tabId == $scope.currentTab;
+		};
 	}]);
 
 
@@ -1506,23 +1533,23 @@ function indexerLeagueToLadder(league) {
 	});
 
 	appModule.directive('execOnScrollToBottom', function () {
-	  return {
-		restrict: 'A',
-        scope: true,
-		link: function (scope, element, attrs) {
-		  var mainGrid = element[0].parentElement;
-		  mainGrid.onscroll = function (e) {
-			var el = e.target;
-			var allowance = 340;
-			var clientHeight = mainGrid.clientHeight;
-			// console.log("Scrolling = " + (el.scrollHeight - el.scrollTop) + " to " + clientHeight + " with allowance " + allowance);
-			if ((el.scrollHeight - el.scrollTop) <= (clientHeight + allowance)) { // fully scrolled
-			  //debugOutput("Scrolled to bottom", 'trace');
-			  scope.$apply(attrs.execOnScrollToBottom); 
+		return {
+			restrict: 'A',
+			scope: true,
+			link: function (scope, element, attrs) {
+				var mainGrid = element[0].parentElement;
+				mainGrid.onscroll = function (e) {
+					var el = e.target;
+					var allowance = 340;
+					var clientHeight = mainGrid.clientHeight;
+					// console.log("Scrolling = " + (el.scrollHeight - el.scrollTop) + " to " + clientHeight + " with allowance " + allowance);
+					if ((el.scrollHeight - el.scrollTop) <= (clientHeight + allowance)) { // fully scrolled
+						//debugOutput("Scrolled to bottom", 'trace');
+						scope.$apply(attrs.execOnScrollToBottom);
+					}
+				};
 			}
-		  };
-		}
-	  };
+		};
 	});
 
 	appModule.directive('item', function () {

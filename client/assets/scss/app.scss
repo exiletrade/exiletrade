@@ -229,6 +229,7 @@ img.pageLogo {
 	a {
 		font-family: monospace;
 	}
+	margin-bottom: 20px;
 }
 
 .guide {
@@ -954,6 +955,41 @@ img.gitter-badge {
 	.controls {
 		.saveNotificationLink, .switch {
 			display: none;
+		}
+	}
+}
+
+#tabs {
+	.tab-headers {
+		padding: 0 1rem;
+		margin: 0 5px;
+		div {
+			padding: 5px;
+			border: 1px solid $primary-color;
+			background-color: $primary-color;
+			cursor: pointer;
+			position: relative;
+
+			&:hover {
+				background-color: darken($primary-color, 2%);
+			}
+			&.active {
+				background-color: lighten($primary-color, 2%);
+				cursor: default;
+			}
+
+			.tab-title {
+				width: 100%;
+				padding: 0 1rem;
+			}
+			.badge {
+				position: absolute;
+				right: 2px;
+				top: 2px;
+				font-size: rem-calc(10px);
+				width: 1rem;
+				height: 1rem;
+			}
 		}
 	}
 }

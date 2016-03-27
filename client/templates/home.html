@@ -418,19 +418,34 @@ url: /
 
 	<!-- Searchresults -->
 	<div class="grid-content search-results">
-		<div class="grid-block search-items large-up-2">
-			<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style="options.switchItemsPerRow"
-				 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
-				<!-- Inserting templates/directives/item.html -->
-				<div item></div>
+		<div id="tabs">
+			<div class="tab-headers grid-block" ng-show="(tabs.length>1)">
+				<div ng-repeat="tab in tabs"
+					 ng-class="{active:isActiveTab(tab.id)}"
+					 ng-click="onClickTab(tab)"
+					class="grid-block text-center">
+					<span class="tab-title">{{tab.title}}</span>
+					<span class="alert badge" ng-show="tab.newItems">{{tab.newItems}}</span>
+				</div>
 			</div>
-		</div>
-		<div ng-show='isScrollBusy' class="scrollIndicator grid-content">
-			<p class="loading">Loading data
-				<span class="">.</span>
-				<span class="">.</span>
-				<span class="">.</span>
-			</p>
+			<div class="tab-contents clearfix">
+				<div class="grid-block search-items large-up-2 tab"
+					 ng-class="{active:isActiveTab(tab.id)}" ng-show="isActiveTab(tab.id)" ng-repeat="tab in tabs">
+					<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style="options.switchItemsPerRow"
+						 ng-if="tab.id==0"
+						 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
+						<!-- Inserting templates/directives/item.html -->
+						<div item></div>
+					</div>
+					<div ng-show='isScrollBusy' class="scrollIndicator grid-content">
+						<p class="loading">Loading data
+							<span class="">.</span>
+							<span class="">.</span>
+							<span class="">.</span>
+						</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
