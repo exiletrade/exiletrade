@@ -5,68 +5,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Exile Trade</title>
 	<link href="./assets/css/app.css" rel="stylesheet" type="text/css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.8/clipboard.min.js"></script>
-	<script src="./assets/js/foundation.js"></script>
-	<script src="./assets/js/templates.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticsearch/10.1.3/elasticsearch.angular.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-cache/4.5.0/angular-cache.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-spinner/0.8.1/angular-spinner.min.js"></script>
-	<script>
-		var terms = {};
-		// the output from google calls a function 'google.visualization.Query.setResponse()'
-		// and passes a json data that is not so human-readable.
-		window.google = {
-			'visualization' : {
-				'Query' : {
-					'setResponse' : function (data) {
-						var rows = data.table.rows;
-						for(i in rows) {
-							var row = rows[i].c;
-							terms[row[0].v] = {
-								'query' : row[1].v,
-								'filter' : row[2].v
-							};
-						}
-					}
-				}
-			} 
-		}
-	</script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=675822745&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=40738669&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=244311060&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1965399973&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1443807460&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=57824604&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=224979895&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=14190859&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=154866940&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=583395837&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=380600191&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1782931570&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=223573764&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=207179951&headers=1"></script>
-	<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1732537543&headers=1"></script>
-	
-	<script src="./assets/js/routes.js"></script>
-	<script src="./assets/js/app.js"></script>
-	<script>
-		(function (i, s, o, g, r, a, m) {
-			i['GoogleAnalyticsObject'] = r;
-			i[r] = i[r] || function () {
-				(i[r].q = i[r].q || []).push(arguments)
-			}, i[r].l = 1 * new Date();
-			a = s.createElement(o),
-					m = s.getElementsByTagName(o)[0];
-			a.async = 1;
-			a.src = g;
-			m.parentNode.insertBefore(a, m)
-		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-		ga('create', 'UA-69246337-1', 'auto');
-		ga('send', 'pageview');
-	</script>
+	<link rel="icon"
+		  type="image/png"
+		  href="./assets/img/favicon.ico">
 </head>
 <body zf-esc-close>
 
@@ -107,5 +48,68 @@
 
 	</div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.8/clipboard.min.js"></script>
+<script src="./assets/js/foundation.js"></script>
+<script src="./assets/js/templates.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticsearch/10.1.3/elasticsearch.angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-cache/4.5.0/angular-cache.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-spinner/0.8.1/angular-spinner.min.js"></script>
+<script>
+	var terms = {};
+	// the output from google calls a function 'google.visualization.Query.setResponse()'
+	// and passes a json data that is not so human-readable.
+	window.google = {
+		'visualization' : {
+			'Query' : {
+				'setResponse' : function (data) {
+					var rows = data.table.rows;
+					for(i in rows) {
+						var row = rows[i].c;
+						terms[row[0].v] = {
+							'query' : row[1].v,
+							'filter' : row[2].v
+						};
+					}
+				}
+			}
+		}
+	}
+</script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=675822745&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=40738669&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=244311060&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1965399973&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1443807460&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=57824604&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=224979895&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=14190859&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=154866940&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=583395837&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=380600191&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1782931570&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=223573764&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=207179951&headers=1"></script>
+<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C&gid=1732537543&headers=1"></script>
+
+<script src="./assets/js/routes.js"></script>
+<script src="./assets/js/app.js"></script>
+<script>
+	(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+	ga('create', 'UA-69246337-1', 'auto');
+	ga('send', 'pageview');
+</script>
 </body>
 </html>
