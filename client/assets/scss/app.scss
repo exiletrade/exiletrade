@@ -118,6 +118,12 @@ img.pageLogo {
 .label.mirrored {
 	padding: 0.13333rem 0.5rem;
 	background-color: grey;
+	vertical-align: middle;
+}
+.label.mirrored, .label.corrupted {
+	vertical-align: middle;
+	display: inline-block !important;
+	margin-bottom: 4px;
 }
 
 .noselect {
