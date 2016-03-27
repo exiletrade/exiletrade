@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en" ng-app="EsConnector">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Hello World Example w/ Angular</title>
+
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <!-- Warning, I've seen some glitchy errors on newer versions, I think they require node.js installation or some idiocy -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticsearch/10.0.1/elasticsearch.angular.min.js"></script>
+  <script>
+  
+    // We define an EsConnector module that depends on the elasticsearch module.     
+    var EsConnector = angular.module('EsConnector', ['elasticsearch']);
+
+    // Create the es service from the esFactory
+    EsConnector.service('es', function (esFactory) {
+      return esFactory({ host: 'http://apikey:DEVELOPMENT-Indexer@api.exiletools.com' });
+    });
+
+    EsConnector.controller('ExileToolsHelloWorld', function($scope, es) {
+      // Set up the ES Search function
+      es.search({
+          index: 'index',
+              body: {
+                  "aggs": {
+                    "filtered": {
+                      "filter" : { 
+                                    "bool" : {
+                                        "must" : [
+                                            {
+                                                "term" : {
+                                                    "attributes.rarity" : "Unique"
+                                                }
+                                            },
+                                            {
+                                                "term" : {
+                                                    "shop.verified" : "GONE"
+                                                }
+                                            },
+                                            {
+                                                "term" : {
+                                                    "attributes.identified" : true
+                                                }
+                                            },
+                                            {
+                                                "term" : {
+                                                    "attributes.league" : "Hardcore Perandus"
+                                                }
+                                            },
+											{
+                                                "range" : {
+                                                    "shop.chaosEquiv" : { "ge" : 0 }
+                                                }
+                                            },
+											{
+                                                "range" : {
+                                                    "requirements.Level" : { "gte" : 40 }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                 },
+                      "aggs": {
+                        "agg1": {
+                              "terms": {
+                                "field": "attributes.itemType",
+                                size:10000
+                              },
+							  "aggs" : {
+								"agg2" : {
+									"terms" : {
+										"field" : "info.fullName",
+                                        size:10000
+									},
+									"aggs" : {
+										"agg3" : {
+											"range" : {
+												"field" : "shop.chaosEquiv",
+												"ranges" : [
+													{ "to" : 10 },
+													{ "from" : 10, "to" : 20 },
+													{ "from" : 20, "to" : 30 },
+													{ "from" : 30, "to" : 50 },
+													{ "from" : 50, "to" : 70 },
+													{ "from" : 70, "to" : 90 },
+													{ "from" : 100, "to" : 120 },
+													{ "from" : 120, "to" : 140 },
+													{ "from" : 140, "to" : 200 },
+													{ "from" : 200 }
+												]
+											}
+										}
+									}
+								}
+							  }
+                            }
+                      }
+                    }
+                  },
+                  "size": 0
+              }
+      }).then(function (response) {
+		
+		$.each(response.aggregations.filtered.agg1.buckets, function (idx1, agg1Value) {
+			var buckets = agg1Value.agg2.buckets.filter(function (agg2Value) {
+				var totalItemsGoneAtHighValue = 0;
+				$.each(agg2Value.agg3.buckets, function (idx3, agg3Value) {
+					if (agg3Value.from && agg3Value.from >= 30) totalItemsGoneAtHighValue += agg3Value.doc_count;
+				})
+				return totalItemsGoneAtHighValue > 100;
+			})
+			agg1Value.agg2.buckets = buckets;
+		})
+	  
+        $scope.Response = response;
+      }, function (err) {
+        console.trace(err.message);
+      });
+
+    });
+  
+  </script> --
+
+</head>
+<body>
+<!-- Main div starts at 0 spacing for simplicity -->
+<div id="main" style="width:100%;padding-left:50px;padding-right:50px" ng-controller="ExileToolsHelloWorld" >
+  <h1>Durian Term Genrator. You should see response data below. If not, check your console!</h1>
+  <hr width=100% size=1>
+
+  <div>
+    <li>Request took {{Response.took}} ms
+    <li>Request matched {{Response.hits.total}} hits
+    <p>Here is some information on the items returned:</p>
+
+    <ol>
+      <!--li ng-repeat="(k,v) in Response">{{k}} - {{v | json}}</li-->
+      <li ng-repeat="v in Response.aggregations.filtered.agg1.buckets">
+		{{v.key}} <br/>
+		<ol>
+			<li ng-repeat="agg2Bucket in v.agg2.buckets">
+				{{agg2Bucket.key}}
+				<ol>
+					<li ng-repeat="agg3Bucket in agg2Bucket.agg3.buckets">
+						{{agg3Bucket.key}} - {{agg3Bucket.doc_count}}
+					</li>
+				</ol>
+			</li>
+		</ol>
+	  </li>
+    </ol>
+  </div>
+</div>
+</body>
+</html>
