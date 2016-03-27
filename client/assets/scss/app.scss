@@ -919,6 +919,21 @@ img.gitter-badge {
 		top: 10px;
 		left: 10px;
 	}
+
+	.soundPreview {
+		width: 1.2rem;
+		height: 1.2rem;
+		margin-left: 10px;
+		cursor: pointer;
+		svg {
+			width: 9px !important;
+			height: 9px !important;
+			margin-left: 1px;
+		}
+	}
+	.prefixes {
+		margin-top: 15px;
+	}
 }
 
 #savedSearchesPanel {

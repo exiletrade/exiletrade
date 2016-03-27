@@ -56,8 +56,6 @@ url: /
 		<!--<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>-->
 		<a href="#" ng-click="scrollToTop()" class="button small absoluteNavBtn scrollTop">Scroll Top</a>
 
-		<button ng-click="playTestSound()" style="display:none">SoundTest</button>
-
 		<!-- bad search input accordion -->
 		<div ng-if="badSearchInputTerms.length" class="badSearchInputTerms">
 			<zf-accordion>
@@ -299,7 +297,7 @@ url: /
 
 			<div class="grid-block search-options">
 				<section class="block-list">
-					<header>Display Options</header>
+					<header>General Options</header>
 					<ul>
 						<li>
 							<span>Show PseudoMods</span>
@@ -336,9 +334,26 @@ url: /
 									ng-options="v for v in options.fontSelect.options" ng-change="setFontFamily()">
 							</select>
 						</li>
+						<header>Select Notification Sound
+							<span class="badge soundPreview" title="Preview Sound" ng-click="playSound()">
+								<img zf-iconic="" icon="chevron" data-direction="right" size="small">
+							</span>
+						</header>
+						<li class="with-dropdown">
+							<select name="" ng-model="options.soundSelect.value" id="option-sound"
+									ng-options="v for v in options.soundSelect.options" ng-change="loadSound()">
+							</select>
+						</li>
+						<li>
+							<span class="label-muteSound">Mute notification sound</span>
+							<div class="switch small">
+								<input type="checkbox" ng-model="options.muteSound" id="muteSound">
+								<label for="muteSound"></label>
+							</div>
+						</li>
 					</ul>
 				</section>
-				<section class="block-list">
+				<section class="block-list prefixes">
 					<header>Search Prefixes</header>
 					<ul>
 						<li class="with-dropdown">

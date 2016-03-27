@@ -436,7 +436,7 @@ function indexerLeagueToLadder(league) {
 				console.error("Invalid result from ladderAllPlayerCache - " + url);
 				console.error(result);
 				return [];				
-			})
+			});
 			ladderAllPlayerCache.put(league, promise);
 			return promise;
 	    }
@@ -585,11 +585,17 @@ function indexerLeagueToLadder(league) {
 		$scope.lastRequestedSavedItem = {};
 		$scope.selectedFont = {};
 		$scope.audioPath = './assets/sound/';
+
+		/*
+		 * The soundfiles and sound select names have to be matched
+		 * in loadSounds() function
+		 * */
 		$scope.audioAlerts = [
 			'Tinkle-Lisa_Redfern-1916445296.mp3',
 			'double_tone.mp3',
 			'alarm_to_the_extreme.mp3'
 		];
+		$scope.snd = new Audio($scope.audioPath+$scope.audioAlerts[0]);
 
 		/*
 		* Create options
@@ -619,14 +625,15 @@ function indexerLeagueToLadder(league) {
 				"value": 'Fontin',
 				"options": ["Fontin", "Verdana", "Helvetica Neue"]
 			},
+			"soundSelect": {
+				"type": "select",
+				"name": "Sound",
+				"value": 'Tinkle',
+				"options": ["Tinkle", "Double Tone", "Extreme Alarm"]
+			},
 			"searchPrefixInputs": [],
-			"switchOnlinePlayersOnly" : true
-		};
-
-		$scope.setFontFamily = function(){
-			$scope.selectedFont = {
-				"font-family": "'"+ $scope.options.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
-			};
+			"switchOnlinePlayersOnly" : true,
+			"muteSound" : false
 		};
 
 		/*
@@ -638,6 +645,21 @@ function indexerLeagueToLadder(league) {
 			newItems: 0
 		}];
 		$scope.currentTab = 0;
+
+		/*
+		 * Load new sound; play sound preview
+		 * */
+		$scope.loadSound = function(){
+			/* Get index of selected sound to match against audioAlerts array
+			 * Sounds have to be in same order in audioAlerts and soundSelect.options */
+			var i = $scope.options.soundSelect.options.indexOf($scope.options.soundSelect.value);
+			$scope.snd.src = $scope.audioPath+$scope.audioAlerts[i];
+			$scope.snd.load();
+		};
+
+		$scope.playSound = function () {
+			$scope.snd.play();
+		};
 
 		/*
 		 * Check if options are being loaded and assign values
@@ -661,6 +683,10 @@ function indexerLeagueToLadder(league) {
 					"font-family": "'"+ $scope.loadedOptions.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
 				};
 			}
+			if (typeof $scope.loadedOptions.soundSelect !== 'undefined') {
+				$scope.options.soundSelect.value = $scope.loadedOptions.soundSelect.value;
+				$scope.loadSound();
+			}
 			if (typeof $scope.loadedOptions.searchPrefixInputs !== 'undefined' && $scope.loadedOptions.searchPrefixInputs !== null) {
 				$scope.options.searchPrefixInputs = $scope.loadedOptions.searchPrefixInputs;
 			}
@@ -677,6 +703,12 @@ function indexerLeagueToLadder(league) {
 				$scope.options.switchOnlinePlayersOnly = $scope.loadedOptions.switchOnlinePlayersOnly;
 			}
 		}
+
+		$scope.setFontFamily = function(){
+			$scope.selectedFont = {
+				"font-family": "'"+ $scope.options.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
+			};
+		};
 
 		var automatedSearchIntervalFn = function () {
 			if ($scope.savedAutomatedSearches && $scope.savedAutomatedSearches.length > 0) {
@@ -700,20 +732,15 @@ function indexerLeagueToLadder(league) {
 					var total = results
 						.reduce(function (a, b) { return a + b; });
 					if (total > 0) {
-						var snd = new Audio($scope.audioPath+$scope.audioAlerts[0]); // buffers automatically when created
-						snd.play();
+						if (!$scope.options.muteSound) {
+							$scope.snd.play();
+						}
 					}
 				});
 			}
 		};
 		automatedSearchIntervalFn();
 		$interval(automatedSearchIntervalFn, 30000);
-
-		$scope.playTestSound = function () {
-			console.log('play');
-			var snd = new Audio($scope.audioPath+$scope.audioAlerts[1]); // buffers automatically when created
-			snd.play();
-		};
 
 		function createSearchPrefix(options, containsLeagueTerm, containsBuyoutTerm, containsVerifyTerm) {
 			containsLeagueTerm = defaultFor(containsLeagueTerm, false);
@@ -1447,6 +1474,8 @@ function indexerLeagueToLadder(league) {
 		$scope.isActiveTab = function(tabId) {
 			return tabId == $scope.currentTab;
 		};
+
+
 	}]);
 
 
