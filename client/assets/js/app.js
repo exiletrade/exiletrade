@@ -17,6 +17,11 @@ function debugOutput(input, outputType) {
 
 	}
 }
+
+function defaultFor(arg, val) {
+	return typeof arg !== 'undefined' ? arg : val;
+}
+
 // expects array
 //returns {'corrected', 'unCorrectable'
 function badUserInput(badTokens) {
@@ -694,7 +699,11 @@ function indexerLeagueToLadder(league) {
 			snd.play();
 		};
 
-		function createSearchPrefix(options, containsLeagueTerm = false, containsBuyoutTerm = false, containsVerifyTerm = false) {
+		function createSearchPrefix(options, containsLeagueTerm, containsBuyoutTerm, containsVerifyTerm) {
+			containsLeagueTerm = defaultFor(containsLeagueTerm, false);
+			containsBuyoutTerm = defaultFor(containsBuyoutTerm, false);
+			containsVerifyTerm = defaultFor(containsVerifyTerm, false);
+
 			var searchPrefix = "";
 			if (!containsLeagueTerm) {
 				searchPrefix = options['leagueSelect']['value'].replace(" ", "");
