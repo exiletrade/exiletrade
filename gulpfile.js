@@ -133,6 +133,16 @@ gulp.task('copy:images', function (cb) {
 	cb();
 });
 
+// Copy sounds
+gulp.task('copy:sound', function (cb) {
+	// Asset icons
+	gulp.src('./client/assets/sound/**/*.+(mp3|wmv)')
+		.pipe(gulp.dest(destination + '/assets/sound/'))
+	;
+
+	cb();
+});
+
 // Copy Demo Build to production repo
 gulp.task('copy:build', function (cb) {
 	if (isDemo) {
@@ -211,7 +221,7 @@ gulp.task('server', ['build'], function () {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function (cb) {
-	sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', 'copy:images', 'copy:build', cb);
+	sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', 'copy:images', 'copy:sound', 'copy:build', cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change
@@ -227,6 +237,9 @@ gulp.task('default', ['server'], function () {
 
 	// Watch Images
 	gulp.watch(['./client/assets/img/**/*', './img/**/*.+(jpg|jpeg|gif|png|svg)'], ['copy:images']);
+
+	// Watch sound files
+	gulp.watch(['./client/assets/sound/**/*', './sound/**/*.+(mp3|wmv)'], ['copy:sound']);
 
 	// Watch app templates
 	gulp.watch(['./client/templates/**/*.html'], ['copy:templates']);

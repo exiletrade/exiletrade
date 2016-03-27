@@ -711,7 +711,7 @@ function indexerLeagueToLadder(league) {
 
 		$scope.playTestSound = function () {
 			console.log('play');
-			var snd = new Audio($scope.audioPath+$scope.audioAlerts[0]); // buffers automatically when created
+			var snd = new Audio($scope.audioPath+$scope.audioAlerts[1]); // buffers automatically when created
 			snd.play();
 		};
 
