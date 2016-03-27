@@ -702,6 +702,9 @@ function indexerLeagueToLadder(league) {
 			if (typeof $scope.loadedOptions.switchOnlinePlayersOnly !== 'undefined' && $scope.loadedOptions.switchOnlinePlayersOnly !== null) {
 				$scope.options.switchOnlinePlayersOnly = $scope.loadedOptions.switchOnlinePlayersOnly;
 			}
+			if (typeof $scope.loadedOptions.muteSound !== 'undefined' && $scope.loadedOptions.muteSound !== null) {
+				$scope.options.muteSound = $scope.loadedOptions.muteSound;
+			}
 		}
 
 		$scope.setFontFamily = function(){
