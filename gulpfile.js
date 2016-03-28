@@ -48,6 +48,7 @@ var paths = {
 		'bower_components/angular-animate/angular-animate.min.js',
 		'bower_components/angular-ui-router/release/angular-ui-router.min.js',
 		'bower_components/angular-scroll/angular-scroll.min.js',
+		'bower_components/favico.js/favico.js',
 		'bower_components/foundation-apps/js/vendor/**/*.js',
 		'bower_components/foundation-apps/js/angular/**/*.js',
 		'!bower_components/foundation-apps/js/angular/app.js',
