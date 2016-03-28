@@ -472,9 +472,14 @@
 				<span ng-init="counter = 0">
 					<a ngclipboard class="click small hollow whisper-btn noselect"
 					   data-clipboard-text="{{copyWhisperToClipboard(item)}}"
-					   ng-click="counter = counter + 1"
+					   ng-click="whiserperCounter = whiserperCounter + 1"
 					   color="success" autoclose="2000" zf-open="save-notification-whisper">
-						Whisper<span ng-if="counter > 0"> ({{counter}})</span>
+						Whisper<span ng-if="whiserperCounter > 0"> ({{whiserperCounter}})</span>
+					<a ngclipboard class="click small hollow whisper-btn noselect"
+					   data-clipboard-text="/whois {{item._source.shop.lastCharacterName}}"
+					   ng-click="whoisCounter = whoisCounter + 1"
+					   color="success" autoclose="2000" zf-open="save-notification-whois">
+						Whois<span ng-if="whoisCounter > 0"> ({{whoisCounter}})</span>
 					</a>
 					<i class="seperator"></i>
 				</span>
