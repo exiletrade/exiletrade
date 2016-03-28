@@ -16,9 +16,9 @@
 					   data-clipboard-text="{{copyWhisperToClipboard(item)}}">{{item._source.info.fullName}}</a>
 				</h5>
 				<span>
-					<a class="saveNotificationLink button float-right" title="Save Item" content="Saved: {{item._source.info.fullName}}"
+					<a class="saveNotificationLink button float-right" title="Bookmark Item" content="Saved: {{item._source.info.fullName}}"
 					   color="success" autoclose="2000" zf-notify="save-notification-{{item._id}}">
-						<img zf-iconic="" icon="circle-check" size="medium" ng-click="saveItem(item._id, item._source.info.fullName, item._source.shop.lastCharacterName)"
+						<img zf-iconic="" icon="cart" size="medium" ng-click="saveItem(item._id, item._source.info.fullName, item._source.shop.lastCharacterName)"
 							 class="float-right">
 					</a>
 				</span>

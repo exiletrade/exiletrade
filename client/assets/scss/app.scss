@@ -137,8 +137,10 @@ img.pageLogo {
 }
 
 
-.button .iconic {
-	margin-top: 0;
+.button.small, .button, .button.medium {
+	.iconic {
+		margin-top: 0;
+	}
 }
 .app-header {
 	color: white;
@@ -163,6 +165,12 @@ img.pageLogo {
 		padding:4px;
 		margin: 2px;
 	}
+
+	.button.hollow {
+		&:hover {
+			color: $link_color;
+		}
+	}
 }
 
 .menu-bar {
@@ -184,11 +192,23 @@ img.pageLogo {
 	hr {
 		margin-top: 5px;
 	}
+
+	.add-icon {
+		width: 13px;
+		margin-right: 5px;
+	}
 }
 #searchField {
 	background-color: $color_input_bg;
 	color: white;
 	border-color: $primary-color;
+
+	.button {
+		.iconic {
+			width: 13px;
+			height: 13px;
+		}
+	}
 }
 
 .badSearchInputTerms, .sampleSearches, .termsGuide, .spoiler, .panel {
@@ -292,6 +312,17 @@ img.pageLogo {
 		top:136px;
 	}
 }
+.external-link {
+	&:after {
+		content: '';
+		background-image: url('../img/external.svg');
+		background-size: contain;
+		width: 10px;
+		height: 10px;
+		display: inline-block;
+		margin: 0 3px;
+	}
+}
 
 .footer {
 	max-height:50px;
@@ -383,6 +414,16 @@ img.gitter-badge {
     font-size: 14px;
 }
 
+.modal-overlay {
+	p {
+		color: $primary-color;
+
+		a {
+			color: $primary-color;
+			text-decoration: underline;
+		}
+	}
+}
 
 .search-results, #showItemModal, .panel {
 	.scrollIndicator {
