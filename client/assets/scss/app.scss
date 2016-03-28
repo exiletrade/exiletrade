@@ -136,6 +136,10 @@ img.pageLogo {
                                   not supported by any browser */
 }
 
+
+.button .iconic {
+	margin-top: 0;
+}
 .app-header {
 	color: white;
 	background-color: #2b2b2b;
@@ -274,6 +278,9 @@ img.pageLogo {
 	padding: 6px;
 	box-shadow: 3px 0 10px rgba(1, 1, 1, 0.4);
 	border: 1px solid $border_color;
+}
+.openSaves {
+	box-shadow: -3px 0 10px rgba(1, 1, 1, 0.4);
 }
 
 .openOptions {
@@ -925,6 +932,9 @@ img.gitter-badge {
 		height: 1.2rem;
 		margin-left: 10px;
 		cursor: pointer;
+		box-shadow: 0px 0 10px rgba(1, 1, 1, 0.4);
+		border: 1px solid $border_color;
+
 		svg {
 			width: 9px !important;
 			height: 9px !important;
