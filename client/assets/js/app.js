@@ -740,7 +740,8 @@ function indexerLeagueToLadder(league) {
 			if ($scope.savedAutomatedSearches && $scope.savedAutomatedSearches.length > 0) {
 				debugOutput('Gonna run counts on automated searches: ' + $scope.savedAutomatedSearches.length, 'trace');
 				var countPromises = $scope.savedAutomatedSearches.map(function (search) {
-					var queryString = buildQueryString(search.searchInput);
+					var queryString = buildQueryString(search.searchInput + " timeStamp" + search.lastSearch);
+					search.lastSearch = new Date().getTime();
 					var promise = es.count({
 					  index: 'index',
 					  body: buildEsBody(queryString),
@@ -1181,6 +1182,8 @@ function indexerLeagueToLadder(league) {
 		$scope.saveAutomatedSearch = function () {
 			//ga('send', 'event', 'Save', 'Last Search', $scope.searchInput);
 			var search = { searchInput: $scope.searchInput };
+			var now = new Date()
+			var search = { searchInput: $scope.searchInput + " timestamp" + now.getTime(), lastSearch: now.getTime()};
 			var savedSearches = [];
 
 			if (localStorage.getItem("savedAutomatedSearches") !== null) {
