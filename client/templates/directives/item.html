@@ -144,7 +144,7 @@
 						</div>
 
 						<div class="grid-block modsPseudo">
-							<ul ng-show="options.switchPseudoMods==true" ng-if="!(item._source.modsPseudo | isEmpty)">
+							<ul ng-show="options.switchPseudoMods" ng-if="!(item._source.modsPseudo | isEmpty)">
 								<li>[Pseudo Mods]</li>
 								<li class="sortable" ng-repeat="mod in getItemMods(item._source.modsPseudo)"
 									data-mod="{{mod}}">
