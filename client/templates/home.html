@@ -291,7 +291,7 @@ url: /
 		<div zf-panel="" id="searchOptions">
 			<a href="#" zf-close="" ng-click="saveOptions()" class="button small saveOptionsLink" title="Saved Options."
 			   color="success" autoclose="2500" zf-notify="save-notification-options">
-				<img zf-iconic="" icon="circle-check" size="small">Save
+				Save
 			</a>
 			<a zf-close="" class="close-button ng-scope">×</a>
 
@@ -299,33 +299,53 @@ url: /
 				<section class="block-list">
 					<header>General Options</header>
 					<ul>
-						<li>
-							<span>Show PseudoMods</span>
+						<li class="showLabelOnInput">
+							<span class="checkboxLabel">Show PseudoMods</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.switchPseudoMods" id="switch-pseudoMods">
-								<label for="switch-pseudoMods"></label>
+								<label for="switch-pseudoMods">
+									<img ng-show="options.switchPseudoMods" zf-iconic="" icon="circle-check" size="small">
+									<img ng-show="!options.switchPseudoMods" zf-iconic="" icon="circle-x" size="small">
+									<span ng-show="options.switchPseudoMods">Show PseudoMods</span>
+									<span ng-show="!options.switchPseudoMods">Hide PseudoMods</span>
+								</label>
 							</div>
 						</li>
-						<li>
-							<span class="label-advancedStats">Show Advanced Item Stats</span>
+						<li class="showLabelOnInput">
+							<span class="label-advancedStats checkboxLabel">Show Advanced Item Stats</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.showAdvancedStats" id="showAdvancedStats">
-								<label for="showAdvancedStats"></label>
+								<label for="showAdvancedStats">
+									<img ng-show="options.showAdvancedStats" zf-iconic="" icon="circle-check" size="small">
+									<img ng-show="!options.showAdvancedStats" zf-iconic="" icon="circle-x" size="small">
+									<span ng-show="options.showAdvancedStats">Show Advanced Infos</span>
+									<span ng-show="!options.showAdvancedStats">Hide Advanced Infos</span>
+								</label>
 							</div>
 						</li>
-						<li>
-							<span>Show 1 Item per row</span>
+						<li class="showLabelOnInput">
+							<span class="checkboxLabel">Show 1 Item per row</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
 									   ng-true-value="{maxWidth:'100%',flexBasis:'100%'}" ng-false-value="">
-								<label for="switch-itemsPerRow"></label>
+								<label for="switch-itemsPerRow">
+									<img ng-show="options.switchItemsPerRow" zf-iconic="" icon="circle-check" size="small">
+									<img ng-show="!options.switchItemsPerRow" zf-iconic="" icon="circle-x" size="small">
+									<span ng-show="options.switchItemsPerRow">One Item per Row</span>
+									<span ng-show="!options.switchItemsPerRow">Two Items per Row</span>
+								</label>
 							</div>
 						</li>
-						<li>
-							<span>Online Players Only</span>
+						<li class="showLabelOnInput">
+							<span class="checkboxLabel">Online Players Only</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.switchOnlinePlayersOnly" id="switch-onlinePlayersOnly">
-								<label for="switch-onlinePlayersOnly"></label>
+								<label for="switch-onlinePlayersOnly">
+									<img ng-show="options.switchOnlinePlayersOnly" zf-iconic="" icon="circle-check" size="small">
+									<img ng-show="!options.switchOnlinePlayersOnly" zf-iconic="" icon="circle-x" size="small">
+									<span ng-show="options.switchOnlinePlayersOnly">Search Online Players</span>
+									<span ng-show="!options.switchOnlinePlayersOnly">Search All players</span>
+								</label>
 							</div>
 						</li>
 						<header>Select Font</header>
@@ -344,11 +364,16 @@ url: /
 									ng-options="v for v in options.soundSelect.options" ng-change="loadSound()">
 							</select>
 						</li>
-						<li>
-							<span class="label-muteSound">Mute notification sound</span>
+						<li class="showLabelOnInput">
+							<span class="label-muteSound checkboxLabel">Mute notification sound</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.muteSound" id="muteSound">
-								<label for="muteSound"></label>
+								<label for="muteSound">
+									<img ng-show="!options.muteSound" zf-iconic="" icon="circle-check" size="small">
+									<img ng-show="options.muteSound" zf-iconic="" icon="circle-x" size="small">
+									<span ng-show="options.muteSound">Mute Sound</span>
+									<span ng-show="!options.muteSound">Play Sound</span>
+								</label>
 							</div>
 						</li>
 					</ul>

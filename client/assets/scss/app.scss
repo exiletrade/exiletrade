@@ -508,7 +508,7 @@ img.gitter-badge {
 
 				.switch.small {
 					width: 2.2rem;
-					height: 1.325rem;
+					height: 1.35rem;
 					vertical-align: middle;
 					margin-top: 3px;
 				}
@@ -901,6 +901,10 @@ img.gitter-badge {
 	.block-list li > a:hover, .block-list li > label:hover, .block-list li select:hover {
 		background-color: $hr-border-color;
 	}
+	.block-list a.button {
+		margin: 10px;
+	}
+
 	.button.hollow {
 		background-color: $hr-border-color;
 		&:hover, &:focus {
@@ -1021,6 +1025,65 @@ img.gitter-badge {
 				width: 1rem;
 				height: 1rem;
 			}
+		}
+	}
+}
+
+.panel {
+	.switch {
+		svg {
+			display: none;
+		}
+		label span, label svg {
+			display: none;
+		}
+		&> label::after {
+			background-color: #BB2424;
+			border-color: $primary-color;
+		}
+		&> label {
+			background-color: $primary-color;
+		}
+		& input:checked + label::after {
+			background-color: $switch_on_color;
+		}
+	}
+}
+
+.showLabelOnInput {
+	.checkboxLabel {
+		visibility: hidden;
+	}
+	.switch {
+		right: initial;
+		left: 1rem;
+
+		width: auto;
+		label {
+			color: $body-font-color;
+			background-color: $primary-color;
+			&:after {
+				display: none;
+			}
+			span {
+				padding: 0 1rem 0 0;
+				line-height: 1.625rem;
+			}
+			span, svg {
+				display: inline-block;
+			}
+		}
+		input:checked + label {
+			background-color: $primary-color;
+		}
+		input {
+			margin: 0;
+		}
+		input[type="checkbox"] + label, input[type="radio"] + label {
+			margin: 0;
+		}
+		svg {
+			margin: 0 0.5rem;
 		}
 	}
 }
