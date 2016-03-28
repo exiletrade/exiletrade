@@ -357,7 +357,8 @@ function indexerLeagueToLadder(league) {
 		'ngclipboard',
 		'duScroll',
 		'angular-cache',
-		'angularSpinner'
+		'angularSpinner',
+		'favico.service'
 	]);
 
 	appModule.config(config);
@@ -557,7 +558,29 @@ function indexerLeagueToLadder(league) {
 		};
 	});
 
-	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService', function ($q, $scope, $http, $location, $interval, es, playerOnlineService) {
+	/*
+	  Simple favicon service
+	 */
+	angular.module('favico.service', []).factory('favicoService', [
+	function() {
+		var favico = new Favico({
+			animation : 'fade'
+		});
+
+		var badge = function(num) {
+			favico.badge(num);
+		};
+		var reset = function() {
+			favico.reset();
+		};
+
+		return {
+			badge : badge,
+			reset : reset
+		};
+	}]);
+	
+	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService', function ($q, $scope, $http, $location, $interval, es, playerOnlineService,favicoService) {
 		debugOutput('controller', 'info');
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
@@ -737,6 +760,7 @@ function indexerLeagueToLadder(league) {
 					if (total > 0) {
 						if (!$scope.options.muteSound) {
 							$scope.snd.play();
+							favicoService.badge(total);
 						}
 					}
 				});
