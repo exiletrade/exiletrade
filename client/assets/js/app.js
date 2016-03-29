@@ -1260,9 +1260,11 @@ function indexerLeagueToLadder(league) {
 		};
 
 		$scope.resizeGridFrame = function (opened) {
+			var displayStatus = jQuery('div.screenWidthCheck-640').css('display');
+
 			if ( opened === true ){
 				jQuery('#mainGrid').animate({
-					marginRight: "400px"
+					marginRight: (displayStatus == 'none') ? "400px" : "100%"
 				}, 500, 'swing');
 			} else {
 				jQuery('#mainGrid').animate({

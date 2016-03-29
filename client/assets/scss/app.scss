@@ -1,80 +1,9 @@
 @import "settings";
 @import "foundation";
+@import "customVariables";
+@import "customMixins";
 
-$bg_color_corrupted :#C22626;
-$border_color : #646464;
-$border_color_item: $primary-color;
-$link_color: #DCD7D7;
-$color_white : #fff;
-$color_gem_name : #1ba29b;
-$color_unique_name : #af6025;
-$color_rare_name : #a3a314;
-$color_magic_name : #6688ff;
-$color_currency_name : #9c7e38;
-$color_normal_name : $body-font-color;
-$color_card_name : #dcd3c3;
-$switch_on_color: #43AC6A;
-$color_fire: #F04124;
-$color_cold: #00b8e6;
-$color_lightning: #cccc00;
-$color_chaos: #FF2DB3;
-$color_life: #F04124;
-$color_mana: #9898FF;
-$color_quality: #56AB56;
-$color_item_text: #adadad;
-//$color_input_bg: #353535;
-$color_input_bg: rgba(0,0,0,0.1);
-
-/* A font by Jos Buivenga (exljbris) -> www.exljbris.com */
-
-@font-face {
-	font-family: 'fontinregular';
-	src: url('/font/fontin-regular-webfont.eot');
-	src: url('/font/fontin-regular-webfont.eot?#iefix') format('embedded-opentype'),
-	url('/font/fontin-regular-webfont.woff2') format('woff2'),
-	url('/font/fontin-regular-webfont.woff') format('woff'),
-	url('/font/fontin-regular-webfont.ttf') format('truetype'),
-	url('/font/fontin-regular-webfont.svg#fontinregular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'fontinbold';
-	src: url('/font/fontin-bold-webfont.eot');
-	src: url('/font/fontin-bold-webfont.eot?#iefix') format('embedded-opentype'),
-	url('/font/fontin-bold-webfont.woff2') format('woff2'),
-	url('/font/fontin-bold-webfont.woff') format('woff'),
-	url('/font/fontin-bold-webfont.ttf') format('truetype'),
-	url('/font/fontin-bold-webfont.svg#fontinbold') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'fontinitalic';
-	src: url('/font/fontin-italic-webfont.eot');
-	src: url('/font/fontin-italic-webfont.eot?#iefix') format('embedded-opentype'),
-	url('/font/fontin-italic-webfont.woff2') format('woff2'),
-	url('/font/fontin-italic-webfont.woff') format('woff'),
-	url('/font/fontin-italic-webfont.ttf') format('truetype'),
-	url('/font/fontin-italic-webfont.svg#fontinitalic') format('svg');
-	font-weight: normal;
-	font-style: normal;
-
-}
-
-@font-face {
-	font-family: 'fontin_smallcapssmallcaps';
-	src: url('/font/fontin-smallcaps-webfont.eot');
-	src: url('/font/fontin-smallcaps-webfont.eot?#iefix') format('embedded-opentype'),
-	url('/font/fontin-smallcaps-webfont.woff2') format('woff2'),
-	url('/font/fontin-smallcaps-webfont.woff') format('woff'),
-	url('/font/fontin-smallcaps-webfont.ttf') format('truetype'),
-	url('/font/fontin-smallcaps-webfont.svg#fontin_smallcapssmallcaps') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
+@include addFontFaces();
 
 a {
 	color: $link_color;
@@ -148,6 +77,7 @@ img.pageLogo {
 	border-bottom: 1px solid $body-font-color;
 	text-align: right;
 	font-size: rem-calc(12px);
+	height: 30px;
 	span {
 		display: inline-block;
 		padding: 2px;
@@ -158,6 +88,9 @@ img.pageLogo {
 	}
 	.gitter {
 		margin-right: 34px;
+		@include mq($max-width: 768px) {
+			margin-right: 3px;
+		}
 	}
 	.disclaimer, .repo {
 		color: white;
@@ -169,6 +102,11 @@ img.pageLogo {
 	.button.hollow {
 		&:hover {
 			color: $link_color;
+		}
+	}
+	@include mq($max-width: 350px) {
+		.gitter, .repo {
+			display: none;
 		}
 	}
 }
@@ -185,6 +123,15 @@ img.pageLogo {
 	&.primary {
 		border-bottom: 1px solid $body-background;
 	}
+	@include mq($max-width: 768px) {
+		h1 {
+			font-size: 1.5rem;
+			line-height: rem-calc(56px);
+		}
+		.wip {
+			display: none;
+		}
+	}
 }
 
 .searchField {
@@ -196,6 +143,19 @@ img.pageLogo {
 	.add-icon {
 		width: 13px;
 		margin-right: 5px;
+	}
+	@include mq($max-width: 768px) {
+		padding: 0 0.5rem;
+	}
+	@include mq($max-width: 640px){
+		div.grid-content {
+			padding: 0;
+		}
+	}
+	@include mq($max-width: 480px){
+		a.saveSearchNotificationLink .desktop {
+			display: none;
+		}
 	}
 }
 #searchField {
@@ -298,6 +258,10 @@ img.pageLogo {
 	padding: 6px;
 	box-shadow: 3px 0 10px rgba(1, 1, 1, 0.4);
 	border: 1px solid $border_color;
+	@include mq($max-width: 768px) {
+		margin-right: 0;
+		top: 43px !important;
+	}
 }
 .openSaves {
 	box-shadow: -3px 0 10px rgba(1, 1, 1, 0.4);
@@ -305,11 +269,23 @@ img.pageLogo {
 
 .openOptions {
 	left: 0;
+	@include mq($max-width: 768px) {
+		left: initial;
+		right:  76px;
+	}
 }
 .openSaves {
 	right:5px;
 	&.bookmark {
 		top:136px;
+	}
+
+	@include mq($max-width: 768px) {
+		right: 4px;
+
+		&.bookmark {
+			right:40px;
+		}
 	}
 }
 .external-link {
@@ -384,12 +360,29 @@ img.gitter-badge {
 
 .absoluteNavBtn {
 	position: absolute;
-	top: 42px;
-	&.savedSearches {
-		right: 10px;
-	}
+	top: 41px;
 	&.scrollTop {
 		right: 10px;
+		.mobile {
+			display: none;
+		}
+
+		@include mq($max-width: 768px) {
+			right: 112px;
+			margin-right: 0;
+			box-shadow: 3px 0 10px rgba(1, 1, 1, 0.4);
+			border: 1px solid $border_color;
+			font-size: 0.675rem;
+			top: 43px;
+		}
+		@include mq($max-width: 370px) {
+			.desktop {
+				display: none;
+			}
+			.mobile {
+				display: inline;
+			}
+		}
 	}
 }
 
@@ -405,7 +398,9 @@ img.gitter-badge {
 		display: inline-block;
 		vertical-align: middle;
 	}
-
+	@include mq($max-width: 640px){
+		display: none;
+	}
 }
 
 .code {
@@ -467,6 +462,9 @@ img.gitter-badge {
 
 	.item {
 		min-width: 600px;
+		@include mq($max-width: 768px) {
+			min-width: initial;
+		}
 		margin: 5px 0;
 		padding: 0;
 		color: $color_item_text;
@@ -502,12 +500,32 @@ img.gitter-badge {
 		.item-border {
 			margin: 0 5px;
 			border-top: transparent;
+			@include mq($max-width: 768px) {
+				margin: 0;
+			}
 		}
 		.item-inner-border {
 			border: 1px solid $border_color_item;
 			padding: 5px 5px 0px 5px;
 			background-color: #1D1D1D;
 			background-color:rgba(0,0,0,.1);
+
+
+			@include mq($max-width: 768px){
+
+				-webkit-flex-flow: row wrap;
+				-ms-flex-flow: row wrap;
+				flex-flow: row wrap;
+				overflow: visible;
+				list-style-type: none;
+				& > div {
+					padding: 0 1rem 1rem;
+					-webkit-flex: 0 0 100%;
+					-ms-flex: 0 0 100%;
+					flex: 0 0 100%;
+					max-width: 100%;
+				}
+			}
 		}
 		.item-header {
 			line-height: 30px;
@@ -516,6 +534,10 @@ img.gitter-badge {
 			border-bottom: 1px solid $border_color_item;
 			background-color: $primary-color;
 			width: 100%;
+			@include mq($max-width: 640px) {
+				height: initial;
+				padding-bottom: 3px;
+			}
 
 			.controls {
 				padding: 0 8px;
@@ -524,8 +546,22 @@ img.gitter-badge {
 				border-top-right-radius: 5px;
 				width: 100%;
 
+				@include mq($max-width: 640px){
+					&:after {
+						clear: both;
+					}
+					&:before, &:after {
+						content: " ";
+						display: table;
+					}
+				}
+
 				h5 {
 					display: inline;
+					@include mq($max-width: 640px) {
+						float: left;
+						width: 100%;
+					}
 				}
 
 				svg {
@@ -587,13 +623,13 @@ img.gitter-badge {
 	.item-box-left {
 		position: relative;
 		padding-right: 15px;
+		max-width: 550px;
 	}
 	.item-box-right {
 		flex-direction: column;
 	}
 	.grid-block.item-info {
-		//min-height: 170px;
-		margin-left: 114px;
+		//margin-left: 114px;
 	}
 	.item-info .grid-block {
 		flex-grow: 0;
@@ -721,6 +757,9 @@ img.gitter-badge {
 
 	.sell-infos {
 		padding-left: 3px;
+		@include mq($max-width: 768px) {
+			padding-bottom: 0.25rem;
+		}
 	}
 
 	.mods, .modsPseudo {
@@ -756,7 +795,7 @@ img.gitter-badge {
 		-webkit-flex-wrap: initial;
 
 		&> .grid-block {
-			padding-left: 10px;
+			//padding-left: 10px;
 		}
 	}
 
@@ -765,9 +804,13 @@ img.gitter-badge {
 		width: 100%;
 		max-height: 170px;
 		background-size: contain;
-		padding: 10px;
-		position: absolute;
+		padding: 0 10px 0 10px;
+		position: relative;
 		background: no-repeat right 10px;
+
+		@include mq($max-width: 768px) {
+			padding-left: 0;
+		}
 
 		img {
 			max-height: 170px;
@@ -789,7 +832,7 @@ img.gitter-badge {
 			background: url('../img/sockets.png');
 			top: 0;
 			left: 0;
-			margin: 10px;
+			margin: 0 10px;
 
 			&.middle {
 				top: 47px;
@@ -819,7 +862,7 @@ img.gitter-badge {
 			background: url('../img/sockets.png');
 			top: 0;
 			left: 0;
-			margin: 10px;
+			margin: 0 10px;
 
 			&.socketLinkCenter {
 				background-position: 0 -188px;
@@ -866,6 +909,10 @@ img.gitter-badge {
 			a.quality {
 				color: $color_quality;
 			}
+
+			&:first-child {
+				padding-left: 0;
+			}
 		}
 	}
 
@@ -890,6 +937,11 @@ img.gitter-badge {
 		}
 	}
 }
+.search-results {
+	@include mq($max-width: 768px) {
+		padding: 0.5rem;
+	}
+}
 
 #showItemModal{
 	.modal {
@@ -905,6 +957,9 @@ img.gitter-badge {
 
 .panel {
 	width: 400px;
+	@include mq($max-width: 640px){
+		width:100%;
+	}
 
 	.saved-search.accordion {
 		margin-top: 50px;
@@ -993,6 +1048,10 @@ img.gitter-badge {
 
 #savedSearchesPanel {
 	width: 400px;
+	@include mq($max-width: 640px){
+		width:100%;
+	}
+
 	.block-list li:first-child {
 		border-top: none;
 	}
@@ -1008,7 +1067,10 @@ img.gitter-badge {
 	margin-top: 87px;
 }
 #savedItemsPanel {
-	width: 650px;
+	width: 640px;
+	@include mq($max-width: 640px){
+		width:100%;
+	}
 	padding-top: 50px;
 	.accordion {
 		.grid-content, .accordion-content {
@@ -1036,6 +1098,11 @@ img.gitter-badge {
 }
 
 #tabs {
+	.tab-contents {
+		@include mq($max-width: 768px) {
+			padding: 0;
+		}
+	}
 	.tab-headers {
 		padding: 0 1rem;
 		margin: 0 5px;
@@ -1126,5 +1193,14 @@ img.gitter-badge {
 		svg {
 			margin: 0 0.5rem;
 		}
+	}
+}
+
+.screenWidthCheck-640 {
+	display: none;
+	visibility: hidden;
+
+	@include mq($max-width: 640px){
+		display: block;
 	}
 }
