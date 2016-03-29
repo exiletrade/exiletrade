@@ -45,8 +45,6 @@
 					<span class="stackSize" ng-if="item._source.properties.stackSize">{{item._source.properties.stackSize.current}}</span>
 				</div>
 
-				<!--<div class="mobile grid-block"></div>-->
-
 				<div class="grid-block item-info">
 					<div class="vertical grid-block">
 						<div class="grid-block requirements">
@@ -159,8 +157,8 @@
 			</div>
 
 			<div class="grid-block item-box-right shrink">
-				<div class="item-stats float-left" ng-if="!item._source.properties.Weapon" ng-repeat="itemType in item._source.propertiesPseudo">
-					<table>
+				<div class="item-stats float-left" >
+					<table ng-if="!item._source.properties.Weapon" ng-repeat="itemType in item._source.propertiesPseudo">
 						<tbody>
 						<tr>
 							<td>Quality</td>
@@ -198,9 +196,7 @@
 						</tr>
 						</tbody>
 					</table>
-				</div>
-				<div class="item-stats float-left" ng-if="item._source.properties.Gem !== undefinded">
-					<table>
+					<table ng-if="item._source.properties.Gem !== undefinded">
 						<tbody>
 						<tr>
 							<td>Quality</td>
@@ -238,9 +234,7 @@
 						</tr>
 						</tbody>
 					</table>
-				</div>
-				<div class="item-stats float-left shrink" ng-if="item._source.properties.Weapon">
-					<table>
+					<table ng-if="item._source.properties.Weapon">
 						<tbody>
 						<tr>
 							<td>Quality</td>
@@ -377,47 +371,45 @@
 						</tr>
 						</tbody>
 					</table>
-				</div>
-				<div class="item-stats float-left shrink">
 					<table>
 						<tbody>
-						<tr>
-							<td>Updated</td>
-							<td>
-								<a
-									data-sort-key="shop.updated"
-									title="Number of hours passed since item's stash had an update in the River"
-									data-sort-key="shop.updated"
-									data-sort-order="desc"
-									ng-click="doSearchWithSort($event)">
-									{{item._source.shop.updatedHoursAgo}} hours ago
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Modified</td>
-							<td>
-								<a
-									title="Number of hours passed since item was modified in the River"
-									data-sort-key="shop.modified"
-									data-sort-order="desc"
-									ng-click="doSearchWithSort($event)">
-									{{item._source.shop.modifiedHoursAgo}} hours ago
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Added</td>
-							<td>
-								<a
-									title="Number of hours passed since item was first seen in the River"
-									data-sort-key="shop.added"
-									data-sort-order="desc"
-									ng-click="doSearchWithSort($event)">
-									{{item._source.shop.addedHoursAgo}} hours ago
-								</a>
-							</td>
-						</tr>
+							<tr>
+								<td>Updated</td>
+								<td>
+									<a
+										data-sort-key="shop.updated"
+										title="Number of hours passed since item's stash had an update in the River"
+										data-sort-key="shop.updated"
+										data-sort-order="desc"
+										ng-click="doSearchWithSort($event)">
+										{{item._source.shop.updatedHoursAgo}} hours ago
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Modified</td>
+								<td>
+									<a
+										title="Number of hours passed since item was modified in the River"
+										data-sort-key="shop.modified"
+										data-sort-order="desc"
+										ng-click="doSearchWithSort($event)">
+										{{item._source.shop.modifiedHoursAgo}} hours ago
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Added</td>
+								<td>
+									<a
+										title="Number of hours passed since item was first seen in the River"
+										data-sort-key="shop.added"
+										data-sort-order="desc"
+										ng-click="doSearchWithSort($event)">
+										{{item._source.shop.addedHoursAgo}} hours ago
+									</a>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

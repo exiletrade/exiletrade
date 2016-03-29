@@ -813,7 +813,7 @@ img.gitter-badge {
 		width: 100%;
 		max-height: 170px;
 		background-size: contain;
-		padding: 0 10px 0 10px;
+		padding: 0 10px 5px 10px;
 		position: relative;
 		background: no-repeat right 10px;
 
@@ -904,9 +904,12 @@ img.gitter-badge {
 
 	.item-stats {
 		font-size: rem-calc(12px);
+		margin-bottom: 10px;
 
 		table {
+			float: left;
 			min-width: 150px;
+			margin-right: 1rem;
 		}
 		td {
 			padding: 3px 3px;
