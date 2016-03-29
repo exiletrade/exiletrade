@@ -92,19 +92,28 @@ img.pageLogo {
 			margin-right: 3px;
 		}
 	}
-	.disclaimer, .repo {
+	.disclaimer, .repo, .chromeExtension {
 		color: white;
 		border-color: white;
-		padding:4px;
+		padding: 4px;
 		margin: 2px;
 	}
-
+	.chromeExtension {
+		position: relative;
+		padding-left: 18px;
+		img {
+			position: absolute;
+			width: 14px;
+			top: 2px;
+			left: 2px;
+		}
+	}
 	.button.hollow {
 		&:hover {
 			color: $link_color;
 		}
 	}
-	@include mq($max-width: 350px) {
+	@include mq($max-width: 450px) {
 		.gitter, .repo {
 			display: none;
 		}
