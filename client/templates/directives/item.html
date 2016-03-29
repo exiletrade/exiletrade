@@ -45,6 +45,8 @@
 					<span class="stackSize" ng-if="item._source.properties.stackSize">{{item._source.properties.stackSize.current}}</span>
 				</div>
 
+				<!--<div class="mobile grid-block"></div>-->
+
 				<div class="grid-block item-info">
 					<div class="vertical grid-block">
 						<div class="grid-block requirements">
@@ -159,9 +161,6 @@
 			<div class="grid-block item-box-right shrink">
 				<div class="item-stats float-left" ng-if="!item._source.properties.Weapon" ng-repeat="itemType in item._source.propertiesPseudo">
 					<table>
-						<thead>
-						<th><td></td><td></td></th>
-						</thead>
 						<tbody>
 						<tr>
 							<td>Quality</td>
@@ -202,9 +201,6 @@
 				</div>
 				<div class="item-stats float-left" ng-if="item._source.properties.Gem !== undefinded">
 					<table>
-						<thead>
-						<th><td></td><td></td></th>
-						</thead>
 						<tbody>
 						<tr>
 							<td>Quality</td>
@@ -245,9 +241,6 @@
 				</div>
 				<div class="item-stats float-left shrink" ng-if="item._source.properties.Weapon">
 					<table>
-						<thead>
-						<th><td></td><td></td></th>
-						</thead>
 						<tbody>
 						<tr>
 							<td>Quality</td>
@@ -387,9 +380,6 @@
 				</div>
 				<div class="item-stats float-left shrink">
 					<table>
-						<thead>
-						<th><td></td><td></td></th>
-						</thead>
 						<tbody>
 						<tr>
 							<td>Updated</td>
