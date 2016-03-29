@@ -136,9 +136,17 @@ gulp.task('copy:images', function (cb) {
 
 // Copy sounds
 gulp.task('copy:sound', function (cb) {
-	// Asset icons
 	gulp.src('./client/assets/sound/**/*.+(mp3|wmv)')
 		.pipe(gulp.dest(destination + '/assets/sound/'))
+	;
+
+	cb();
+});
+
+// Copy downloads
+gulp.task('copy:downloads', function (cb) {
+	gulp.src('./client/download/**/*')
+		.pipe(gulp.dest(destination + '/download/'))
 	;
 
 	cb();
@@ -244,4 +252,7 @@ gulp.task('default', ['server'], function () {
 
 	// Watch app templates
 	gulp.watch(['./client/templates/**/*.html'], ['copy:templates']);
+
+	// Watch download folder
+	gulp.watch(['./client/download/**/*', './download/**/*'], ['copy:downloads']);
 });
