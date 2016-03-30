@@ -616,6 +616,13 @@ function indexerLeagueToLadder(league) {
 		$scope.audioAlerts = [
 			'Tinkle-Lisa_Redfern-1916445296.mp3',
 			'double_tone.mp3',
+			'Blop-Mark_DiAngelo-79054334.mp3',
+			'Cha_Ching_Register-Muska666-173262285.mp3',
+			'Metal_Gong-Dianakc-109711828.mp3',
+			'Pew_Pew-DKnight556-1379997159.mp3',
+			'Short_triumphal_fanfare-John_Stracke-815794903.mp3',
+			'Turkey Gobble-SoundBible.com-123256561.mp3',
+			'Winchester12-RA_The_Sun_God-1722751268.mp3',
 			'alarm_to_the_extreme.mp3'
 		];
 		$scope.snd = new Audio($scope.audioPath+$scope.audioAlerts[0]);
@@ -652,7 +659,7 @@ function indexerLeagueToLadder(league) {
 				"type": "select",
 				"name": "Sound",
 				"value": 'Tinkle',
-				"options": ["Tinkle", "Double Tone", "Extreme Alarm"]
+				"options": ["Tinkle", "Double Tone", 'Blop', 'Cha Ching', 'Gong', 'Pew Pew', 'Fanfare', 'Gobble', 'Winchester 12-RA', "Extreme Alarm"]
 			},
 			"searchPrefixInputs": [],
 			"switchOnlinePlayersOnly" : true,

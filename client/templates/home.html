@@ -55,6 +55,7 @@ url: /
 		<zf-notification-static id="save-notification-whisper" color="success" zf-advise="" title="Whisper message copied." autoclose=2000>
 		</zf-notification-static>
 
+
 		<!--<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>-->
 		<a href="#" ng-click="scrollToTop()" class="button small absoluteNavBtn scrollTop">
 			<span class="desktop">Scroll Top</span>
@@ -488,15 +489,65 @@ url: /
 			<a zf-close="" class="close-button">×</a>
 			<h3>About</h3>
 			<p>This site is fan-made and not affiliated with Grinding Gear Games in any way. ExileTrade is fully open source under GNU General Public License v2.0.</p>
-			<p>ExileTrade is powered by <a href="https://github.com/trackpete/exiletools-indexer">ExileTools Indexer Public API</a>.</p>
-			<p>Visit our official forum thread at <a href="https://www.pathofexile.com/forum/view-thread/1602257">view-thread/1602257</a>.</p>
-			<p>We use some sound effects from <a href="http://www.freesfx.co.uk" target="_blank">http://www.freesfx.co.uk</a></p>
-			<p>
-				"add" icon made by <a href="http://www.flaticon.com/authors/victor-erixon" title="Victor Erixon">Victor Erixon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+			<p>ExileTrade is powered by <a href="https://github.com/trackpete/exiletools-indexer" class="external-link" target="_blank">
+				ExileTools Indexer Public API</a>.
 			</p>
-			<p>
-				"external link" icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+			<p>Visit our official forum thread at
+				<a href="https://www.pathofexile.com/forum/view-thread/1602257" class="external-link" target="_blank">view-thread/1602257</a>.
 			</p>
+
+			<zf-accordion class="">
+				<zf-accordion-item title="Sound Attributions">
+					<ul>
+						<li>
+							<a href="http://soundbible.com/2101-12-Ga-Winchester-Shotgun.html" class="external-link" target="_blank">
+								Winchester12-RA by RA The Sun God</a>
+						</li>
+						<li>
+							<a href="http://soundbible.com/1997-Cha-Ching-Register.html" class="external-link" target="_blank">
+								Cha-Ching-Register by Muska666</a>
+						</li>
+						<li>
+							<a href="http://soundbible.com/1949-Pew-Pew.html" class="external-link" target="_blank">
+								Pew-Pew by DKnight556 </a>
+						</li>
+						<li>
+							<a href="http://soundbible.com/1823-Winning-Triumphal-Fanfare.html" class="external-link" target="_blank">
+								Winning-Fanfare by John Stracke</a>
+						</li>
+						<li>
+							<a href="http://soundbible.com/1737-Turkey-Gobble.html" class="external-link" target="_blank">
+								Turkey-Gobble by bod</a>
+						</li>
+						<li>
+							<a href="http://soundbible.com/2067-Blop.html" class="external-link" target="_blank">
+								Blob by Mark DiAngelo</a>
+						</li>
+						<li>
+							We use some sound effects from <a href="http://www.freesfx.co.uk" class="external-link" target="_blank">
+							http://www.freesfx.co.uk
+							</a>
+						</li>
+					</ul>
+				</zf-accordion-item>
+			</zf-accordion>
+
+			<zf-accordion class="">
+				<zf-accordion-item title="Image Attributions">
+					<ul>
+						<li>
+							"add" icon made by <a href="http://www.flaticon.com/authors/victor-erixon" title="Victor Erixon" class="external-link" target="_blank">Victor Erixon</a>
+							from <a href="http://www.flaticon.com" title="Flaticon" class="external-link" target="_blank">www.flaticon.com</a> is licensed by
+							<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" class="external-link" target="_blank">CC 3.0 BY</a>
+						</li>
+						<li>
+							"external link" icon made by <a href="http://www.freepik.com" title="Freepik" class="external-link" target="_blank">Freepik</a> from
+							<a href="http://www.flaticon.com" title="Flaticon" class="external-link" target="_blank">www.flaticon.com</a> is licensed by
+							<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" class="external-link">CC 3.0 BY</a>
+						</li>
+					</ul>
+				</zf-accordion-item>
+			</zf-accordion>
 
 			<h5>Support Us</h5>
 			<p>Buy us a couple of beer!</p>
@@ -509,15 +560,20 @@ url: /
 		<div zf-modal="" id="showChromeExtensionModal">
 			<a zf-close="" class="close-button">×</a>
 			<h3>Chrome Extension</h3>
-			<p>Installing this Chrome Extensions allows you to search for Items from your addressbar <a href="./download/ExileTradeExtension.crx" target="_blank">Chrome Extension</a></p>
+			<p>Installing this Chrome Extension allows you to search for Items from your address bar.</p>
 			<h5>Install Instructions</h5>
 			<ol>
-				<li>Start the download</li>
-				<li>Now Drag and drop the file into Chrome</li>
+				<li>Start the download
+					<a href="./download/ExileTradeExtension.crx" download target="_blank">Chrome Extension</a>
+				</li>
+				<li>Go to Extension Settings: Enter the following in the address bar
+					<code>chrome://extensions/</code>
+				</li>
+				<li>Now drag and drop the file into the window</li>
 			</ol>
 			<h5>Usage Instructions</h5>
 			<ol>
-				<li>Type p into the address bar followed by pressing Tab or Space</li>
+				<li>Type <code>p</code> into the address bar followed by pressing <code>Tab</code> or <code>Space</code></li>
 				<li>Now enter your Search Query just like on ExileTrade</li>
 			</ol>
 		</div>
