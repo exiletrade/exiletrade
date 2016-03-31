@@ -350,7 +350,8 @@ url: /
 				<section class="block-list">
 					<header>General Options</header>
 					<ul>
-						<li class="showLabelOnInput">
+						<!-- add/remove class "showLabelOnInput" to change switch appearance -->
+						<li class="">
 							<span class="checkboxLabel">Show PseudoMods</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.switchPseudoMods" id="switch-pseudoMods">
@@ -362,19 +363,19 @@ url: /
 								</label>
 							</div>
 						</li>
-						<li class="showLabelOnInput">
-							<span class="label-advancedStats checkboxLabel">Show Advanced Item Stats</span>
+						<li class="">
+							<span class="label-advancedStats checkboxLabel">Show Damage Ranges (Weapons)</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.showAdvancedStats" id="showAdvancedStats">
 								<label for="showAdvancedStats">
 									<img ng-show="options.showAdvancedStats" zf-iconic="" icon="circle-check" size="small">
 									<img ng-show="!options.showAdvancedStats" zf-iconic="" icon="circle-x" size="small">
-									<span ng-show="options.showAdvancedStats">Show Advanced Infos</span>
-									<span ng-show="!options.showAdvancedStats">Hide Advanced Infos</span>
+									<span ng-show="options.showAdvancedStats">Show Damage Ranges (Weapons)</span>
+									<span ng-show="!options.showAdvancedStats">Hide Damage Ranges (Weapons)</span>
 								</label>
 							</div>
 						</li>
-						<li class="showLabelOnInput">
+						<li class="">
 							<span class="checkboxLabel">Show 1 Item per row</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.switchItemsPerRow" id="switch-itemsPerRow"
@@ -387,7 +388,7 @@ url: /
 								</label>
 							</div>
 						</li>
-						<li class="showLabelOnInput">
+						<li class="">
 							<span class="checkboxLabel">Online Players Only</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.switchOnlinePlayersOnly" id="switch-onlinePlayersOnly">
@@ -415,7 +416,7 @@ url: /
 									ng-options="v for v in options.soundSelect.options" ng-change="loadSound()">
 							</select>
 						</li>
-						<li class="showLabelOnInput">
+						<li class="">
 							<span class="label-muteSound checkboxLabel">Mute notification sound</span>
 							<div class="switch small">
 								<input type="checkbox" ng-model="options.muteSound" id="muteSound">

@@ -299,7 +299,8 @@
 								</a>
 							</td>
 							<td ng-show="options.showAdvancedStats==true">
-								| test
+								| {{item._source.properties.Weapon['Physical Damage'].min}}
+								- {{item._source.properties.Weapon['Physical Damage'].max}}
 							</td>
 						</tr>
 						<tr ng-if="item._source.properties.Weapon['Elemental DPS']">
@@ -311,6 +312,10 @@
 									ng-click="doSearchWithSort($event)">
 									{{item._source.properties.Weapon['Elemental DPS']}}
 								</a>
+							</td>
+							<td ng-show="options.showAdvancedStats==true">
+								| {{item._source.properties.Weapon['Elemental Damage'].min}}
+								- {{item._source.properties.Weapon['Elemental Damage'].max}}
 							</td>
 						</tr>
 						<tr ng-if="item._source.properties.Weapon['Fire DPS']">
@@ -324,7 +329,8 @@
 								</a>
 							</td>
 							<td ng-show="options.showAdvancedStats==true">
-								| test
+								| {{item._source.properties.Weapon['Fire Damage'].min}}
+								- {{item._source.properties.Weapon['Fire Damage'].max}}
 							</td>
 						</tr>
 						<tr ng-if="item._source.properties.Weapon['Cold DPS']">
@@ -338,7 +344,8 @@
 								</a>
 							</td>
 							<td ng-show="options.showAdvancedStats==true">
-								| test
+								| {{item._source.properties.Weapon['Cold Damage'].min}}
+								- {{item._source.properties.Weapon['Cold Damage'].max}}
 							</td>
 						</tr>
 						<tr ng-if="item._source.properties.Weapon['Lightning DPS']">
@@ -352,7 +359,8 @@
 								</a>
 							</td>
 							<td ng-show="options.showAdvancedStats==true">
-								| test
+								| {{item._source.properties.Weapon['Lightning Damage'].min}}
+								- {{item._source.properties.Weapon['Lightning Damage'].max}}
 							</td>
 						</tr>
 						<tr ng-if="item._source.properties.Weapon['Chaos DPS']">
@@ -366,7 +374,8 @@
 								</a>
 							</td>
 							<td ng-show="options.showAdvancedStats==true">
-								| test
+								| {{item._source.properties.Weapon['Chaos Damage'].min}}
+								- {{item._source.properties.Weapon['Chaos Damage'].max}}
 							</td>
 						</tr>
 						</tbody>
