@@ -428,6 +428,10 @@ url: /
 								</label>
 							</div>
 						</li>
+						<header class="volume">Change Notification Volume
+							<input type="range" ng-model="options.notificationVolume" ng-change="changeNotificationVolume()"
+								   min="0.1" max="1" step="0.05">
+						</header>
 					</ul>
 				</section>
 				<section class="block-list prefixes">

@@ -230,7 +230,6 @@ img.pageLogo {
 	margin-bottom: 20px;
 }
 
-
 .modal {
 	background-color: $body-background;
 	box-shadow: 0 0 10px rgba(1, 1, 1, 0.4);
@@ -1170,6 +1169,9 @@ img.gitter-badge {
 		& input:checked + label::after {
 			background-color: $switch_on_color;
 		}
+	}
+	header.volume {
+		margin-right:1rem
 	}
 }
 

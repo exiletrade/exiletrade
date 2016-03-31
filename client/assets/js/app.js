@@ -663,7 +663,8 @@ function indexerLeagueToLadder(league) {
 			},
 			"searchPrefixInputs": [],
 			"switchOnlinePlayersOnly" : true,
-			"muteSound" : false
+			"muteSound" : false,
+			"notificationVolume" : 1
 		};
 
 		/*
@@ -682,13 +683,16 @@ function indexerLeagueToLadder(league) {
 		$scope.loadSound = function(){
 			/* Get index of selected sound to match against audioAlerts array
 			 * Sounds have to be in same order in audioAlerts and soundSelect.options */
-			var i = $scope.options.soundSelect.options.indexOf($scope.options.soundSelect.value);
+ 			var i = $scope.options.soundSelect.options.indexOf($scope.options.soundSelect.value);
 			$scope.snd.src = $scope.audioPath+$scope.audioAlerts[i];
 			$scope.snd.load();
 		};
 
 		$scope.playSound = function () {
 			$scope.snd.play();
+		};
+		$scope.changeNotificationVolume = function (){
+			$scope.snd.volume = $scope.options.notificationVolume;
 		};
 
 		/*
@@ -735,6 +739,16 @@ function indexerLeagueToLadder(league) {
 			if (typeof $scope.loadedOptions.muteSound !== 'undefined' && $scope.loadedOptions.muteSound !== null) {
 				$scope.options.muteSound = $scope.loadedOptions.muteSound;
 			}
+			if (typeof $scope.loadedOptions.notificationVolume !== 'undefined' && $scope.loadedOptions.notificationVolume !== null) {
+				$scope.options.notificationVolume = $scope.loadedOptions.notificationVolume;
+			}
+		}
+
+		/*
+		 * Change notification volume if loading saved option
+		 * */
+		if ($scope.snd.volume != $scope.options.notificationVolume) {
+			$scope.changeNotificationVolume();
 		}
 
 		$scope.setFontFamily = function(){
