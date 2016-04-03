@@ -28,7 +28,6 @@ function badUserInput(badTokens) {
 	if (badTokens.length == 0) return;
 	var successArr = [];
 	var evaluatedToken;
-	debugOutput("bad Tokens: " + badTokens.join(" "), 'log');
 	//attempt 1 User copy pasted RegEx 
 
 	for (i = 0; i < badTokens.length; i++) {
@@ -47,7 +46,6 @@ function badUserInput(badTokens) {
 		}
 	}
 
-	debugOutput("bad Tokens attmept 2: " + badTokens.join(" "), 'log');
 	//attempt 2 removing spaces
 	if (badTokens.length > 0) {
 		//all spaces
@@ -68,8 +66,6 @@ function badUserInput(badTokens) {
 				attempt.push(badTokens[i]);
 			}
 		}
-		debugOutput("after filtering", 'log');
-		debugOutput(attempt, 'log');
 		if ((attempt.length >= 2)) {
 			for (var i = 0; i < attempt.length - 1; i++) {
 				for (var j = i + 1; j < attempt.length; j++) {
@@ -94,7 +90,14 @@ function badUserInput(badTokens) {
 		}
 		badTokens = attempt;
 	}
-
+	
+	//Interpret bad Tokens as tkokenized fullname
+	if (badTokens.length > 0) {
+		for (var i = 0; i < badTokens.length; i++) {			
+			successArr.push("info.tokenized.fullName:" + badTokens[i].toLowerCase());
+		}
+		badTokens =[];
+	}
 	debugOutput("Result", 'log');
 	debugOutput(successArr, 'log');
 	debugOutput("Failure", 'log');

@@ -1,9 +1,8 @@
-<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
 <ShortName>ExileTrade</ShortName>
-<Description>
-Find your Path of Exile Items
-</Description>
+<Description>Find your Path of Exile Items</Description>
+<Tags>poe trading Exile</Tags>
+<Contact>poeblackmarketweb@gmail.com</Contact>
 <InputEncoding>UTF-8</InputEncoding>
-<Image width="16" height="16" type="image/x-icon">your site favicon</Image>
 <Url type="text/html" method="get" template="http://exiletrade.github.io/?q={searchTerms}"/>
-</OpenSearchDescription>
+<Image width="16" height="16" type="assets/img/logo/logo_01.png">http://exiletrade.github.io/assets/img/logo/logo_01.png</Image></OpenSearchDescription>
