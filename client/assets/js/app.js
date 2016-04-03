@@ -1567,31 +1567,62 @@ function indexerLeagueToLadder(league) {
 			if (typeof str === 'undefined') {
 				return
 			}
+
+			var validTerms = [
+				"coins",		//0
+				"regal", 		//1
+				"augmentation",	//2
+				"wisdom", 		//3
+				"portal", 		//4
+				"alchemy", 		//5
+				"mirror", 		//6
+				"blessed", 		//7
+				"whetstone",	//8
+				"scrap", 		//9
+				"vaal",			//10
+				"bauble", 		//11
+				"chaos", 		//12
+				"chisel", 		//13
+				"chromatic",	//14
+				"divine", 		//15
+				"exalted", 		//16
+				"transmutation",//17
+				"scouring",		//18
+				"regret",		//19
+				"fusing", 		//20
+				"prism", 		//21
+				"jeweller",		//22
+				"alteration", 	//23
+				"chance",		//24
+				"unknown"		//25
+			];
+
 			str =  str.replace(/[^\w\s]/gi, '').replace(/[0-9]/g, '').toLowerCase();
 
 			var currencyMap = new Map([
-				["unknown shekel", "coins"],
-				["unknown shekels", "coins"],
-				["unknown pc", "coins"],
-				["unknown p", "coins"],
-				["unknown perandus", "coins"],
-				["unknown perandus coin", "coins"],
-				["unknown perandus coins", "coins"],
-				["unknown peranduscoins", "coins"],
-				["unknown pcoins", "coins"],
-				["unknown pcoin", "coins"],
-				["unknown per", "coins"],
-				["unknown exa", "exalted"],
-				["unknown fuse", "fusing"],
-				["unknown alt", "alteration"],
-				["unknown aug", "augmentation"],
-				["unknown jewel", "jewellers"],
-				["unknown cartographer", "chisel"],
-				["unknown scour", "scouring"],
-				["unknown gemcutter", "gcp"],
-				["unknown transmute", "transmutation"],
-				["unknown alch", "alchemy"]
+				["unknown shekel", validTerms[0]],
+				["unknown shekels", validTerms[0]],
+				["unknown pc", validTerms[0]],
+				["unknown p", validTerms[0]],
+				["unknown perandus", validTerms[0]],
+				["unknown perandus coin", validTerms[0]],
+				["unknown perandus coins", validTerms[0]],
+				["unknown peranduscoins", validTerms[0]],
+				["unknown pcoins", validTerms[0]],
+				["unknown pcoin", validTerms[0]],
+				["unknown per", validTerms[0]],
+				["unknown exa", validTerms[16]],
+				["unknown fuse", validTerms[20]],
+				["unknown alt", validTerms[23]],
+				["unknown aug", validTerms[2]],
+				["unknown jewel", validTerms[22]],
+				["unknown cartographer", validTerms[13]],
+				["unknown scour", validTerms[18]],
+				["unknown gemcutter", validTerms[21]],
+				["unknown transmute", validTerms[17]],
+				["unknown alch", validTerms[5]]
 			]);
+
 			var result = currencyMap.get(str);
 			if (!result) result = str;
 
