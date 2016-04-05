@@ -93,8 +93,9 @@ function badUserInput(badTokens) {
 	
 	//Interpret bad Tokens as tkokenized fullname
 	if (badTokens.length > 0) {
+		ga('send', 'event', 'Search', 'Bad Tokens', badTokens.join(","));
 		for (var i = 0; i < badTokens.length; i++) {			
-			successArr.push("info.tokenized.fullName:" + badTokens[i].toLowerCase());
+			successArr.push("info.tokenized.fullName:" + badTokens[i].toLowerCase() + "~");
 		}
 		badTokens =[];
 	}
@@ -175,10 +176,6 @@ function parseSearchInputTokens(input, rerun) {
 	if (correction) {
 		badTokens = correction['unCorrectable'];
 		queryString += " " + correction['corrected'].join(" ");
-	}
-	
-	if(badTokens.length > 0) {
-		ga('send', 'event', 'Search', 'Bad Tokens', badTokens.join(","));
 	}
 	return {'queryString': queryString, 'badTokens': badTokens};
 }
