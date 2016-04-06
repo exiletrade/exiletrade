@@ -91,13 +91,12 @@ function badUserInput(badTokens) {
 		badTokens = attempt;
 	}
 	
-	//Interpret bad Tokens as tkokenized fullname
+	//Interpret bad Tokens as tokenized fullname
 	if (badTokens.length > 0) {
 		ga('send', 'event', 'Search', 'Bad Tokens', badTokens.join(","));
 		for (var i = 0; i < badTokens.length; i++) {			
 			successArr.push("info.tokenized.fullName:" + badTokens[i].toLowerCase() + "~");
-		}
-		badTokens =[];
+		}	
 	}
 	debugOutput("Result", 'log');
 	debugOutput(successArr, 'log');
