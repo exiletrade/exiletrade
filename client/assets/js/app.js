@@ -91,13 +91,14 @@ function badUserInput(badTokens) {
 		badTokens = attempt;
 	}
 	
-	//Interpret bad Tokens as tkokenized fullname
+	//Interpret bad Tokens as tokenized fullname
 	if (badTokens.length > 0) {
+		var tmpArr = [];
 		ga('send', 'event', 'Search', 'Bad Tokens', badTokens.join(","));
 		for (var i = 0; i < badTokens.length; i++) {			
-			successArr.push("info.tokenized.fullName:" + badTokens[i].toLowerCase() + "~");
+			tmpArr.push("info.tokenized.fullName:" + badTokens[i].toLowerCase() + "~");
 		}
-		badTokens =[];
+		successArr.push(tmpArr.join(" OR "));
 	}
 	debugOutput("Result", 'log');
 	debugOutput(successArr, 'log');
@@ -918,12 +919,13 @@ function indexerLeagueToLadder(league) {
 
 			$scope.searchQuery = buildQueryString(searchInput);
 			debugOutput("searchQuery=" + $scope.searchQuery, 'log');
-
+			/*
 			if ($scope.badSearchInputTerms.length > 0) {
 				$scope.showSpinner = false;
+				console.log("Bailed out at Line 923");
 				return;
 			}
-
+			*/
 			loadOnlinePlayersIntoScope().then(function () {
 				$scope.from = 0;
 				$scope.sortKey = sortKey;
