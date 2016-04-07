@@ -1618,6 +1618,8 @@ function indexerLeagueToLadder(league) {
 				["unknown alt", validTerms[23]],
 				["unknown aug", validTerms[2]],
 				["unknown jewel", validTerms[22]],
+				["jewellers", validTerms[22]],
+				["jewellers orb", validTerms[22]],
 				["unknown cartographer", validTerms[13]],
 				["unknown scour", validTerms[18]],
 				["unknown gemcutter", validTerms[21]],
