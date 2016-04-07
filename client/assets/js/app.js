@@ -999,6 +999,7 @@ function indexerLeagueToLadder(league) {
 							}
 
 							if (accountNamesFilter.length != 0 && $scope.Response.hits.hits.length < limit && response.hits.total > limit && $scope.from < (fetchSize * 10)) {
+								$scope.isScrollBusy = true;
 								return fetch();
 							}
 
