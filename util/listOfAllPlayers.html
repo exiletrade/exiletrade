@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" ng-app="EsConnector">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Exile Trade Utils - List of seller accounts</title>
+
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <!-- Warning, I've seen some glitchy errors on newer versions, I think they require node.js installation or some idiocy -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticsearch/10.0.1/elasticsearch.angular.min.js"></script>
+  <script>
+  
+    // We define an EsConnector module that depends on the elasticsearch module.     
+    var EsConnector = angular.module('EsConnector', ['elasticsearch']);
+
+    // Create the es service from the esFactory
+    EsConnector.service('es', function (esFactory) {
+      return esFactory({ host: 'http://apikey:DEVELOPMENT-Indexer@api.exiletools.com' });
+    });
+
+    EsConnector.controller('ExileToolsHelloWorld', function($scope, es) {
+      // Set up the ES Search function
+      es.search({
+          index: 'index',
+              body: {
+                  "aggs": {
+                        "sellers": {
+                              "terms": {
+                                "field": "shop.sellerAccount",
+                                size:100000
+                              }
+                            }
+                      }
+                  },
+                  "size": 0
+      }).then(function (response) {
+        $scope.Response = response;
+      }, function (err) {
+        console.trace(err.message);
+      });
+
+    });
+  
+  </script> --
+
+</head>
+<body>
+<!-- Main div starts at 0 spacing for simplicity -->
+<div id="main" style="width:100%;padding-left:50px;padding-right:50px" ng-controller="ExileToolsHelloWorld" >
+  <h1>Exile Trade Utils - List of seller accounts. You should see response data below after around ~30sec. If not, check your console!</h1>
+  <hr width=100% size=1>
+
+  <div>
+    <li>Request took {{Response.took}} ms
+    <li>Request matched {{Response.hits.total}} hits
+    <p>Here is some information on the items returned:</p>
+
+    <ul>
+      <!--li ng-repeat="(k,v) in Response">{{k}} - {{v | json}}</li-->
+      <li ng-repeat="(k,v) in Response.aggregations.sellers.buckets">{{k}} - {{v | json}}</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
