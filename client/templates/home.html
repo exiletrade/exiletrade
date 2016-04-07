@@ -267,18 +267,19 @@ url: /
 		</div>
 
 		<!-- search samples accordion -->
-		<div ng-if="!Response">
-			<zf-accordion class="sampleSearches showArrow">
+		<div>
+			<zf-accordion class="sampleSearches showArrow" auto-open="!Response">
 				<zf-accordion-item title="Sample Searches">
 					<ol>
-						<li><a href="http://exiletrade.github.io/?q=(gloves%20or%20helm)%2050life%2060eleres&sortKey=shop.chaosEquiv&sortOrder=asc&limit=50">(gloves or helm) 50life 60eleres</a></li>
-						<li><a href="http://exiletrade.github.io/?q=350pdps%20mace%20-voidhome%2010c&sortKey=shop.chaosEquiv&sortOrder=asc&limit=50">350pdps mace -voidhome 10c</a></li>
-						<li><a href="http://exiletrade.github.io/?q=ring%2020-30fireres%2020manaregen%2020str&sortKey=shop.chaosEquiv&sortOrder=asc&limit=50">ring 20-30fireres 20manaregen 20str</a></li>
-						<li><a href="http://exiletrade.github.io/?q=sword%20300pdps%20-flatacc%201ex&sortKey=shop.chaosEquiv&sortOrder=asc&limit=50">sword 300pdps -flatacc 1ex</a></li>
-						<li><a href="http://exiletrade.github.io/?q=(25fireres%2025coldres%2025lightres%2080res)%20OR%20(50res%2020int)%20-unique&sortKey=shop.chaosEquiv&sortOrder=asc&limit=50">(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique</a></li>
-						<li><a href="http://exiletrade.github.io/?q=voidmanipulation&sortKey=shop.chaosEquiv&sortOrder=asc&limit=50">voidmanipulation</a></li>
-						<li><a href="http://exiletrade.github.io/?q=pureev%205l%20chest&sortKey=shop.chaosEquiv&sortOrder=asc&limit=50"pureev 5l chest</a></li>
-						<li><a href="http://exiletrade.github.io/?q=24leveling&sortKey=shop.chaosEquiv&sortOrder=asc&limit=50">24leveling</a></li>
+						<li><a ng-click="doSavedSearch('(gloves or helm) 50life 60eleres')">(gloves or helm) 50life 60eleres</a></li>
+						<li><a ng-click="doSavedSearch('350pdps mace -voidhome 10c')">350pdps mace -voidhome 10c</a></li>
+						<li><a ng-click="doSavedSearch('ring 20-30fireres 20manaregen 20str')">ring 20-30fireres 20manaregen 20str</a></li>
+						<li><a ng-click="doSavedSearch('sword 300pdps -flatacc 1ex')">sword 300pdps -flatacc 1ex</a></li>
+						<li><a ng-click="doSavedSearch('(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique')">(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique</a></li>
+						<li><a ng-click="doSavedSearch('voidmanipulation')">voidmanipulation</a></li>
+						<li><a ng-click="doSavedSearch('pureev 5l chest')">pureev 5l chest</a></li>
+						<li><a ng-click="doSavedSearch('24leveling')">24leveling</a></li>
+						<li><a ng-click="doSavedSearch('6L plus1arrow')">6L plus1arrow</a></li>
 					</ol>
 				</zf-accordion-item>
 			</zf-accordion>
