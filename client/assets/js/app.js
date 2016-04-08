@@ -678,6 +678,13 @@ function indexerLeagueToLadder(league) {
 		}];
 		$scope.currentTab = 0;
 
+		$scope.removeAutosearch = function() {
+			alert('not implemented');
+		};
+		$scope.clearAutosearch = function() {
+			alert('not implemented');
+		};
+
 		/*
 		 * Load new sound; play sound preview
 		 * */

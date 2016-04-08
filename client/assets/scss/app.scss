@@ -227,7 +227,6 @@ img.pageLogo {
 	a {
 		font-family: monospace;
 	}
-	margin-bottom: 20px;
 }
 
 .modal {
@@ -949,6 +948,7 @@ img.gitter-badge {
 	}
 }
 .search-results {
+	margin-top: 15px;
 	@include mq($max-width: 768px) {
 		padding: 0.5rem;
 	}
@@ -1115,6 +1115,8 @@ img.gitter-badge {
 			line-height: 30px;
 			height: 30px;
 			padding: 0 10px;
+			margin-bottom: 5px;
+			margin-top: -5px;
 		}
 	}
 	.tab-contents {

@@ -99,6 +99,23 @@ url: /
 						information on those places. We still have to document a lot of things that you can find scattered around those social medias.
 					</p>
 					<div>
+						<zf-accordion class="sampleSearches showArrow" ng-if="Response">
+							<zf-accordion-item title="Sample Searches">
+								<ul>
+									<li><a ng-click="doSavedSearch('(gloves or helm) 50life 60eleres')">(gloves or helm) 50life 60eleres</a></li>
+									<li><a ng-click="doSavedSearch('350pdps mace -voidhome 10c')">350pdps mace -voidhome 10c</a></li>
+									<li><a ng-click="doSavedSearch('ring 20-30fireres 20manaregen 20str')">ring 20-30fireres 20manaregen 20str</a></li>
+									<li><a ng-click="doSavedSearch('sword 300pdps -flatacc 1ex')">sword 300pdps -flatacc 1ex</a></li>
+									<li><a ng-click="doSavedSearch('(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique')">(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique</a></li>
+									<li><a ng-click="doSavedSearch('voidmanipulation')">voidmanipulation</a></li>
+									<li><a ng-click="doSavedSearch('pureev 5l chest')">pureev 5l chest</a></li>
+									<li><a ng-click="doSavedSearch('24leveling')">24leveling</a></li>
+									<li><a ng-click="doSavedSearch('6L plus1arrow')">6L plus1arrow</a></li>
+								</ul>
+							</zf-accordion-item>
+						</zf-accordion>
+					</div>
+					<div>
 						<zf-accordion auto-open="false" class="spoiler">
 							<zf-accordion-item title="Online Status">
 								<p>
@@ -268,7 +285,7 @@ url: /
 
 		<!-- search samples accordion -->
 		<div>
-			<zf-accordion class="sampleSearches showArrow" auto-open="!Response">
+			<zf-accordion class="sampleSearches showArrow" auto-open="!Response" ng-if="!Response">
 				<zf-accordion-item title="Sample Searches">
 					<ol>
 						<li><a ng-click="doSavedSearch('(gloves or helm) 50life 60eleres')">(gloves or helm) 50life 60eleres</a></li>
@@ -607,9 +624,9 @@ url: /
 			<div class="tab-contents clearfix">
 				<div class="grid-block search-items large-up-2 tab"
 					 ng-class="{active:isActiveTab(tab.id)}" ng-show="isActiveTab(tab.id)" ng-repeat="tab in tabs">
-					<span ng-if="tab.id>0" class="tab-controls">
-						<a href="#" class="button hollow warning">Clear List</a>
-						<a href="#" class="button hollow alert">Remove Autosearch</a>
+					<span ng-if="tab.id>0" class="tab-controls clearfix">
+						<a href="#" class="button hollow alert float-right" ng-click="removeAutosearch()">Remove Autosearch</a>
+						<a href="#" class="button hollow warning float-right" ng-click="clearAutosearch()">Clear List</a>
 					</span>
 					<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style="options.switchItemsPerRow"
 						 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
