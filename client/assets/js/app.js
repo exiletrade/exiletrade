@@ -591,6 +591,7 @@ function indexerLeagueToLadder(league) {
 		$scope.disableScroll = true;
 		$scope.isScrollBusy = false;
 		$scope.onlinePlayers = [];
+		$scope.helpState = false;
 
 		var httpParams = $location.search();
 		debugOutput('httpParams:' + angular.toJson(httpParams, true), 'trace');
@@ -1578,6 +1579,10 @@ function indexerLeagueToLadder(league) {
 		$scope.isActiveTab = function(tabId) {
 			return tabId == $scope.currentTab;
 		};
+
+		$scope.toggleHelp = function(){
+			return $scope.helpState = ($scope.helpState == false)
+		}
 	}]);
 
 

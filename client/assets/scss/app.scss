@@ -166,6 +166,38 @@ img.pageLogo {
 			display: none;
 		}
 	}
+	label {
+		position: relative;
+		margin-bottom: 15px;
+		.inline-label {
+			margin-bottom: 30px;
+		}
+	}
+	.openHelp {
+		position: absolute;
+		bottom: -22px;
+		display: inline-block;
+		left: 50%;
+		margin-left: -40px;
+		.button {
+			font-size: rem-calc(12px);
+			margin: 0;
+			width: 60px;
+			padding: 5px;
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+
+			svg {
+				margin-left: 5px;
+				margin-right: 0;
+				width: 10px !important;
+				height: 10px !important;
+				&.up {
+					vertical-align: initial;
+				}
+			}
+		}
+	}
 }
 #searchField {
 	background-color: $color_input_bg;
@@ -948,7 +980,7 @@ img.gitter-badge {
 	}
 }
 .search-results {
-	margin-top: 15px;
+
 	@include mq($max-width: 768px) {
 		padding: 0.5rem;
 	}
@@ -1126,7 +1158,7 @@ img.gitter-badge {
 	}
 	.tab-headers {
 		padding: 0 1rem;
-		margin: 0 5px;
+		margin: 15px 5px 0 5px;
 		div {
 			padding: 5px;
 			border: 1px solid $primary-color;

@@ -48,8 +48,15 @@ url: /
 						</div>
 					</div>
 				</span>
+				<div class="openHelp"><a href="#" class="button"  ng-click="toggleHelp()">
+					Help
+					<img ng-show="!helpState" zf-iconic="" icon="chevron" data-direction="bottom" size="small">
+					<img ng-show="helpState" zf-iconic="" icon="chevron" data-direction="top" size="small" class="up">
+				</a>
+				</div>
 			</label>
 		</div>
+
 		<zf-notification-set id="save-notification-search" position="top-left"></zf-notification-set>
 		<zf-notification-set id="save-notification-options" position="top-right"></zf-notification-set>
 		<zf-notification-static id="save-notification-whisper" color="success" zf-advise="" title="Whisper message copied." autoclose=2000>
@@ -74,8 +81,8 @@ url: /
 		</div>
 
 		<!-- search terms guide accordion -->
-		<div>
-    		<zf-accordion auto-open="false" class="spoiler guide showArrow">
+		<div ng-show="helpState">
+    		<zf-accordion auto-open="{{!Response}}" class="spoiler guide showArrow">
 				<zf-accordion-item title="Search Terms/Automated Search Guide">
 					<p>
 						First thing is to set the league you want to search. Click the <strong><em>cog</em></strong> on
@@ -284,8 +291,8 @@ url: /
 		</div>
 
 		<!-- search samples accordion -->
-		<div>
-			<zf-accordion class="sampleSearches showArrow" auto-open="!Response" ng-if="!Response">
+		<div ng-show="helpState">
+			<zf-accordion class="sampleSearches showArrow" auto-open="{{!Response}}" ng-if="!Response">
 				<zf-accordion-item title="Sample Searches">
 					<ol>
 						<li><a ng-click="doSavedSearch('(gloves or helm) 50life 60eleres')">(gloves or helm) 50life 60eleres</a></li>
