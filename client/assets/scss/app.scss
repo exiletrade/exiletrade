@@ -236,7 +236,7 @@ img.pageLogo {
 }
 
 .guide {
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 
 .modal, .guide {
@@ -1109,6 +1109,14 @@ img.gitter-badge {
 }
 
 #tabs {
+	.tab-controls {
+		width:100%;
+		.button {
+			line-height: 30px;
+			height: 30px;
+			padding: 0 10px;
+		}
+	}
 	.tab-contents {
 		@include mq($max-width: 768px) {
 			padding: 0;
