@@ -1173,7 +1173,7 @@ function indexerLeagueToLadder(league) {
 
 			// Find first 10 that start with `term`.
 			for (var i = 0; i < sampleTerms.length && results.length < 10; i++) {
-			  var searchTerm = sampleTerms[i];
+			  var searchTerm = sampleTerms[i].sample;
 			  if (searchTerm.toLowerCase().indexOf(q) === 0)
 				results.push({ label: searchTerm, value: searchTerm });
 			}
@@ -1603,7 +1603,7 @@ function indexerLeagueToLadder(league) {
 			return blacklist.indexOf(type) == -1;
 		};
 		debugOutput("Loaded " + Object.keys(terms).length + " terms.", "info");
-		sampleTerms.sort(function(a, b){return a.length-b.length});
+		sampleTerms.sort(function(a, b){return a.sample.length-b.sample.length});
 		if (typeof httpParams['q'] !== 'undefined') {
 			$scope.doSearch();
 		} else {
