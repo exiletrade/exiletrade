@@ -932,6 +932,8 @@ function indexerLeagueToLadder(league) {
 		 Runs the current searchInput with default sort
 		 */
 		$scope.doSearch = function () {
+			var valueFromInput = $("#searchField").val();
+			if (typeof valueFromInput !== "undefined") $scope.searchInput = valueFromInput;
 			debugOutput('doSearch called, $scope.searchInput = ' + $scope.searchInput, 'info');
 			doActualSearch($scope.searchInput, limitDefault, sortKeyDefault, sortOrderDefault);
 			ga('send', 'event', 'Search', 'User Input', $scope.searchInput);
@@ -1156,12 +1158,18 @@ function indexerLeagueToLadder(league) {
 		}
 
 		$scope.autocomplete_options = {
-			suggest: suggestSearchTerm
+			suggest: suggestSearchTermDelimited,
+			on_detach: function (current_value) {
+				$scope.searchInput = current_value;
+		  	}
 	  	};
 
 		function suggestSearchTerm(term) {
 			var q = term.toLowerCase().trim();
+			q = q.replace(/[\(\)-\d]/g, "");(q);
 			var results = [];
+
+			if (/^(OR|AND|NOT)$/i.test(q)) return results;
 
 			// Find first 10 that start with `term`.
 			for (var i = 0; i < sampleTerms.length && results.length < 10; i++) {
@@ -1172,6 +1180,19 @@ function indexerLeagueToLadder(league) {
 
 			return results;
 		}
+
+		function suggestSearchTermDelimited(term) {
+		  var ix = term.lastIndexOf(' '),
+			  lhs = term.substring(0, ix + 1),
+			  rhs = term.substring(ix + 1),
+			  suggestions = suggestSearchTerm(rhs);
+
+		  suggestions.forEach(function (s) {
+			s.value = lhs + s.value;
+		  });
+
+		  return suggestions;
+		};
 
 		/*
 		 Get CSS Classes for element resistances

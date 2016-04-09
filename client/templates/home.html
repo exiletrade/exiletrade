@@ -26,7 +26,9 @@ url: /
 					<a href="" ng-click="doSearch()" class="button" value="Search">
 						<img zf-iconic="" icon="magnifying-glass" size="small">
 					</a>
-					<input id="searchField" ng-model="searchInput" placeholder="Search Input" my-enter="doSearch()" size="" type="text" mass-autocomplete-item="autocomplete_options" autofocus>
+					<input id="searchField" ng-model="searchInput" placeholder="Search Input" size="" type="text" 
+						mass-autocomplete-item="autocomplete_options"
+						my-enter="doSearch()" autofocus>
 					<a href="#" ng-click="saveLastSearch()" class="button small saveSearchNotificationLink" title="Save Search"
 					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
 						<img zf-iconic="" icon="bookmark" size="small">
