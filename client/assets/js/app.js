@@ -1194,8 +1194,13 @@ function indexerLeagueToLadder(league) {
 			// Find first 10 that start with `term`.
 			for (var i = 0; i < sampleTerms.length && results.length < 10; i++) {
 			  var searchTerm = sampleTerms[i].sample;
+			  var searchQuery = sampleTerms[i].query;
 			  if (searchTerm.toLowerCase().indexOf(q) === 0)
-				results.push({ label: searchTerm, value: searchTerm });
+				results.push({ 
+					// FIXME: style me better
+					label: '<strong>' + searchTerm + '</strong>' + "  -  " + "<i>" + searchQuery+ "</i>", 
+					value: searchTerm 
+				});
 			}
 
 			return results;
