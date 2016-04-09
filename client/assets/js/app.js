@@ -796,7 +796,7 @@ function indexerLeagueToLadder(league) {
 			if ($scope.savedAutomatedSearches && $scope.savedAutomatedSearches.length > 0) {
 				debugOutput('Gonna run counts on automated searches: ' + $scope.savedAutomatedSearches.length, 'trace');
 				var countPromises = $scope.savedAutomatedSearches.map(function (search) {
-					var queryString = buildQueryString(search.searchInput);
+					var queryString = buildQueryString(search.searchInput + " timestamp" + search.lastSearch);
 					search.lastSearch = new Date().getTime();
 					/*var promise = es.count({
 					  index: 'index',
@@ -834,11 +834,11 @@ function indexerLeagueToLadder(league) {
 							});
 							if (!existingTab) {
 							    newHitsCtr += elem.response.hits.total;
-								$scope.tabs.push({
+							    $scope.tabs.push({
 									title: elem.searchInput,
 									searchInput: elem.searchInput,
 									id: index + 1,
-									newItems: elem.response.hits.total,
+									newItems: elem.response.hits.total % 21, // max is fetchSize
 									response: elem.response
 								});
 							} else {
