@@ -28,13 +28,14 @@ function badUserInput(badTokens) {
 	if (badTokens.length == 0) return;
 	var successArr = [];
 	var evaluatedToken;
-	//attempt 1 User copy pasted RegEx 
-
+	//attempt 0 numbers at the end
 	for (i = 0; i < badTokens.length; i++) {
-		badTokens[i] = badTokens[i].replace(/\w\?/gi, "");
-		while (badTokens[i].indexOf(")?") > -1) {
-			badTokens[i] = badTokens[i].replace(/\([^\(\)]*\)\?/, "")
-		}
+		var rgx = new RegExp(/((\d+)$|(\d+)-(\d+)$)/);
+		if(rgx.test(badTokens[i])){
+			var match = rgx.exec(badTokens[i]);
+			badTokens[i] = badTokens[i].replace(rgx,"");
+			badTokens[i] = match[0] + badTokens[i];
+		}	
 	}
 	for (i = 0; i < badTokens.length; i++) {
 		evaluatedToken = evalSearchTerm(badTokens[i]);
@@ -43,6 +44,25 @@ function badUserInput(badTokens) {
 			successArr.push(evaluatedToken);
 			badTokens.splice(i, 1);
 			i--;
+		}
+	}
+	
+	//attempt 1 User copy pasted RegEx 
+	if(badTokens.length > 0){
+		for (i = 0; i < badTokens.length; i++) {
+			badTokens[i] = badTokens[i].replace(/\w\?/gi, "");
+			while (badTokens[i].indexOf(")?") > -1) {
+				badTokens[i] = badTokens[i].replace(/\([^\(\)]*\)\?/, "")
+			}
+		}
+		for (i = 0; i < badTokens.length; i++) {
+			evaluatedToken = evalSearchTerm(badTokens[i]);
+			debugOutput(badTokens[i] + '=' + evaluatedToken, 'log');
+			if (evaluatedToken) {
+				successArr.push(evaluatedToken);
+				badTokens.splice(i, 1);
+				i--;
+			}
 		}
 	}
 
