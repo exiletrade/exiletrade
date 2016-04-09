@@ -29,6 +29,7 @@
     "favico.js": "^0.3.10"
   },
   "devDependencies": {
-    "angular-scroll": "^1.0.0"
+    "angular-scroll": "^1.0.0",
+    "angular-mass-autocomplete": "^0.2.3"
   }
 }
