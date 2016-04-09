@@ -1603,6 +1603,7 @@ function indexerLeagueToLadder(league) {
 			return blacklist.indexOf(type) == -1;
 		};
 		debugOutput("Loaded " + Object.keys(terms).length + " terms.", "info");
+		sampleTerms.sort(function(a, b){return a.length-b.length});
 		if (typeof httpParams['q'] !== 'undefined') {
 			$scope.doSearch();
 		} else {
