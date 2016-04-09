@@ -829,21 +829,10 @@ function indexerLeagueToLadder(league) {
 				debugOutput('Gonna run counts on automated searches: ' + $scope.savedAutomatedSearches.length, 'trace');
 				var countPromises = $scope.savedAutomatedSearches.map(function (search) {
 					var queryString = buildQueryString(search.searchInput + " timestamp" + search.lastSearch);
-					search.lastSearch = new Date().getTime();
-					/*var promise = es.count({
-					  index: 'index',
-					  body: buildEsBody(queryString),
-					  size: 0
-					}).then(function (response) {
-						var count = response.count;
-						search.count = count;
-						return count;
-					}, function (err) {
-					  	debugOutput(err.message, 'trace');
-					});*/
+					//search.lastSearch = new Date().getTime();
 					var fetchSize = 20;
 					var from = 0;
-					var promise = doElasticSearch(queryString, from, fetchSize, $scope.sortKey, $scope.sortOrder).then(function (response) {
+					var promise = doElasticSearch(queryString, from, fetchSize, "shop.updated", "desc").then(function (response) {
 						$.each(response.hits.hits, function (index, value) {
 							addCustomFields(value._source);
 						});
@@ -854,6 +843,7 @@ function indexerLeagueToLadder(league) {
 					})
 					return promise;
 				});
+				//localStorage.setItem("savedAutomatedSearches", JSON.stringify($scope.savedAutomatedSearches.reverse()));
 
 				$q.all(countPromises).then(function (results) {
 					var total = 0;
@@ -1223,16 +1213,21 @@ function indexerLeagueToLadder(league) {
 
 			if (/^(OR|AND|NOT)$/i.test(q)) return results;
 
-			// Find first 10 that start with `term`.
+			// regex used to determine if a string contains the substring `q`
+    		var substrRegex = new RegExp(q, 'i');
+
+			// iterate through the pool of strings and for any string that
+			// contains the substring `q`, add it to the `results` array
 			for (var i = 0; i < sampleTerms.length && results.length < 10; i++) {
-			  var searchTerm = sampleTerms[i].sample;
-			  var searchQuery = sampleTerms[i].query;
-			  if (searchTerm.toLowerCase().indexOf(q) === 0)
-				results.push({ 
-					// FIXME: style me better
-					label: '<strong>' + searchTerm + '</strong>' + '<span>'+ "-" + "<i>" + searchQuery+ "</i>" + '</span>' ,
-					value: searchTerm 
-				});
+			  var sample = sampleTerms[i].sample;
+			  var query = sampleTerms[i].query;
+			  var isQueryMatch = !hasBackTick(query) && substrRegex.test(query);
+			  if (substrRegex.test(sample) || isQueryMatch) {
+				results.push({
+					label: '<strong>' + sample + '</strong>' + '<span>'+ "<i>" + query+ "</i>" + '</span>' ,
+					value: sample 
+				});	
+			  }
 			}
 
 			return results;
