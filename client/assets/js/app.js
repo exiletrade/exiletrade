@@ -797,21 +797,10 @@ function indexerLeagueToLadder(league) {
 				debugOutput('Gonna run counts on automated searches: ' + $scope.savedAutomatedSearches.length, 'trace');
 				var countPromises = $scope.savedAutomatedSearches.map(function (search) {
 					var queryString = buildQueryString(search.searchInput + " timestamp" + search.lastSearch);
-					search.lastSearch = new Date().getTime();
-					/*var promise = es.count({
-					  index: 'index',
-					  body: buildEsBody(queryString),
-					  size: 0
-					}).then(function (response) {
-						var count = response.count;
-						search.count = count;
-						return count;
-					}, function (err) {
-					  	debugOutput(err.message, 'trace');
-					});*/
+					//search.lastSearch = new Date().getTime();
 					var fetchSize = 20;
 					var from = 0;
-					var promise = doElasticSearch(queryString, from, fetchSize, $scope.sortKey, $scope.sortOrder).then(function (response) {
+					var promise = doElasticSearch(queryString, from, fetchSize, "shop.updated", "desc").then(function (response) {
 						$.each(response.hits.hits, function (index, value) {
 							addCustomFields(value._source);
 						});
@@ -822,6 +811,7 @@ function indexerLeagueToLadder(league) {
 					})
 					return promise;
 				});
+				//localStorage.setItem("savedAutomatedSearches", JSON.stringify($scope.savedAutomatedSearches.reverse()));
 
 				$q.all(countPromises).then(function (results) {
 					var total = 0;
