@@ -48,7 +48,7 @@ url: /
 						</div>
 					</div>
 				</span>
-				<div class="openHelp"><a href="#" class="button"  ng-click="toggleHelp()">
+				<div class="openHelp" ng-show="!(show_autocomplete && results.length > 0)"><a href="#" class="button"  ng-click="toggleHelp()">
 					Help
 					<img ng-show="!helpState" zf-iconic="" icon="chevron" data-direction="bottom" size="small">
 					<img ng-show="helpState" zf-iconic="" icon="chevron" data-direction="top" size="small" class="up">
