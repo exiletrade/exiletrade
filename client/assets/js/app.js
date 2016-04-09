@@ -1186,8 +1186,7 @@ function indexerLeagueToLadder(league) {
 			  var searchTerm = sampleTerms[i].sample;
 			  var searchQuery = sampleTerms[i].query;
 			  if (searchTerm.toLowerCase().indexOf(q) === 0)
-				results.push({ 
-					// FIXME: style me better
+				results.push({
 					label: '<strong>' + searchTerm + '</strong>' + '<span>'+ "-" + "<i>" + searchQuery+ "</i>" + '</span>' ,
 					value: searchTerm 
 				});
