@@ -55,7 +55,8 @@ var paths = {
 		'bower_components/jquery/dist/jquery.min.js',
 		//'bower_components/elasticsearch/elasticsearch.angular.js',
 		'node_modules/js-yaml/dist/js-yaml.min.js',
-		'node_modules/ngclipboard/dist/ngclipboard.js'
+		'node_modules/ngclipboard/dist/ngclipboard.js',
+		'bower_components/angular-mass-autocomplete/massautocomplete.js'
 	],
 	// These files are for your app's JavaScript
 	appJS: [

@@ -359,15 +359,16 @@ function indexerLeagueToLadder(league) {
 		'duScroll',
 		'angular-cache',
 		'angularSpinner',
-		'favico.service'
+		'favico.service',
+		'MassAutoComplete'
 	]);
 
 	appModule.config(config);
 	appModule.run(run);
 
-	config.$inject = ['$urlRouterProvider', '$locationProvider'];
+	config.$inject = ['$urlRouterProvider', '$locationProvider', '$sceProvider'];
 
-	function config($urlProvider, $locationProvider) {
+	function config($urlProvider, $locationProvider, $sceProvider) {
 		$urlProvider.otherwise('/');
 
 		$locationProvider.html5Mode({
@@ -376,6 +377,8 @@ function indexerLeagueToLadder(league) {
 		});
 
 		$locationProvider.hashPrefix('!');
+
+		$sceProvider.enabled(false);
 	}
 
 	function run() {
@@ -581,7 +584,10 @@ function indexerLeagueToLadder(league) {
 		};
 	}]);
 	
-	appModule.controller('SearchController', ['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService', function ($q, $scope, $http, $location, $interval, es, playerOnlineService,favicoService) {
+	appModule.controller('SearchController', 
+		['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService', 
+		function ($q, $scope, $http, $location, $interval, es, playerOnlineService,favicoService) {
+
 		debugOutput('controller', 'info');
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
@@ -1149,6 +1155,24 @@ function indexerLeagueToLadder(league) {
 			fm_process(item);
 		}
 
+		$scope.autocomplete_options = {
+			suggest: suggestSearchTerm
+	  	};
+
+		function suggestSearchTerm(term) {
+			var q = term.toLowerCase().trim();
+			var results = [];
+
+			// Find first 10 that start with `term`.
+			for (var i = 0; i < sampleTerms.length && results.length < 10; i++) {
+			  var searchTerm = sampleTerms[i];
+			  if (searchTerm.toLowerCase().indexOf(q) === 0)
+				results.push({ label: searchTerm, value: searchTerm });
+			}
+
+			return results;
+		}
+
 		/*
 		 Get CSS Classes for element resistances
 		 */
@@ -1574,7 +1598,7 @@ function indexerLeagueToLadder(league) {
 			$scope.currentTab = tab.id;
 			$scope.tabs[tab.id].newItems = 0;
 			$scope.Response = tab.response;
-			if (tab.id != 0) $scope.disableScroll = true; // no scrolling for automated search
+			$scope.disableScroll = tab.id != 0; // no scrolling for automated search
 		};
 		$scope.isActiveTab = function(tabId) {
 			return tabId == $scope.currentTab;
