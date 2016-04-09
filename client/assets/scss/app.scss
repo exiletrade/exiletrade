@@ -1273,11 +1273,16 @@ img.gitter-badge {
 	margin: 0;
 	background-color: #36383a;
 	color: white;
+	font-size: rem-calc(14px);
 }
 .ac-container .ac-menu .ac-menu-item {
 	border-bottom: 1px dotted $primary-color;
-	line-height: 35px;
+	line-height: 26px;
 	margin: 0;
+	i {
+		color: #ccc8c8;
+		font-size: rem-calc(12px);
+	}
 }
 .ac-container .ac-menu .ac-menu-item:last-child {
 	border-bottom: 0;
