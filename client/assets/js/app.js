@@ -201,8 +201,40 @@ function parseSearchInputTokens(input, rerun) {
 	return {'queryString': queryString, 'badTokens': badTokens};
 }
 
+function splitToken(token){
+	var rgx = new RegExp(/((\d+)-(\d+)|(\d+))/);
+	var numberPart;
+	var letterPart = token;
+	if(rgx.test(token)){
+		var match = rgx.exec(token);
+		if(match)numberPart = match[0];
+		letterPart = token.replace(rgx,"");		
+	}
+	if(numberPart){
+		console.log(numberPart);
+	}
+	numberPart = formatNumber(numberPart);	
+	console.log({'numberPart': numberPart, 'letterPart':letterPart});
+	return{'numberPart': numberPart, 'letterPart':letterPart};
+}
+
+function formatNumber(str){
+	if(!str) return;
+	var result;
+	if(str.indexOf("-") != -1){
+		var tmp = str.split("-");
+		var result = ":[" + tmp[0] + " TO " + tmp[1] + "]"
+	}else{
+		var result = ":>=" + str;
+	}
+	return result;
+}
+
 function evalSearchTerm(token) {
 	var result = "";
+	var tokens = splitToken(token);
+	var letterPart = tokens.letterPart;
+	var numberPart = tokens.numberPart;
 	for (var regex in terms) {
 		if (terms.hasOwnProperty(regex)) {
 			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
