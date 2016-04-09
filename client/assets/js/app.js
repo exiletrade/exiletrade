@@ -1464,7 +1464,7 @@ function indexerLeagueToLadder(league) {
 		 Trigger saved Search
 		 */
 		$scope.doSavedSearch = function (x) {
-			$scope.searchInput = x;
+			$("#searchField").val(x);
 			$scope.doSearch();
 		};
 
