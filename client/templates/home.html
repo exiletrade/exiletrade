@@ -84,21 +84,27 @@ url: /
 
 		<!-- search terms guide accordion -->
 		<div ng-show="helpState">
-    		<zf-accordion auto-open="{{!Response}}" class="spoiler guide showArrow">
-				<zf-accordion-item title="Search Terms/Automated Search Guide">
+    		<zf-accordion class="spoiler guide showArrow">
+				<zf-accordion-item title="ExileTrade Basic Usage Guide">
 					<p>
-						First thing is to set the league you want to search. Click the <strong><em>cog</em></strong> on
-						the left of the search bar to select your league. The default league is <strong><em>Perandus SC</em></strong>.
-						To learn how to search for common stuff, click the spoiler tags below. Always type the search without quotes.
+						Welcome to ExileTrade! It's a free and open source fan-made <i>Path of Exile</i> items search engine. It features searching by 'search terms' like 6s5L chest 70life 60res which are based on poe community jargons.
 					</p>
+					<p><strong>Setting Up</strong></p>
 					<p>
-						Next thing is to understand how the search engine works. Right now, a single term is considered
+						First thing is to set the league you want to search. Click the <strong><em>cog</em></strong> button on
+						the left side to select your default for:
+						<ol>
+							<li>League</li>
+							<li>Buyout Only</li>
+							<li>Online Only</li>
+						</ol>
+					</p>
+					<p><strong>Search Terms</strong></p>
+					<p>
+						Next thing is to understand how the search engine works. A single term is considered
 						a straight sequence of characters <strong><em>not separated by spaces</em></strong>. So, if you
-						want to search for something that has a composed name, try typing everything together. We know
-						that's not the best way to handle this, doesn't feel natural, but we're working on better ways
-						to better recognize user input. That's also valid for the numeric value associated with the term,
-						it has to come together with it, <strong><em>no spaces between them</em></strong>. For examples,
-						just read the brief guide that follows.
+						want to search for something that has a composed name, try typing everything together. That's also valid for the numeric value associated with the term,
+						it has to come together with it, <strong><em>no spaces between them</em></strong>.
 					</p>
 					<p>
 						If you have any questions or suggestions, you can contact us
@@ -181,11 +187,11 @@ url: /
 								<p>
 									I want to search for a ring with at least 70 life, 60 total elemental resistances
 									and 30% increased weapon	elemental damage. Well, it's a ring, so we type
-									<code>'ring'</code>. Life is pretty much life, so we add <code>'70life'</code>,
+									<code>ring</code>. Life is pretty much life, so we add <code>70life</code>,
 									total resistances is usually refered as totaleleres or eleres, so we can type any
-									of those: <code>'60eleres'</code>. Increased Elemental Damage with Weapons is
-									refered to as wed, so we add <code>'wed'</code> to our search. That sums up to
-									<code>'ring 70life 60eleres 30wed'</code>.
+									of those: <code>60eleres</code>. Increased Elemental Damage with Weapons is
+									refered to as wed, so we add <code>wed</code> to our search. That sums up to
+									<code>ring 70life 60eleres 30wed</code>.
 								</p>
 							</zf-accordion-item>
 						</zf-accordion>
@@ -195,9 +201,9 @@ url: /
 							<zf-accordion-item title="Uniques">
 								<p>
 									If you want to search for a unique item, you simply have to type its name, without
-									spaces.</p><p>Example: If I want a Kaom's Heart, i'll have to type <code>'kaomsheart'</code>,
-									<code>'kaomheart'</code> or <code>kaom'sheart'</code>. As you guys can see, there is
-								space for variations on it. Apostrophes and stuff like <code>'the'</code> and <code>'of'</code> are optional.
+									spaces.</p><p>Example: If I want a Kaom's Heart, i'll have to type <code>kaomsheart</code>,
+									<code>kaomheart</code> or <code>kaom'sheart</code>. As you guys can see, there is
+								space for variations on it. Apostrophes and stuff like <code>the</code> and <code>of</code> are optional.
 								</p>
 							</zf-accordion-item>
 						</zf-accordion>
@@ -209,7 +215,7 @@ url: /
 									If you want to search for a specific base type, you also only have to type its name.
 								</p>
 								<p>Example: I want the "My first search" ring to be of a specific base, a Diamond Ring,
-									I'll have to add to our search simply <code>'diamond'</code>: <code>'ring 70life 60eleres 30wed diamond'</code>
+									I'll have to add to our search simply <code>diamond</code>: <code>ring 70life 60eleres 30wed diamond</code>
 								</p>
 							</zf-accordion-item>
 						</zf-accordion>
@@ -219,10 +225,10 @@ url: /
 							<zf-accordion-item title="Sockets and Links">
 								<p>
 									If you want to search for sockets and links, it's also pretty easy.</p><p>Example:
-								I want a 5 linked Lightning Coil. I just have to type: <code>'lightningcoil 5l'</code>.
+								I want a 5 linked Lightning Coil. I just have to type: <code>lightningcoil 5l</code>.
 								But honestly I want it to already come with the colors I need, 2 red, 2 greens and 1 blue.
-								So I type: <code>'lightningcoil 5l 2r 2g 1b'</code>. Why not have all sockets on it?
-								<code>'lightningcoil 6s 5l 2r 2g 1b'</code>.
+								So I type: <code>lightningcoil 5l 2r 2g 1b</code>. Why not have all sockets on it?
+								<code>lightningcoil 6s 5l 2r 2g 1b</code>.
 								</p>
 							</zf-accordion-item>
 						</zf-accordion>
@@ -234,8 +240,8 @@ url: /
 									Searching for gems works in the same way as searching for uniques, type the name of the gem without spaces.
 								</p>
 								<p>
-									Example: I want a Blade Vortex: <code>'bladevortex'</code>. I want it to be at least level 18:
-									<code>'bladevortex glvl18'</code>. I also want its quality to be 15+: <code>'bladevortex glvl18 q15'</code>
+									Example: I want a Blade Vortex: <code>bladevortex</code>. I want it to be at least level 18:
+									<code>bladevortex glvl18</code>. I also want its quality to be 15+: <code>bladevortex glvl18 q15</code>
 								</p>
 							</zf-accordion-item>
 						</zf-accordion>
@@ -247,7 +253,7 @@ url: /
 									You can also add b/o's to your search, if you only want to see items under a determined price.
 								</p>
 								<p>
-									Example: I want a 6l Vaal Regalia for 1 exalt. <code>'vaalregalia 6l 1ex'</code>
+									Example: I want a 6l Vaal Regalia for 1 exalt. <code>vaalregalia 6l 1ex</code>
 								</p>
 							</zf-accordion-item>
 						</zf-accordion>
@@ -259,7 +265,7 @@ url: /
 									Looking for a talisman? You just have to type its name along with the other parameters.
 								</p>
 								<p>
-									Example: <code>'ashscale 10firedmg 70life 20res'</code>
+									Example: <code>ashscale 10firedmg 70life 20res</code>
 								</p>
 							</zf-accordion-item>
 						</zf-accordion>
@@ -269,9 +275,9 @@ url: /
 							<zf-accordion-item title="Excluding results from search">
 								<p>
 									If you don't want an item to have a specific mod, life life because you're CI, you just
-									need to type <code>'-life'</code> and the results will only display items without life. You can
+									need to type <code>-life</code> and the results will only display items without life. You can
 									negate any existing search term, so if you want a nice mace but doesn't want to see
-									Voidhomes, you just have to type <code>'-voidhome'</code>
+									Voidhomes, you just have to type <code>-voidhome</code>
 								</p>
 							</zf-accordion-item>
 						</zf-accordion>
