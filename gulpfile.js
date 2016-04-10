@@ -236,9 +236,14 @@ gulp.task('uglify:app', function () {
 
 gulp.task('download', function (){
 	for (var i = 0; i < paths.spreadsheet_urls.length; i++) {
+		var number = i + 1 + '';
+		if (number.length == 1) {
+			number = '0' + number;
+		}
+
 		var options = {
 			directory: destination + "/data",
-			filename: "speadsheet_" + (i+1) + ".txt"
+			filename: "speadsheet_" + number + ".txt"
 		};
 
 		download(paths.spreadsheet_urls[i], options, function(err){
