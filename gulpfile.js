@@ -13,6 +13,7 @@ var gulpRimraf = require('gulp-rimraf');
 var router = require('front-router');
 var sequence = require('run-sequence');
 var ignore = require('gulp-ignore');
+var download = require('download-file');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -64,6 +65,23 @@ var paths = {
 		'client/assets/js/fm.js',
 		(isDemo || isProduction) ? '' : 'client/assets/js/debug.js',
 		'client/assets/js/app.js'
+	],
+	spreadsheet_urls : [
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=675822745&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=40738669&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=244311060&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1965399973&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1443807460&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=57824604&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=224979895&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=14190859&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=154866940&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=583395837&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=380600191&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1782931570&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=223573764&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=207179951&headers=1",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1732537543&headers=1"
 	]
 };
 
@@ -216,6 +234,19 @@ gulp.task('uglify:app', function () {
 		.pipe(gulp.dest(destination + '/assets/js/'));
 });
 
+gulp.task('download', function (){
+	for (var i = 0; i < paths.spreadsheet_urls.length; i++) {
+		var options = {
+			directory: destination + "/data",
+			filename: "speadsheet_" + (i+1) + ".txt"
+		};
+
+		download(paths.spreadsheet_urls[i], options, function(err){
+			if (err) throw err;
+		})
+	}
+});
+
 // Starts a test server, which you can view at http://localhost:8079
 gulp.task('server', ['build'], function () {
 	gulp.src('./build')
@@ -231,7 +262,7 @@ gulp.task('server', ['build'], function () {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function (cb) {
-	sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', 'copy:images', 'copy:sound', 'copy:build', cb);
+	sequence('clean', 'download', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', 'copy:images', 'copy:sound', 'copy:build', cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change
