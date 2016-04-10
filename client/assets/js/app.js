@@ -448,7 +448,7 @@ function indexerLeagueToLadder(league) {
 
 	    function refreshLadderAllPlayerCache(league) {
 			debugOutput("Loading up all players from ladder league: " + league, 'trace')
-			var url = "http://api.exiletools.com/ladder?league=" + league + "&showAllOnline=1&onlineStats=1";
+			var url = "https://api.exiletools.com/ladder?league=" + league + "&showAllOnline=1&onlineStats=1";
 
 			var promise = $http.get(url).then(function (result) {
 				if (typeof result.data === 'object') {
