@@ -407,7 +407,7 @@ function indexerLeagueToLadder(league) {
 
 	// Create the es service from the esFactory
 	appModule.service('es', function (esFactory) {
-		return esFactory({host: 'http://apikey:07e669ae1b2a4f517d68068a8e24cfe4@api.exiletools.com'}); // poeblackmarketweb@gmail.com
+		return esFactory({host: 'https://apikey:07e669ae1b2a4f517d68068a8e24cfe4@api.exiletools.com'}); // poeblackmarketweb@gmail.com
 	});
 
 	appModule.service('playerOnlineService', function ($q, $http, CacheFactory, es) {
@@ -492,7 +492,7 @@ function indexerLeagueToLadder(league) {
 		function refreshLadderPlayerCache(league, accountNames) {
 			var accountNamesParam = accountNames.join(':')
 			debugOutput("Loading up players from ladder: " + accountNamesParam, 'trace')
-			var url = "http://api.exiletools.com/ladder?league=" + league + "&short=1&onlineStats=1&accountName=" + accountNamesParam;
+			var url = "https://api.exiletools.com/ladder?league=" + league + "&short=1&onlineStats=1&accountName=" + accountNamesParam;
 			var promise = $http.get(url);
 			promise.then(function (result) {
 				if (typeof result.data === 'object') {
