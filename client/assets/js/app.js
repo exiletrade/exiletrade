@@ -824,6 +824,9 @@ function indexerLeagueToLadder(league) {
 			};
 		};
 
+		function hitToUUID(hit) {
+			return hit._source.uuid;
+		}
 		var automatedSearchIntervalFn = function () {
 			if ($scope.savedAutomatedSearches && $scope.savedAutomatedSearches.length > 0) {
 				debugOutput('Gonna run counts on automated searches: ' + $scope.savedAutomatedSearches.length, 'trace');
@@ -864,11 +867,8 @@ function indexerLeagueToLadder(league) {
 									response: elem.response
 								});
 							} else {
-								function hitToUUID(hit) {
-									return hit._source.uuid;
-								}
-								var currentHits = existingTab.response.hits.hits.map(hitToUUID);
-								var newHits = elem.response.hits.hits.map(hitToUUID);
+								var currentHits = existingTab.response.hits.hits.map(hitToUUID(hit));
+								var newHits = elem.response.hits.hits.map(hitToUUID(hit));
 								var diff = $(currentHits).not(newHits).get();
 								newHitsCtr += diff.length;
 								if (diff.length != 0) {
@@ -885,6 +885,7 @@ function indexerLeagueToLadder(league) {
 				});
 			}
 		};
+
 		automatedSearchIntervalFn();
 		$interval(automatedSearchIntervalFn, 10000); // 10 sec
 
