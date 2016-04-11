@@ -858,9 +858,16 @@ img.gitter-badge {
 			object-position: 50% 0;
 		}
 
+		.socket, .socketLink {
+			opacity: 1;
+			transition: opacity .25s ease-in-out;
+			-moz-transition: opacity .25s ease-in-out;
+			-webkit-transition: opacity .25s ease-in-out;
+		}
+
 		&:hover {
 			.socket, .socketLink {
-				opacity:0.4;
+				opacity:0.15;
 			}
 		}
 
