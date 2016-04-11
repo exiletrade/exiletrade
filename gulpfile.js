@@ -259,7 +259,10 @@ gulp.task('uglify:app', function () {
 
 
 // Downloads spreadhseets and concats them
-gulp.task('download', function (){
+gulp.task('download', function (cb){
+	var dataPath = './client/data';
+	rimraf(dataPath, cb);
+
 	var j = 0;
 	for (var i = 0; i < paths.spreadsheet_urls.length; i++) {
 		var gidIdx = paths.spreadsheet_urls[i].indexOf("gid=");
@@ -267,7 +270,7 @@ gulp.task('download', function (){
 		var gid = paths.spreadsheet_urls[i].substring(gidIdx + 4, urlLen);
 
 		var options = {
-			directory: "./client/data",
+			directory: dataPath,
 			filename: "speadsheet_" + gid + ".js"
 		};
 
@@ -276,9 +279,10 @@ gulp.task('download', function (){
 			j++;
 
 			if (j==paths.spreadsheet_urls.length-1){
+				console.log('Cleaned Data directory.');
 				console.log('Downloaded Spreadsheets.');
 
-				return gulp.src(['./client/assets/js/google.vizualize.query.js', './client/data/*.*'])
+				return gulp.src(['./client/assets/js/google.vizualize.query.js', dataPath+'/*.*'])
 					.pipe($.concat('data.js'))
 					.pipe(gulp.dest( destination + '/assets/data/'))
 					.pipe(gulp.dest( './client/assets/data/'));
