@@ -7,7 +7,7 @@ window.google = {
 		'Query' : {
 			'setResponse' : function (data) {
 				var rows = data.table.rows;
-				for(i in rows) {
+				for(var i in rows) {
 					var row = rows[i].c;
 					var quer = row[1].v;
 					var filt = (row[2] !== null && row[2].v !== null) ? row[2].v : "";

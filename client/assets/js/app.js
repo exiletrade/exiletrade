@@ -1,5 +1,5 @@
 function debugOutput(input, outputType) {
-	if (typeof debugDevBuild === 'undefined') return;
+	if (typeof debugDevBuild === 'undefined') { return; }
 	try {
 		if (outputType == "log") {
 			console.log(input);
@@ -25,9 +25,10 @@ function defaultFor(arg, val) {
 // expects array
 //returns {'corrected', 'unCorrectable'
 function badUserInput(badTokens) {
-	if (badTokens.length == 0) return;
+	if (badTokens.length === 0) { return; }
 	var successArr = [];
 	var evaluatedToken;
+	var i = 0;
 	//attempt 0 numbers at the end
 	for (i = 0; i < badTokens.length; i++) {
 		var rgx = new RegExp(/((\d+)$|(\d+)-(\d+)$)/);
@@ -52,7 +53,7 @@ function badUserInput(badTokens) {
 		for (i = 0; i < badTokens.length; i++) {
 			badTokens[i] = badTokens[i].replace(/\w\?/gi, "");
 			while (badTokens[i].indexOf(")?") > -1) {
-				badTokens[i] = badTokens[i].replace(/\([^\(\)]*\)\?/, "")
+				badTokens[i] = badTokens[i].replace(/\([^\(\)]*\)\?/, "");
 			}
 		}
 		for (i = 0; i < badTokens.length; i++) {
@@ -87,7 +88,7 @@ function badUserInput(badTokens) {
 			}
 		}
 		if ((attempt.length >= 2)) {
-			for (var i = 0; i < attempt.length - 1; i++) {
+			for (i = 0; i < attempt.length - 1; i++) {
 				for (var j = i + 1; j < attempt.length; j++) {
 					evaluatedToken = evalSearchTerm(attempt[i] + attempt[j]);
 					if (evaluatedToken) {
@@ -115,7 +116,7 @@ function badUserInput(badTokens) {
 	if (badTokens.length > 0) {
 		var tmpArr = [];
 		ga('send', 'event', 'Search', 'Bad Tokens', badTokens.join(","));
-		for (var i = 0; i < badTokens.length; i++) {			
+		for (i = 0; i < badTokens.length; i++) {
 			tmpArr.push("info.tokenized.fullName:" + badTokens[i].toLowerCase() + "~");
 		}
 		successArr.push(tmpArr.join(" OR "));
@@ -159,13 +160,13 @@ function parseSearchInput(_terms, input) {
 	return parseResult;
 }
 
-function parseSearchInputTokens(input, rerun) {
-	var rerun = typeof rerun !== 'undefined' ? rerun : false;
+function parseSearchInputTokens(input) {
+	//var rerun = typeof rerun !== 'undefined' ? rerun : false;
 	var tokens = input.split(" ");
 	debugOutput(tokens, 'trace');
 	var queryTokens = [];
 	var badTokens = [];
-	for (i in tokens) {
+	for (var i in tokens) {
 		var evaluatedToken = tokens[i];
 		if (!evaluatedToken) continue;
 		var token = evaluatedToken.toUpperCase();
