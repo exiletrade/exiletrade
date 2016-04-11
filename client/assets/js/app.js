@@ -201,8 +201,40 @@ function parseSearchInputTokens(input, rerun) {
 	return {'queryString': queryString, 'badTokens': badTokens};
 }
 
+function splitToken(token){
+	var rgx = new RegExp(/((\d+)-(\d+)|(\d+))/);
+	var numberPart;
+	var letterPart = token;
+	if(rgx.test(token)){
+		var match = rgx.exec(token);
+		if(match)numberPart = match[0];
+		letterPart = token.replace(rgx,"");		
+	}
+	if(numberPart){
+		console.log(numberPart);
+	}
+	numberPart = formatNumber(numberPart);	
+	console.log({'numberPart': numberPart, 'letterPart':letterPart});
+	return{'numberPart': numberPart, 'letterPart':letterPart};
+}
+
+function formatNumber(str){
+	if(!str) return;
+	var result;
+	if(str.indexOf("-") != -1){
+		var tmp = str.split("-");
+		var result = ":[" + tmp[0] + " TO " + tmp[1] + "]"
+	}else{
+		var result = ":>=" + str;
+	}
+	return result;
+}
+
 function evalSearchTerm(token) {
 	var result = "";
+	var tokens = splitToken(token);
+	var letterPart = tokens.letterPart;
+	var numberPart = tokens.numberPart;
 	for (var regex in terms) {
 		if (terms.hasOwnProperty(regex)) {
 			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
@@ -1132,6 +1164,7 @@ function indexerLeagueToLadder(league) {
 			if (item.mods) createForgottenMods(item);
 			if (item.mods) createImplicitMods(item);
 			if (item.mods) createCraftedMods(item);
+			if (item.mods) createEnchantMods(item);
 			if (item.shop) {
 				var added = new Date(item.shop.added);
 				var updated = new Date(item.shop.updated);
@@ -1266,6 +1299,19 @@ function indexerLeagueToLadder(league) {
 				};
 			});
 			item['implicitMods'] = implicitMods;
+		}
+		
+		function createEnchantMods(item) {
+			var enchant = item.enchantMods;
+			if(!enchant) return;
+			console.log("Enchant: " + enchant);
+			var enchantMods = $.map(enchant, function (propertyValue, modKey) {
+				return {
+					display: modToDisplay(propertyValue, modKey),
+					key: 'enchantMods.' +  modKey
+				};
+			});
+			item['enchantMods'] = enchantMods;
 		}
 
 		function createCraftedMods(item) {

@@ -14,6 +14,7 @@ var router = require('front-router');
 var sequence = require('run-sequence');
 var ignore = require('gulp-ignore');
 var download = require('download-file');
+var replace = require('gulp-replace-task');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -71,21 +72,21 @@ var paths = {
 		'client/assets/js/app.js'
 	],
 	spreadsheet_urls : [
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=675822745&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=40738669&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=244311060&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1965399973&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1443807460&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=57824604&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=224979895&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=14190859&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=154866940&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=583395837&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=380600191&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1782931570&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=223573764&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=207179951&headers=1",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1732537543&headers=1"
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=675822745",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=40738669",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=244311060",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=1965399973",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=1443807460",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=57824604",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=224979895",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=14190859",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=154866940",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=583395837",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=380600191",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=1782931570",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=223573764",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=207179951",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=1732537543"
 	]
 };
 
@@ -113,6 +114,24 @@ gulp.task('copy', function () {
 		base: './client/'
 	})
 		.pipe(gulp.dest(destination));
+});
+
+// Copy index
+gulp.task('copy:index', function (cb) {
+	if (isDemo) {
+		gulp.src('./client/index.html')
+			.pipe(replace({
+				  patterns: [
+					{
+					  match: /https:\/\/docs\.google\.com\/spreadsheets\/.*gid=(\d+)/ig,
+					  replacement: './data/speadsheet_gid$1.js'
+					}
+				  ]
+				}))
+			.pipe(gulp.dest(destination))
+		;
+	}
+	cb();
 });
 
 // Copies your app's page templates and generates URLs for them
@@ -243,14 +262,13 @@ gulp.task('uglify:app', function () {
 gulp.task('download', function (){
 	var j = 0;
 	for (var i = 0; i < paths.spreadsheet_urls.length; i++) {
-		var number = i + 1 + '';
-		if (number.length == 1) {
-			number = '0' + number;
-		}
+		var gidIdx = paths.spreadsheet_urls[i].indexOf("gid=");
+		var urlLen = paths.spreadsheet_urls[i].length;
+		var gid = paths.spreadsheet_urls[i].substring(gidIdx + 4, urlLen);
 
 		var options = {
 			directory: "./client/data",
-			filename: "speadsheet_" + number + ".js"
+			filename: "speadsheet_" + gid + ".js"
 		};
 
 		download(paths.spreadsheet_urls[i], options, function(err){
@@ -284,7 +302,7 @@ gulp.task('server', ['build'], function () {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function (cb) {
-	sequence('clean', 'download', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', 'copy:images', 'copy:sound', 'copy:build', cb);
+	sequence('clean', 'download', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:index', 'copy:templates', 'copy:images', 'copy:sound', 'copy:build', cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change
