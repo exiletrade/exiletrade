@@ -6,6 +6,9 @@
     "build": "gulp build --production"
   },
   "devDependencies": {
+    "angular-cache": "^4.5.0",
+    "angular-spinner": "^0.8.1",
+    "clipboard": "^1.5.10",
     "download-file": "^0.1.5",
     "front-router": "^1.0.0",
     "gulp": "^3.9.0",

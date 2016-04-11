@@ -45,6 +45,7 @@ var paths = {
 		'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
 		'bower_components/tether/tether.min.js',
 		'bower_components/hammerjs/hammer.js',
+		//'node_modules/clipboard/clipboard.js',
 		'bower_components/angular/angular.min.js',
 		'bower_components/angular-animate/angular-animate.min.js',
 		'bower_components/angular-ui-router/release/angular-ui-router.min.js',
@@ -57,6 +58,9 @@ var paths = {
 		//'bower_components/elasticsearch/elasticsearch.angular.js',
 		'node_modules/js-yaml/dist/js-yaml.min.js',
 		'node_modules/ngclipboard/dist/ngclipboard.js',
+		'node_modules/angular-cache/dist/angular-cache.min.js',
+		'node_modules/angular-spinner/node_modules/spin.js/spin.js',
+		'node_modules/angular-spinner/angular-spinner.js',
 		'bower_components/angular-mass-autocomplete/massautocomplete.js'
 	],
 	// These files are for your app's JavaScript
@@ -189,7 +193,7 @@ gulp.task('copy:build', function (cb) {
 
 // Compiles Sass
 gulp.task('sass', function () {
-	var minifyCss = $.if(isProduction, $.minifyCss());
+	var minifyCss = $.if(isDemo, $.minifyCss());
 
 	return gulp.src('client/assets/scss/app.scss')
 		.pipe($.sass({
@@ -208,7 +212,7 @@ gulp.task('sass', function () {
 gulp.task('uglify', ['uglify:foundation', 'uglify:app']);
 
 gulp.task('uglify:foundation', function (cb) {
-	var uglify = $.if(isProduction, $.uglify()
+	var uglify = $.if(isDemo || isProduction, $.uglify()
 		.on('error', function (e) {
 			console.log(e);
 		}));
@@ -220,7 +224,7 @@ gulp.task('uglify:foundation', function (cb) {
 });
 
 gulp.task('uglify:app', function () {
-	var uglify = $.if(isProduction, $.uglify()
+	var uglify = $.if(isDemo || isProduction, $.uglify()
 		.on('error', function (e) {
 			console.log(e);
 		}));
@@ -234,7 +238,10 @@ gulp.task('uglify:app', function () {
 		.pipe(gulp.dest(destination + '/assets/js/'));
 });
 
+
+// Downloads spreadhseets and concats them
 gulp.task('download', function (){
+	var j = 0;
 	for (var i = 0; i < paths.spreadsheet_urls.length; i++) {
 		var number = i + 1 + '';
 		if (number.length == 1) {
@@ -242,12 +249,22 @@ gulp.task('download', function (){
 		}
 
 		var options = {
-			directory: destination + "/data",
-			filename: "speadsheet_" + number + ".txt"
+			directory: "./client/data",
+			filename: "speadsheet_" + number + ".js"
 		};
 
 		download(paths.spreadsheet_urls[i], options, function(err){
 			if (err) throw err;
+			j++;
+
+			if (j==paths.spreadsheet_urls.length-1){
+				console.log('Downloaded Spreadsheets.');
+
+				return gulp.src(['./client/assets/js/google.vizualize.query.js', './client/data/*.*'])
+					.pipe($.concat('data.js'))
+					.pipe(gulp.dest( destination + '/assets/data/'))
+					.pipe(gulp.dest( './client/assets/data/'));
+			}
 		})
 	}
 });

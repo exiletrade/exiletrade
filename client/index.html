@@ -57,54 +57,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.8/clipboard.min.js"></script>
 <script src="./assets/js/foundation.js"></script>
 <script src="./assets/js/templates.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticsearch/10.1.3/elasticsearch.angular.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-cache/4.5.0/angular-cache.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-spinner/0.8.1/angular-spinner.min.js"></script>
-<script>
-	var terms = {};
-	var sampleTerms = [];
-	// the output from google calls a function 'google.visualization.Query.setResponse()'
-	// and passes a json data that is not so human-readable.
-	window.google = {
-		'visualization' : {
-			'Query' : {
-				'setResponse' : function (data) {
-					var rows = data.table.rows;
-					for(i in rows) {
-						var row = rows[i].c;
-						var quer = row[1].v;
-						var filt = (row[2] !== null && row[2].v !== null) ? row[2].v : "";
-						terms[row[0].v] = {
-							'query' : quer,
-							'filter' : filt
-						};
-						if (row[3] !== null && row[3].v !== null) sampleTerms.push({ sample: row[3].v, query: quer });
-						if (row[4] !== null && row[4].v !== null) sampleTerms.push({ sample: row[4].v, query: quer });
-					}
-				}
-			}
-		}
-	}
-</script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=675822745&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=40738669&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=244311060&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1965399973&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1443807460&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=57824604&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=224979895&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=14190859&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=154866940&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=583395837&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=380600191&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1782931570&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=223573764&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=207179951&headers=1"></script>
-<script src="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&gid=1732537543&headers=1"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticsearch/11.0.0/elasticsearch.angular.js"></script>
+<script src="./assets/data/data.js"></script>
 <script src="./assets/js/routes.js"></script>
 <script src="./assets/js/app.js"></script>
+
 <script>
 	(function (i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;

@@ -808,7 +808,7 @@ function indexerLeagueToLadder(league) {
 							response: response,
 							searchInput: search.searchInput
 						};
-					})
+					});
 					return promise;
 				});
 				//localStorage.setItem("savedAutomatedSearches", JSON.stringify($scope.savedAutomatedSearches.reverse()));
@@ -1742,7 +1742,6 @@ function indexerLeagueToLadder(league) {
 				["unknown scour", validTerms[18]],
 				["unknown gemcutter", validTerms[21]],
 				["unknown transmute", validTerms[17]],
-				["unknown exaults", validTerms[16]],
 				["unknown x", validTerms[16]],
 				["unknown chaoss", validTerms[12]],
 				["unknown alch", validTerms[5]]
