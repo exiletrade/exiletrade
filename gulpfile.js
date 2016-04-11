@@ -15,6 +15,7 @@ var sequence = require('run-sequence');
 var ignore = require('gulp-ignore');
 var download = require('download-file');
 var replace = require('gulp-replace-task');
+var concatenate = require('gulp-concat');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -258,7 +259,7 @@ gulp.task('uglify:app', function () {
 });
 
 
-// Downloads spreadhseets and concats them
+// Downloads spreadsheets and concats them
 gulp.task('download', function (cb){
 	var dataPath = './client/data';
 	rimraf(dataPath, cb);
@@ -280,12 +281,16 @@ gulp.task('download', function (cb){
 
 			if (j==paths.spreadsheet_urls.length-1){
 				console.log('Cleaned Data directory.');
-				console.log('Downloaded Spreadsheets.');
+				console.log('Waiting for downloads to be finished...');
 
-				return gulp.src(['./client/assets/js/google.vizualize.query.js', dataPath+'/*.*'])
-					.pipe($.concat('data.js'))
-					.pipe(gulp.dest( destination + '/assets/data/'))
-					.pipe(gulp.dest( './client/assets/data/'));
+				setTimeout(function(){
+					console.log('Downloaded Spreadsheets.');
+
+					return gulp.src(['./client/assets/js/google.vizualize.query.js', dataPath+'/*.*'])
+						.pipe(concatenate('data.js'), {newLine: ';'})
+						.pipe(gulp.dest( destination + '/assets/data/'))
+						.pipe(gulp.dest( './client/assets/data/'));
+				}, 2000);
 			}
 		})
 	}

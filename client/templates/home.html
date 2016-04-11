@@ -643,7 +643,7 @@ url: /
 					<span class="alert badge" ng-show="tab.newItems">{{tab.newItems}}</span>
 				</div>
 			</div>
-			<div class="tab-contents clearfix" ng-if="Response.hits.hits">
+			<div class="tab-contents clearfix">
 				<div class="grid-block search-items large-up-2 tab"
 					 ng-class="{active:isActiveTab(tab.id)}" ng-show="isActiveTab(tab.id)" ng-repeat="tab in tabs">
 					<span ng-if="tab.id>0" class="tab-controls clearfix">

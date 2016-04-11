@@ -21,4 +21,4 @@ window.google = {
 			}
 		}
 	}
-}
+};
