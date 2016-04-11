@@ -168,14 +168,16 @@ function parseSearchInputTokens(input) {
 	var badTokens = [];
 	for (var i in tokens) {
 		var evaluatedToken = tokens[i];
-		if (!evaluatedToken) continue;
+		if (!evaluatedToken) { continue; }
 		var token = evaluatedToken.toUpperCase();
 
 		if (/^(OR|AND|LST|NOT)$/i.test(token)) {
 			evaluatedToken = token;
 		} else {
 			var isNegation = hasNegation(token);
-			if (isNegation) evaluatedToken = evaluatedToken.substring(1);
+			if (isNegation) {
+				evaluatedToken = evaluatedToken.substring(1);
+			}
 
 			evaluatedToken = evalSearchTerm(evaluatedToken);
 			debugOutput(token + '=' + evaluatedToken, 'trace');
@@ -196,37 +198,39 @@ function parseSearchInputTokens(input) {
 	//rerun bad tokens
 	var correction = badUserInput(badTokens);
 	if (correction) {
-		badTokens = correction['unCorrectable'];
-		queryString += " " + correction['corrected'].join(" ");
+		badTokens = correction.unCorrectable;
+		queryString += " " + correction.corrected.join(" ");
 	}
 	return {'queryString': queryString, 'badTokens': badTokens};
 }
 
-function splitToken(token){
+function splitToken(token) {
 	var rgx = new RegExp(/((\d+)-(\d+)|(\d+))/);
 	var numberPart;
 	var letterPart = token;
-	if(rgx.test(token)){
+	if (rgx.test(token)) {
 		var match = rgx.exec(token);
-		if(match)numberPart = match[0];
-		letterPart = token.replace(rgx,"");		
+		if (match) {
+			numberPart = match[0];
+		}
+		letterPart = token.replace(rgx, "");
 	}
-	if(numberPart){
+	if (numberPart) {
 		console.log(numberPart);
 	}
-	numberPart = formatNumber(numberPart);	
-	console.log({'numberPart': numberPart, 'letterPart':letterPart});
-	return{'numberPart': numberPart, 'letterPart':letterPart};
+	numberPart = formatNumber(numberPart);
+	console.log({'numberPart': numberPart, 'letterPart': letterPart});
+	return {'numberPart': numberPart, 'letterPart': letterPart};
 }
 
 function formatNumber(str){
-	if(!str) return;
+	if(!str) {return;}
 	var result;
 	if(str.indexOf("-") != -1){
 		var tmp = str.split("-");
-		var result = ":[" + tmp[0] + " TO " + tmp[1] + "]"
+		result = ":[" + tmp[0] + " TO " + tmp[1] + "]";
 	}else{
-		var result = ":>=" + str;
+		result = ":>=" + str;
 	}
 	return result;
 }
@@ -242,7 +246,7 @@ function evalSearchTerm(token) {
 			var rgex = new RegExp(regex, 'i');
 			var cleanToken = removeParensAndBackTick(token);
 			var isNegation = hasNegation(cleanToken);
-			if (isNegation) cleanToken = cleanToken.substring(1);
+			if (isNegation) {cleanToken = cleanToken.substring(1);}
 			var foundMatch = rgexTest.test(cleanToken);
 			if (foundMatch) {
 				result = terms[regex].query;
@@ -261,9 +265,9 @@ function evalSearchTerm(token) {
 				//result = cleanToken.replace(rgex, result);
 				// escape spaces for elasticsearch
 				result = escapeField(result);
-				if (isNegation)  result = '-' + result;
-				if (hasOpenParen(token))  result = /\(+/.exec(token)[0] + result;
-				if (hasCloseParen(token)) result = result + /\)+/.exec(token)[0];
+				if (isNegation) {result = '-' + result;}
+				if (hasOpenParen(token)) {result = /\(+/.exec(token)[0] + result;}
+				if (hasCloseParen(token)) {result = result + /\)+/.exec(token)[0];}
 				debugOutput(cleanToken + ' + ' + rgex + '=' + result, 'trace');
 				break;
 			}
@@ -312,7 +316,7 @@ function escapeField(result) {
 }
 
 function firstKey(obj) {
-	for (var key in obj) break;
+	for (var key in obj) {break;}
 	// "key" is the first key here
 	return key;
 }
@@ -321,9 +325,9 @@ function modToDisplay(value, mod) {
 	if (typeof value === 'number') {
 		mod = mod.replace('#', value);
 	} else if (typeof value === "object") {
-		var valstr = value['min'] + '-' + value['max'] + ' (' + value['avg'] + ')';
+		var valstr = value.min + '-' + value.max + ' (' + value.avg + ')';
 		mod = mod.replace('#-#', valstr);
-		value.has
+		value.has;
 	} else if (typeof value === "boolean") {
 		mod = mod;
 	} else {
@@ -480,7 +484,7 @@ function indexerLeagueToLadder(league) {
 	    }
 
 	    function refreshLadderAllPlayerCache(league) {
-			debugOutput("Loading up all players from ladder league: " + league, 'trace')
+			debugOutput("Loading up all players from ladder league: " + league, 'trace');
 			var url = "https://api.exiletools.com/ladder?league=" + league + "&showAllOnline=1&onlineStats=1";
 
 			var promise = $http.get(url).then(function (result) {
@@ -513,7 +517,7 @@ function indexerLeagueToLadder(league) {
 		}
 
 		function refreshStashOnlinePlayerCache() {
-			debugOutput("Loading up online players from the river", 'trace')
+			debugOutput("Loading up online players from the river", 'trace');
 			var promise = es.search({
 				index: 'index',
 				body: buildPlayerStashOnlineElasticJSONRequestBody()
@@ -523,8 +527,8 @@ function indexerLeagueToLadder(league) {
 		}
 
 		function refreshLadderPlayerCache(league, accountNames) {
-			var accountNamesParam = accountNames.join(':')
-			debugOutput("Loading up players from ladder: " + accountNamesParam, 'trace')
+			var accountNamesParam = accountNames.join(':');
+			debugOutput("Loading up players from ladder: " + accountNamesParam, 'trace');
 			var url = "https://api.exiletools.com/ladder?league=" + league + "&short=1&onlineStats=1&accountName=" + accountNamesParam;
 			var promise = $http.get(url);
 			promise.then(function (result) {
@@ -533,7 +537,7 @@ function indexerLeagueToLadder(league) {
 					// right now we just remove any 'extra' toons that are offline
 					var toons = {};
 					$.each(result.data, function (key, value) {
-						var key = league + '.' + value.accountName;
+						key = league + '.' + value.accountName;
 						if (toons.hasOwnProperty(key)) {
 							if (toons[key].online == "0") {
 								toons[key] = value;
@@ -556,7 +560,7 @@ function indexerLeagueToLadder(league) {
 
 				var toons = ladderAllPlayerCache.get(league);
 				if (typeof toons !== 'undefined') {
-					return $q.resolve(toons)
+					return $q.resolve(toons);
 				} else {
 					return refreshLadderAllPlayerCache(league);	
 				}
@@ -645,7 +649,6 @@ function indexerLeagueToLadder(league) {
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
 		$scope.elasticJsonRequest = "";
-		//$scope.options.switchOnlinePlayersOnly = true;
 		$scope.showSpinner = false;
 		$scope.disableScroll = true;
 		$scope.isScrollBusy = false;
@@ -657,10 +660,18 @@ function indexerLeagueToLadder(league) {
 		var sortKeyDefault = 'shop.chaosEquiv';
 		var sortOrderDefault = 'asc';
 		var limitDefault = 50;
-		if (httpParams['q']) $scope.searchInput = httpParams['q'];
-		if (httpParams['sortKey'])   sortKeyDefault = httpParams['sortKey'];
-		if (httpParams['sortOrder']) sortOrderDefault = httpParams['sortOrder'];
-		if (httpParams['limit'])     limitDefault = httpParams['limit'];
+			if (httpParams.q) {
+				$scope.searchInput = httpParams.q;
+			}
+			if (httpParams.sortKey) {
+				sortKeyDefault = httpParams.sortKey;
+			}
+			if (httpParams.sortOrder) {
+				sortOrderDefault = httpParams.sortOrder;
+			}
+			if (httpParams.limit) {
+				limitDefault = httpParams.limit;
+			}
 
 		$scope.savedSearchesList = JSON.parse(localStorage.getItem("savedSearches"));
 		$scope.savedAutomatedSearches = JSON.parse(localStorage.getItem("savedAutomatedSearches"));
@@ -766,7 +777,7 @@ function indexerLeagueToLadder(league) {
 		/*
 		 * Check if options are being loaded and assign values
 		 * */
-		if ($scope.loadedOptions) checkDefaultOptions();
+		if ($scope.loadedOptions) {checkDefaultOptions();}
 
 		function checkDefaultOptions() {
 			if (typeof $scope.loadedOptions.leagueSelect !== 'undefined') {
@@ -872,7 +883,7 @@ function indexerLeagueToLadder(league) {
 								var newHits = elem.response.hits.hits.map(hitToUUID(hit));
 								var diff = $(currentHits).not(newHits).get();
 								newHitsCtr += diff.length;
-								if (diff.length != 0) {
+								if (diff.length !== 0) {
 								    existingTab.newItems = diff.length;    
 								}
 								existingTab.response = elem.response;
@@ -897,11 +908,11 @@ function indexerLeagueToLadder(league) {
 
 			var searchPrefix = "";
 			if (!containsLeagueTerm) {
-				searchPrefix = options['leagueSelect']['value'].replace(" ", "");
+				searchPrefix = options.leagueSelect.value.replace(" ", "");
 			}
 			
 			if (!containsBuyoutTerm) {
-				var buyout = options['buyoutSelect']['value'];
+				var buyout = options.buyoutSelect.value;
 				switch (buyout) {
 					case "Buyout: Yes":
 						searchPrefix += " bo";
@@ -916,7 +927,7 @@ function indexerLeagueToLadder(league) {
 			}
 
 			if (!containsVerifyTerm) {
-				switch (options['verificationSelect']['value']) {
+				switch (options.verificationSelect.value) {
 					case "Status: Verified":
 						searchPrefix += " new";
 						break;
@@ -932,8 +943,8 @@ function indexerLeagueToLadder(league) {
 				}
 			}
 
-			options['searchPrefixInputs'].forEach(function (e) {
-				var prefix = e['value'];
+			options.searchPrefixInputs.forEach(function (e) {
+				var prefix = e.value;
 				if (prefix) {
 					searchPrefix += " " + prefix;
 				}
@@ -977,7 +988,7 @@ function indexerLeagueToLadder(league) {
 		 */
 		$scope.doSearch = function () {
 			var valueFromInput = $("#searchField").val();
-			if (typeof valueFromInput !== "undefined") $scope.searchInput = valueFromInput;
+			if (typeof valueFromInput !== "undefined") {$scope.searchInput = valueFromInput;}
 			debugOutput('doSearch called, $scope.searchInput = ' + $scope.searchInput, 'info');
 			doActualSearch($scope.searchInput, limitDefault, sortKeyDefault, sortOrderDefault);
 			ga('send', 'event', 'Search', 'User Input', $scope.searchInput);
@@ -995,7 +1006,7 @@ function indexerLeagueToLadder(league) {
 			var sortKey = elem.getAttribute('data-sort-key');
 			var sortOrder = elem.getAttribute('data-sort-order');
 			var limit = 50;
-			if (httpParams['limit']) limit = httpParams['limit'];
+			if (httpParams.limit) {limit = httpParams.limit;}
 			doActualSearch($scope.searchInput, limit, sortKey, sortOrder);
 		};
 
@@ -1011,7 +1022,7 @@ function indexerLeagueToLadder(league) {
 			$scope.disableScroll = true;
 			$scope.showSpinner = true;
 			limit = Number(limit);
-			if (limit > 999) limit = 999; // deny power overwhelming
+			if (limit > 999) {limit = 999;} // deny power overwhelming
 			// ga('send', 'event', 'Search', 'PreFix', createSearchPrefix($scope.options));
 			$location.search({'q': searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder, 'limit': limit});
 			$location.replace();
@@ -1048,7 +1059,7 @@ function indexerLeagueToLadder(league) {
 			var prefixParseResult = parseSearchInput($scope.termsMap, prefix);
 
 			// // see also https://github.com/exiletrade/exiletrade/issues/63
-			if(inputQueryString.length > 0) inputQueryString = '(' + inputQueryString + ')';
+			if(inputQueryString.length > 0) { inputQueryString = '(' + inputQueryString + ')';}
 			// note that elastic will be faster if we put more specific filters first
 			var finalSearchInput = inputQueryString + ' ' + prefixParseResult.queryString;
 			return finalSearchInput.trim();
@@ -1099,7 +1110,7 @@ function indexerLeagueToLadder(league) {
 								$.merge($scope.Response.hits.hits, response.hits.hits);
 							}
 
-							if (accountNamesFilter.length != 0 && $scope.Response.hits.hits.length < limit && response.hits.total > limit && $scope.from < (fetchSize * 10)) {
+							if (accountNamesFilter.length !== 0 && $scope.Response.hits.hits.length < limit && response.hits.total > limit && $scope.from < (fetchSize * 10)) {
 								$scope.isScrollBusy = true;
 								return fetch();
 							}
@@ -1115,7 +1126,7 @@ function indexerLeagueToLadder(league) {
 
 							$scope.showSpinner = false;
 							$scope.isScrollBusy = false;
-							debugOutput('scrollNext finished, $scope.disableScroll = ' + $scope.disableScroll, 'trace')
+							debugOutput('scrollNext finished, $scope.disableScroll = ' + $scope.disableScroll, 'trace');
 						});
 					}, function (err) {
 						debugOutput(err.message, 'trace');
@@ -1156,31 +1167,31 @@ function indexerLeagueToLadder(league) {
 			};
 			$scope.elasticJsonRequest = angular.toJson(esPayload, true);
 			//debugOutput("Gonna run elastic: " + $scope.elasticJsonRequest, 'trace');
-			return es.search(esPayload)
+			return es.search(esPayload);
 		}
 
 		/*
 		 Add custom fields to the item object
 		 */
 		function addCustomFields(item) {
-			if (item.mods) createForgottenMods(item);
-			if (item.mods) createImplicitMods(item);
-			if (item.mods) createCraftedMods(item);
-			if (item.mods) createEnchantMods(item);
+			if (item.mods) {createForgottenMods(item);}
+			if (item.mods) {createImplicitMods(item);}
+			if (item.mods) {createCraftedMods(item);}
+			if (item.mods) {createEnchantMods(item);}
 			if (item.shop) {
 				var added = new Date(item.shop.added);
 				var updated = new Date(item.shop.updated);
 				var modified = new Date(item.shop.modified);
-				item.shop['addedHuman'] = added.toLocaleString();
-				item.shop['udpatedHuman'] = updated.toLocaleString();
-				item.shop['modifiedHuman'] = modified.toLocaleString();
+				item.shop.addedHuman = added.toLocaleString();
+				item.shop.udpatedHuman = updated.toLocaleString();
+				item.shop.modifiedHuman = modified.toLocaleString();
 				var now = new Date();
 				var hourInMillis = 3600000;
-				item.shop['addedHoursAgo'] = (Math.abs(now.getTime() - added.getTime()) / hourInMillis).toFixed(2);
-				item.shop['modifiedHoursAgo'] = (Math.abs(now.getTime() - modified.getTime()) / hourInMillis).toFixed(2);
-				item.shop['updatedHoursAgo'] = (Math.abs(now.getTime() - updated.getTime()) / hourInMillis).toFixed(2);
+				item.shop.addedHoursAgo = (Math.abs(now.getTime() - added.getTime()) / hourInMillis).toFixed(2);
+				item.shop.modifiedHoursAgo = (Math.abs(now.getTime() - modified.getTime()) / hourInMillis).toFixed(2);
+				item.shop.updatedHoursAgo = (Math.abs(now.getTime() - updated.getTime()) / hourInMillis).toFixed(2);
 				if (!item.isOnline) {
-					item.isOnline = $scope.onlinePlayers.indexOf(item.shop['sellerAccount']) != -1;
+					item.isOnline = $scope.onlinePlayers.indexOf(item.shop.sellerAccount) != -1;
 				}
 			}
 		}
@@ -1197,7 +1208,7 @@ function indexerLeagueToLadder(league) {
 					css: getModCssClasses(modKey)
 				};
 			});
-			item['forgottenMods'] = forgottenMods;
+			item.forgottenMods = forgottenMods;
 			// we call on fm.js to do it's awesome work
 			fm_process(item);
 		}
@@ -1211,10 +1222,11 @@ function indexerLeagueToLadder(league) {
 
 		function suggestSearchTerm(term) {
 			var q = term.toLowerCase().trim();
-			q = q.replace(/[\(\)-\d]/g, "");(q);
+			q = q.replace(/[\(\)-\d]/g, "");
+			(q);
 			var results = [];
 
-			if (/^(OR|AND|NOT)$/i.test(q)) return results;
+			if (/^(OR|AND|NOT)$/i.test(q)) { return results;}
 
 			// regex used to determine if a string contains the substring `q`
     		var substrRegex = new RegExp(q, 'i');
@@ -1247,7 +1259,7 @@ function indexerLeagueToLadder(league) {
 		  });
 
 		  return suggestions;
-		};
+		}
 
 		/*
 		 Get CSS Classes for element resistances
@@ -1256,30 +1268,30 @@ function indexerLeagueToLadder(league) {
 			var css = "";
 			if (mod.indexOf("Resistance") > -1) {
 				if (mod.indexOf("Cold") > -1) {
-					css = "mod-cold-res"
+					css = "mod-cold-res";
 				}
 				else if (mod.indexOf("Fire") > -1) {
-					css = "mod-fire-res"
+					css = "mod-fire-res";
 				}
 				else if (mod.indexOf("Lightning") > -1) {
-					css = "mod-lightning-res"
+					css = "mod-lightning-res";
 				}
 				else if (mod.indexOf("Chaos") > -1) {
-					css = "mod-chaos-res"
+					css = "mod-chaos-res";
 				}
 			}
 			if (mod.indexOf("Damage") > -1) {
 				if (mod.indexOf("Cold") > -1) {
-					css = "mod-cold-dmg"
+					css = "mod-cold-dmg";
 				}
 				else if (mod.indexOf("Fire") > -1) {
-					css = "mod-fire-dmg"
+					css = "mod-fire-dmg";
 				}
 				else if (mod.indexOf("Lightning") > -1) {
-					css = "mod-lightning-dmg"
+					css = "mod-lightning-dmg";
 				}
 				else if (mod.indexOf("Chaos") > -1) {
-					css = "mod-chaos-dmg"
+					css = "mod-chaos-dmg";
 				}
 			}
 			else if (mod.indexOf("to maximum Life") > -1) {
@@ -1300,26 +1312,25 @@ function indexerLeagueToLadder(league) {
 					key: 'mods.' + itemTypeKey + '.implicit.' + modKey
 				};
 			});
-			item['implicitMods'] = implicitMods;
+			item.implicitMods = implicitMods;
 		}
 		
 		function createEnchantMods(item) {
 			var enchant = item.enchantMods;
-			if(!enchant) return;
-			console.log("Enchant: " + enchant);
+			if(!enchant) {return;}
 			var enchantMods = $.map(enchant, function (propertyValue, modKey) {
 				return {
 					display: modToDisplay(propertyValue, modKey),
 					key: 'enchantMods.' +  modKey
 				};
 			});
-			item['enchantMods'] = enchantMods;
+			item.enchantMods = enchantMods;
 		}
 
 		function createCraftedMods(item) {
 			var itemTypeKey = firstKey(item.mods);
 			var crafteds = item.mods[itemTypeKey].crafted;
-			item['craftedMods'] = $.map(crafteds, function (propertyValue, modKey) {
+			item.craftedMods = $.map(crafteds, function (propertyValue, modKey) {
 				return {
 					display: modToDisplay(propertyValue, modKey),
 					key: 'mods.' + itemTypeKey + '.crafted.' + modKey
@@ -1406,7 +1417,7 @@ function indexerLeagueToLadder(league) {
 			var item = {itemId: id, itemDescription: description};
 
 			if (savedItems === null) {
-				savedItems = []
+				savedItems = [];
 			}
 
 			// return if item is already saved
@@ -1529,10 +1540,7 @@ function indexerLeagueToLadder(league) {
 			var y = item._source.shop.stash.yLocation;
 
 			if (message === undefined) {
-				message = '@' + seller + " Hi, I'd like to buy your "
-				+ itemName + ' in ' + league
-				+ ' (Stash-Tab: "' + stashTab + '" [x' + x + ',y' + y + '])'
-				+ ', my offer is : ';
+				message = '@' + seller + " Hi, I'd like to buy your " + itemName + ' in ' + league + ' (Stash-Tab: "' + stashTab + '" [x' + x + ',y' + y + '])' + ', my offer is : ';
 			} else {
 				//removing the "Unknown" tag from currency
 				var n = message.indexOf('Unknown (');
@@ -1558,7 +1566,7 @@ function indexerLeagueToLadder(league) {
 				else {
 					var obj = x[key];
 					for (var prop in obj) {
-						if (prop == 'avg') continue;
+						if (prop == 'avg') {continue;}
 						mod = mod.replace('#', obj[prop]);
 					}
 				}
@@ -1571,7 +1579,7 @@ function indexerLeagueToLadder(league) {
 			Get CSS Classes for item sockets
 		*/
 		$scope.getSocketClasses = function (x) {
-			if (typeof x == "undefined") return [];
+			if (typeof x == "undefined") {return [];}
 			var sockets = [];
 			var colors = x.split('-').join('').split('');
 			for (var i = 0; i < colors.length; i++) {
@@ -1619,7 +1627,7 @@ function indexerLeagueToLadder(league) {
 			Get CSS classes for item socket links
 		*/
 		$scope.getSocketLinkClasses = function (x) {
-			if (typeof x == "undefined") return [];
+			if (typeof x == "undefined") {return [];}
 			var groups = x.split('-');
 			var pointer = 0;
 			var pos = [];
@@ -1660,7 +1668,11 @@ function indexerLeagueToLadder(league) {
 		};
 
 		$scope.isEmpty = function (obj) {
-			for (var i in obj) if (obj.hasOwnProperty(i)) return false;
+			for (var i in obj) {
+				if (obj.hasOwnProperty(i)) {
+					return false;
+				}
+			}
 			return true;
 		};
 
@@ -1671,8 +1683,10 @@ function indexerLeagueToLadder(league) {
 			return blacklist.indexOf(type) == -1;
 		};
 		debugOutput("Loaded " + Object.keys(terms).length + " terms.", "info");
-		sampleTerms.sort(function(a, b){return a.sample.length-b.sample.length});
-		if (typeof httpParams['q'] !== 'undefined') {
+		sampleTerms.sort(function (a, b) {
+			return a.sample.length - b.sample.length;
+		});
+		if (typeof httpParams.q !== 'undefined') {
 			$scope.doSearch();
 		} else {
 			$q.all({
@@ -1688,17 +1702,17 @@ function indexerLeagueToLadder(league) {
 			$scope.currentTab = tab.id;
 			$scope.tabs[tab.id].newItems = 0;
 			$scope.Response = tab.response;
-			$scope.disableScroll = tab.id != 0; // no scrolling for automated search
+			$scope.disableScroll = tab.id !== 0; // no scrolling for automated search
 		};
 		$scope.isActiveTab = function(tabId) {
 			return tabId == $scope.currentTab;
 		};
 
 		$scope.toggleHelp = function(){
-			return $scope.helpState = ($scope.helpState == false)
-		}
+			$scope.helpState = ($scope.helpState === false);
+			return $scope.helpState;
+		};
 	}]);
-
 
 	// Custom filters
 	appModule.filter("currencyToCssClass", [function() {
@@ -1708,7 +1722,7 @@ function indexerLeagueToLadder(league) {
 				["Exalted Orb", "exalt-orb"]
 			]);
 			var result = currencyCssClassMap.get(str);
-			if (!result) result = str;
+			if (!result) {result = str;}
 			return result;
 		};
 	}]);
@@ -1719,7 +1733,7 @@ function indexerLeagueToLadder(league) {
 				[undefined, "0"]
 			]);
 			var result = defaultValues.get(str);
-			if (!result) result = str;
+			if (!result) {result = str;}
 			return result;			
 		};
 	}]);
@@ -1727,13 +1741,13 @@ function indexerLeagueToLadder(league) {
 	appModule.filter('isEmpty', [function () {
 		return function (object) {
 			return angular.equals({}, object);
-		}
+		};
 	}]);
 
 	appModule.filter('cleanCurrency', [function () {
 		return function (str) {
 			if (typeof str === 'undefined') {
-				return
+				return;
 			}
 
 			var validTerms = [
@@ -1796,10 +1810,10 @@ function indexerLeagueToLadder(league) {
 			]);
 
 			var result = currencyMap.get(str);
-			if (!result) result = str;
+			if (!result) {result = str;}
 
 			return result;
-		}
+		};
 	}]);
 
 	// Custom Directive

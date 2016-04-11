@@ -18198,4 +18198,4 @@ var affixes = [
         "onehandmaces": "No",
         "twohandmaces": "No"
     }
-]
+];
