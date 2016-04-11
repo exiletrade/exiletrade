@@ -15,8 +15,12 @@ window.google = {
 						'query' : quer,
 						'filter' : filt
 					};
-					if (row[3] !== null && row[3].v !== null) sampleTerms.push({ sample: row[3].v, query: quer });
-					if (row[4] !== null && row[4].v !== null) sampleTerms.push({ sample: row[4].v, query: quer });
+					if (row[3] !== null && row[3].v !== null) {
+						sampleTerms.push({sample: row[3].v, query: quer});
+					}
+					if (row[4] !== null && row[4].v !== null) {
+						sampleTerms.push({ sample: row[4].v, query: quer });
+					}
 				}
 			}
 		}

@@ -10,7 +10,7 @@
  * Entry point, takes in items and adds
  */
 function fm_process(item) {
-	var rarity = item.attributes.rarity
+	var rarity = item.attributes.rarity;
 	if (rarity == "Magic" || rarity == "Rare") 
 		fm_processExplicitMods(item);
 	//console.trace('running fm.js')
@@ -18,13 +18,13 @@ function fm_process(item) {
 }
 
 function fm_processExplicitMods(item) {
-	var name = item.info.fullName
+	var name = item.info.fullName;
 	//console.trace('name: ' + name)
-	var forgottenMods = item.forgottenMods
+	var forgottenMods = item.forgottenMods;
 	
 	// our affixes map has plural fields & other mismatches
-	var baseType = item.attributes.itemType.toLowerCase()
-	var equipType = item.attributes.equipType
+	var baseType = item.attributes.itemType.toLowerCase();
+	var equipType = item.attributes.equipType;
 	if (['body', 'boots', 'gloves', 'sword', 'axe', 'mace'].indexOf(baseType) == -1) {
 		 baseType = baseType + 's'
 	}

@@ -16,6 +16,9 @@ var ignore = require('gulp-ignore');
 var download = require('download-file');
 var replace = require('gulp-replace-task');
 var concatenate = require('gulp-concat');
+var notify = require('gulp-notify');
+var jscs = require('gulp-jscs');
+var jshint = require('gulp-jshint');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -254,10 +257,45 @@ gulp.task('uglify:app', function () {
 	}
 	return gulp.src(paths.appJS)
 		.pipe(uglify)
+		.pipe(jscs())
+		.pipe(notify({
+			title: 'JSCS',
+			message: 'JSCS Passed. Let it fly!'
+		}))
 		.pipe($.concat('app.js'))
 		.pipe(gulp.dest(destination + '/assets/js/'));
 });
 
+// JSCS
+gulp.task('jscs', function() {
+	gulp.src('./client/assets/js/**/*.js')
+		.pipe(jscs())
+		.pipe(notify({
+			title: 'JSCS',
+			message: 'JSCS Passed. Let it fly!'
+		}));
+
+	/* Alternatively for Windows users
+	 .pipe(notify({
+	 title: 'JSCS',
+	 message: 'JSCS Passed. Let it fly!',
+	 notifier: growlNotifier
+	 }))
+	 */
+});
+
+
+// js-hint / js-lint
+gulp.task('lint', function() {
+	gulp.src('./client/assets/js/**/*.js')
+		.pipe(jshint('.jshintrc'))
+		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe(jshint.reporter('fail'))
+		.pipe(notify({
+			title: 'JSHint',
+			message: 'JSHint Passed. Let it fly!',
+		}))
+});
 
 // Downloads spreadsheets and concats them
 gulp.task('download', function (cb){
@@ -279,7 +317,7 @@ gulp.task('download', function (cb){
 			if (err) throw err;
 			j++;
 
-			if (j==paths.spreadsheet_urls.length-1){
+			if (j == paths.spreadsheet_urls.length-1){
 				console.log('Cleaned Data directory.');
 				console.log('Waiting for downloads to be finished...');
 
