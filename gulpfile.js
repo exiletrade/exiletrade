@@ -19,6 +19,9 @@ var concatenate = require('gulp-concat');
 var notify = require('gulp-notify');
 var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
+var git = require('vinyl-git');
+var filter = require('gulp-filter');
+var args = require('yargs').boolean('p').alias('p', 'partial').argv;
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -257,11 +260,6 @@ gulp.task('uglify:app', function () {
 	}
 	return gulp.src(paths.appJS)
 		.pipe(uglify)
-		.pipe(jscs())
-		.pipe(notify({
-			title: 'JSCS',
-			message: 'JSCS Passed. Let it fly!'
-		}))
 		.pipe($.concat('app.js'))
 		.pipe(gulp.dest(destination + '/assets/js/'));
 });
@@ -274,27 +272,25 @@ gulp.task('jscs', function() {
 			title: 'JSCS',
 			message: 'JSCS Passed. Let it fly!'
 		}));
-
-	/* Alternatively for Windows users
-	 .pipe(notify({
-	 title: 'JSCS',
-	 message: 'JSCS Passed. Let it fly!',
-	 notifier: growlNotifier
-	 }))
-	 */
 });
 
+// js-hint
+gulp.task('lint', function(cb) {
+	var sources = function(src) {
+		return !args.partial ? gulp.src(src) : git.staged().pipe(filter(src));
+	};
 
-// js-hint / js-lint
-gulp.task('lint', function() {
-	gulp.src('./client/assets/js/**/*.js')
-		.pipe(jshint('.jshintrc'))
+	sources('./client/assets/js/**/*.js')
+		.pipe(jscs())
+		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(jshint.reporter('fail'))
+		//.pipe(jshint.reporter('fail'))  //uncomment to fail on warning/error
 		.pipe(notify({
-			title: 'JSHint',
-			message: 'JSHint Passed. Let it fly!',
-		}))
+			title: 'JSHint <%= file.relative %>',
+			message: 'jscs/JSHint Passed. Let it fly!'
+		}));
+
+	cb();
 });
 
 // Downloads spreadsheets and concats them
@@ -349,7 +345,7 @@ gulp.task('server', ['build'], function () {
 
 // Builds your entire app once, without starting a server
 gulp.task('build', function (cb) {
-	sequence('clean', 'download', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:index', 'copy:templates', 'copy:images', 'copy:sound', 'copy:build', cb);
+	sequence('clean', 'download', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:index', 'copy:templates', 'copy:images', 'copy:sound', 'copy:build',  'lint', cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change
@@ -358,7 +354,7 @@ gulp.task('default', ['server'], function () {
 	gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
 
 	// Watch JavaScript
-	gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify:app']);
+	gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['lint', 'uglify:app']);
 
 	// Watch static files
 	gulp.watch(['./client/**/*.*', '!./client/templates/**/*.*', '!./client/assets/{scss,js}/**/*.*'], ['copy']);
