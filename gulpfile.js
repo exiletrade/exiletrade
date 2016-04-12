@@ -19,9 +19,8 @@ var concatenate = require('gulp-concat');
 var notify = require('gulp-notify');
 var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
-var git = require('vinyl-git');
-var filter = require('gulp-filter');
-var args = require('yargs').boolean('p').alias('p', 'partial').argv;
+var gitStaged = require("gulp-git-staged");
+var gitmodified = require('gulp-gitmodified');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -264,24 +263,25 @@ gulp.task('uglify:app', function () {
 		.pipe(gulp.dest(destination + '/assets/js/'));
 });
 
-// JSCS
-gulp.task('jscs', function() {
+// js-hint git modified files
+gulp.task('lint', function(cb) {
 	gulp.src('./client/assets/js/**/*.js')
+		.pipe(gitmodified('modified'))
 		.pipe(jscs())
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'))
+		//.pipe(jshint.reporter('fail'))  //uncomment to fail on warning/error
 		.pipe(notify({
-			title: 'JSCS',
-			message: 'JSCS Passed. Let it fly!'
+			title: 'JSHint <%= file.relative %>',
+			message: 'jscs/JSHint Passed. Let it fly!'
 		}));
+
+	cb();
 });
 
-// js-hint
-gulp.task('lint', function(cb) {
-	var sources = function(src) {
-		var t = !args.partial ? gulp.src(src) : git.staged().pipe(filter(src));
-		return t;
-	};
-
-	sources('./client/assets/js/**/*.js')
+// js-hint all files
+gulp.task('lintAll', function(cb) {
+	gulp.src('./client/assets/js/**/*.js')
 		.pipe(jscs())
 		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'))
