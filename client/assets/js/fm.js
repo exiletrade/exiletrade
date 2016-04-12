@@ -1,10 +1,3 @@
-/*
- * Forgotten Mods
- * First implementation - https://www.pathofexile.com/forum/view-thread/1164052
- * Second - re-write - in Durian
- * Third - ExileTrade - ported easily with minor changes
- */
-
 
 /*
  * Entry point, takes in items and adds

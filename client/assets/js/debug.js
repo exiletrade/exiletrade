@@ -3,3 +3,4 @@ Sets debug to true (used in function "debugOutput"), the gulpfile excludes this 
 version, therefore disabling all debug output (console).
 * */
 var debugDevBuild = true;
+if (debugDevBuild){console.log('Debug enabled.');}

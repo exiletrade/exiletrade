@@ -277,7 +277,8 @@ gulp.task('jscs', function() {
 // js-hint
 gulp.task('lint', function(cb) {
 	var sources = function(src) {
-		return !args.partial ? gulp.src(src) : git.staged().pipe(filter(src));
+		var t = !args.partial ? gulp.src(src) : git.staged().pipe(filter(src));
+		return t;
 	};
 
 	sources('./client/assets/js/**/*.js')

@@ -1547,13 +1547,13 @@ function indexerLeagueToLadder(league) {
 			localStorage.setItem("savedOptions", JSON.stringify($scope.options));
 		};
 
-		$scope.removeInputFromList = function (x) {
+		$scope.removeInputFromList = function () {
 			var savedOptions = JSON.parse(localStorage.getItem("savedOptions"));
 		};
 
 		$scope.scrollToTop = function () {
 			ga('send', 'event', 'Feature', 'Scroll To Top');
-			angular.element(mainGrid).scrollTo(0, 0, 350);
+			angular.element(document.querySelector('#mainGrid')).scrollTo(0, 0, 350);
 		};
 
 		/*
