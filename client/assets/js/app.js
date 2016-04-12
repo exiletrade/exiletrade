@@ -152,7 +152,7 @@ function parseSearchInput(_terms, input) {
 	var parseResult = parseSearchInputTokens(_input);
 
 	var i = 0;
-	parseResult.queryString = parseResult.queryString.replace('LST', function (match) {
+	parseResult.queryString = parseResult.queryString.replace('LST', function () {
 		var lst = lsts[i];
 		i++;
 		var lstStr = lst.toLowerCase()
@@ -246,8 +246,8 @@ function formatNumber(str) {
 function evalSearchTerm(token) {
 	var result = "";
 	var tokens = splitToken(token);
-	var letterPart = tokens.letterPart;
-	var numberPart = tokens.numberPart;
+	//var letterPart = tokens.letterPart;
+	//var numberPart = tokens.numberPart;
 	for (var regex in terms) {
 		if (terms.hasOwnProperty(regex)) {
 			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
@@ -263,7 +263,7 @@ function evalSearchTerm(token) {
 				// apply any captured regex groups
 				var arr = rgex.exec(cleanToken);
 				// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
-				result = result.replace(/\$(\d+)/g, function replacer(match, p1, offset, string) {
+				result = result.replace(/\$(\d+)/g, function replacer(match, p1) {
 					var filter = terms[regex].filter;
 					var value = arr[p1];
 					if (filter) {

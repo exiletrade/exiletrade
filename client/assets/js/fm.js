@@ -7,7 +7,7 @@ function fm_process(item) {
 	if (rarity == "Magic" || rarity == "Rare") {
 		fm_processExplicitMods(item);
 	}
-	//console.trace('running fm.js');
+
 	return 'success';
 }
 
