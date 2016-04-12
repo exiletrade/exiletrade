@@ -21,6 +21,7 @@ var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 var gitStaged = require("gulp-git-staged");
 var gitmodified = require('gulp-gitmodified');
+var gulpUglify = require('gulp-uglify');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -237,7 +238,7 @@ gulp.task('sass', function () {
 gulp.task('uglify', ['uglify:foundation', 'uglify:app']);
 
 gulp.task('uglify:foundation', function (cb) {
-	var uglify = $.if(isDemo || isProduction, $.uglify()
+	var uglify = $.if(isDemo || isProduction, gulpUglify({"mangle":false})
 		.on('error', function (e) {
 			console.log(e);
 		}));
@@ -249,7 +250,7 @@ gulp.task('uglify:foundation', function (cb) {
 });
 
 gulp.task('uglify:app', function () {
-	var uglify = $.if(isDemo || isProduction, $.uglify()
+	var uglify = $.if(isDemo || isProduction, gulpUglify({"mangle":false})
 		.on('error', function (e) {
 			console.log(e);
 		}));
