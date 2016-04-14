@@ -11,18 +11,29 @@
 
     $( document ).ready(function() {
 		console.log( "ready!" );
-		//$.get( "http://api.exiletools.com/endpoints/mapping?field=mods.*.explicit", function( data ) {
-		  var data = "enchantMods.+20% Sweep Knockback Chance\enchantMods.+24% to Ancestral Protector Totem Elemental Resistances\enchantMods.04% of Damage Leeched as Life and Mana if you've Killed Recently\enchantMods.05% of Damage Leeched as Life and Mana if you've Killed Recently\enchantMods.1 additional Barrage Projectile\enchantMods.1 additional Flame Totem Projectile\enchantMods.1 secondary Tornado Shot Projectile\enchantMods.10% Chance to gain a Power Charge on Critical Strike with Ice Spear\enchantMods.10% increased Barrage Attack Speed\enchantMods.10% increased Cleave Attack Speed\enchantMods.10% increased Cyclone Attack Speed\enchantMods.10% increased Double Strike Attack Speed\enchantMods.10% increased Dual Strike Attack Speed\enchantMods.10% increased Elemental Hit Attack Speed\enchantMods.10% increased Heavy Strike Attack Speed\enchantMods.10% increased Leap Slam Attack Speed\enchantMods.10% increased Power Siphon Attack Speed\enchantMods.10% increased Rain of Arrows Attack Speed\enchantMods.10% increased Shield Charge Attack Speed\enchantMods.10% increased Shockwave Totem Cast Speed\enchantMods.10% increased Siege Ballista Attack Speed\enchantMods.10% increased Sunder Attack Speed\enchantMods.10% increased Whirling Blades Attack Speed\enchantMods.10% of Burning Arrow Physical Damage added as Fire Damage\enchantMods.10% of Glacial Hammer Physical Damage added as Cold Damage\enchantMods.10% of Ice Crash Physical damage added as Cold Damage\enchantMods.10% of Infernal Blow Physical damage added as Fire Damage\enchantMods.10% of Rejuvenation Totem life regeneration added as mana Regeneration\enchantMods.10% of Shrapnel Shot Physical damage added as Lightning Damage\enchantMods.10% reduced Anger Mana Reservation\enchantMods.10% reduced Determination Mana Reservation\enchantMods.10% reduced Discipline Mana Reservation\enchantMods.10% reduced Grace Mana Reservation\enchantMods.10% reduced Haste Mana Reservation\enchantMods.10% reduced Hatred Mana Reservation\enchantMods.10% reduced Mana Cost of Skills if you've been Hit Recently\enchantMods.10% reduced Wrath Mana Reservation\enchantMods.100% increased Effect of the Buff granted by your Flame Golems\enchantMods.100% increased Effect of the Buff granted by your Ice Golems\enchantMods.100% increased Effect of the Buff granted by your Stone Golems\enchantMods.100% increased Molten Shell Buff Effect\enchantMods.12% increased Ancestor Totem Placement Speed\enchantMods.12% increased Attack and Cast Speed if you've Killed Recently\enchantMods.12% increased Blast Rain Radius\enchantMods.14% reduced Mana Cost of Skills if you've been Hit Recently\enchantMods.14% reduced Purity of Elements Mana Reservation\enchantMods.14% reduced Purity of Fire Mana Reservation"
-
-		  process(data)
-		//});
+		$("#main").append("<h1>Enchant Mods</h1>")
+		$("#main").append("<table id='tableEnchant' />")
+		$.get( "http://api.exiletools.com/endpoints/mapping?field=enchantMods", function( data ) {
+		  //var data = "enchantMods.+20% Sweep Knockback Chance\nenchantMods.+24% to Ancestral Protector Totem Elemental Resistances\nenchantMods.04% of Damage Leeched as Life and Mana if you've Killed Recently\nenchantMods.05% of Damage Leeched as Life and Mana if you've Killed Recently\nenchantMods.1 additional Barrage Projectile\nenchantMods.1 additional Flame Totem Projectile\nenchantMods.1 secondary Tornado Shot Projectile\nenchantMods.10% Chance to gain a Power Charge on Critical Strike with Ice Spear\nenchantMods.10% increased Barrage Attack Speed\nenchantMods.10% increased Cleave Attack Speed\nenchantMods.10% increased Cyclone Attack Speed\nenchantMods.10% increased Double Strike Attack Speed\nenchantMods.10% increased Dual Strike Attack Speed\nenchantMods.10% increased Elemental Hit Attack Speed\nenchantMods.10% increased Heavy Strike Attack Speed\nenchantMods.10% increased Leap Slam Attack Speed\nenchantMods.10% increased Power Siphon Attack Speed\nenchantMods.10% increased Rain of Arrows Attack Speed\nenchantMods.10% increased Shield Charge Attack Speed\nenchantMods.10% increased Shockwave Totem Cast Speed\nenchantMods.10% increased Siege Ballista Attack Speed\nenchantMods.10% increased Sunder Attack Speed\nenchantMods.10% increased Whirling Blades Attack Speed\nenchantMods.10% of Burning Arrow Physical Damage added as Fire Damage\nenchantMods.10% of Glacial Hammer Physical Damage added as Cold Damage\nenchantMods.10% of Ice Crash Physical damage added as Cold Damage\nenchantMods.10% of Infernal Blow Physical damage added as Fire Damage\nenchantMods.10% of Rejuvenation Totem life regeneration added as mana Regeneration\nenchantMods.10% of Shrapnel Shot Physical damage added as Lightning Damage\nenchantMods.10% reduced Anger Mana Reservation\nenchantMods.10% reduced Determination Mana Reservation\nenchantMods.10% reduced Discipline Mana Reservation\nenchantMods.10% reduced Grace Mana Reservation\nenchantMods.10% reduced Haste Mana Reservation\nenchantMods.10% reduced Hatred Mana Reservation\nenchantMods.10% reduced Mana Cost of Skills if you've been Hit Recently\nenchantMods.10% reduced Wrath Mana Reservation\nenchantMods.100% increased Effect of the Buff granted by your Flame Golems\nenchantMods.100% increased Effect of the Buff granted by your Ice Golems\nenchantMods.100% increased Effect of the Buff granted by your Stone Golems\nenchantMods.100% increased Molten Shell Buff Effect\nenchantMods.12% increased Ancestor Totem Placement Speed\nenchantMods.12% increased Attack and Cast Speed if you've Killed Recently\nenchantMods.12% increased Blast Rain Radius\nenchantMods.14% reduced Mana Cost of Skills if you've been Hit Recently\nenchantMods.14% reduced Purity of Elements Mana Reservation\nenchantMods.14% reduced Purity of Fire Mana Reservation"
+		  process(data, 'tableEnchant')
+		});
+		$("#main").append("<h1>Explicit Mods</h1>")
+		$("#main").append("<table id='tableExplicit' />")
+		$.get( "http://api.exiletools.com/endpoints/mapping?field=mods.*.explicit", function( data ) {
+		  process(data, 'tableExplicit')
+		});
 	});
 
-	function process(data) {
+	function process(data, tableId) {
 	  // prepare data
 	  var lines = data.split('\n')
 	  lines = lines.map( function (line) {
-		return line.replace(/mods\..+\.explicit/i, 'mods.*.explicit')
+		var cleaned = line;
+		cleaned = cleaned.replace('.avg', '')
+		cleaned = cleaned.replace('.min', '')
+		cleaned = cleaned.replace('.max', '')
+		cleaned = cleaned.replace(/mods\..+\.explicit/i, 'mods.*.explicit')
+		return cleaned
 	  })
 	  lines = uniq(lines)
 
@@ -31,7 +42,7 @@
 	  console.log(mods)
 
 	  // output
-	  var table = $("#table");
+	  var table = $("#" + tableId);
 	  $.each(mods, function(idx, elem){
 			table.append("<tr><td>"+elem.regex+"</td><td>"+elem.query+"</td></tr>");
 	  });
@@ -40,7 +51,8 @@
 	function linesToMods(lines) {
 		var mods = []
 		$.each(lines, function(idx, line) {
-		var mod = line.split("explicit.")[1]
+		var toks = line.split(".")
+		var mod = toks[toks.length - 1]
 		// for boolean typed mods
 		// we only have 1 search term
 		if (isBooleanTyped(mod)) {
@@ -84,10 +96,7 @@
 <body>
 <!-- Main div starts at 0 spacing for simplicity -->
 <div id="main" style="width:100%;padding-left:50px;padding-right:50px">
-  <div>
-	<table id="table">
-	</table>
-  </div>
+
 </div>
 </body>
 </html>
