@@ -265,7 +265,7 @@ gulp.task('uglify:app', function () {
 });
 
 // js-hint git modified files
-// linting can occur before data.js is compiled together
+// keep in mind linting can occur before data.js is compiled together
 gulp.task('lint', function(cb) {
 	gulp.src(['./client/assets/js/**/*.js', './client/assets/data/**/*.js'])
 		.pipe(gitmodified('modified'))
