@@ -207,6 +207,7 @@ gulp.task('copy:build', function (cb) {
 		gulp.src([
 			'./demo/**/*',
 			'LICENSE',
+			'CNAME',
 			'README.md',
 			'!./demo/**/*.psd',
 			'!./demo/**/{logo_assets,logo_assets/*.*}'
