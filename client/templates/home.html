@@ -92,234 +92,186 @@ url: /
 		<!-- search terms guide accordion -->
 		<div ng-show="helpState">
     		<zf-accordion class="spoiler guide showArrow">
-				<zf-accordion-item title="ExileTrade Basic Usage Guide">
+				<zf-accordion-item title="Welcome to ExileTrade!">
 					<p>
-						Welcome to ExileTrade! It's a free and open source fan-made <i>Path of Exile</i> items search engine. It features searching by 'search terms' like 6s5L chest 70life 60res which are based on poe community jargons.
+						ExileTrade is an advanced Path of Exile item search tool that is based on the concept of typing community jargons terms like 
+						<code>400pdps</code>, <code>2h</code> and <code>100life</code>.
 					</p>
-					<p><strong>Setting Up</strong></p>
 					<p>
-						First thing is to set the league you want to search. Click the <strong><em>cog</em></strong> <img zf-iconic="" icon="cog" size="small"> button on
-						the left side to select your default for:
+						A list of these terms (officially known as <i>Search Terms</i>) can be 
+						found <a href="https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/pubhtml#" target="_blank">here</a>. Below are a few examples:
+					</p>
+					<p>
 						<ol>
-							<li>League</li>
-							<li>Buyout Only</li>
-							<li>Online Only</li>
+							<li><a ng-click="doSavedSearch('5L pureev chest 90life 80res')">5L pureev chest 90life 80res</a></li>
+							<li><a ng-click="doSavedSearch('shavs 4ex')">shavs 4ex</a></li>
+							<li><a ng-click="doSavedSearch('24leveling')">24leveling</a></li>
+							<li><a ng-click="doSavedSearch('ring 20-30fireres 20manaregen 20str')">(ring or ammy) 20-30fireres 20manaregen 20str</a></li>
+							<li><a ng-click="doSavedSearch('350pdps mace -voidhome 10c')">350pdps mace -voidhome 10c</a></li>
 						</ol>
 					</p>
-					<p><strong>Search Terms</strong></p>
 					<p>
-						Next thing is to understand how the search engine works. A single term is considered
-						a straight sequence of characters <strong><em>not separated by spaces</em></strong>. So, if you
-						want to search for something that has a composed name, try typing everything together. That's also valid for the numeric value associated with the term,
-						it has to come together with it, <strong><em>no spaces between them</em></strong>.
-					</p>
-					<p>
-						If you have any questions or suggestions, you can contact us
+						Questions? Feel free to contact us
 						<a class="external-link" href="https://www.pathofexile.com/forum/view-thread/1602257" target="_blank">on the forums</a>,
 						<a class="external-link" href="https://gitter.im/exiletrade/exiletrade" target="_blank">on the gitter chat</a> and
-						<a class="external-link" href="https://redd.it/4bvvh8"> on the latest reddit post</a>. You may find a lot of useful
-						information on those places. We still have to document a lot of things that you can find scattered around those social medias.
+						<a class="external-link" href="https://redd.it/4de1h1"> on reddit</a>.
 					</p>
 					<div>
-						<zf-accordion class="sampleSearches showArrow" ng-if="Response">
-							<zf-accordion-item title="Sample Searches">
-								<ul>
-									<li><a ng-click="doSavedSearch('(gloves or helm) 50life 60eleres')">(gloves or helm) 50life 60eleres</a></li>
-									<li><a ng-click="doSavedSearch('350pdps mace -voidhome 10c')">350pdps mace -voidhome 10c</a></li>
-									<li><a ng-click="doSavedSearch('ring 20-30fireres 20manaregen 20str')">ring 20-30fireres 20manaregen 20str</a></li>
-									<li><a ng-click="doSavedSearch('sword 300pdps -flatacc 1ex')">sword 300pdps -flatacc 1ex</a></li>
-									<li><a ng-click="doSavedSearch('(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique')">(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique</a></li>
-									<li><a ng-click="doSavedSearch('voidmanipulation')">voidmanipulation</a></li>
-									<li><a ng-click="doSavedSearch('pureev 5l chest')">pureev 5l chest</a></li>
-									<li><a ng-click="doSavedSearch('24leveling')">24leveling</a></li>
-									<li><a ng-click="doSavedSearch('6L plus1arrow')">6L plus1arrow</a></li>
-								</ul>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
 						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Online Status">
-								<p>
-									The way that we currently determine the online status is as follows:
-									<ol>
-										<li>Seen online in the Ladder API for the past 5 mins. Note that there are 15
-											thousand players on the ladder while there are 55k unique accounts with
-											public stash tabs last time I checked.
-										</li>
-										<li>Any player that had any activity with their public stash tab in the last 18
-											mins is considered online.
-										</li>
-									</ol>
-								</p>
-								<p>
-									We know this is not the best way to handle it, but untill GGG releases its own
-									online API, we'll be using this.
-								</p>
+							<zf-accordion-item title="Further Help Topics">
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="Setting Up">
+											<p>
+												First thing is to set the league you want to search. Click the <strong><em>cog</em></strong> <img zf-iconic="" icon="cog" size="small"> button on
+												the left side to select your default for:
+												<ol>
+													<li>League</li>
+													<li>Buyout Only</li>
+													<li>Online Only</li>
+												</ol>
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="My first search">
+											<p>
+												I want to search for a ring with at least 70 life, 60 total elemental resistances
+												and 30% increased weapon	elemental damage. Well, it's a ring, so we type
+												<code>ring</code>. Life is simply life, so we add <code>70life</code>,
+												total resistances is usually refered as totaleleres or eleres, so we can type any
+												of those: <code>60eleres</code>. Increased Elemental Damage with Weapons is
+												refered to as wed, so we add <code>wed</code> to our search. That sums up to
+												<code>ring 70life 60eleres 30wed</code>.
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="Online Status">
+											<p>
+												Online status is determined as follows:
+												<ol>
+													<li>Player was online in the Ladder API for the past 5 mins. Only the top 15
+														thousand players are tracked on the ladder while there are about 55k unique accounts with
+														public stash tabs.
+													</li>
+													<li>Player had any activity with their public stash tab in the last 18 minutes.
+													</li>
+												</ol>
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="Uniques">
+											<p>
+												If you want to search for a unique item, you simply have to type its name, without
+												spaces.</p><p>Example: If I want a Kaom's Heart, i'll have to type <code>kaomsheart</code>,
+												<code>kaomheart</code> or <code>kaom'sheart</code>. As you guys can see, there is
+											space for variations on it. Apostrophes and stuff like <code>the</code> and <code>of</code> are optional.
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="Sockets and Links">
+											<p>
+												If you want to search for sockets and links, it's also pretty easy.</p><p>Example:
+											I want a 5 linked Lightning Coil. I just have to type: <code>lightningcoil 5l</code>.
+											But honestly I want it to already come with the colors I need, 2 red, 2 greens and 1 blue.
+											So I type: <code>lightningcoil 5l 2r 2g 1b</code>. Why not have all sockets on it?
+											<code>lightningcoil 6s 5l 2r 2g 1b</code>.
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="Gems">
+											<p>
+												Searching for gems works in the same way as searching for uniques, type the name of the gem without spaces.
+											</p>
+											<p>
+												Example: I want a Blade Vortex: <code>bladevortex</code>. I want it to be at least level 18:
+												<code>bladevortex glvl18</code>. I also want its quality to be 15+: <code>bladevortex glvl18 q15</code>
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="Buyouts">
+											<p>
+												You can also add b/o's to your search, if you only want to see items under a determined price.
+											</p>
+											<p>
+												Example: I want a 6l Vaal Regalia for 1 exalt. <code>vaalregalia 6l 1ex</code>
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="Excluding results from search">
+											<p>
+												If you don't want an item to have a specific mod, life life because you're CI, you just
+												need to type <code>-life</code> and the results will only display items without life. You can
+												negate any existing search term, so if you want a nice mace but doesn't want to see
+												Voidhomes, you just have to type <code>-voidhome</code>
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="Searching for an item OR another">
+											<p>
+												Exile Tools makes a lot of apparently impossible searches possible. If you need gloves OR
+												boots with 80eleres and 90life, <code>(gloves or boots) 90life 80eleres</code>. Notice that you
+												need to put the items inside parens. You can even do advanced searches like
+												<code>(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique</code>
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
+								<div>
+									<zf-accordion auto-open="false" class="spoiler">
+										<zf-accordion-item title="Automated Search (experimental)">
+											<p>
+												To do an automated search, you just need to type your search parameters and click on
+												the <strong><em>Auto</em></strong> icon on the right side of the search bar. It will
+												save your search to the saved searches tab, that can be accessed by clicking the
+												<strong><em>Flag</em></strong> icon, also on the right side of the search bar.
+											</p>
+											<p>
+												Right now, after saving it, it will just run every entry on your "Automated Search List"
+												for every N secs (30 sec atm). Every entry will then get a count
+												(see <a class="external-link" href="https://cloud.githubusercontent.com/assets/75921/14062996/1220ada4-f3f0-11e5-9ff6-a2f13430946d.PNG" target="_blank">screenshot</a>),
+												there's 1 tabula that's priced 10c. If the total count of all entries is > 0, a sound will be played.
+											</p>
+											<p>
+												Note that automated search doesn't do "online only search" - this will be configurable
+												when we change the "online only" as a search term. Also unlike Durian, it doesn't yet
+												know if any items are new relative to previous run - but this can be worked around
+												using negation; for example: we don't wanna see items from account or ign
+												TestOnlyAccountName, you just add negation to seller search term like this:
+												<code>pureev chest 80res 70life 1300ev -sellerTestOnlyAccountName</code>
+											</p>
+											<p>
+												Note that the automated search is still in experimental stage.
+											</p>
+										</zf-accordion-item>
+									</zf-accordion>
+								</div>
 							</zf-accordion-item>
 						</zf-accordion>
 					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Automated Search">
-								<p>
-									To do an automated search, you just need to type your search parameters and click on
-									the <strong><em>Auto</em></strong> icon on the right side of the search bar. It will
-									save your search to the saved searches tab, that can be accessed by clicking the
-									<strong><em>Flag</em></strong> icon, also on the right side of the search bar.
-								</p>
-								<p>
-									Right now, after saving it, it will just run every entry on your "Automated Search List"
-									for every N secs (30 sec atm). Every entry will then get a count
-									(see <a class="external-link" href="https://cloud.githubusercontent.com/assets/75921/14062996/1220ada4-f3f0-11e5-9ff6-a2f13430946d.PNG" target="_blank">screenshot</a>),
-									there's 1 tabula that's priced 10c. If the total count of all entries is > 0, a sound will be played.
-								</p>
-								<p>
-									Note that automated search doesn't do "online only search" - this will be configurable
-									when we change the "online only" as a search term. Also unlike Durian, it doesn't yet
-									know if any items are new relative to previous run - but this can be worked around
-									using negation; for example: we don't wanna see items from account or ign
-									TestOnlyAccountName, you just add negation to seller search term like this:
-									<code>pureev chest 80res 70life 1300ev -sellerTestOnlyAccountName</code>
-								</p>
-								<p>
-									Note that the automated search was recently implemented and will receive improvements on the coming days.
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="My first search">
-								<p>
-									I want to search for a ring with at least 70 life, 60 total elemental resistances
-									and 30% increased weapon	elemental damage. Well, it's a ring, so we type
-									<code>ring</code>. Life is pretty much life, so we add <code>70life</code>,
-									total resistances is usually refered as totaleleres or eleres, so we can type any
-									of those: <code>60eleres</code>. Increased Elemental Damage with Weapons is
-									refered to as wed, so we add <code>wed</code> to our search. That sums up to
-									<code>ring 70life 60eleres 30wed</code>.
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Uniques">
-								<p>
-									If you want to search for a unique item, you simply have to type its name, without
-									spaces.</p><p>Example: If I want a Kaom's Heart, i'll have to type <code>kaomsheart</code>,
-									<code>kaomheart</code> or <code>kaom'sheart</code>. As you guys can see, there is
-								space for variations on it. Apostrophes and stuff like <code>the</code> and <code>of</code> are optional.
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Base Types">
-								<p>
-									If you want to search for a specific base type, you also only have to type its name.
-								</p>
-								<p>Example: I want the "My first search" ring to be of a specific base, a Diamond Ring,
-									I'll have to add to our search simply <code>diamond</code>: <code>ring 70life 60eleres 30wed diamond</code>
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Sockets and Links">
-								<p>
-									If you want to search for sockets and links, it's also pretty easy.</p><p>Example:
-								I want a 5 linked Lightning Coil. I just have to type: <code>lightningcoil 5l</code>.
-								But honestly I want it to already come with the colors I need, 2 red, 2 greens and 1 blue.
-								So I type: <code>lightningcoil 5l 2r 2g 1b</code>. Why not have all sockets on it?
-								<code>lightningcoil 6s 5l 2r 2g 1b</code>.
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Gems">
-								<p>
-									Searching for gems works in the same way as searching for uniques, type the name of the gem without spaces.
-								</p>
-								<p>
-									Example: I want a Blade Vortex: <code>bladevortex</code>. I want it to be at least level 18:
-									<code>bladevortex glvl18</code>. I also want its quality to be 15+: <code>bladevortex glvl18 q15</code>
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Buyouts">
-								<p>
-									You can also add b/o's to your search, if you only want to see items under a determined price.
-								</p>
-								<p>
-									Example: I want a 6l Vaal Regalia for 1 exalt. <code>vaalregalia 6l 1ex</code>
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Talismans">
-								<p>
-									Looking for a talisman? You just have to type its name along with the other parameters.
-								</p>
-								<p>
-									Example: <code>ashscale 10firedmg 70life 20res</code>
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Excluding results from search">
-								<p>
-									If you don't want an item to have a specific mod, life life because you're CI, you just
-									need to type <code>-life</code> and the results will only display items without life. You can
-									negate any existing search term, so if you want a nice mace but doesn't want to see
-									Voidhomes, you just have to type <code>-voidhome</code>
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-					<div>
-						<zf-accordion auto-open="false" class="spoiler">
-							<zf-accordion-item title="Searching for an item OR another">
-								<p>
-									Exile Tools makes a lot of apparently impossible searches possible. If you need gloves OR
-									boots with 80eleres and 90life, <code>(gloves or boots) 90life 80eleres</code>. Notice that you
-									need to put the items inside parens. You can even do advanced searches like
-									<code>(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique</code>
-								</p>
-							</zf-accordion-item>
-						</zf-accordion>
-					</div>
-				</zf-accordion-item>
-			</zf-accordion>
-		</div>
-
-		<!-- search samples accordion -->
-		<div ng-show="helpState">
-			<zf-accordion class="sampleSearches showArrow" auto-open="{{!Response}}" ng-if="!Response">
-				<zf-accordion-item title="Sample Searches">
-					<ol>
-						<li><a ng-click="doSavedSearch('(gloves or helm) 50life 60eleres')">(gloves or helm) 50life 60eleres</a></li>
-						<li><a ng-click="doSavedSearch('350pdps mace -voidhome 10c')">350pdps mace -voidhome 10c</a></li>
-						<li><a ng-click="doSavedSearch('ring 20-30fireres 20manaregen 20str')">ring 20-30fireres 20manaregen 20str</a></li>
-						<li><a ng-click="doSavedSearch('sword 300pdps -flatacc 1ex')">sword 300pdps -flatacc 1ex</a></li>
-						<li><a ng-click="doSavedSearch('(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique')">(25fireres 25coldres 25lightres 80res) OR (50res 20int) -unique</a></li>
-						<li><a ng-click="doSavedSearch('voidmanipulation')">voidmanipulation</a></li>
-						<li><a ng-click="doSavedSearch('pureev 5l chest')">pureev 5l chest</a></li>
-						<li><a ng-click="doSavedSearch('24leveling')">24leveling</a></li>
-						<li><a ng-click="doSavedSearch('6L plus1arrow')">6L plus1arrow</a></li>
-					</ol>
 				</zf-accordion-item>
 			</zf-accordion>
 		</div>
