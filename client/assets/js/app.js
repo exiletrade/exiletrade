@@ -1010,8 +1010,10 @@ function indexerLeagueToLadder(league) {
 		 Runs the current searchInput with default sort
 		 */
 		$scope.doSearch = function () {
-			var valueFromInput = $("#searchField").val();
+			var sfElem = $("#searchField")
+			var valueFromInput = sfElem.val();
 			if (typeof valueFromInput !== "undefined") {
+				sfElem.blur();
 				$scope.searchInput = valueFromInput;
 			}
 			debugOutput('doSearch called, $scope.searchInput = ' + $scope.searchInput, 'info');
@@ -1089,7 +1091,7 @@ function indexerLeagueToLadder(league) {
 
 			// // see also https://github.com/exiletrade/exiletrade/issues/63
 			if (inputQueryString.length > 0) {
-				inputQueryString = '(' + inputQueryString + ')';
+				inputQueryString = '( ' + inputQueryString + ' )';
 			}
 			// note that elastic will be faster if we put more specific filters first
 			var finalSearchInput = inputQueryString + ' ' + prefixParseResult.queryString;
