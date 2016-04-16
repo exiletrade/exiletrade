@@ -138,13 +138,6 @@ function parseSearchInput(_terms, input) {
 	debugOutput('parseSearchInput: ' + input, 'trace');
 // 	terms = _terms;
 
-	// special search term handling
-	if (/\bfree\b/i.test(input) && /\bbo\b/i.test(input)) {
-		// free items cannot have buyouts so let's remove the bo search term if any
-		debugOutput("removing 'bo' as a special handling of 'free'", 'info');
-		input = input.replace(/\bbo\b/i, "").trim();
-	}
-
 	// capture literal search terms (LST) like name="veil of the night"
 	var regex = /([^\s]*[:=]\".*?\")/g;
 	var lsts = input.match(regex);
@@ -350,7 +343,7 @@ function prettyDate(date) {
 
 	if (isNaN(day_diff) || day_diff < 0) return;
 
-	return day_diff == 0 && (
+	return day_diff === 0 && (
 	diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago" || day_diff > 30 && Math.ceil(day_diff / 31) + " months ago";
 }
 
@@ -360,7 +353,6 @@ function modToDisplay(value, mod) {
 	} else if (typeof value === "object") {
 		var valstr = value.min + '-' + value.max + ' (' + value.avg + ')';
 		mod = mod.replace('#-#', valstr);
-		value.has;
 	} else if (typeof value === "boolean") {
 		mod = mod;
 	} else {
@@ -871,6 +863,14 @@ function indexerLeagueToLadder(league) {
 			};
 		};
 
+		$scope.doStashSearch = function(sellerAccount, stashName) {
+			var cleanStashName = stashName;
+			cleanStashName = cleanStashName.replace('~', '\~');
+			cleanStashName = cleanStashName.replace(/\s/g, '');
+			var input = 'seller' + sellerAccount + ' stash' + cleanStashName;
+			$scope.doSavedSearch(input);
+		}
+
 		function hitToUUID(hit) {
 			return hit._source.uuid;
 		}
@@ -1025,7 +1025,7 @@ function indexerLeagueToLadder(league) {
 		 Runs the current searchInput with default sort
 		 */
 		$scope.doSearch = function () {
-			var sfElem = $("#searchField")
+			var sfElem = $("#searchField");
 			var valueFromInput = sfElem.val();
 			if (typeof valueFromInput !== "undefined") {
 				sfElem.blur();
@@ -1070,7 +1070,7 @@ function indexerLeagueToLadder(league) {
 				limit = 999;
 			} // deny power overwhelming
 			// ga('send', 'event', 'Search', 'PreFix', createSearchPrefix($scope.options));
-			$location.search({'q': searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder, 'limit': limit});
+			$location.search({'q': searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder});
 			$location.replace();
 			debugOutput('changed location to: ' + $location.absUrl(), 'trace');
 
@@ -1093,12 +1093,15 @@ function indexerLeagueToLadder(league) {
 		}
 
 		function buildQueryString(searchInput) {
-			var parseResult = parseSearchInput($scope.termsMap, searchInput.trim());
+			searchInput = searchInput.trim();
+			var parseResult = parseSearchInput($scope.termsMap, searchInput);
 			$scope.badSearchInputTerms = parseResult.badTokens;
 			var inputQueryString = parseResult.queryString;
 
+			// special search term handling
+			var hasFreeSearchTerm = /\bfree\b/i.test(searchInput);
 			var containsLeagueTerm = inputQueryString.indexOf("attributes.league") != -1;
-			var containsBuyoutTerm = inputQueryString.indexOf("shop.hasPrice") != -1;
+			var containsBuyoutTerm = inputQueryString.indexOf("shop.hasPrice") != -1 || hasFreeSearchTerm;
 			var containsVerifyTerm = inputQueryString.indexOf("shop.verified") != -1;
 
 			var prefix = createSearchPrefix($scope.options, containsLeagueTerm, containsBuyoutTerm, containsVerifyTerm);

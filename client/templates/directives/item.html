@@ -35,7 +35,6 @@
 			<div class="grid-block item-box-left">
 
 				<div class="grid-block image-container"
-					 title="Stash Name: {{item._source.shop.stash.stashName}}"
 					 zf-open="showExileToolsItemJsonModal{{item._id}}">
 					<img src="{{item._source.info.icon}}">
 					<div ng-repeat="cssClasses in getSocketClasses(item._source.sockets.allSockets)" class="socket {{cssClasses}}">
@@ -390,7 +389,7 @@
 					<table>
 						<tbody>
 							<tr>
-								<td>Updated</td>
+								<td>Updated:</td>
 								<td>
 									<a
 										data-sort-key="shop.updated"
@@ -403,7 +402,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Modified</td>
+								<td>Modified:</td>
 								<td>
 									<a
 										title="Number of hours passed since item was modified in the River"
@@ -415,7 +414,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Added</td>
+								<td>Added:</td>
 								<td>
 									<a
 										title="Number of hours passed since item was first seen in the River"
@@ -424,6 +423,19 @@
 										ng-click="doSearchWithSort($event)">
 										{{item._source.shop.addedHuman}}
 									</a>
+								</td>
+							</tr>
+							<tr ng-if="item._source.shop.stash.stashName">
+								<td>Stash:</td>
+								<td>
+									<a ng-click="doStashSearch(item._source.shop.sellerAccount, item._source.shop.stash.stashName)">
+										{{item._source.shop.stash.stashName}}</a>
+								</td>
+							</tr>
+							<tr ng-if="item._source.shop.note">
+								<td>Note:</td>
+								<td>
+									<a>{{item._source.shop.note}}</a>
 								</td>
 							</tr>
 						</tbody>
@@ -453,7 +465,6 @@
 					   ng-click="doSearchWithSort($event)">
 						<span class="currency {{item._source.shop.currency | cleanCurrency}} {{item._source.shop.note | cleanCurrency}}"></span>
 					</a>
-					<i class="seperator"></i>
 				</span>
 
 				<span
@@ -462,26 +473,27 @@
 					Online
 					<i class="seperator"></i>
 				</span>
-
-				<span class="" data-ign="{{item._source.shop.lastCharacterName}}">
-					IGN: {{item._source.shop.lastCharacterName}}
-					<i class="seperator"></i>
-				</span>
 				<span ng-init="counter = 0">
+					<span class="" data-ign="{{item._source.shop.lastCharacterName}}">
+						IGN: <a ngclipboard class="click small hollow whisper-btn noselect"
+						   data-clipboard-text="@{{item._source.shop.lastCharacterName}} hi"
+						   ng-click="ignCounter = ignCounter + 1">
+							{{item._source.shop.lastCharacterName}}<span ng-if="ignCounter > 0"> ({{ignCounter}})</span>
+						<i class="seperator"></i>
+					</span>
 					<a ngclipboard class="click small hollow whisper-btn noselect"
 					   data-clipboard-text="{{copyWhisperToClipboard(item)}}"
 					   ng-click="whiserperCounter = whiserperCounter + 1"
 					   color="success" autoclose="2000" zf-open="save-notification-whisper">
 						Whisper<span ng-if="whiserperCounter > 0"> ({{whiserperCounter}})</span>
+					<i class="seperator"></i>
 					<a ngclipboard class="click small hollow whisper-btn noselect"
 					   data-clipboard-text="/whois {{item._source.shop.lastCharacterName}}"
 					   ng-click="whoisCounter = whoisCounter + 1"
 					   color="success" autoclose="2000" zf-open="save-notification-whois">
 						Whois<span ng-if="whoisCounter > 0"> ({{whoisCounter}})</span>
 					</a>
-					<i class="seperator"></i>
 				</span>
-				<span ng-if="item._source.shop.note">Note: {{item._source.shop.note}}</span>
 			</div>
 		</div>
 	</div>

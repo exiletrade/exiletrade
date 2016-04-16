@@ -535,6 +535,9 @@ img.gitter-badge {
 				color: $color_card_name;
             }
         }
+        .seperator:before {
+			content: " · ";
+		}
 
 		.item-border {
 			margin: 0 5px;
@@ -676,10 +679,6 @@ img.gitter-badge {
 	.item-info .grid-block {
 		flex-grow: 0;
 		-webkit-flex-grow: 0;
-
-		.seperator:before {
-			content: " · ";
-		}
 
 		.item-mod-affix {
 			color: $color_item_text;
