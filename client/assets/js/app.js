@@ -339,6 +339,21 @@ function firstKey(obj) {
 	return key;
 }
 
+/*
+ * Based on JavaScript Pretty Date: http://stackoverflow.com/questions/7641791/javascript-library-for-human-friendly-relative-date-formatting
+ * Copyright (c) 2011 John Resig (ejohn.org)
+ * Licensed under the MIT and GPL licenses.
+ */
+function prettyDate(date) {
+	var diff = (((new Date()).getTime() - date.getTime()) / 1000),
+		day_diff = Math.floor(diff / 86400);
+
+	if (isNaN(day_diff) || day_diff < 0) return;
+
+	return day_diff == 0 && (
+	diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago" || day_diff > 30 && Math.ceil(day_diff / 31) + " months ago";
+}
+
 function modToDisplay(value, mod) {
 	if (typeof value === 'number') {
 		mod = mod.replace('#', value);
@@ -1224,14 +1239,9 @@ function indexerLeagueToLadder(league) {
 				var added = new Date(item.shop.added);
 				var updated = new Date(item.shop.updated);
 				var modified = new Date(item.shop.modified);
-				item.shop.addedHuman = added.toLocaleString();
-				item.shop.udpatedHuman = updated.toLocaleString();
-				item.shop.modifiedHuman = modified.toLocaleString();
-				var now = new Date();
-				var hourInMillis = 3600000;
-				item.shop.addedHoursAgo = (Math.abs(now.getTime() - added.getTime()) / hourInMillis).toFixed(2);
-				item.shop.modifiedHoursAgo = (Math.abs(now.getTime() - modified.getTime()) / hourInMillis).toFixed(2);
-				item.shop.updatedHoursAgo = (Math.abs(now.getTime() - updated.getTime()) / hourInMillis).toFixed(2);
+				item.shop.addedHuman = prettyDate(added);
+				item.shop.updatedHuman = prettyDate(updated);
+				item.shop.modifiedHuman = prettyDate(modified);
 				if (!item.isOnline) {
 					item.isOnline = $scope.onlinePlayers.indexOf(item.shop.sellerAccount) != -1;
 				}

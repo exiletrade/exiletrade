@@ -398,7 +398,7 @@
 										data-sort-key="shop.updated"
 										data-sort-order="desc"
 										ng-click="doSearchWithSort($event)">
-										{{item._source.shop.updatedHoursAgo}} hours ago
+										{{item._source.shop.updatedHuman}}
 									</a>
 								</td>
 							</tr>
@@ -410,7 +410,7 @@
 										data-sort-key="shop.modified"
 										data-sort-order="desc"
 										ng-click="doSearchWithSort($event)">
-										{{item._source.shop.modifiedHoursAgo}} hours ago
+										{{item._source.shop.modifiedHuman}}
 									</a>
 								</td>
 							</tr>
@@ -422,7 +422,7 @@
 										data-sort-key="shop.added"
 										data-sort-order="desc"
 										ng-click="doSearchWithSort($event)">
-										{{item._source.shop.addedHoursAgo}} hours ago
+										{{item._source.shop.addedHuman}}
 									</a>
 								</td>
 							</tr>
