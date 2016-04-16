@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" ng-app="EsConnector">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>ExileTradeModTermGenerator</title>
+
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script>
+
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        $("#main").append("<table id='tableEnchant' />")
+        $.get( "http://api.exiletools.com/endpoints/mapping?field=enchantMods", function( data ) {
+            //var data = "enchantMods.+20% Sweep Knockback Chance\nenchantMods.+24% to Ancestral Protector Totem Elemental Resistances\nenchantMods.04% of Damage Leeched as Life and Mana if you've Killed Recently\nenchantMods.05% of Damage Leeched as Life and Mana if you've Killed Recently\nenchantMods.1 additional Barrage Projectile\nenchantMods.1 additional Flame Totem Projectile\nenchantMods.1 secondary Tornado Shot Projectile\nenchantMods.10% Chance to gain a Power Charge on Critical Strike with Ice Spear\nenchantMods.10% increased Barrage Attack Speed\nenchantMods.10% increased Cleave Attack Speed\nenchantMods.10% increased Cyclone Attack Speed\nenchantMods.10% increased Double Strike Attack Speed\nenchantMods.10% increased Dual Strike Attack Speed\nenchantMods.10% increased Elemental Hit Attack Speed\nenchantMods.10% increased Heavy Strike Attack Speed\nenchantMods.10% increased Leap Slam Attack Speed\nenchantMods.10% increased Power Siphon Attack Speed\nenchantMods.10% increased Rain of Arrows Attack Speed\nenchantMods.10% increased Shield Charge Attack Speed\nenchantMods.10% increased Shockwave Totem Cast Speed\nenchantMods.10% increased Siege Ballista Attack Speed\nenchantMods.10% increased Sunder Attack Speed\nenchantMods.10% increased Whirling Blades Attack Speed\nenchantMods.10% of Burning Arrow Physical Damage added as Fire Damage\nenchantMods.10% of Glacial Hammer Physical Damage added as Cold Damage\nenchantMods.10% of Ice Crash Physical damage added as Cold Damage\nenchantMods.10% of Infernal Blow Physical damage added as Fire Damage\nenchantMods.10% of Rejuvenation Totem life regeneration added as mana Regeneration\nenchantMods.10% of Shrapnel Shot Physical damage added as Lightning Damage\nenchantMods.10% reduced Anger Mana Reservation\nenchantMods.10% reduced Determination Mana Reservation\nenchantMods.10% reduced Discipline Mana Reservation\nenchantMods.10% reduced Grace Mana Reservation\nenchantMods.10% reduced Haste Mana Reservation\nenchantMods.10% reduced Hatred Mana Reservation\nenchantMods.10% reduced Mana Cost of Skills if you've been Hit Recently\nenchantMods.10% reduced Wrath Mana Reservation\nenchantMods.100% increased Effect of the Buff granted by your Flame Golems\nenchantMods.100% increased Effect of the Buff granted by your Ice Golems\nenchantMods.100% increased Effect of the Buff granted by your Stone Golems\nenchantMods.100% increased Molten Shell Buff Effect\nenchantMods.12% increased Ancestor Totem Placement Speed\nenchantMods.12% increased Attack and Cast Speed if you've Killed Recently\nenchantMods.12% increased Blast Rain Radius\nenchantMods.14% reduced Mana Cost of Skills if you've been Hit Recently\nenchantMods.14% reduced Purity of Elements Mana Reservation\nenchantMods.14% reduced Purity of Fire Mana Reservation"
+            process(data, 'tableEnchant', 'enchant')
+        });
+    });
+
+    function process(data, tableId, modPrefix) {
+        // prepare data
+        var lines = data.split('\n').filter(function(e) { return e.length > 0 })
+        lines = lines.map( function (line) {
+            var cleaned = line;
+            cleaned = cleaned.replace('.avg', '')
+            cleaned = cleaned.replace('.min', '')
+            cleaned = cleaned.replace('.max', '')
+            cleaned = cleaned.replace(/mods\..+\.explicit/i, 'mods.*.explicit')
+            return cleaned
+        })
+        lines = uniq(lines)
+
+        // magic
+        var mods = linesToMods(lines, modPrefix)
+        console.log(mods)
+
+        // output
+        var table = $("#" + tableId);
+        $.each(mods, function(idx, elem){
+            table.append("<tr><td>"+elem.regex+"</td><td>"+elem.query+"</td></tr>");
+        });
+    }
+
+    function linesToMods(lines, modPrefix) {
+        var mods = []
+        $.each(lines, function(idx, line) {
+            var toks = line.split(".")
+            var mod = toks[toks.length - 1]
+            // for boolean typed mods
+            // we only have 1 search term
+            if (isBooleanTyped(mod)) {
+                mods.push({
+                    'regex' : modPrefix + modToRegex(mod),
+                    'query' : line + ":true"
+                })
+            } else {
+                // todo, generate 3 std here
+                // for example:
+                // liferegen    			mods.*.explicit.# Life Regenerated per second:>0
+                // (\d+)liferegen    		modsTotal.# Life Regenerated per second:>$1
+                // (\d+)-(\d+)liferegen     modsTotal.# Life Regenerated per second:[$1 TO $2]
+                mods.push({
+                    'regex' : modPrefix + modToRegex(mod),
+                    'query' : line + ":>0"
+                })
+                mods.push({
+                    'regex' : "(\d+)" + modPrefix + modToRegex(mod),
+                    'query' : line + ":>$1"
+                })
+                mods.push({
+                    'regex' : "(\d+)-(\d+)" + modPrefix + modToRegex(mod),
+                    'query' : line + ":[$1 TO $2]"
+                })
+            }
+        });
+        return mods
+    }
+
+    function modToRegex(mod) {
+        mod = mod.replace(/[#%\s]/ig, "")
+        return mod;
+    }
+
+    function isBooleanTyped(mod) {
+        return mod.indexOf('#') == -1
+    }
+
+    function uniq(a) {
+        var seen = {};
+        return a.filter(function(item) {
+            return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+        });
+    }
+    </script>
+
+</head>
+<body>
+    <!-- Main div starts at 0 spacing for simplicity -->
+    <div id="main" style="width:100%;padding-left:50px;padding-right:50px">
+
+    </div>
+</body>
+</html>
