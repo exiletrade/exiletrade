@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" ng-app="EsConnector">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Uniques Search Term Generator</title>
+
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+  <!-- Warning, I've seen some glitchy errors on newer versions, I think they require node.js installation or some idiocy -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticsearch/10.0.1/elasticsearch.angular.min.js"></script>
+  <script>
+    // We define an EsConnector module that depends on the elasticsearch module.     
+    var EsConnector = angular.module('EsConnector', ['elasticsearch']);
+
+    // Create the es service from the esFactory
+    EsConnector.service('es', function (esFactory) {
+      return esFactory({ host: 'http://apikey:DEVELOPMENT-Indexer@api.exiletools.com' });
+    });
+
+    EsConnector.controller('ExileToolsHelloWorld', function($scope, $q, es) {
+
+    	$scope.results = []
+	
+		$scope.filterIsNew = function(item) {
+			return existing.indexOf(item.key) == -1;
+		};
+	  	
+	  	function modToRegex(name) {
+	  		name = name.replace(/mods\.\w+\.\w+\./g, "");
+	  		name = name.replace(/\s#\s/g, " ");
+	  		name = name.replace(/\+#%?/g, "plus");
+	  		name = name.replace(/\-#%?/g, "minus");
+	  		name = name.replace(/#%/g, "");
+	  		name = name.replace(/[',]/g, "");
+			name = name.replace(/(of)/ig, "(of)?");
+			name = name.replace(/(the)/ig, "(the)?");
+			name = name.replace(/\s/g, '');
+			return name;
+		};
+	  	
+	  	function toQuery(name) {
+	  		var query = ""
+	  		if (name.indexOf('#') != -1) 
+	  			query = name + ":>0"
+	  		else 
+	  			query = name + ":true"
+			return query;
+		};
+	
+	  	function toSample1(name) {
+			name = name.replace(/mods\.\w+\.\w+\./g, "");
+	  		name = name.replace(/\s#\s/g, " ");
+	  		name = name.replace(/\+#%?/g, "plus");
+	  		name = name.replace(/\-#%?/g, "minus");
+	  		name = name.replace(/#%/g, "");
+	  		name = name.replace(/[',]/g, "");
+			name = name.replace(/(of)/ig, "");
+			name = name.replace(/(the)/ig, "");
+			name = name.replace(/\s/g, '');
+			return name;
+		};
+
+		function isMod(bucket) {
+			return bucket.key.match(/mods\.\w+\.explicit\..+/)
+		}
+
+
+
+		$q.all([
+			aggFields("Jewel"),
+			aggFields("Map")
+		]).then(function (res) {
+			$scope.results = res;
+		});
+	
+	  function aggFields(itemType) {
+	  	  return es.search({
+			  index: 'index',
+				  body: {
+					  "aggs": {
+						"filtered": {
+						  "filter" : { 
+										"bool" : {
+											"must" : [
+												{
+													"term" : {
+														"attributes.itemType" : itemType
+													}
+												},
+												{
+													"terms" : {
+														"attributes.league" : ["Perandus", "Hardcore Perandus"]
+													}
+												},
+												{
+													"term" : {
+														"attributes.rarity" : "Rare"
+													}
+												},
+												{
+													"term" : {
+														"attributes.identified" : true
+													}
+												}
+											]
+										}
+									 },
+						  "aggs": {
+							"agg1": {
+								  "terms": {
+									"field" : "_field_names",
+									"order" : { "_term" : "asc" },
+									size:5000
+								  }
+								}
+						  }
+						}
+					  },
+					  "size": 0
+				  }
+		  }).then(function (response) {
+		  	var modNames = response.aggregations.filtered.agg1.buckets.filter(function (s) {
+		  		return isMod(s)
+		  	})
+		  	var mods = []
+			var modPrefix = itemType
+			if (modPrefix == 'Map') modPrefix = ''
+			modNames.forEach(function(_mod, idx) {
+				var mod = _mod.key
+				// for boolean typed mods
+				// we only have 1 search term
+				if (mod.indexOf('#') == -1) {
+				  mods.push({
+					'regex' : modPrefix + modToRegex(mod),
+					'query' : mod + ":true",
+					'sample1' : modPrefix + toSample1(mod)
+				  })
+				} else {
+				  mods.push({
+					'regex' : modPrefix + modToRegex(mod),
+					'query' : mod + ":>0",
+					'sample1' : modPrefix + toSample1(mod)
+				  })
+				  mods.push({
+					'regex' : "(\d+)" + modPrefix + modToRegex(mod),
+					'query' : mod + ":>$1"
+				  })
+				  mods.push({
+					'regex' : "(\d+)-(\d+)" + modPrefix + modToRegex(mod),
+					'query' : mod + ":[$1 TO $2]"
+				  })
+				}
+			})
+
+		  	return {
+		  		'itemType' : itemType,
+		  		'mods' : mods
+		  	}
+		  })
+	  }
+    });
+  
+  </script> --
+
+</head>
+<body>
+<!-- Main div starts at 0 spacing for simplicity -->
+<div id="main" style="width:100%;padding-left:50px;padding-right:50px" ng-controller="ExileToolsHelloWorld" >
+  <h1>Mod Search Term Generator for Maps and Jewels. You should see response data below. If not, check your console!</h1>
+  <hr width=100% size=1>
+
+  <div>
+		<div ng-repeat="result in results">
+			<h4>{{result.itemType}}</h4>
+			<table>
+				<tr ng-repeat="mod in result.mods">
+					<td>{{mod.regex}}</td>
+					<td>{{mod.query}}</td>
+					<td></td>
+					<td>{{mod.sample1}}</td>
+				</tr>
+			</table>
+		</div>
+  </div>
+</div>
+</body>
+</html>

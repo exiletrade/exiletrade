@@ -67,7 +67,7 @@ var paths = {
 		'node_modules/js-yaml/dist/js-yaml.min.js',
 		'node_modules/ngclipboard/dist/ngclipboard.js',
 		'node_modules/angular-cache/dist/angular-cache.min.js',
-		'node_modules/angular-spinner/node_modules/spin.js/spin.js',
+		'node_modules/spin.js/spin.js',
 		'node_modules/angular-spinner/angular-spinner.js',
 		'bower_components/angular-mass-autocomplete/massautocomplete.js'
 	],
@@ -90,6 +90,9 @@ var paths = {
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=154866940",
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=583395837",
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=380600191",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=739334965",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=1985025128",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=550808329",
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=1782931570",
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=223573764",
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=207179951",
