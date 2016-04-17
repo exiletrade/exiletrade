@@ -852,8 +852,7 @@ function indexerLeagueToLadder(league) {
 			if (typeof $scope.loadedOptions.dontShowAdBlockWarning !== 'undefined' && $scope.loadedOptions.dontShowAdBlockWarning !== null) {
 				$scope.options.dontShowAdBlockWarning = $scope.loadedOptions.dontShowAdBlockWarning;
 			}
-		} 
-		console.log($scope.options.dontShowAdBlockWarning);
+		}
 
 		/*
 		 * Change notification volume if loading saved option
@@ -1791,15 +1790,16 @@ function indexerLeagueToLadder(league) {
 			//
 		};
 		$scope.adBlockDetected = function() {
+			console.info("If javascript-file 'ads.js' is being blocked by your client you have AdBlock enabled. This error is expected.");
+			if ($scope.options.dontShowAdBlockWarning) {
+				return;
+			}
 			setTimeout(function(){
 				FoundationApi.publish('showAdBlockModal', 'show');
 			}, 50);
 		};
 
 		function checkForAdBlock() {
-			if ($scope.options.dontShowAdBlockWarning) {
-				return;
-			}
 			if (typeof fuckAdBlock === 'undefined') {
 				$scope.adBlockDetected();
 			} else {
