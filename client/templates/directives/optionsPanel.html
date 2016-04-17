@@ -5,8 +5,49 @@
 <a zf-close="" class="close-button ng-scope">×</a>
 
 <div class="grid-block search-options">
+	<section class="block-list prefixes">
+		<header>Search Prefixes</header>
+		<ul>
+			<li class="">
+				<span class="checkboxLabel">Online Players Only</span>
+				<div class="switch small">
+					<input type="checkbox" ng-model="options.switchOnlinePlayersOnly" id="switch-onlinePlayersOnly">
+					<label for="switch-onlinePlayersOnly">
+						<img ng-show="options.switchOnlinePlayersOnly" zf-iconic="" icon="circle-check" size="small">
+						<img ng-show="!options.switchOnlinePlayersOnly" zf-iconic="" icon="circle-x" size="small">
+						<span ng-show="options.switchOnlinePlayersOnly">Search Online Players</span>
+						<span ng-show="!options.switchOnlinePlayersOnly">Search All players</span>
+					</label>
+				</div>
+			</li>
+			<li class="with-dropdown">
+				<select name="" ng-model="options.buyoutSelect.value" id="option-buyout"
+						ng-options="v for v in options.buyoutSelect.options">
+				</select>
+			</li>
+			<li class="with-dropdown">
+				<select name="" ng-model="options.verificationSelect.value" id="option-verified"
+						ng-options="v for v in options.verificationSelect.options">
+				</select>
+			</li>
+			<li ng-repeat="input in options.searchPrefixInputs track by $index">
+				<input type="text" ng-model="input.value" placeholder="Custom prefix">
+			</li>
+		</ul>
+		<a href="" class="button small hollow" ng-click="addInputField()">Add Field</a>
+	</section>
 	<section class="block-list">
-		<header>General Options</header>
+		<header>Select Leagues</header>
+		<ul>
+			<li class="with-dropdown">
+				<select name="" ng-model="options.leagueSelect.value" id="option-league"
+						ng-options="v for v in options.leagueSelect.options">
+				</select>
+			</li>
+		</ul>
+	</section>
+	<section class="block-list">
+		<header>General/Style Options</header>
 		<ul>
 			<!-- add/remove class "showLabelOnInput" to change switch appearance -->
 			<li class="">
@@ -46,18 +87,6 @@
 					</label>
 				</div>
 			</li>
-			<li class="">
-				<span class="checkboxLabel">Online Players Only</span>
-				<div class="switch small">
-					<input type="checkbox" ng-model="options.switchOnlinePlayersOnly" id="switch-onlinePlayersOnly">
-					<label for="switch-onlinePlayersOnly">
-						<img ng-show="options.switchOnlinePlayersOnly" zf-iconic="" icon="circle-check" size="small">
-						<img ng-show="!options.switchOnlinePlayersOnly" zf-iconic="" icon="circle-x" size="small">
-						<span ng-show="options.switchOnlinePlayersOnly">Search Online Players</span>
-						<span ng-show="!options.switchOnlinePlayersOnly">Search All players</span>
-					</label>
-				</div>
-			</li>
 			<header>Select Font</header>
 			<li class="with-dropdown">
 				<select name="" ng-model="options.fontSelect.value" id="option-font"
@@ -90,35 +119,6 @@
 				<input type="range" ng-model="options.notificationVolume" ng-change="changeNotificationVolume()"
 					   min="0.1" max="1" step="0.05">
 			</header>
-		</ul>
-	</section>
-	<section class="block-list prefixes">
-		<header>Search Prefixes</header>
-		<ul>
-			<li class="with-dropdown">
-				<select name="" ng-model="options.buyoutSelect.value" id="option-buyout"
-						ng-options="v for v in options.buyoutSelect.options">
-				</select>
-			</li>
-			<li class="with-dropdown">
-				<select name="" ng-model="options.verificationSelect.value" id="option-verified"
-						ng-options="v for v in options.verificationSelect.options">
-				</select>
-			</li>
-			<li ng-repeat="input in options.searchPrefixInputs track by $index">
-				<input type="text" ng-model="input.value" placeholder="Custom prefix">
-			</li>
-		</ul>
-		<a href="" class="button small hollow" ng-click="addInputField()">Add Field</a>
-	</section>
-	<section class="block-list">
-		<header>Select Leagues</header>
-		<ul>
-			<li class="with-dropdown">
-				<select name="" ng-model="options.leagueSelect.value" id="option-league"
-						ng-options="v for v in options.leagueSelect.options">
-				</select>
-			</li>
 		</ul>
 	</section>
 </div>
