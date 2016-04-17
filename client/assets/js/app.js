@@ -1957,7 +1957,23 @@ function indexerLeagueToLadder(league) {
 		return {
 			restrict: 'A',
 			templateUrl: 'templates/directives/item.html',
-			// todo: shouldn't need to inherit entire scope
+			scope: true
+		};
+	});
+
+	appModule.directive('termsguide', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/termsGuide.html',
+			scope: true,
+			replace: true
+		};
+	});
+
+	appModule.directive('optionspanel', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/optionsPanel.html',
 			scope: true
 		};
 	});
