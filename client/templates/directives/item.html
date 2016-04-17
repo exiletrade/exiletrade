@@ -475,10 +475,12 @@
 				</span>
 				<span ng-init="counter = 0">
 					<span class="" data-ign="{{item._source.shop.lastCharacterName}}">
-						IGN: <a ngclipboard class="click small hollow whisper-btn noselect"
+						IGN:
+						<a ngclipboard class="click small hollow whisper-btn noselect"
 						   data-clipboard-text="@{{item._source.shop.lastCharacterName}} hi"
 						   ng-click="ignCounter = ignCounter + 1">
 							{{item._source.shop.lastCharacterName}}<span ng-if="ignCounter > 0"> ({{ignCounter}})</span>
+						</a>
 						<i class="seperator"></i>
 					</span>
 					<a ngclipboard class="click small hollow whisper-btn noselect"
@@ -486,6 +488,7 @@
 					   ng-click="whiserperCounter = whiserperCounter + 1"
 					   color="success" autoclose="2000" zf-open="save-notification-whisper">
 						Whisper<span ng-if="whiserperCounter > 0"> ({{whiserperCounter}})</span>
+					</a>
 					<i class="seperator"></i>
 					<a ngclipboard class="click small hollow whisper-btn noselect"
 					   data-clipboard-text="/whois {{item._source.shop.lastCharacterName}}"

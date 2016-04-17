@@ -341,7 +341,7 @@ function prettyDate(date) {
 	var diff = (((new Date()).getTime() - date.getTime()) / 1000),
 		day_diff = Math.floor(diff / 86400);
 
-	if (isNaN(day_diff) || day_diff < 0) return;
+	if (isNaN(day_diff) || day_diff < 0) { return; }
 
 	return day_diff === 0 && (
 	diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago" || day_diff > 30 && Math.ceil(day_diff / 31) + " months ago";
@@ -667,8 +667,8 @@ function indexerLeagueToLadder(league) {
 		}]);
 
 	appModule.controller('SearchController',
-		['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService',
-		function ($q, $scope, $http, $location, $interval, es, playerOnlineService,favicoService) {
+	['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService','FoundationApi',
+	function ($q, $scope, $http, $location, $interval, es, playerOnlineService, favicoService, FoundationApi) {
 
 		debugOutput('controller', 'info');
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
@@ -761,7 +761,8 @@ function indexerLeagueToLadder(league) {
 			"searchPrefixInputs": [],
 			"switchOnlinePlayersOnly": true,
 			"muteSound": false,
-			"notificationVolume": 1
+			"notificationVolume": 1,
+			"dontShowAdBlockWarning" : false
 		};
 
 		/*
@@ -848,7 +849,11 @@ function indexerLeagueToLadder(league) {
 			if (typeof $scope.loadedOptions.notificationVolume !== 'undefined' && $scope.loadedOptions.notificationVolume !== null) {
 				$scope.options.notificationVolume = $scope.loadedOptions.notificationVolume;
 			}
-		}
+			if (typeof $scope.loadedOptions.dontShowAdBlockWarning !== 'undefined' && $scope.loadedOptions.dontShowAdBlockWarning !== null) {
+				$scope.options.dontShowAdBlockWarning = $scope.loadedOptions.dontShowAdBlockWarning;
+			}
+		} 
+		console.log($scope.options.dontShowAdBlockWarning);
 
 		/*
 		 * Change notification volume if loading saved option
@@ -869,7 +874,7 @@ function indexerLeagueToLadder(league) {
 			cleanStashName = cleanStashName.replace(/\s/g, '');
 			var input = 'seller' + sellerAccount + ' stash' + cleanStashName;
 			$scope.doSavedSearch(input);
-		}
+		};
 
 		function hitToUUID(hit) {
 			return hit._source.uuid;
@@ -1781,6 +1786,33 @@ function indexerLeagueToLadder(league) {
 			$scope.helpState = ($scope.helpState === false);
 			return $scope.helpState;
 		};
+
+		$scope.adBlockNotDetected = function() {
+			//
+		};
+		$scope.adBlockDetected = function() {
+			setTimeout(function(){
+				FoundationApi.publish('showAdBlockModal', 'show');
+			}, 50);
+		};
+
+		function checkForAdBlock() {
+			if ($scope.options.dontShowAdBlockWarning) {
+				return;
+			}
+			if (typeof fuckAdBlock === 'undefined') {
+				$scope.adBlockDetected();
+			} else {
+				fuckAdBlock.onDetected($scope.adBlockDetected);
+				fuckAdBlock.onNotDetected($scope.adBlockNotDetected);
+				// and|or
+				fuckAdBlock.on(true, $scope.adBlockDetected);
+				fuckAdBlock.on(false, $scope.adBlockNotDetected);
+				// and|or
+				fuckAdBlock.on(true, $scope.adBlockDetected).onNotDetected($scope.adBlockNotDetected);
+			}
+		}
+		checkForAdBlock();
 	}]);
 
 	// Custom filters

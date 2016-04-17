@@ -22,6 +22,7 @@ var jshint = require('gulp-jshint');
 var gitStaged = require("gulp-git-staged");
 var gitmodified = require('gulp-gitmodified');
 var gulpUglify = require('gulp-uglify');
+var rename = require("gulp-rename");
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -78,6 +79,9 @@ var paths = {
 		(isDemo || isProduction) ? '' : 'client/assets/js/debug.js',
 		'client/assets/js/app.js'
 	],
+	vendorJS: [
+		'bower_components/fuck-adblock/fuckadblock.js',
+	],
 	spreadsheet_urls : [
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=675822745",
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=40738669",
@@ -124,6 +128,15 @@ gulp.task('copy', function () {
 		base: './client/'
 	})
 		.pipe(gulp.dest(destination));
+});
+
+// Copy vendor js (without concatenating it to some other files)
+// has to be changed to work with multiple files
+gulp.task('copy:vendorJS', function () {
+	return gulp.src(paths.vendorJS)
+		.pipe($.uglify())
+		.pipe(rename('ads.js'))
+		.pipe(gulp.dest(destination + '/assets/js/'));
 });
 
 // Copy index

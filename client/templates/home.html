@@ -26,16 +26,11 @@ url: /
 					<a href="" ng-click="doSearch()" class="button" value="Search">
 						<img zf-iconic="" icon="magnifying-glass" size="small">
 					</a>
-					<!-- We have duplicate input below in order to conditionally add the autofocus attr, 
-						 not the best but other solutiuons does not work -->
-					<input ng-if="searchInput"
-						id="searchField" spellcheck="false" ng-model="searchInput" placeholder="Search Input" size="" type="text"
+					<input
+						id="searchField" spellcheck="false" ng-model="searchInput"
+					   	placeholder="Search Input - First time user? Try clicking the help button below" size="" type="text"
 						mass-autocomplete-item="autocomplete_options"
-						my-enter="doSearch()">
-					<input ng-if="!searchInput"
-						id="searchField" spellcheck="false" ng-model="searchInput" placeholder="Search Input - First time user? Try clicking the help button below" size="" type="text"
-						mass-autocomplete-item="autocomplete_options"
-						my-enter="doSearch()" autofocus>
+						my-enter="doSearch()" ng-attr-autofocus="{{searchInput[0]==''}}">
 					<a href="#" ng-click="options.switchOnlinePlayersOnly = !options.switchOnlinePlayersOnly; doSearch()"
 						class="button small saveSearchNotificationLink">
 						<img zf-iconic="" ng-show="options.switchOnlinePlayersOnly"  icon="circle-check" size="small">
@@ -76,6 +71,21 @@ url: /
 		<zf-notification-set id="save-notification-options" position="top-right"></zf-notification-set>
 		<zf-notification-static id="save-notification-whisper" color="success" zf-advise="" title="Whisper message copied." autoclose=2000>
 		</zf-notification-static>
+
+		<div zf-modal="" id="showAdBlockModal">
+			<a zf-close="" class="close-button">×</a>
+			<h3>AdBlock enabled</h3>
+			<p>
+				It seems you have AdBlock enabled, that's no problem since we don't have ads
+				and never will have them. But there are cases where some icons are removed because of that, if
+				this happens to you try disabling AdBlock on this page.
+			</p>
+			<div class="checkbox">
+				<input type="checkbox" id="adBlock" ng-model="options.dontShowAdBlockWarning" ng-change="saveOptions()">
+				<label for="adBlock">Never show this message again.</label>
+			</div>
+			<a href="#" zf-close="" class="button">Ok</a>
+		</div>
 
 		<!--<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>-->
 		<a href="#" ng-click="scrollToTop()" class="button small absoluteNavBtn scrollTop">

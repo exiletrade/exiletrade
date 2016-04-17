@@ -271,7 +271,7 @@ img.pageLogo {
 }
 
 .modal, .guide {
-	h1, h2, h3, h4, h5, h6 {
+	label, h1, h2, h3, h4, h5, h6 {
 		color: $body-font-color;
 	}
 
@@ -289,6 +289,19 @@ img.pageLogo {
 	a:not(.close-button) {
 		color: #FFFCFC;
 		text-decoration: underline;
+	}
+}
+.modal-overlay {
+	.checkbox {
+		label {
+			line-height: 16px;
+			vertical-align: top !important;
+		}
+	}
+	&#showAdBlockModal {
+		.button {
+			margin: 15px 0 0 0;
+		}
 	}
 }
 
