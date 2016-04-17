@@ -1033,6 +1033,7 @@ function indexerLeagueToLadder(league) {
 			var valueFromInput = sfElem.val();
 			if (typeof valueFromInput !== "undefined") {
 				sfElem.blur();
+				$("#mainGrid").focus();
 				$scope.searchInput = valueFromInput;
 			}
 			debugOutput('doSearch called, $scope.searchInput = ' + $scope.searchInput, 'info');
