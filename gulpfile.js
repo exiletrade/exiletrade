@@ -134,7 +134,7 @@ gulp.task('copy', function () {
 // has to be changed to work with multiple files
 gulp.task('copy:vendorJS', function () {
 	return gulp.src(paths.vendorJS)
-		.pipe($.uglify())
+		//.pipe($.uglify())
 		.pipe(rename('ads.js'))
 		.pipe(gulp.dest(destination + '/assets/js/'));
 });

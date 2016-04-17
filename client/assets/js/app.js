@@ -215,10 +215,10 @@ function splitToken(token) {
 		letterPart = token.replace(rgx, "");
 	}
 	if (numberPart) {
-		console.log(numberPart);
+		//console.log(numberPart);
 	}
 	numberPart = formatNumber(numberPart);
-	console.log({'numberPart': numberPart, 'letterPart': letterPart});
+	//console.log({'numberPart': numberPart, 'letterPart': letterPart});
 	return {'numberPart': numberPart, 'letterPart': letterPart};
 }
 
@@ -764,7 +764,7 @@ function indexerLeagueToLadder(league) {
 			"notificationVolume": 1,
 			"dontShowAdBlockWarning" : false
 		};
-
+console.log($scope.searchInput);
 		/*
 		 * Create tabs
 		 * */
@@ -819,7 +819,6 @@ function indexerLeagueToLadder(league) {
 			}
 			if (typeof $scope.loadedOptions.fontSelect !== 'undefined') {
 				$scope.options.fontSelect.value = $scope.loadedOptions.fontSelect.value;
-				console.log($scope.loadedOptions.fontSelect.value);
 				$scope.selectedFont = {
 					"font-family": "'" + $scope.loadedOptions.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
 				};
@@ -1813,7 +1812,7 @@ function indexerLeagueToLadder(league) {
 				fuckAdBlock.on(true, $scope.adBlockDetected).onNotDetected($scope.adBlockNotDetected);
 			}
 		}
-		//checkForAdBlock();
+		checkForAdBlock();
 	}]);
 
 	// Custom filters

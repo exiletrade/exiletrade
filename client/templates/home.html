@@ -30,7 +30,7 @@ url: /
 						id="searchField" spellcheck="false" ng-model="searchInput"
 					   	placeholder="Search Input - First time user? Try clicking the help button below" size="" type="text"
 						mass-autocomplete-item="autocomplete_options"
-						my-enter="doSearch()" ng-attr-autofocus="{{searchInput[0]==''}}">
+						my-enter="doSearch()" ng-attr-autofocus="{{searchInput==''}}">
 					<a href="#" ng-click="options.switchOnlinePlayersOnly = !options.switchOnlinePlayersOnly; doSearch()"
 						class="button small saveSearchNotificationLink">
 						<img zf-iconic="" ng-show="options.switchOnlinePlayersOnly"  icon="circle-check" size="small">
