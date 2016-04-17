@@ -1812,7 +1812,7 @@ console.log($scope.searchInput);
 				fuckAdBlock.on(true, $scope.adBlockDetected).onNotDetected($scope.adBlockNotDetected);
 			}
 		}
-		checkForAdBlock();
+		//checkForAdBlock();
 	}]);
 
 	// Custom filters
