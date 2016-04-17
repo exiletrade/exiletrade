@@ -39,14 +39,14 @@ url: /
 						mass-autocomplete-item="autocomplete_options"
 						my-enter="doSearch()">
 					<a href="#" ng-click="options.switchOnlinePlayersOnly = !options.switchOnlinePlayersOnly; doSearch()"
-						class="button small saveSearchNotificationLink">
+						class="button small saveSearchNotificationLink" title="Toggle Online-only">
 						<img zf-iconic="" ng-show="options.switchOnlinePlayersOnly"  icon="circle-check" size="small">
 						<img zf-iconic="" ng-show="!options.switchOnlinePlayersOnly" icon="circle-x" size="small">
 						<span class="desktop">Online</span>
 					</a>
 					<a href="#" ng-click="saveLastSearch()" class="button small saveSearchNotificationLink" title="Save Search"
 					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
-						<img zf-iconic="" icon="bookmark" size="small">
+						<img zf-iconic="" icon="bookmark" size="small" title="Bookmark the search">
 						<span class="desktop">Save</span>
 					</a>
 					<!--a href="#" ng-click="saveAutomatedSearch()" class="button small saveSearchNotificationLink" title="Add Automated Search"
@@ -55,13 +55,13 @@ url: /
 						<span class="desktop">Auto</span>
 					</a-->
 					<div class="searchStats" title="{{queryString}}" ng-if="Response.took" zf-open="showElasticJsonRequestModal">
-						<div>
+						<div title="Time it took to search for the initial results">
 							<img zf-iconic="" icon="dashboard" size="small">
 							<span>{{Response.took}} ms</span>
 						</div>
-						<div>
+						<div title="Total items found, both online and offline">
 							<img zf-iconic="" icon="document" size="small">
-							<span>{{Response.hits.hits.length}} hits</span>
+							<span>{{Response.hits.total}} hits</span>
 						</div>
 					</div>
 				</span>
