@@ -70,7 +70,8 @@ var paths = {
 		'node_modules/angular-cache/dist/angular-cache.min.js',
 		'node_modules/spin.js/spin.js',
 		'node_modules/angular-spinner/angular-spinner.js',
-		'bower_components/angular-mass-autocomplete/massautocomplete.js'
+		'bower_components/angular-mass-autocomplete/massautocomplete.js',
+		'node_modules/ng-focus-if/focusIf.js'
 	],
 	// These files are for your app's JavaScript
 	appJS: [
@@ -123,7 +124,7 @@ gulp.task('clean', function (cb) {
 });
 
 // Copies everything in the client folder except templates, Sass, and JS
-gulp.task('copy', function () {
+gulp.task('copy', ['copy:vendorJS'], function () {
 	return gulp.src(paths.assets, {
 		base: './client/'
 	})
@@ -134,7 +135,7 @@ gulp.task('copy', function () {
 // has to be changed to work with multiple files
 gulp.task('copy:vendorJS', function () {
 	return gulp.src(paths.vendorJS)
-		//.pipe($.uglify())
+		.pipe($.uglify())
 		.pipe(rename('ads.js'))
 		.pipe(gulp.dest(destination + '/assets/js/'));
 });

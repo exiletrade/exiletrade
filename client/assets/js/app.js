@@ -215,10 +215,10 @@ function splitToken(token) {
 		letterPart = token.replace(rgx, "");
 	}
 	if (numberPart) {
-		//console.log(numberPart);
+		debugOutput(numberPart, 'log');
 	}
 	numberPart = formatNumber(numberPart);
-	//console.log({'numberPart': numberPart, 'letterPart': letterPart});
+	debugOutput({'numberPart': numberPart, 'letterPart': letterPart}, 'log');
 	return {'numberPart': numberPart, 'letterPart': letterPart};
 }
 
@@ -432,6 +432,7 @@ function indexerLeagueToLadder(league) {
 		'elasticsearch',
 		'ui.router',
 		'ngAnimate',
+		'focus-if',
 
 		//foundation
 		'foundation',
@@ -520,8 +521,8 @@ function indexerLeagueToLadder(league) {
 					});
 					return Object.keys(toons);
 				}
-				console.error("Invalid result from ladderAllPlayerCache - " + url);
-				console.error(result);
+				debugOutput("Invalid result from ladderAllPlayerCache - " + url, 'error');
+				debugOutput(result, 'error');
 				return [];
 			});
 			ladderAllPlayerCache.put(league, promise);
@@ -764,7 +765,7 @@ function indexerLeagueToLadder(league) {
 			"notificationVolume": 1,
 			"dontShowAdBlockWarning" : false
 		};
-console.log($scope.searchInput);
+
 		/*
 		 * Create tabs
 		 * */
@@ -1755,6 +1756,7 @@ console.log($scope.searchInput);
 
 			return blacklist.indexOf(type) == -1;
 		};
+
 		debugOutput("Loaded " + Object.keys(terms).length + " terms.", "info");
 		sampleTerms.sort(function (a, b) {
 			return a.sample.length - b.sample.length;
@@ -1785,6 +1787,32 @@ console.log($scope.searchInput);
 			$scope.helpState = ($scope.helpState === false);
 			return $scope.helpState;
 		};
+
+
+		$scope.searchInputState = function() {
+			if (isEmpty($scope.searchInput)) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		};
+
+		function isEmpty (obj) {
+			if (obj === null) {return true;}
+
+			// Assume if it has a length property with a non-zero value
+			// that that property is correct.
+			if (obj.length > 0)    {return false;}
+			if (obj.length === 0)  {return true;}
+
+			// Otherwise, does it have any properties of its own?
+			// Note that this doesn't handle
+			// toString and valueOf enumeration bugs in IE < 9
+			for (var key in obj) {
+				if (hasOwnProperty.call(obj, key)) {return false;}
+			}
+		}
 
 		$scope.adBlockNotDetected = function() {
 			//
@@ -1942,7 +1970,7 @@ console.log($scope.searchInput);
 					var el = e.target;
 					var allowance = 340;
 					var clientHeight = mainGrid.clientHeight;
-					// console.log("Scrolling = " + (el.scrollHeight - el.scrollTop) + " to " + clientHeight + " with allowance " + allowance);
+					//debugOutput("Scrolling = " + (el.scrollHeight - el.scrollTop) + " to " + clientHeight + " with allowance " + allowance, 'log');
 					if ((el.scrollHeight - el.scrollTop) <= (clientHeight + allowance)) { // fully scrolled
 						//debugOutput("Scrolled to bottom", 'trace');
 						scope.$apply(attrs.execOnScrollToBottom);
