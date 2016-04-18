@@ -29,7 +29,7 @@ url: /
 					<!-- We have duplicate input below in order to conditionally add the autofocus attr, 
 						 not the best but other solutions does not work -->
 					<input
-						ng-if="!searchInput" id="searchField" spellcheck="false" ng-model="searchInput"
+						id="searchField" spellcheck="false" ng-model="searchInput"
 					   	placeholder="Search Input - First time user? Try clicking the help button below" size="" type="text"
 						mass-autocomplete-item="autocomplete_options"
 						my-enter="doSearch()" focus-if="{{searchInputState()}}">
