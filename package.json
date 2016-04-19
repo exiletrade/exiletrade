@@ -2,6 +2,7 @@
   "name": "foundation-apps-template",
   "version": "1.2.0",
   "scripts": {
+    "prestart": "bower install && npm install",
     "start": "gulp",
     "build": "gulp build --production"
   },
@@ -27,6 +28,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-replace-task": "^0.11.0",
     "gulp-rimraf": "^0.2.0",
+    "yargs": "^4.4.0",
     "gulp-sass": "^2.0.3",
     "gulp-uglify": "^1.2.0",
     "gulp-webserver": "^0.9.1",
@@ -36,8 +38,7 @@
     "ng-focus-if": "^1.0.5",
     "ngclipboard": "^1.1.1",
     "rimraf": "^2.4.1",
-    "run-sequence": "^1.1.1",
-    "yargs": "^4.4.0"
+    "run-sequence": "^1.1.1"
   },
   "private": true
 }
