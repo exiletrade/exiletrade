@@ -681,6 +681,7 @@ function indexerLeagueToLadder(league) {
 		$scope.isScrollBusy = false;
 		$scope.onlinePlayers = [];
 		$scope.helpState = false;
+		$scope.enableTutorialFeature = false;
 
 		var httpParams = $location.search();
 		debugOutput('httpParams:' + angular.toJson(httpParams, true), 'trace');
