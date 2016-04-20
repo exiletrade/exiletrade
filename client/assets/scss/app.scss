@@ -841,6 +841,9 @@ img.gitter-badge {
 	.whisper-btn {
 		margin-bottom: 10px;
 	}
+	.blacklist {
+		color: #ff3a44;
+	}
 
 	.grid-block.item-info {
 		flex-wrap: initial;
@@ -1017,6 +1020,52 @@ img.gitter-badge {
 		display: none;
 	}
 }
+#showAddBlacklistModal {
+	.account {
+		font-weight: 700;
+	}
+	.button {
+		text-decoration: none !important;
+	}
+	textarea {
+		background-color: rgba(0, 0, 0, 0.1);
+		color: white;
+		border-color: #2b2b2b;
+	}
+}
+#showManageBlacklistModal {
+	a {text-decoration: none;}
+	input {
+		background-color: rgba(0, 0, 0, 0.1);
+		color: white;
+		border-color: #2b2b2b;
+	}
+	table {
+		a {
+			span.arrow {
+				&.arrow-down::after {
+					content: "▼";
+					float: right;
+					font-size: 10px;
+					margin-top: 3px;
+				}
+				&.arrow-up::after {
+					content: "▲";
+					float: right;
+					font-size: 10px;
+					margin-top: 3px;
+				}
+
+			}
+		}
+		th, td {
+			padding: 2px 5px;
+		}
+	}
+
+
+
+}
 
 .panel {
 	width: 400px;
@@ -1088,6 +1137,11 @@ img.gitter-badge {
 		position: absolute;
 		top: 10px;
 		left: 10px;
+	}
+	.manageBlacklistLink {
+		position: absolute;
+		top: 10px;
+		left: 70px;
 	}
 
 	.soundPreview {

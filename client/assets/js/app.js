@@ -433,6 +433,7 @@ function indexerLeagueToLadder(league) {
 		'ui.router',
 		'ngAnimate',
 		'focus-if',
+		'ngFileUpload',
 
 		//foundation
 		'foundation',
@@ -668,8 +669,8 @@ function indexerLeagueToLadder(league) {
 		}]);
 
 	appModule.controller('SearchController',
-	['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService','FoundationApi',
-	function ($q, $scope, $http, $location, $interval, es, playerOnlineService, favicoService, FoundationApi) {
+	['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService','FoundationApi', 'Upload',
+	function ($q, $scope, $http, $location, $interval, es, playerOnlineService, favicoService, FoundationApi, Upload) {
 
 		debugOutput('controller', 'info');
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
@@ -706,6 +707,8 @@ function indexerLeagueToLadder(league) {
 		$scope.lastRequestedSavedItem = {};
 		$scope.selectedFont = {};
 		$scope.audioPath = './assets/sound/';
+		$scope.blacklistCandidate = {"account": "", "comment" : "", "commentLength" : 100};
+		$scope.accountBlacklist = [];
 
 		/*
 		 * The soundfiles and sound select names have to be matched
@@ -1815,7 +1818,100 @@ function indexerLeagueToLadder(league) {
 				if (hasOwnProperty.call(obj, key)) {return false;}
 			}
 		}
+		
+		/*
+		* Account Blacklist
+		* */
+		$scope.manageBlacklist = {
+			"sortType" : "date_added",
+			"sortReverse" : false,
+			"searchAccounts" : ""
+		};
+		$scope.enableBlacklistFeature = false;
 
+		$scope.loadAccountBlacklistFromStorage = function() {
+			var list = JSON.parse(localStorage.getItem("accountBlacklist"));
+			if (list !== null) {
+				$scope.accountBlacklist = list;
+			}
+		};
+		// load blacklist from localstorage
+		$scope.loadAccountBlacklistFromStorage();
+
+		$scope.addBlacklistCandidate = function(account, comment) {
+			$scope.blacklistCandidate.account = account;
+			$scope.blacklistCandidate.comment = comment;
+		};
+		$scope.clearBlacklistCandidate = function() {
+			$scope.blacklistCandidate.account = '';
+			$scope.blacklistCandidate.comment = '';
+			$scope.blacklistCandidate.commentLength = 100;
+		};
+		$scope.addPlayerToBlacklist = function(account, comment) {
+			var timestamp = Date.now();
+			var obj = { "date_added" : timestamp, "account" : account, "comment" : comment};
+			var check = $.grep($scope.accountBlacklist, function(e){ return e.account == account; });
+			// add player if not already added
+			if (check.length === 0) {
+				$scope.accountBlacklist.push(obj);
+			}
+			$scope.updateBlacklistLocalStorage();
+			$scope.clearBlacklistCandidate();
+		};
+		$scope.removePlayerFromBlacklist = function(account) {
+			// remove player if found
+			for (var i = 0; i < $scope.accountBlacklist.length; i++) {
+				if ($scope.accountBlacklist[i].account == account) {
+					$scope.accountBlacklist.splice(i,1);
+				}
+			}
+			$scope.updateBlacklistLocalStorage();
+		};
+		$scope.updateBlacklistLocalStorage = function() {
+			localStorage.setItem("accountBlacklist", JSON.stringify($scope.accountBlacklist));
+		};
+
+		/* Save blacklist to JSON */
+		$scope.saveBlacklistToJSON = function (data, filename) {
+			if (!data) {
+				console.error('No data');
+				return;
+			}
+
+			if (!filename) {
+				var timestamp = Date.now();
+				filename = 'exiletrade_account_blacklist_' + timestamp + '.json';
+			}
+
+			if (typeof data === 'object') {
+				data = JSON.stringify(data, undefined, 2);
+			}
+
+			var blob = new Blob([data], {type: 'text/json'}),
+				e = document.createEvent('MouseEvents'),
+				a = document.createElement('a');
+
+			a.download = filename;
+			a.href = window.URL.createObjectURL(blob);
+			a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+			e.initEvent('click', true, false, window,
+				0, 0, 0, 0, 0, false, false, false, false, 0, null);
+			a.dispatchEvent(e);
+		};
+		/* Upload blacklsit JSON */
+		$scope.uploadBlacklist = function(file, errFiles) {
+			$scope.f = file;
+			$scope.errFile = errFiles && errFiles[0];
+			if (file) {
+				var upload = Upload.dataUrl(file, false).then(function(url){
+					$http.get(url).success (function(data) {
+						$scope.accountBlacklist = data;
+						$scope.updateBlacklistLocalStorage();
+					});
+				});
+			}
+		};
+		
 		/*
 		* Tutorial
 		* */
@@ -1918,11 +2014,12 @@ function indexerLeagueToLadder(league) {
 		}
 
 		function positionPopupArrow(alignment, targetOffset, windowWidth, targetWidth, popup) {
+			var pos = 0;
 			if (alignment == 'left') {
-				var pos = targetOffset.left + targetWidth / 2 - 10;
+				pos = targetOffset.left + targetWidth / 2 - 10;
 			}
 			else if (alignment == 'right') {
-				var pos = windowWidth - (targetOffset.left + targetWidth) - 10;
+				pos = windowWidth - (targetOffset.left + targetWidth) - 10;
 			}
 			angular.element(popup).find('.arrow-shadow').css(alignment, pos);
 		}

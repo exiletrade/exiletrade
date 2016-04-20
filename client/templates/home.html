@@ -291,6 +291,72 @@ url: /
 			</ol>
 		</div>
 
+		<div zf-modal="" id="showAddBlacklistModal">
+			<a zf-close="" class="close-button">×</a>
+			<h5>Add player to blacklist</h5>
+			<p>
+				Are you sure that you want to add player
+				<span class="account">
+					<a class="x-link" href="https://www.pathofexile.com/account/view-profile/{{blacklistCandidate.account}}" target="_blank">
+						{{blacklistCandidate.account}}</a>
+				</span>
+				to the blacklist?
+				You can manage your blacklist later on to remove players, import and export the blacklist to use it on
+				different browsers/devices. You can find this in the options panel at the top.
+			</p>
+			<label>Optional comment ({{blacklistCandidate.commentLength}} Characters remaining)</label>
+			<textarea ng-model="blacklistCandidate.comment" ng-maxlength="100" maxlength="100"
+					  ng-change="blacklistCandidate.commentLength = 100 - blacklistCandidate.comment.length">
+			</textarea>
+
+			<a href="#" class="button" zf-close="" ng-click="addPlayerToBlacklist(blacklistCandidate.account, blacklistCandidate.comment)">Yes</a>
+			<a href="#" class="button alert" zf-close="" ng-click="clearBlacklistCandidate">Cancel</a>
+		</div>
+
+		<div zf-modal="" id="showManageBlacklistModal">
+			<a zf-close="" class="close-button">×</a>
+			<h5>Manage account blacklist</h5>
+			<a href="#" class="button" type="file" ngf-select="uploadBlacklist($file, $invalidFiles)"
+			   accept=".json" ngf-max-size="1MB">Import Blacklist</a>
+			<a href="#" class="button" ng-click="saveBlacklistToJSON(accountBlacklist)">Export Blacklist</a>
+
+			<input type="text" class="form-control" placeholder="Filter list by account" ng-model="manageBlacklist.searchAccounts">
+
+			<table>
+				<thead>
+					<tr>
+						<td>Nr.</td>
+						<td>
+							<a href="#" ng-click="manageBlacklist.sortType = 'date_added'; manageBlacklist.sortReverse = !manageBlacklist.sortReverse">
+								Date
+								<span ng-show="manageBlacklist.sortType == 'date_added' && !manageBlacklist.sortReverse" class="arrow arrow-down"></span>
+								<span ng-show="manageBlacklist.sortType == 'date_added' && manageBlacklist.sortReverse" class="arrow arrow-up"></span>
+							</a>
+						</td>
+						<td>
+							<a href="#" ng-click="manageBlacklist.sortType = 'account'; manageBlacklist.sortReverse = !manageBlacklist.sortReverse">
+								Account
+								<span ng-show="manageBlacklist.sortType == 'account' && !manageBlacklist.sortReverse" class="arrow arrow-down"></span>
+								<span ng-show="manageBlacklist.sortType == 'account' && manageBlacklist.sortReverse" class="arrow  arrow-up"></span>
+							</a>
+						</td>
+						<td>
+							Comment
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="account in accountBlacklist | orderBy:manageBlacklist.sortType:manageBlacklist.sortReverse | filter:manageBlacklist.searchAccounts track by $index">
+						<td>{{$index }}</td>
+						<td>{{ account.date_added | date:'yyyy-MM-dd' }}</td>
+						<td>{{ account.account }}</td>
+						<td>{{ account.comment }}</td>
+						<td> <a href="#" class="remove" ng-click="removePlayerFromBlacklist(account.account)">Remove</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
 		<!-- Show Elastic JSON Request Debug Modal -->
 		<div zf-modal="" id="showElasticJsonRequestModal">
 			<a zf-close="" class="close-button">×</a>

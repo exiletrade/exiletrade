@@ -496,6 +496,12 @@
 					   color="success" autoclose="2000" zf-open="save-notification-whois" title="Copy /whois {{item._source.shop.lastCharacterName}}">
 						Whois<span ng-if="whoisCounter > 0"> ({{whoisCounter}})</span>
 					</a>
+					<i class="seperator" ng-if="enableBlacklistFeature"></i>
+					<a class="click small hollow whisper-btn noselect blacklist" ng-if="enableBlacklistFeature"
+					   ng-click="addBlacklistCandidate(item._source.shop.sellerAccount)" zf-open="showAddBlacklistModal"
+					   title="Add {{item._source.shop.lastCharacterName}} to blacklist.">
+						Ignore
+					</a>
 				</span>
 			</div>
 		</div>
