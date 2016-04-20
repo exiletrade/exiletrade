@@ -1343,3 +1343,61 @@ img.gitter-badge {
 		display: block;
 	}
 }
+
+.tutorial-popup {
+	$bg-col: rgb(54, 57, 59);
+	box-shadow: 0 0 10px #56AB56;
+	border-radius: 2px;
+	max-width: 350px;
+	margin: 15px 0 0 0;
+	background: $bg-col;
+	position: absolute;
+	display:  none;
+	z-index: 9999;
+
+	&.active {
+		display: block;
+	}
+
+	@include max-screen(400px) {
+		max-width: 90%;
+	}
+
+	.content-wrapper {
+		position: relative;
+		z-index: auto;
+		.close-button {
+			z-index: 2;
+		}
+	}
+
+	.content {
+		background: inherit;
+		padding: 36px 16px 16px 16px;
+		position: relative;
+		z-index: 1;
+		background: $bg-col;
+	}
+
+	.arrow-shadow {
+		position: absolute;
+		width: 15px;
+		height: 15px;
+		transform: rotate(45deg);
+		top: -7px;
+		box-shadow: 0 0 10px #56AB56;
+		z-index: 1;
+		background: $bg-col;
+	}
+
+	&.middle {
+		.content-wrapper::after {
+			left: 50%;
+			margin-left: -10px;
+		}
+		.arrow-shadow {
+			left: 50%;
+			margin-left: -7px;
+		}
+	}
+}

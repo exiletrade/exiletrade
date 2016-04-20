@@ -8,10 +8,10 @@ url: /
 	<span us-spinner="{radius:30, width:8, length: 16}" spinner-on="showSpinner"></span>
 
 	<!-- Open Sidebar Buttons -->
-	<a href="#" zf-toggle="searchOptions"  class="openOptions button">
+	<a href="#" zf-toggle="searchOptions"  class="openOptions button" ng-click="openTutorialPopup()" id="optionsButton">
 		<img zf-iconic="" icon="cog" size="middle" class="">
 	</a>
-	<a href="#" zf-toggle="savedItemsPanel" class="openSaves button">
+	<a href="#" zf-toggle="savedItemsPanel" class="openSaves button" id="savedItemsButton">
 		<img zf-iconic="" icon="cart" size="middle" class="">
 	</a>
 	<a href="#" zf-toggle="savedSearchesPanel" ng-click="resizeGridFrame(true)" class="openSaves bookmark button">
@@ -26,8 +26,6 @@ url: /
 					<a href="" ng-click="doSearch()" class="button" value="Search">
 						<img zf-iconic="" icon="magnifying-glass" size="small">
 					</a>
-					<!-- We have duplicate input below in order to conditionally add the autofocus attr, 
-						 not the best but other solutions does not work -->
 					<input
 						id="searchField" spellcheck="false" ng-model="searchInput"
 					   	placeholder="Search Input - First time user? Try clicking the help button below" size="" type="text"

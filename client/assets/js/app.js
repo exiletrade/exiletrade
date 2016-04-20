@@ -1788,7 +1788,9 @@ function indexerLeagueToLadder(league) {
 			return $scope.helpState;
 		};
 
-
+		/*
+		* Set search input autofocus
+		* */
 		$scope.searchInputState = function() {
 			if (isEmpty($scope.searchInput)) {
 				return true;
@@ -1814,6 +1816,120 @@ function indexerLeagueToLadder(league) {
 			}
 		}
 
+		/*
+		* Tutorial
+		* */
+		function getPopup(index, step) {
+			var el, i;
+			if (typeof index === 'number') {
+				if (step=='next') {
+					index++;
+				}
+				else if (step=='previous') {
+					index--;
+				}
+				el = angular.element('#tutorial-'+ index);
+				i = index;
+			}
+			else {
+				el = angular.element(index.target).parents('.tutorial-popup');
+				i = parseInt(angular.element(el).attr('id').replace('tutorial-', ''));
+				if (step=='next') {
+					i++;
+					el = angular.element('#tutorial-'+ i);
+				}
+				else if (step=='prev') {
+					i--;
+					el = angular.element('#tutorial-'+ i);
+				}
+			}
+
+			return [el, i];
+		}
+
+		$scope.closeTutorialPopup = function(tutorialIndex) {
+			var obj = getPopup(tutorialIndex)[0];
+			var popup = obj[0];
+			var index = obj[1];
+			angular.element(popup).removeClass('active');
+		};
+		
+		$scope.openTutorialPopup = function(step, tutorialIndex){
+			//step can be omitted with '', tutorialIndex should be $event or an integer
+			var obj = getPopup(tutorialIndex, step);
+			var popup = obj[0];
+			var index = obj[1];
+
+			//return if targeted popup not found
+			if (typeof popup[0] === 'undefined') {
+				$scope.closeTutorialPopup(index);
+				return;
+			}
+
+			var targetID = angular.element(popup).data('target');
+			var target = angular.element('#'+targetID);
+
+			//close current popup before opening the next/previous one
+			if (index >= 0 ) {
+				if (step == 'next') {
+					$scope.closeTutorialPopup(index-1);
+				}
+				if (step == 'prev') {
+					$scope.closeTutorialPopup(index+1);
+				}
+			}
+
+			positionTutorialPopup(popup, target);
+		};
+
+		function positionTutorialPopup(popup, target) {
+			var windowWidth = angular.element('#mainGrid').outerWidth();
+			var popupMarginTop = parseInt(angular.element(popup).css('margin-top').replace("px", ""));
+			var popupWidth = angular.element(popup).outerWidth();
+			var targetOffset = angular.element(target).offset();
+			var targetHeight = angular.element(target).outerHeight();
+			var targetWidth = angular.element(target).outerWidth();
+			var posLeft = 0;
+			var alignment = '';
+			var arrowPos = 0;
+
+			posLeft = (targetOffset.left + targetWidth / 2) - (popupWidth / 2);
+			angular.element(popup).addClass('middle');
+
+			// popup can't be centered and is positioned left
+			if (Math.abs(posLeft) < popupWidth ) {
+				posLeft = 5;
+				angular.element(popup).removeClass('middle');
+				positionPopupArrow('left', targetOffset, windowWidth, targetWidth, popup);
+			}
+			// popup can't be centered and is positioned right
+			else if ((Math.abs(posLeft) + popupWidth) > windowWidth) {
+				posLeft = windowWidth - popupWidth - 20;
+				angular.element(popup).removeClass('middle');
+				positionPopupArrow('right', targetOffset, windowWidth, targetWidth, popup);
+			}
+
+			// set popup position
+			angular.element(popup).css('top', targetOffset.top + targetHeight + 'px');
+			angular.element(popup).css('left', posLeft + 'px');
+			angular.element(popup).addClass('active');
+			// scroll above target element
+			angular.element('#mainGrid').scrollTo(0, 0, targetOffset.top - 10);
+		}
+
+		function positionPopupArrow(alignment, targetOffset, windowWidth, targetWidth, popup) {
+			if (alignment == 'left') {
+				var pos = targetOffset.left + targetWidth / 2 - 10;
+			}
+			else if (alignment == 'right') {
+				var pos = windowWidth - (targetOffset.left + targetWidth) - 10;
+			}
+			angular.element(popup).find('.arrow-shadow').css(alignment, pos);
+		}
+
+		/*
+			AdBlock detection
+		* */
 		$scope.adBlockNotDetected = function() {
 			//
 		};
