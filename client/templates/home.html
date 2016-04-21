@@ -371,6 +371,80 @@ url: /
 	<div class="grid-content search-results">
 		<textarea id="relevanceSearchTextArea" rows=30 >
 {
+    "explain": true,
+	"query": {
+		"function_score": {
+		  "filter": { 
+			"bool" : {
+				"must" : [
+					{ "term": { "info.name": "Taste of Hate" } },
+					{ "term": { "shop.verified": "YES" } },
+					{ "term": { "shop.hasPrice": true } },
+					{ "term": { "attributes.league": "Perandus" } },
+					{ "term": { "attributes.identified": true } },
+					{ "range": { "shop.chaosEquiv": { "lte" : 80  } } }
+				]
+			}
+		  },
+		  "functions": [
+			{
+				"field_value_factor": {
+					"field":    "shop.chaosEquiv",
+					"modifier": "reciprocal"
+				  }
+			},
+			{
+				"field_value_factor": {
+					"field":    "mods.Flask.explicit.Gain #% of Physical Damage as Extra Cold Damage during effect",
+					"factor":   0.01
+				  }
+			}
+		  ],
+		  "score_mode": "sum"
+		}
+	}
+}	
+		
+		
+		
+		</textarea>
+<!--
+{
+    "explain": true,
+	"query": {
+		"function_score": {
+		  "filter": { 
+			"bool" : {
+				"must" : [
+					{ "term": { "info.name": "Marohi Erqi" } },
+					{ "term": { "shop.verified": "YES" } },
+					{ "term": { "shop.hasPrice": true } },
+					{ "term": { "attributes.league": "Perandus" } }
+				]
+			}
+		  },
+		  "functions": [
+			{
+				"field_value_factor": {
+					"field":    "shop.chaosEquiv",
+					"modifier": "reciprocal"
+				  }
+			},
+			{
+				"field_value_factor": {
+					"field":    "modsTotal.#% increased Physical Damage",
+					"factor":   0.01
+				  }
+			}
+		  ],
+		  "score_mode": "sum"
+		}
+	}
+}
+-->
+
+<!--{
+    "explain": true,
 	"query": {
 		"function_score": {
 		  "filter": { 
@@ -382,7 +456,13 @@ url: /
 					{ "term": { "attributes.league": "Perandus" } },
 					{ "range": { 
 							"modsPseudo.+# Total to maximum Life": {
-								"gte" : 1
+								"gte" : 80
+							} 
+						} 
+					},
+					{ "range": { 
+							"modsPseudo.+#% Total to Elemental Resistances": {
+								"gte" : 80
 							} 
 						} 
 					}
@@ -391,26 +471,20 @@ url: /
 		  },
 		  "functions": [
 			{
-			  "gauss": {
-				"shop.chaosEquiv": { 
-				  "origin": "1", 
-				  "offset": "1",
-				  "scale":  "1"
-				}
-			  },
-			  "weight": 2
+				"field_value_factor": {
+					"field":    "shop.chaosEquiv",
+                                        "modifier": "reciprocal"
+				  }
 			},
 			{
 				"field_value_factor": {
 					"field":    "modsPseudo.+# Total to maximum Life",
-        			"modifier": "log1p",
-					"factor":   0.001
+					"factor":   0.01
 				  }
 			},
 			{
 				"field_value_factor": {
 					"field":    "modsPseudo.+#% Total to Elemental Resistances",
-        			"modifier": "log1p",
 					"factor":   0.001,
 					"missing" : 0
 				  }
@@ -419,9 +493,8 @@ url: /
 		  "score_mode": "sum"
 		}
 	}
-}
-		
-		</textarea>
+}-->
+
 		<input type="button" value="Search" ng-click="doRelevanceSearch()" />
 	</div>
 
