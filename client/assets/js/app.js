@@ -733,9 +733,9 @@ function indexerLeagueToLadder(league) {
 	function ($q, $scope, $http, $location, $interval, es, playerOnlineService, favicoService, FoundationApi, Upload) {
 		debugOutput('controller', 'info');
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN Set some global/scope variables
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Set some global/scope variables
+	* ----------------------------------------------------------------------------------------------------------------*/
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
 		$scope.elasticJsonRequest = "";
@@ -776,14 +776,14 @@ function indexerLeagueToLadder(league) {
 			"searchAccounts" : ""
 		};
 		$scope.enableBlacklistFeature = false;
-		/*--------------------------------------------------------------------------------------------------------------
-		* END Set some global/scope variables
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Set some global/scope variables
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN Init/set/handle options
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Init/set/handle options
+	* ----------------------------------------------------------------------------------------------------------------*/
 		$scope.loadedOptions = JSON.parse(localStorage.getItem("savedOptions"));
 		$scope.selectedFont = {};
 		$scope.audioPath = './assets/sound/';
@@ -901,14 +901,14 @@ function indexerLeagueToLadder(league) {
 				"font-family": "'" + $scope.options.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
 			};
 		};
-		/*--------------------------------------------------------------------------------------------------------------
-		* END Init/set/handle options
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Init/set/handle options
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN Tab related Stuff
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Tab related Stuff
+	* ----------------------------------------------------------------------------------------------------------------*/
 		$scope.tabs = [{
 			title: 'Results',
 			id: 0,
@@ -922,14 +922,27 @@ function indexerLeagueToLadder(league) {
 		$scope.clearAutosearch = function () {
 			alert('not implemented');
 		};
-		/*--------------------------------------------------------------------------------------------------------------
-		* END Tab related Stuff
-		* ------------------------------------------------------------------------------------------------------------*/
+
+		/*
+		* Handle tabs
+		* */
+		$scope.onClickTab = function (tab) {
+			$scope.currentTab = tab.id;
+			$scope.tabs[tab.id].newItems = 0;
+			$scope.Response = tab.response;
+			$scope.disableScroll = tab.id !== 0; // no scrolling for automated search
+		};
+		$scope.isActiveTab = function (tabId) {
+			return tabId == $scope.currentTab;
+		};
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Tab related Stuff
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN Search related stuff
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Search related stuff
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 		$scope.doStashSearch = function(sellerAccount, stashName) {
 			var cleanStashName = stashName;
@@ -1268,9 +1281,9 @@ function indexerLeagueToLadder(league) {
 			$scope.doSearch();
 		};
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* END Search related stuff
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Search related stuff
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 		$scope.autocomplete_options = {
 			suggest: suggestSearchTermDelimited,
@@ -1322,9 +1335,9 @@ function indexerLeagueToLadder(league) {
 			return suggestions;
 		}
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN Add/Create/Change item mods
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Add/Create/Change item mods
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 		/*
 		* Add custom fields to the item object
@@ -1408,14 +1421,40 @@ function indexerLeagueToLadder(league) {
 				};
 			});
 		}
-		/*--------------------------------------------------------------------------------------------------------------
-		* END Add/Create/Change item mods
-		* ------------------------------------------------------------------------------------------------------------*/
+
+		/*
+		* Add values to mod description
+		* */
+		$scope.getItemMods = function (x) {
+			var mods = [];
+
+			for (var key in x) {
+				var mod = key;
+
+				if (typeof x[key] === 'number') {
+					mod = mod.replace('#', x[key]);
+				}
+				else {
+					var obj = x[key];
+					for (var prop in obj) {
+						if (prop == 'avg') {
+							continue;
+						}
+						mod = mod.replace('#', obj[prop]);
+					}
+				}
+				mods.push(mod);
+			}
+			return mods;
+		};
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Add/Create/Change item mods
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN Save/Delete searches/items/options from/to HTML localStorage
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Save/Delete searches/items/options from/to HTML localStorage
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 		/*
 		* Save the current/last search terms to HTML storage
@@ -1563,99 +1602,24 @@ function indexerLeagueToLadder(league) {
 			localStorage.setItem("savedOptions", JSON.stringify($scope.options));
 		};
 
-		$scope.removeInputFromList = function () {
-			var savedOptions = JSON.parse(localStorage.getItem("savedOptions"));
-		};
-		/*--------------------------------------------------------------------------------------------------------------
-		* END Save/Delete searchs/items from/to HTML localStorage
-		* ------------------------------------------------------------------------------------------------------------*/
-
 		/*
-		* Resize #mainGrid to simulate off-canvas functionality when using the savedSearches-panel
-		* */
-		$scope.resizeGridFrame = function (opened) {
-			var displayStatus = jQuery('div.screenWidthCheck-640').css('display');
-
-			if (opened === true) {
-				jQuery('#mainGrid').animate({
-					marginRight: (displayStatus == 'none') ? "400px" : "100%"
-				}, 500, 'swing');
-			} else {
-				jQuery('#mainGrid').animate({
-					marginRight: "0px"
-				}, 380, 'swing');
-			}
-		};
-
-		/*
-		* Add input Fields (search Prefixes)
+		* Add input Fields (options search Prefixes)
 		* */
 		$scope.addInputField = function () {
 			$scope.options.searchPrefixInputs.push({"value": ""});
 		};
 
-		/*
-		* Scroll to top
-		* */
-		$scope.scrollToTop = function () {
-			ga('send', 'event', 'Feature', 'Scroll To Top');
-			angular.element(document.querySelector('#mainGrid')).scrollTo(0, 0, 350);
+		$scope.removeInputFromList = function () {
+			var savedOptions = JSON.parse(localStorage.getItem("savedOptions"));
 		};
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Save/Delete searchs/items from/to HTML localStorage
+	* ----------------------------------------------------------------------------------------------------------------*/
 
-		/*
-		* Prepare Whisper Message
-		* */
-		$scope.copyWhisperToClipboard = function (item) {
-			var message = item._source.shop.defaultMessage;
-			var seller = item._source.shop.lastCharacterName;
-			var itemName = item._source.info.fullName;
-			var league = item._source.attributes.league;
-			var stashTab = item._source.shop.stash.stashName;
-			var x = item._source.shop.stash.xLocation;
-			var y = item._source.shop.stash.yLocation;
 
-			if (message === undefined) {
-				message = '@' + seller + " Hi, I'd like to buy your " + itemName + ' in ' + league + ' (Stash-Tab: "' +
-					stashTab + '" [x' + x + ',y' + y + '])' + ', my offer is : ';
-			} else {
-				//removing the "Unknown" tag from currency
-				var n = message.indexOf('Unknown (');
-				if (n > -1) {
-					message = message.replace('Unknown ', '');
-				}
-			}
-			return message;
-		};
-
-		/*
-		* Add values to mod description
-		* */
-		$scope.getItemMods = function (x) {
-			var mods = [];
-
-			for (var key in x) {
-				var mod = key;
-
-				if (typeof x[key] === 'number') {
-					mod = mod.replace('#', x[key]);
-				}
-				else {
-					var obj = x[key];
-					for (var prop in obj) {
-						if (prop == 'avg') {
-							continue;
-						}
-						mod = mod.replace('#', obj[prop]);
-					}
-				}
-				mods.push(mod);
-			}
-			return mods;
-		};
-
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN Item css classes
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Item css classes
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 		/*
 		* Get CSS Classes for element resistances
@@ -1794,9 +1758,64 @@ function indexerLeagueToLadder(league) {
 			}
 			return pos;
 		};
-		/*--------------------------------------------------------------------------------------------------------------
-		* END Item css classes
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Item css classes
+	* ----------------------------------------------------------------------------------------------------------------*/
+
+
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Helpers/stateChecks/random ungrouped stuff
+	* ----------------------------------------------------------------------------------------------------------------*/
+
+		/*
+		* Resize #mainGrid to simulate off-canvas functionality when using the savedSearches-panel
+		* */
+		$scope.resizeGridFrame = function (opened) {
+			var displayStatus = jQuery('div.screenWidthCheck-640').css('display');
+
+			if (opened === true) {
+				jQuery('#mainGrid').animate({
+					marginRight: (displayStatus == 'none') ? "400px" : "100%"
+				}, 500, 'swing');
+			} else {
+				jQuery('#mainGrid').animate({
+					marginRight: "0px"
+				}, 380, 'swing');
+			}
+		};
+
+		/*
+		* Scroll to top
+		* */
+		$scope.scrollToTop = function () {
+			ga('send', 'event', 'Feature', 'Scroll To Top');
+			angular.element(document.querySelector('#mainGrid')).scrollTo(0, 0, 350);
+		};
+
+		/*
+		* Prepare Whisper Message
+		* */
+		$scope.copyWhisperToClipboard = function (item) {
+			var message = item._source.shop.defaultMessage;
+			var seller = item._source.shop.lastCharacterName;
+			var itemName = item._source.info.fullName;
+			var league = item._source.attributes.league;
+			var stashTab = item._source.shop.stash.stashName;
+			var x = item._source.shop.stash.xLocation;
+			var y = item._source.shop.stash.yLocation;
+
+			if (message === undefined) {
+				message = '@' + seller + " Hi, I'd like to buy your " + itemName + ' in ' + league + ' (Stash-Tab: "' +
+					stashTab + '" [x' + x + ',y' + y + '])' + ', my offer is : ';
+			} else {
+				//removing the "Unknown" tag from currency
+				var n = message.indexOf('Unknown (');
+				if (n > -1) {
+					message = message.replace('Unknown ', '');
+				}
+			}
+			return message;
+		};
 
 		/*
 		* Check if obj is empty
@@ -1834,19 +1853,6 @@ function indexerLeagueToLadder(league) {
 		}
 
 		/*
-		* Handle tabs
-		* */
-		$scope.onClickTab = function (tab) {
-			$scope.currentTab = tab.id;
-			$scope.tabs[tab.id].newItems = 0;
-			$scope.Response = tab.response;
-			$scope.disableScroll = tab.id !== 0; // no scrolling for automated search
-		};
-		$scope.isActiveTab = function (tabId) {
-			return tabId == $scope.currentTab;
-		};
-
-		/*
 		* Toggle Help section
 		* */
 		$scope.toggleHelp = function () {
@@ -1860,11 +1866,14 @@ function indexerLeagueToLadder(league) {
 		$scope.searchInputState = function() {
 			return isEmpty($scope.searchInput);
 		};
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Helpers/stateChecks/random ungrouped stuff
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN Account Blacklist
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Account Blacklist
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 		/*
 		* Load Blacklist from localstorage
@@ -1974,14 +1983,14 @@ function indexerLeagueToLadder(league) {
 				});
 			}
 		};
-		/*--------------------------------------------------------------------------------------------------------------
-		* END Account Blacklist
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Account Blacklist
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN Tutorial
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Tutorial
+	* ----------------------------------------------------------------------------------------------------------------*/
 		/*
 		* Return popup html element
 		* */
@@ -2105,14 +2114,14 @@ function indexerLeagueToLadder(league) {
 			}
 			angular.element(popup).find('.arrow-shadow').css(alignment, pos);
 		}
-		/*--------------------------------------------------------------------------------------------------------------
-		* END Tutorial
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Tutorial
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* BEGIN AdBlock detection
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN AdBlock detection
+	* ----------------------------------------------------------------------------------------------------------------*/
 		$scope.adBlockNotDetected = function() {
 			//do something
 		};
@@ -2148,15 +2157,15 @@ function indexerLeagueToLadder(league) {
 		}
 		//checkForAdBlock();
 
-		/*--------------------------------------------------------------------------------------------------------------
-		* END AdBlock detection
-		* ------------------------------------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------------------------------------------
+	* END AdBlock detection
+	* ----------------------------------------------------------------------------------------------------------------*/
 	}]);
 
 
-	/*------------------------------------------------------------------------------------------------------------------
-	* BEGIN Custom Filters
-	* ----------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------
+* BEGIN Custom Filters
+* --------------------------------------------------------------------------------------------------------------------*/
 	appModule.filter("currencyToCssClass", [function() {
 		return function (str) {
 			var currencyCssClassMap = new Map([
@@ -2257,15 +2266,14 @@ function indexerLeagueToLadder(league) {
 			return result;
 		};
 	}]);
-	/*------------------------------------------------------------------------------------------------------------------
-	* END Custom Filters
-	* ----------------------------------------------------------------------------------------------------------------*/
-	
+/*----------------------------------------------------------------------------------------------------------------------
+* END Custom Filters
+* --------------------------------------------------------------------------------------------------------------------*/
 
-	/*------------------------------------------------------------------------------------------------------------------
-	* BEGIN Custom Directives
-	* ----------------------------------------------------------------------------------------------------------------*/
 
+/*----------------------------------------------------------------------------------------------------------------------
+* BEGIN Custom Directives
+* --------------------------------------------------------------------------------------------------------------------*/
 	appModule.directive('myEnter', function () {
 		return function (scope, element, attrs) {
 			element.bind("keydown keypress", function (event) {
@@ -2325,7 +2333,7 @@ function indexerLeagueToLadder(league) {
 		};
 	});
 
-	/*------------------------------------------------------------------------------------------------------------------
-	* END Custom Directives
-	* ----------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------------
+* END Custom Directives
+* --------------------------------------------------------------------------------------------------------------------*/
 })();
