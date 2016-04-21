@@ -1819,6 +1819,25 @@ function indexerLeagueToLadder(league) {
 				if (hasOwnProperty.call(obj, key)) {return false;}
 			}
 		}
+
+		$scope.doRelevanceSearch = function() {
+			var json = $("#relevanceSearchTextArea").val();
+			console.info(json);
+
+			var esPayload = {
+				index: 'index',
+				size: 100,
+				body: json
+			};
+			//$scope.elasticJsonRequest = angular.toJson(esPayload, true);
+			//debugOutput("Gonna run elastic: " + $scope.elasticJsonRequest, 'trace');
+			es.search(esPayload).then(function (response) {
+						$.each(response.hits.hits, function (index, value) {
+							addCustomFields(value._source);
+						});
+						$scope.Response = response;
+					});
+		}
 		
 		/*
 		* Account Blacklist

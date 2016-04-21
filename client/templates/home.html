@@ -67,6 +67,7 @@ url: /
 			</label>
 		</div>
 
+
 		<zf-notification-set id="save-notification-search" position="top-left"></zf-notification-set>
 		<zf-notification-set id="save-notification-options" position="top-right"></zf-notification-set>
 		<zf-notification-static id="save-notification-whisper" color="success" zf-advise="" title="Whisper message copied." autoclose=2000>
@@ -363,6 +364,52 @@ url: /
 			<h4>Elastic JSON Request</h4>
 			<textarea class="code" rows="30" cols="160">{{elasticJsonRequest}}</textarea>
 		</div>
+	</div>
+
+
+	<!-- Custom JSON -->
+	<div class="grid-content search-results">
+		<textarea id="relevanceSearchTextArea" rows=30 >
+{
+	"query": {
+		"function_score": {
+		  "filter": { 
+			"bool" : {
+				"must" : [
+					{ "term": { "info.name": "Doryani's Catalyst" } },
+					{ "term": { "shop.verified": "YES" } },
+					{ "term": { "attributes.league": "Perandus" } },
+					{ "range": { 
+						"shop.chaosEquiv": { "lt" : 10  } 
+					  } 
+					}
+				]
+			}
+		  },
+		  "functions": [
+			{
+			  "filter": { 
+				"range": { 
+					"#% increased Cast Speed": { "gt" : 7  } 
+				}
+			  }, 
+			  "weight": 1 
+			},
+			{
+			  "filter": { 
+				"range": { 
+					"shop.chaosEquiv": { "lt" : 7  } 
+				}
+			  }, 
+			  "weight": 2 
+			}
+		  ],
+		  "score_mode": "sum"
+		}
+	}
+}
+		</textarea>
+		<input type="button" value="Search" ng-click="doRelevanceSearch()" />
 	</div>
 
 	<!-- Searchresults -->
