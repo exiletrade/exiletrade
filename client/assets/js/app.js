@@ -24,6 +24,17 @@ function defaultFor(arg, val) {
 	return typeof arg !== 'undefined' ? arg : val;
 }
 
+/*
+ Find Object by id in Array
+ */
+function findObjectById(list, id) {
+	return list.filter(function (obj) {
+		// coerce both obj.id and id to numbers
+		// for val & type comparison
+		return obj.itemId === id;
+	})[0];
+}
+
 // expects array
 //returns {'corrected', 'unCorrectable'
 function badUserInput(badTokens) {
@@ -809,52 +820,45 @@ function indexerLeagueToLadder(league) {
 		 * Check if options are being loaded and assign values
 		 * */
 		if ($scope.loadedOptions) {
-			checkDefaultOptions();
+			setDefaultOptions($scope.loadedOptions, $scope.options);
 		}
 
-		function checkDefaultOptions() {
-			if (typeof $scope.loadedOptions.leagueSelect !== 'undefined') {
-				$scope.options.leagueSelect.value = $scope.loadedOptions.leagueSelect.value;
+		function checkDefaultOptions(loadedOption, defaultOption, isSelect) {
+			if (isSelect) {
+				if (typeof loadedOption !== 'undefined') {
+					return loadedOption.value;
+				}
+				else {
+					return defaultOption.value;
+				}
 			}
-			if (typeof $scope.loadedOptions.buyoutSelect !== 'undefined') {
-				$scope.options.buyoutSelect.value = $scope.loadedOptions.buyoutSelect.value;
+			else {
+				if (typeof loadedOption !== 'undefined' && loadedOption !== null) {
+					return loadedOption;
+				}
+				else {
+					return defaultOption;
+				}
 			}
-			if (typeof $scope.loadedOptions.verificationSelect !== 'undefined') {
-				$scope.options.verificationSelect.value = $scope.loadedOptions.verificationSelect.value;
+		}
+
+		function setDefaultOptions(loadedOption, defaultOption) {
+			for (var key in loadedOption) {
+				if (typeof loadedOption[key] === 'object' && loadedOption[key].type == 'select') {
+					defaultOption[key].value = checkDefaultOptions(loadedOption[key], defaultOption[key], true);
+				}
+				else {
+					defaultOption[key] = checkDefaultOptions(loadedOption[key], defaultOption[key], false);
+				}
 			}
-			if (typeof $scope.loadedOptions.fontSelect !== 'undefined') {
-				$scope.options.fontSelect.value = $scope.loadedOptions.fontSelect.value;
+
+			if (typeof loadedOption.fontSelect !== 'undefined') {
 				$scope.selectedFont = {
-					"font-family": "'" + $scope.loadedOptions.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
+					"font-family": "'" + loadedOption.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
 				};
 			}
-			if (typeof $scope.loadedOptions.soundSelect !== 'undefined') {
-				$scope.options.soundSelect.value = $scope.loadedOptions.soundSelect.value;
+			if (typeof loadedOption.soundSelect !== 'undefined') {
 				$scope.loadSound();
-			}
-			if (typeof $scope.loadedOptions.searchPrefixInputs !== 'undefined' && $scope.loadedOptions.searchPrefixInputs !== null) {
-				$scope.options.searchPrefixInputs = $scope.loadedOptions.searchPrefixInputs;
-			}
-			if (typeof $scope.loadedOptions.switchPseudoMods !== 'undefined' && $scope.loadedOptions.switchPseudoMods !== null) {
-				$scope.options.switchPseudoMods = $scope.loadedOptions.switchPseudoMods;
-			}
-			if (typeof $scope.loadedOptions.switchItemsPerRow !== 'undefined' && $scope.loadedOptions.switchItemsPerRow !== null) {
-				$scope.options.switchItemsPerRow = $scope.loadedOptions.switchItemsPerRow;
-			}
-			if (typeof $scope.loadedOptions.showAdvancedStats !== 'undefined' && $scope.loadedOptions.showAdvancedStats !== null) {
-				$scope.options.showAdvancedStats = $scope.loadedOptions.showAdvancedStats;
-			}
-			if (typeof $scope.loadedOptions.switchOnlinePlayersOnly !== 'undefined' && $scope.loadedOptions.switchOnlinePlayersOnly !== null) {
-				$scope.options.switchOnlinePlayersOnly = $scope.loadedOptions.switchOnlinePlayersOnly;
-			}
-			if (typeof $scope.loadedOptions.muteSound !== 'undefined' && $scope.loadedOptions.muteSound !== null) {
-				$scope.options.muteSound = $scope.loadedOptions.muteSound;
-			}
-			if (typeof $scope.loadedOptions.notificationVolume !== 'undefined' && $scope.loadedOptions.notificationVolume !== null) {
-				$scope.options.notificationVolume = $scope.loadedOptions.notificationVolume;
-			}
-			if (typeof $scope.loadedOptions.dontShowAdBlockWarning !== 'undefined' && $scope.loadedOptions.dontShowAdBlockWarning !== null) {
-				$scope.options.dontShowAdBlockWarning = $scope.loadedOptions.dontShowAdBlockWarning;
 			}
 		}
 
@@ -865,7 +869,7 @@ function indexerLeagueToLadder(league) {
 			$scope.changeNotificationVolume();
 		}
 
-		$scope.setFontFamily = function () {
+		$scope.setFontFamily = function() {
 			$scope.selectedFont = {
 				"font-family": "'" + $scope.options.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
 			};
@@ -997,36 +1001,6 @@ function indexerLeagueToLadder(league) {
 			});
 			return searchPrefix.trim();
 		}
-
-// 		$scope.termsMap = {};
-
-// 		var mergeIntoTermsMap = function(res){
-// 			var ymlData = jsyaml.load(res.data);
-// 			jQuery.extend($scope.termsMap, ymlData);
-// 		};
-
-// 		$q.all([
-// 			$http.get('assets/terms/itemtypes.yml'),
-// 			$http.get('assets/terms/gems.yml'),
-// 			$http.get('assets/terms/mod-ofs.yml'),
-// 			$http.get('assets/terms/mod-def.yml'),
-// 			$http.get('assets/terms/mod-vaal.yml'),
-// 			$http.get('assets/terms/attributes.yml'),
-// 			$http.get('assets/terms/sockets.yml'),
-// 			$http.get('assets/terms/buyout.yml'),
-// 			$http.get('assets/terms/uniques.yml'),
-// 			$http.get('assets/terms/basetypes.yml'),
-// 			$http.get('assets/terms/currencies.yml'),
-// 			$http.get('assets/terms/leagues.yml'),
-// 			$http.get('assets/terms/seller.yml'),
-// 			$http.get('assets/terms/mod-jewels.yml'),
-// 			$http.get('assets/terms/mod-groups.yml')
-// 		]).then(function (results) {
-// 			for (var i = 0; i < results.length; i++) {
-// 				mergeIntoTermsMap(results[i]);
-// 			}
-// 			if (typeof httpParams['q'] !== 'undefined') $scope.doSearch();
-// 		});
 
 
 		/*
@@ -1579,17 +1553,6 @@ function indexerLeagueToLadder(league) {
 			ga('send', 'event', 'Feature', 'Scroll To Top');
 			angular.element(document.querySelector('#mainGrid')).scrollTo(0, 0, 350);
 		};
-
-		/*
-		 Find Object by id in Array
-		 */
-		function findObjectById(list, id) {
-			return list.filter(function (obj) {
-				// coerce both obj.id and id to numbers
-				// for val & type comparison
-				return obj.itemId === id;
-			})[0];
-		}
 
 		/*
 		 Trigger saved Search
