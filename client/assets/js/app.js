@@ -1826,7 +1826,7 @@ function indexerLeagueToLadder(league) {
 
 			var esPayload = {
 				index: 'index',
-				size: 100,
+				size: 50,
 				body: json
 			};
 			//$scope.elasticJsonRequest = angular.toJson(esPayload, true);

@@ -376,38 +376,51 @@ url: /
 		  "filter": { 
 			"bool" : {
 				"must" : [
-					{ "term": { "info.name": "Doryani's Catalyst" } },
+					{ "term": { "attributes.baseItemName": "Topaz Ring" } },
 					{ "term": { "shop.verified": "YES" } },
+					{ "term": { "shop.hasPrice": true } },
 					{ "term": { "attributes.league": "Perandus" } },
 					{ "range": { 
-						"shop.chaosEquiv": { "lt" : 10  } 
-					  } 
+							"modsPseudo.+# Total to maximum Life": {
+								"gte" : 1
+							} 
+						} 
 					}
 				]
 			}
 		  },
 		  "functions": [
 			{
-			  "filter": { 
-				"range": { 
-					"#% increased Cast Speed": { "gt" : 7  } 
+			  "gauss": {
+				"shop.chaosEquiv": { 
+				  "origin": "1", 
+				  "offset": "1",
+				  "scale":  "1"
 				}
-			  }, 
-			  "weight": 1 
+			  },
+			  "weight": 2
 			},
 			{
-			  "filter": { 
-				"range": { 
-					"shop.chaosEquiv": { "lt" : 7  } 
-				}
-			  }, 
-			  "weight": 2 
+				"field_value_factor": {
+					"field":    "modsPseudo.+# Total to maximum Life",
+        			"modifier": "log1p",
+					"factor":   0.001
+				  }
+			},
+			{
+				"field_value_factor": {
+					"field":    "modsPseudo.+#% Total to Elemental Resistances",
+        			"modifier": "log1p",
+					"factor":   0.001,
+					"missing" : 0
+				  }
 			}
 		  ],
 		  "score_mode": "sum"
 		}
 	}
 }
+		
 		</textarea>
 		<input type="button" value="Search" ng-click="doRelevanceSearch()" />
 	</div>
