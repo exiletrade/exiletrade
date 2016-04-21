@@ -25,14 +25,70 @@ function defaultFor(arg, val) {
 }
 
 /*
- Find Object by id in Array
- */
+Find Object by id in Array
+* */
 function findObjectById(list, id) {
 	return list.filter(function (obj) {
 		// coerce both obj.id and id to numbers
 		// for val & type comparison
 		return obj.itemId === id;
 	})[0];
+}
+
+
+/*
+* Check if input var is empty
+* */
+function isEmpty (obj) {
+	if (obj === null) {return true;}
+
+	// Assume if it has a length property with a non-zero value
+	// that that property is correct.
+	if (obj.length > 0)    {return false;}
+	if (obj.length === 0)  {return true;}
+
+	// Otherwise, does it have any properties of its own?
+	// Note that this doesn't handle
+	// toString and valueOf enumeration bugs in IE < 9
+	for (var key in obj) {
+		if (hasOwnProperty.call(obj, key)) {return false;}
+	}
+}
+
+/*
+* Check if loadedOptions are defined ans assign their values to options
+* */
+function checkDefaultOptions(loadedOption, defaultOption, isSelect) {
+	if (isSelect) {
+		if (typeof loadedOption !== 'undefined') {
+			return loadedOption.value;
+		}
+		else {
+			return defaultOption.value;
+		}
+	}
+	else {
+		if (typeof loadedOption !== 'undefined' && loadedOption !== null) {
+			return loadedOption;
+		}
+		else {
+			return defaultOption;
+		}
+	}
+}
+
+/*
+* Set option values
+* */
+function setDefaultOptions(loadedOption, defaultOption) {
+	for (var key in loadedOption) {
+		if (typeof loadedOption[key] === 'object' && loadedOption[key].type == 'select') {
+			defaultOption[key].value = checkDefaultOptions(loadedOption[key], defaultOption[key], true);
+		}
+		else {
+			defaultOption[key] = checkDefaultOptions(loadedOption[key], defaultOption[key], false);
+		}
+	}
 }
 
 // expects array
@@ -144,10 +200,8 @@ function badUserInput(badTokens) {
 }
 
 
-// var terms = {};
 function parseSearchInput(_terms, input) {
 	debugOutput('parseSearchInput: ' + input, 'trace');
-// 	terms = _terms;
 
 	// capture literal search terms (LST) like name="veil of the night"
 	var regex = /([^\s]*[:=]\".*?\")/g;
@@ -497,13 +551,7 @@ function indexerLeagueToLadder(league) {
 				deleteOnExpire: 'aggressive',
 				storageMode: 'localStorage',
 				storagePrefix: 'exiletrade-cache-v1',
-				storeOnResolve: true//,
-// 				onExpire: function (key, value) {
-// 					var split = key.split('.');
-// 					var league = split[0];
-// 					var accountName = split[1];
-// 					refreshLadderPlayerCache(league, [accountName]);
-// 				}
+				storeOnResolve: true
 			});
 		}
 
@@ -677,13 +725,17 @@ function indexerLeagueToLadder(league) {
 				badge: badge,
 				reset: reset
 			};
-		}]);
+		}
+	]);
 
 	appModule.controller('SearchController',
 	['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService','FoundationApi', 'Upload',
 	function ($q, $scope, $http, $location, $interval, es, playerOnlineService, favicoService, FoundationApi, Upload) {
-
 		debugOutput('controller', 'info');
+
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN Set some global/scope variables
+		* ------------------------------------------------------------------------------------------------------------*/
 		$scope.searchInput = ""; // sample (gloves or chest) 60life 80eleres
 		$scope.badSearchInputTerms = []; // will contain any unrecognized search term
 		$scope.elasticJsonRequest = "";
@@ -715,17 +767,31 @@ function indexerLeagueToLadder(league) {
 		$scope.savedSearchesList = JSON.parse(localStorage.getItem("savedSearches"));
 		$scope.savedAutomatedSearches = JSON.parse(localStorage.getItem("savedAutomatedSearches"));
 		$scope.savedItemsList = JSON.parse(localStorage.getItem("savedItems"));
-		$scope.loadedOptions = JSON.parse(localStorage.getItem("savedOptions"));
 		$scope.lastRequestedSavedItem = {};
-		$scope.selectedFont = {};
-		$scope.audioPath = './assets/sound/';
 		$scope.blacklistCandidate = {"account": "", "comment" : "", "commentLength" : 100};
 		$scope.accountBlacklist = [];
+		$scope.manageBlacklist = {
+			"sortType" : "date_added",
+			"sortReverse" : false,
+			"searchAccounts" : ""
+		};
+		$scope.enableBlacklistFeature = false;
+		/*--------------------------------------------------------------------------------------------------------------
+		* END Set some global/scope variables
+		* ------------------------------------------------------------------------------------------------------------*/
+
+
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN Init/set/handle options
+		* ------------------------------------------------------------------------------------------------------------*/
+		$scope.loadedOptions = JSON.parse(localStorage.getItem("savedOptions"));
+		$scope.selectedFont = {};
+		$scope.audioPath = './assets/sound/';
 
 		/*
-		 * The soundfiles and sound select names have to be matched
-		 * in loadSounds() function
-		 * */
+		* The soundfiles and sound select names have to be matched
+		* in loadSounds() function
+		* */
 		$scope.audioAlerts = [
 			'Tinkle-Lisa_Redfern-1916445296.mp3',
 			'double_tone.mp3',
@@ -741,8 +807,8 @@ function indexerLeagueToLadder(league) {
 		$scope.snd = new Audio($scope.audioPath + $scope.audioAlerts[0]);
 
 		/*
-		 * Create options
-		 * */
+		* Create options
+		* */
 		$scope.options = {
 			"leagueSelect": {
 				"type": "select",
@@ -782,8 +848,67 @@ function indexerLeagueToLadder(league) {
 		};
 
 		/*
-		 * Create tabs
-		 * */
+		* Load new sound; play sound preview
+		* */
+		$scope.loadSound = function () {
+			/* Get index of selected sound to match against audioAlerts array
+			 * Sounds have to be in same order in audioAlerts and soundSelect.options */
+			var i = $scope.options.soundSelect.options.indexOf($scope.options.soundSelect.value);
+			$scope.snd.src = $scope.audioPath + $scope.audioAlerts[i];
+			$scope.snd.load();
+		};
+		$scope.playSound = function () {
+			$scope.snd.play();
+		};
+		$scope.changeNotificationVolume = function () {
+			$scope.snd.volume = $scope.options.notificationVolume;
+		};
+
+		/*
+		* Handle special cases while setting default options
+		* */
+		$scope.setSpecialDefaultOptions = function(loadedOption, defaultOption) {
+			if (typeof loadedOption.fontSelect !== 'undefined') {
+				$scope.selectedFont = {
+					"font-family": "'" + loadedOption.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
+				};
+			}
+			if (typeof loadedOption.soundSelect !== 'undefined') {
+				$scope.loadSound();
+			}
+		};
+
+		/*
+		* Check if options are being loaded and assign values
+		* */
+		if ($scope.loadedOptions) {
+			setDefaultOptions($scope.loadedOptions, $scope.options);
+			$scope.setSpecialDefaultOptions($scope.loadedOptions, $scope.options);
+		}
+
+		/*
+		* Change notification volume if loading saved options
+		* */
+		if ($scope.snd.volume != $scope.options.notificationVolume) {
+			$scope.changeNotificationVolume();
+		}
+
+		/*
+		* Set font family
+		* */
+		$scope.setFontFamily = function() {
+			$scope.selectedFont = {
+				"font-family": "'" + $scope.options.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
+			};
+		};
+		/*--------------------------------------------------------------------------------------------------------------
+		* END Init/set/handle options
+		* ------------------------------------------------------------------------------------------------------------*/
+
+
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN Tab related Stuff
+		* ------------------------------------------------------------------------------------------------------------*/
 		$scope.tabs = [{
 			title: 'Results',
 			id: 0,
@@ -797,83 +922,14 @@ function indexerLeagueToLadder(league) {
 		$scope.clearAutosearch = function () {
 			alert('not implemented');
 		};
+		/*--------------------------------------------------------------------------------------------------------------
+		* END Tab related Stuff
+		* ------------------------------------------------------------------------------------------------------------*/
 
-		/*
-		 * Load new sound; play sound preview
-		 * */
-		$scope.loadSound = function () {
-			/* Get index of selected sound to match against audioAlerts array
-			 * Sounds have to be in same order in audioAlerts and soundSelect.options */
-			var i = $scope.options.soundSelect.options.indexOf($scope.options.soundSelect.value);
-			$scope.snd.src = $scope.audioPath + $scope.audioAlerts[i];
-			$scope.snd.load();
-		};
 
-		$scope.playSound = function () {
-			$scope.snd.play();
-		};
-		$scope.changeNotificationVolume = function () {
-			$scope.snd.volume = $scope.options.notificationVolume;
-		};
-
-		/*
-		 * Check if options are being loaded and assign values
-		 * */
-		if ($scope.loadedOptions) {
-			setDefaultOptions($scope.loadedOptions, $scope.options);
-		}
-
-		function checkDefaultOptions(loadedOption, defaultOption, isSelect) {
-			if (isSelect) {
-				if (typeof loadedOption !== 'undefined') {
-					return loadedOption.value;
-				}
-				else {
-					return defaultOption.value;
-				}
-			}
-			else {
-				if (typeof loadedOption !== 'undefined' && loadedOption !== null) {
-					return loadedOption;
-				}
-				else {
-					return defaultOption;
-				}
-			}
-		}
-
-		function setDefaultOptions(loadedOption, defaultOption) {
-			for (var key in loadedOption) {
-				if (typeof loadedOption[key] === 'object' && loadedOption[key].type == 'select') {
-					defaultOption[key].value = checkDefaultOptions(loadedOption[key], defaultOption[key], true);
-				}
-				else {
-					defaultOption[key] = checkDefaultOptions(loadedOption[key], defaultOption[key], false);
-				}
-			}
-
-			if (typeof loadedOption.fontSelect !== 'undefined') {
-				$scope.selectedFont = {
-					"font-family": "'" + loadedOption.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
-				};
-			}
-			if (typeof loadedOption.soundSelect !== 'undefined') {
-				$scope.loadSound();
-			}
-		}
-
-		/*
-		 * Change notification volume if loading saved option
-		 * */
-		if ($scope.snd.volume != $scope.options.notificationVolume) {
-			$scope.changeNotificationVolume();
-		}
-
-		$scope.setFontFamily = function() {
-			$scope.selectedFont = {
-				"font-family": "'" + $scope.options.fontSelect.value + "', 'Helvetica', Helvetica, Arial, sans-serif"
-			};
-		};
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN Search related stuff
+		* ------------------------------------------------------------------------------------------------------------*/
 
 		$scope.doStashSearch = function(sellerAccount, stashName) {
 			var cleanStashName = stashName;
@@ -1002,10 +1058,9 @@ function indexerLeagueToLadder(league) {
 			return searchPrefix.trim();
 		}
 
-
 		/*
-		 Runs the current searchInput with default sort
-		 */
+		* Runs the current searchInput with default sort
+		* */
 		$scope.doSearch = function () {
 			var sfElem = $("#searchField");
 			var valueFromInput = sfElem.val();
@@ -1024,8 +1079,8 @@ function indexerLeagueToLadder(league) {
 		};
 
 		/*
-		 Runs the current searchInput with a custom sort
-		 */
+		* Runs the current searchInput with a custom sort
+		* */
 		$scope.doSearchWithSort = function (event) {
 			var elem = event.currentTarget;
 			var sortKey = elem.getAttribute('data-sort-key');
@@ -1206,50 +1261,16 @@ function indexerLeagueToLadder(league) {
 		}
 
 		/*
-		 Add custom fields to the item object
-		 */
-		function addCustomFields(item) {
-			if (item.mods) {
-				createForgottenMods(item);
-			}
-			if (item.mods) {
-				createImplicitMods(item);
-			}
-			if (item.mods) {
-				createCraftedMods(item);
-			}
-			if (item.mods) {
-				createEnchantMods(item);
-			}
-			if (item.shop) {
-				var added = new Date(item.shop.added);
-				var updated = new Date(item.shop.updated);
-				var modified = new Date(item.shop.modified);
-				item.shop.addedHuman = prettyDate(added);
-				item.shop.updatedHuman = prettyDate(updated);
-				item.shop.modifiedHuman = prettyDate(modified);
-				if (!item.isOnline) {
-					item.isOnline = $scope.onlinePlayers.indexOf(item.shop.sellerAccount) != -1;
-				}
-			}
-		}
+		* Trigger saved Search
+		* */
+		$scope.doSavedSearch = function (x) {
+			$("#searchField").val(x);
+			$scope.doSearch();
+		};
 
-		function createForgottenMods(item) {
-			var itemTypeKey = firstKey(item.mods);
-			var explicits = item.mods[itemTypeKey].explicit;
-			var forgottenMods = $.map(explicits, function (propertyValue, modKey) {
-				return {
-					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.explicit.' + modKey,
-					name: modKey,
-					value: propertyValue,
-					css: getModCssClasses(modKey)
-				};
-			});
-			item.forgottenMods = forgottenMods;
-			// we call on fm.js to do it's awesome work
-			fm_process(item);
-		}
+		/*--------------------------------------------------------------------------------------------------------------
+		* END Search related stuff
+		* ------------------------------------------------------------------------------------------------------------*/
 
 		$scope.autocomplete_options = {
 			suggest: suggestSearchTermDelimited,
@@ -1301,9 +1322,344 @@ function indexerLeagueToLadder(league) {
 			return suggestions;
 		}
 
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN Add/Create/Change item mods
+		* ------------------------------------------------------------------------------------------------------------*/
+
 		/*
-		 Get CSS Classes for element resistances
-		 */
+		* Add custom fields to the item object
+		* */
+		function addCustomFields(item) {
+			if (item.mods) {
+				createForgottenMods(item);
+			}
+			if (item.mods) {
+				createImplicitMods(item);
+			}
+			if (item.mods) {
+				createCraftedMods(item);
+			}
+			if (item.mods) {
+				createEnchantMods(item);
+			}
+			if (item.shop) {
+				var added = new Date(item.shop.added);
+				var updated = new Date(item.shop.updated);
+				var modified = new Date(item.shop.modified);
+				item.shop.addedHuman = prettyDate(added);
+				item.shop.updatedHuman = prettyDate(updated);
+				item.shop.modifiedHuman = prettyDate(modified);
+				if (!item.isOnline) {
+					item.isOnline = $scope.onlinePlayers.indexOf(item.shop.sellerAccount) != -1;
+				}
+			}
+		}
+
+		function createForgottenMods(item) {
+			var itemTypeKey = firstKey(item.mods);
+			var explicits = item.mods[itemTypeKey].explicit;
+			var forgottenMods = $.map(explicits, function (propertyValue, modKey) {
+				return {
+					display: modToDisplay(propertyValue, modKey),
+					key: 'mods.' + itemTypeKey + '.explicit.' + modKey,
+					name: modKey,
+					value: propertyValue,
+					css: getModCssClasses(modKey)
+				};
+			});
+			item.forgottenMods = forgottenMods;
+			// we call on fm.js to do it's awesome work
+			fm_process(item);
+		}
+
+		function createImplicitMods(item) {
+			var itemTypeKey = firstKey(item.mods);
+			var implicits = item.mods[itemTypeKey].implicit;
+			var implicitMods = $.map(implicits, function (propertyValue, modKey) {
+				return {
+					display: modToDisplay(propertyValue, modKey),
+					key: 'mods.' + itemTypeKey + '.implicit.' + modKey
+				};
+			});
+			item.implicitMods = implicitMods;
+		}
+
+		function createEnchantMods(item) {
+			var enchant = item.enchantMods;
+			if (!enchant) {
+				return;
+			}
+			var enchantMods = $.map(enchant, function (propertyValue, modKey) {
+				return {
+					display: modToDisplay(propertyValue, modKey),
+					key: 'enchantMods.' + modKey
+				};
+			});
+			item.enchantMods = enchantMods;
+		}
+
+		function createCraftedMods(item) {
+			var itemTypeKey = firstKey(item.mods);
+			var crafteds = item.mods[itemTypeKey].crafted;
+			item.craftedMods = $.map(crafteds, function (propertyValue, modKey) {
+				return {
+					display: modToDisplay(propertyValue, modKey),
+					key: 'mods.' + itemTypeKey + '.crafted.' + modKey
+				};
+			});
+		}
+		/*--------------------------------------------------------------------------------------------------------------
+		* END Add/Create/Change item mods
+		* ------------------------------------------------------------------------------------------------------------*/
+
+
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN Save/Delete searches/items/options from/to HTML localStorage
+		* ------------------------------------------------------------------------------------------------------------*/
+
+		/*
+		* Save the current/last search terms to HTML storage
+		* */
+		$scope.saveLastSearch = function () {
+			ga('send', 'event', 'Save', 'Last Search', $scope.searchInput);
+			var search = $scope.searchInput;
+			var savedSearches = [];
+
+			if (localStorage.getItem("savedSearches") !== null) {
+				savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
+			}
+
+			// return if search is already saved
+			if (savedSearches.indexOf(search) != -1) {
+				return;
+			}
+			savedSearches.push(search);
+			localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
+			$scope.savedSearchesList = savedSearches.reverse();
+		};
+
+		/*
+		* Delete selected saved search terms from HTML storage
+		* */
+		$scope.removeSearchFromList = function (x) {
+			var savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
+			var pos = savedSearches.indexOf(x);
+
+			if (pos != -1) {
+				savedSearches.splice(pos, 1);
+				localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
+				$scope.savedSearchesList = savedSearches.reverse();
+			}
+		};
+
+		/*
+		* Save the current/last search terms to HTML storage - automated
+		* */
+		$scope.saveAutomatedSearch = function () {
+			//ga('send', 'event', 'Save', 'Last Search', $scope.searchInput);
+			var search = {searchInput: $scope.searchInput, lastSearch: new Date().getTime()};
+			var savedSearches = [];
+
+			if (localStorage.getItem("savedAutomatedSearches") !== null) {
+				savedSearches = JSON.parse(localStorage.getItem("savedAutomatedSearches"));
+			}
+
+			// return if search is already saved
+			if (savedSearches.map(function (s) {
+					return s.searchInput;
+				}).indexOf(search) != -1) {
+				return;
+			}
+			savedSearches.push(search);
+			localStorage.setItem("savedAutomatedSearches", JSON.stringify(savedSearches));
+			$scope.savedAutomatedSearches = savedSearches.reverse();
+		};
+
+		/*
+		* Delete selected saved search terms from HTML storage - automated
+		* */
+		$scope.removeAutomatedSearchFromList = function (x) {
+			var savedSearches = JSON.parse(localStorage.getItem("savedAutomatedSearches"));
+			var pos = savedSearches.map(function (s) {
+				return s.searchInput;
+			}).indexOf(x.searchInput);
+
+			if (pos != -1) {
+				savedSearches.splice(pos, 1);
+				localStorage.setItem("savedAutomatedSearches", JSON.stringify(savedSearches));
+				$scope.savedAutomatedSearches = savedSearches.reverse();
+			}
+		};
+
+		/*
+		* Save item to HTML storage
+		* */
+		$scope.saveItem = function (id, name, seller) {
+			var savedItems = JSON.parse(localStorage.getItem("savedItems"));
+			var description = name + ' (from: ' + seller + ')';
+			var item = {itemId: id, itemDescription: description};
+
+			if (savedItems === null) {
+				savedItems = [];
+			}
+
+			// return if item is already saved
+			if (findObjectById(savedItems, id) !== undefined) {
+				return;
+			}
+
+			savedItems.push(item);
+			localStorage.setItem("savedItems", JSON.stringify(savedItems));
+			$scope.savedItemsList = savedItems.reverse();
+		};
+
+		/*
+		* Delete selected saved search terms from HTML storage
+		* */
+		$scope.removeItemFromList = function (id) {
+			var savedItems = JSON.parse(localStorage.getItem("savedItems"));
+
+			savedItems = savedItems.filter(function (el) {
+					return el.itemId !== id;
+				}
+			);
+
+			localStorage.setItem("savedItems", JSON.stringify(savedItems));
+			$scope.savedItemsList = savedItems.reverse();
+		};
+
+		/*
+		* Request saved item data to display it in savedItemsAccordion
+		* */
+		$scope.requestSavedItem = function (itemId) {
+			var esPayload = {
+				index: 'index',
+				body: {
+					"filter": {
+						"term": {
+							"_id": itemId
+						}
+					}
+				}
+			};
+			loadOnlinePlayersIntoScope().then(function () {
+				debugOutput("Gonna run elastic: " + angular.toJson(esPayload, true), 'trace');
+				es.search(esPayload).then(function (response) {
+					debugOutput("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
+					if (response.hits.total == 1) {
+						addCustomFields(response.hits.hits[0]._source);
+						playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, [response.hits.hits[0]._source]);
+					}
+					$scope.lastRequestedSavedItem = response.hits.hits;
+				});
+			});
+		};
+
+		/*
+		* Save options to HTML storage
+		* */
+		$scope.saveOptions = function () {
+			ga('send', 'event', 'Save', 'Options', createSearchPrefix($scope.options));
+			localStorage.setItem("savedOptions", JSON.stringify($scope.options));
+		};
+
+		$scope.removeInputFromList = function () {
+			var savedOptions = JSON.parse(localStorage.getItem("savedOptions"));
+		};
+		/*--------------------------------------------------------------------------------------------------------------
+		* END Save/Delete searchs/items from/to HTML localStorage
+		* ------------------------------------------------------------------------------------------------------------*/
+
+		/*
+		* Resize #mainGrid to simulate off-canvas functionality when using the savedSearches-panel
+		* */
+		$scope.resizeGridFrame = function (opened) {
+			var displayStatus = jQuery('div.screenWidthCheck-640').css('display');
+
+			if (opened === true) {
+				jQuery('#mainGrid').animate({
+					marginRight: (displayStatus == 'none') ? "400px" : "100%"
+				}, 500, 'swing');
+			} else {
+				jQuery('#mainGrid').animate({
+					marginRight: "0px"
+				}, 380, 'swing');
+			}
+		};
+
+		/*
+		* Add input Fields (search Prefixes)
+		* */
+		$scope.addInputField = function () {
+			$scope.options.searchPrefixInputs.push({"value": ""});
+		};
+
+		/*
+		* Scroll to top
+		* */
+		$scope.scrollToTop = function () {
+			ga('send', 'event', 'Feature', 'Scroll To Top');
+			angular.element(document.querySelector('#mainGrid')).scrollTo(0, 0, 350);
+		};
+
+		/*
+		* Prepare Whisper Message
+		* */
+		$scope.copyWhisperToClipboard = function (item) {
+			var message = item._source.shop.defaultMessage;
+			var seller = item._source.shop.lastCharacterName;
+			var itemName = item._source.info.fullName;
+			var league = item._source.attributes.league;
+			var stashTab = item._source.shop.stash.stashName;
+			var x = item._source.shop.stash.xLocation;
+			var y = item._source.shop.stash.yLocation;
+
+			if (message === undefined) {
+				message = '@' + seller + " Hi, I'd like to buy your " + itemName + ' in ' + league + ' (Stash-Tab: "' +
+					stashTab + '" [x' + x + ',y' + y + '])' + ', my offer is : ';
+			} else {
+				//removing the "Unknown" tag from currency
+				var n = message.indexOf('Unknown (');
+				if (n > -1) {
+					message = message.replace('Unknown ', '');
+				}
+			}
+			return message;
+		};
+
+		/*
+		* Add values to mod description
+		* */
+		$scope.getItemMods = function (x) {
+			var mods = [];
+
+			for (var key in x) {
+				var mod = key;
+
+				if (typeof x[key] === 'number') {
+					mod = mod.replace('#', x[key]);
+				}
+				else {
+					var obj = x[key];
+					for (var prop in obj) {
+						if (prop == 'avg') {
+							continue;
+						}
+						mod = mod.replace('#', obj[prop]);
+					}
+				}
+				mods.push(mod);
+			}
+			return mods;
+		};
+
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN Item css classes
+		* ------------------------------------------------------------------------------------------------------------*/
+
+		/*
+		* Get CSS Classes for element resistances
+		* */
 		function getModCssClasses(mod) {
 			var css = "";
 			if (mod.indexOf("Resistance") > -1) {
@@ -1343,278 +1699,9 @@ function indexerLeagueToLadder(league) {
 			return css;
 		}
 
-		function createImplicitMods(item) {
-			var itemTypeKey = firstKey(item.mods);
-			var implicits = item.mods[itemTypeKey].implicit;
-			var implicitMods = $.map(implicits, function (propertyValue, modKey) {
-				return {
-					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.implicit.' + modKey
-				};
-			});
-			item.implicitMods = implicitMods;
-		}
-
-		function createEnchantMods(item) {
-			var enchant = item.enchantMods;
-			if (!enchant) {
-				return;
-			}
-			var enchantMods = $.map(enchant, function (propertyValue, modKey) {
-				return {
-					display: modToDisplay(propertyValue, modKey),
-					key: 'enchantMods.' + modKey
-				};
-			});
-			item.enchantMods = enchantMods;
-		}
-
-		function createCraftedMods(item) {
-			var itemTypeKey = firstKey(item.mods);
-			var crafteds = item.mods[itemTypeKey].crafted;
-			item.craftedMods = $.map(crafteds, function (propertyValue, modKey) {
-				return {
-					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.crafted.' + modKey
-				};
-			});
-		}
-
 		/*
-		 Save the current/last search terms to HTML storage
-		 */
-		$scope.saveLastSearch = function () {
-			ga('send', 'event', 'Save', 'Last Search', $scope.searchInput);
-			var search = $scope.searchInput;
-			var savedSearches = [];
-
-			if (localStorage.getItem("savedSearches") !== null) {
-				savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
-			}
-
-			// return if search is already saved
-			if (savedSearches.indexOf(search) != -1) {
-				return;
-			}
-			savedSearches.push(search);
-			localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
-			$scope.savedSearchesList = savedSearches.reverse();
-		};
-
-		/*
-		 Delete selected saved search terms from HTML storage
-		 */
-		$scope.removeSearchFromList = function (x) {
-			var savedSearches = JSON.parse(localStorage.getItem("savedSearches"));
-			var pos = savedSearches.indexOf(x);
-
-			if (pos != -1) {
-				savedSearches.splice(pos, 1);
-				localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
-				$scope.savedSearchesList = savedSearches.reverse();
-			}
-		};
-
-		/*
-		 Save the current/last search terms to HTML storage - automated
-		 */
-		$scope.saveAutomatedSearch = function () {
-			//ga('send', 'event', 'Save', 'Last Search', $scope.searchInput);
-			var search = {searchInput: $scope.searchInput, lastSearch: new Date().getTime()};
-			var savedSearches = [];
-
-			if (localStorage.getItem("savedAutomatedSearches") !== null) {
-				savedSearches = JSON.parse(localStorage.getItem("savedAutomatedSearches"));
-			}
-
-			// return if search is already saved
-			if (savedSearches.map(function (s) {
-					return s.searchInput;
-				}).indexOf(search) != -1) {
-				return;
-			}
-			savedSearches.push(search);
-			localStorage.setItem("savedAutomatedSearches", JSON.stringify(savedSearches));
-			$scope.savedAutomatedSearches = savedSearches.reverse();
-		};
-
-		/*
-		 Delete selected saved search terms from HTML storage - automated
-		 */
-		$scope.removeAutomatedSearchFromList = function (x) {
-			var savedSearches = JSON.parse(localStorage.getItem("savedAutomatedSearches"));
-			var pos = savedSearches.map(function (s) {
-				return s.searchInput;
-			}).indexOf(x.searchInput);
-
-			if (pos != -1) {
-				savedSearches.splice(pos, 1);
-				localStorage.setItem("savedAutomatedSearches", JSON.stringify(savedSearches));
-				$scope.savedAutomatedSearches = savedSearches.reverse();
-			}
-		};
-
-		/*
-		 Save item to HTML storage
-		 */
-		$scope.saveItem = function (id, name, seller) {
-			var savedItems = JSON.parse(localStorage.getItem("savedItems"));
-			var description = name + ' (from: ' + seller + ')';
-			var item = {itemId: id, itemDescription: description};
-
-			if (savedItems === null) {
-				savedItems = [];
-			}
-
-			// return if item is already saved
-			if (findObjectById(savedItems, id) !== undefined) {
-				return;
-			}
-
-			savedItems.push(item);
-			localStorage.setItem("savedItems", JSON.stringify(savedItems));
-			$scope.savedItemsList = savedItems.reverse();
-		};
-
-		$scope.requestSavedItem = function (itemId) {
-			var esPayload = {
-				index: 'index',
-				body: {
-					"filter": {
-						"term": {
-							"_id": itemId
-						}
-					}
-				}
-			};
-			loadOnlinePlayersIntoScope().then(function () {
-				debugOutput("Gonna run elastic: " + angular.toJson(esPayload, true), 'trace');
-				es.search(esPayload).then(function (response) {
-					debugOutput("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
-					if (response.hits.total == 1) {
-						addCustomFields(response.hits.hits[0]._source);
-						playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, [response.hits.hits[0]._source]);
-					}
-					$scope.lastRequestedSavedItem = response.hits.hits;
-				});
-			});
-		};
-
-		$scope.resizeGridFrame = function (opened) {
-			var displayStatus = jQuery('div.screenWidthCheck-640').css('display');
-
-			if (opened === true) {
-				jQuery('#mainGrid').animate({
-					marginRight: (displayStatus == 'none') ? "400px" : "100%"
-				}, 500, 'swing');
-			} else {
-				jQuery('#mainGrid').animate({
-					marginRight: "0px"
-				}, 380, 'swing');
-			}
-		};
-
-		/*
-		 Delete selected saved search terms from HTML storage
-		 */
-		$scope.removeItemFromList = function (id) {
-			var savedItems = JSON.parse(localStorage.getItem("savedItems"));
-
-			savedItems = savedItems.filter(function (el) {
-					return el.itemId !== id;
-				}
-			);
-
-			localStorage.setItem("savedItems", JSON.stringify(savedItems));
-			$scope.savedItemsList = savedItems.reverse();
-		};
-
-
-		/*
-		 Add input Fields (search Prefixes)
-		 */
-		$scope.addInputField = function () {
-			$scope.options.searchPrefixInputs.push({"value": ""});
-		};
-
-		/*
-		 Save options to HTML storage
-		 */
-		$scope.saveOptions = function () {
-			ga('send', 'event', 'Save', 'Options', createSearchPrefix($scope.options));
-			localStorage.setItem("savedOptions", JSON.stringify($scope.options));
-		};
-
-		$scope.removeInputFromList = function () {
-			var savedOptions = JSON.parse(localStorage.getItem("savedOptions"));
-		};
-
-		$scope.scrollToTop = function () {
-			ga('send', 'event', 'Feature', 'Scroll To Top');
-			angular.element(document.querySelector('#mainGrid')).scrollTo(0, 0, 350);
-		};
-
-		/*
-		 Trigger saved Search
-		 */
-		$scope.doSavedSearch = function (x) {
-			$("#searchField").val(x);
-			$scope.doSearch();
-		};
-
-		/*
-		 Prepare Whisper Message
-		 */
-		$scope.copyWhisperToClipboard = function (item) {
-			var message = item._source.shop.defaultMessage;
-			var seller = item._source.shop.lastCharacterName;
-			var itemName = item._source.info.fullName;
-			var league = item._source.attributes.league;
-			var stashTab = item._source.shop.stash.stashName;
-			var x = item._source.shop.stash.xLocation;
-			var y = item._source.shop.stash.yLocation;
-
-			if (message === undefined) {
-				message = '@' + seller + " Hi, I'd like to buy your " + itemName + ' in ' + league + ' (Stash-Tab: "' + stashTab + '" [x' + x + ',y' + y + '])' + ', my offer is : ';
-			} else {
-				//removing the "Unknown" tag from currency
-				var n = message.indexOf('Unknown (');
-				if (n > -1) {
-					message = message.replace('Unknown ', '');
-				}
-			}
-			return message;
-		};
-
-		/*
-		 Add values to mod description
-		 */
-		$scope.getItemMods = function (x) {
-			var mods = [];
-
-			for (var key in x) {
-				var mod = key;
-
-				if (typeof x[key] === 'number') {
-					mod = mod.replace('#', x[key]);
-				}
-				else {
-					var obj = x[key];
-					for (var prop in obj) {
-						if (prop == 'avg') {
-							continue;
-						}
-						mod = mod.replace('#', obj[prop]);
-					}
-				}
-				mods.push(mod);
-			}
-			return mods;
-		};
-
-		/*
-		 Get CSS Classes for item sockets
-		 */
+		* Get CSS Classes for item sockets
+		* */
 		$scope.getSocketClasses = function (x) {
 			if (typeof x == "undefined") {
 				return [];
@@ -1663,8 +1750,8 @@ function indexerLeagueToLadder(league) {
 		};
 
 		/*
-		 Get CSS classes for item socket links
-		 */
+		* Get CSS classes for item socket links
+		* */
 		$scope.getSocketLinkClasses = function (x) {
 			if (typeof x == "undefined") {
 				return [];
@@ -1707,7 +1794,13 @@ function indexerLeagueToLadder(league) {
 			}
 			return pos;
 		};
+		/*--------------------------------------------------------------------------------------------------------------
+		* END Item css classes
+		* ------------------------------------------------------------------------------------------------------------*/
 
+		/*
+		* Check if obj is empty
+		* */
 		$scope.isEmpty = function (obj) {
 			for (var i in obj) {
 				if (obj.hasOwnProperty(i)) {
@@ -1717,6 +1810,9 @@ function indexerLeagueToLadder(league) {
 			return true;
 		};
 
+		/*
+		* Check if item needs to display the itemlevel
+		* */
 		$scope.needsILvl = function (item) {
 			var type = item.itemType;
 			var blacklist = ['Map', 'Gem', 'Card', 'Currency'];
@@ -1738,8 +1834,8 @@ function indexerLeagueToLadder(league) {
 		}
 
 		/*
-		 Handle tabs
-		 */
+		* Handle tabs
+		* */
 		$scope.onClickTab = function (tab) {
 			$scope.currentTab = tab.id;
 			$scope.tabs[tab.id].newItems = 0;
@@ -1750,6 +1846,9 @@ function indexerLeagueToLadder(league) {
 			return tabId == $scope.currentTab;
 		};
 
+		/*
+		* Toggle Help section
+		* */
 		$scope.toggleHelp = function () {
 			$scope.helpState = ($scope.helpState === false);
 			return $scope.helpState;
@@ -1759,58 +1858,45 @@ function indexerLeagueToLadder(league) {
 		* Set search input autofocus
 		* */
 		$scope.searchInputState = function() {
-			if (isEmpty($scope.searchInput)) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return isEmpty($scope.searchInput);
 		};
 
-		function isEmpty (obj) {
-			if (obj === null) {return true;}
 
-			// Assume if it has a length property with a non-zero value
-			// that that property is correct.
-			if (obj.length > 0)    {return false;}
-			if (obj.length === 0)  {return true;}
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN Account Blacklist
+		* ------------------------------------------------------------------------------------------------------------*/
 
-			// Otherwise, does it have any properties of its own?
-			// Note that this doesn't handle
-			// toString and valueOf enumeration bugs in IE < 9
-			for (var key in obj) {
-				if (hasOwnProperty.call(obj, key)) {return false;}
-			}
-		}
-		
 		/*
-		* Account Blacklist
+		* Load Blacklist from localstorage
 		* */
-		$scope.manageBlacklist = {
-			"sortType" : "date_added",
-			"sortReverse" : false,
-			"searchAccounts" : ""
-		};
-		$scope.enableBlacklistFeature = false;
-
 		$scope.loadAccountBlacklistFromStorage = function() {
 			var list = JSON.parse(localStorage.getItem("accountBlacklist"));
 			if (list !== null) {
 				$scope.accountBlacklist = list;
 			}
 		};
-		// load blacklist from localstorage
 		$scope.loadAccountBlacklistFromStorage();
 
+		/*
+		* Add player as candidate for blacklisting (temp variables)
+		* */
 		$scope.addBlacklistCandidate = function(account, comment) {
 			$scope.blacklistCandidate.account = account;
 			$scope.blacklistCandidate.comment = comment;
 		};
+
+		/*
+		* Clear blacklist candidate variables
+		* */
 		$scope.clearBlacklistCandidate = function() {
 			$scope.blacklistCandidate.account = '';
 			$scope.blacklistCandidate.comment = '';
 			$scope.blacklistCandidate.commentLength = 100;
 		};
+
+		/*
+		* Add player to blacklist
+		* */
 		$scope.addPlayerToBlacklist = function(account, comment) {
 			var timestamp = Date.now();
 			var obj = { "date_added" : timestamp, "account" : account, "comment" : comment};
@@ -1822,6 +1908,10 @@ function indexerLeagueToLadder(league) {
 			$scope.updateBlacklistLocalStorage();
 			$scope.clearBlacklistCandidate();
 		};
+
+		/*
+		* Remove player from blacklist
+		* */
 		$scope.removePlayerFromBlacklist = function(account) {
 			// remove player if found
 			for (var i = 0; i < $scope.accountBlacklist.length; i++) {
@@ -1831,11 +1921,17 @@ function indexerLeagueToLadder(league) {
 			}
 			$scope.updateBlacklistLocalStorage();
 		};
+
+		/*
+		* Update localStoarge blacklist
+		* */
 		$scope.updateBlacklistLocalStorage = function() {
 			localStorage.setItem("accountBlacklist", JSON.stringify($scope.accountBlacklist));
 		};
 
-		/* Save blacklist to JSON */
+		/*
+		* Save blacklist to JSON file and download the file
+		* */
 		$scope.saveBlacklistToJSON = function (data, filename) {
 			if (!data) {
 				console.error('No data');
@@ -1862,7 +1958,10 @@ function indexerLeagueToLadder(league) {
 				0, 0, 0, 0, 0, false, false, false, false, 0, null);
 			a.dispatchEvent(e);
 		};
-		/* Upload blacklsit JSON */
+
+		/*
+		* Upload blacklist JSON file and overwrite localStorage
+		* */
 		$scope.uploadBlacklist = function(file, errFiles) {
 			$scope.f = file;
 			$scope.errFile = errFiles && errFiles[0];
@@ -1875,9 +1974,16 @@ function indexerLeagueToLadder(league) {
 				});
 			}
 		};
-		
+		/*--------------------------------------------------------------------------------------------------------------
+		* END Account Blacklist
+		* ------------------------------------------------------------------------------------------------------------*/
+
+
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN Tutorial
+		* ------------------------------------------------------------------------------------------------------------*/
 		/*
-		* Tutorial
+		* Return popup html element
 		* */
 		function getPopup(index, step) {
 			var el, i;
@@ -1907,13 +2013,19 @@ function indexerLeagueToLadder(league) {
 			return [el, i];
 		}
 
+		/*
+		* Close tutorial popup
+		* */
 		$scope.closeTutorialPopup = function(tutorialIndex) {
 			var obj = getPopup(tutorialIndex)[0];
 			var popup = obj[0];
 			var index = obj[1];
 			angular.element(popup).removeClass('active');
 		};
-		
+
+		/*
+		* Open next tutorial popup in sequence (next and previous)
+		* */
 		$scope.openTutorialPopup = function(step, tutorialIndex){
 			//step can be omitted with '', tutorialIndex should be $event or an integer
 			var obj = getPopup(tutorialIndex, step);
@@ -1942,6 +2054,9 @@ function indexerLeagueToLadder(league) {
 			positionTutorialPopup(popup, target);
 		};
 
+		/*
+		* Calculate tutorial popup position
+		* */
 		function positionTutorialPopup(popup, target) {
 			var windowWidth = angular.element('#mainGrid').outerWidth();
 			var popupMarginTop = parseInt(angular.element(popup).css('margin-top').replace("px", ""));
@@ -1977,6 +2092,9 @@ function indexerLeagueToLadder(league) {
 			angular.element('#mainGrid').scrollTo(0, 0, targetOffset.top - 10);
 		}
 
+		/*
+		* Calculate tutorial popup arrow position
+		* */
 		function positionPopupArrow(alignment, targetOffset, windowWidth, targetWidth, popup) {
 			var pos = 0;
 			if (alignment == 'left') {
@@ -1987,13 +2105,21 @@ function indexerLeagueToLadder(league) {
 			}
 			angular.element(popup).find('.arrow-shadow').css(alignment, pos);
 		}
+		/*--------------------------------------------------------------------------------------------------------------
+		* END Tutorial
+		* ------------------------------------------------------------------------------------------------------------*/
+
+
+		/*--------------------------------------------------------------------------------------------------------------
+		* BEGIN AdBlock detection
+		* ------------------------------------------------------------------------------------------------------------*/
+		$scope.adBlockNotDetected = function() {
+			//do something
+		};
 
 		/*
-			AdBlock detection
+		* AdBlock is detected, show console info and adBlock modal
 		* */
-		$scope.adBlockNotDetected = function() {
-			//
-		};
 		$scope.adBlockDetected = function() {
 			console.info("If javascript-file 'ads.js' is being blocked by your client you have AdBlock enabled. This error is expected.");
 			if ($scope.options.dontShowAdBlockWarning) {
@@ -2004,6 +2130,9 @@ function indexerLeagueToLadder(league) {
 			}, 50);
 		};
 
+		/*
+		* Check if an adBlocker is active
+		* */
 		function checkForAdBlock() {
 			if (typeof fuckAdBlock === 'undefined') {
 				$scope.adBlockDetected();
@@ -2018,9 +2147,16 @@ function indexerLeagueToLadder(league) {
 			}
 		}
 		//checkForAdBlock();
+
+		/*--------------------------------------------------------------------------------------------------------------
+		* END AdBlock detection
+		* ------------------------------------------------------------------------------------------------------------*/
 	}]);
 
-	// Custom filters
+
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Custom Filters
+	* ----------------------------------------------------------------------------------------------------------------*/
 	appModule.filter("currencyToCssClass", [function() {
 		return function (str) {
 			var currencyCssClassMap = new Map([
@@ -2121,8 +2257,15 @@ function indexerLeagueToLadder(league) {
 			return result;
 		};
 	}]);
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Custom Filters
+	* ----------------------------------------------------------------------------------------------------------------*/
+	
 
-	// Custom Directive
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Custom Directives
+	* ----------------------------------------------------------------------------------------------------------------*/
+
 	appModule.directive('myEnter', function () {
 		return function (scope, element, attrs) {
 			element.bind("keydown keypress", function (event) {
@@ -2181,4 +2324,8 @@ function indexerLeagueToLadder(league) {
 			scope: true
 		};
 	});
+
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Custom Directives
+	* ----------------------------------------------------------------------------------------------------------------*/
 })();
