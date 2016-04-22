@@ -1829,6 +1829,28 @@ function indexerLeagueToLadder(league) {
 			return true;
 		};
 
+		$scope.getKeys = function(obj){
+			return Object.keys(obj)
+		};
+		
+		$scope.getCurrencyRatio = function(price, stack, amount) {
+			var ratio = 0;
+			for (var key in price) {
+				ratio = 1/price[key];
+				if (amount == 1) {
+					ratio = ratio * stack;
+				}
+			}
+			if( ratio >= 10) {
+				ratio = Math.round(ratio * 10) / 10;
+			}
+			else {
+				ratio = Math.round(ratio * 1000) / 1000;
+			}
+
+			return ratio;
+		};
+
 		/*
 		* Check if item needs to display the itemlevel
 		* */
@@ -2312,6 +2334,14 @@ function indexerLeagueToLadder(league) {
 		return {
 			restrict: 'A',
 			templateUrl: 'templates/directives/item.html',
+			scope: true
+		};
+	});
+
+	appModule.directive('currency', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/currency.html',
 			scope: true
 		};
 	});

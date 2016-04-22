@@ -513,6 +513,252 @@ img.gitter-badge {
 		}
 	}
 
+	.currency {
+		.arrow {
+			position: absolute;
+			//width: 8px !important;
+			height: 8px !important;
+			//margin-top: -4px;
+			margin-top: -8px;
+			z-index: 5;
+
+			&.up {
+				display: none;
+				left: 50%;
+				margin-left: -3px;
+				bottom: 1px;
+			}
+			&.left {
+				//right: -4px;
+				right: -8px;
+				top: 50%;
+			}
+		}
+
+		.image {
+			width: 30px;
+			height: 30px;
+		}
+		.text {
+			span {
+				width: 100%;
+				display: inline-block;
+				padding: 0 0.5rem;
+				line-height: 30px;
+			}
+		}
+		.ratio-wrapper {
+			display: table;
+			height: 40px;
+			.ratio-container {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.cost {
+				display: inline-block;
+				min-width: 55px;
+				line-height: 20px;
+				padding: 0 0.8rem;
+				border: 1px solid #222222;
+				position: relative;
+				z-index: 3;
+				background: #36383a;
+			}
+			.center {
+				display: inline;
+				line-height: 30px;
+			}
+		}
+		.type {
+			padding: 0.25rem 0;
+		}
+		.currency-get, .currency-pay, .currency-seller {
+			border: 1px solid $primary-color;
+			padding: 0 0.25rem;
+			background: rgba(0,0,0,.1);
+		}
+		.currency-seller {
+			border-top: none;
+			width: 100%;
+			max-width: 100%;
+			flex: 0 0 100%;
+			padding: 0.25rem;
+			background: $primary-color;
+			font-size: rem-calc(14px);
+
+			.highlight {
+				color: $link_color;
+				background: transparent;
+			}
+			span, i, a {
+				float: left;
+				margin-left: 5px;
+			}
+			a {
+				float: right;
+				margin: 0;
+			}
+		}
+		.currency-pay {
+			border-left: none;
+			flex-direction: row-reverse;
+			padding-left: 0;
+			.type {
+				text-align: right;
+			}
+			.image img.price {
+				width: 30px;
+				height: 30px;
+				background-size: 30px;
+				padding-right: 30px;
+			}
+			.cost {
+				border-left: none;
+				left: -1px;
+			}
+			.text {
+				&:before {
+					content: '-';
+					position: absolute;
+					z-index: 10;
+					top: 50%;
+					margin-top: -8px;
+					height: 16px;
+					left: 5px;
+				}
+			}
+		}
+		.currency-get {
+			padding-right: 0;
+			//border-right: none;
+			position: relative;
+			.ratio-container {
+				text-align: right;
+			}
+			.cost {
+				border-right: none;
+			}
+			.text {
+				&:after {
+					content: '+';
+					position: absolute;
+					z-index: 10;
+					top: 50%;
+					margin-top: -8px;
+					height: 16px;
+					right: 5px;
+				}
+			}
+		}
+		.gradient-red {
+			 background: red; /* For browsers that do not support gradients */
+			 background: -webkit-linear-gradient(left,rgba(194,38,38,.5),rgba(194,38,38,0)); /*Safari 5.1-6*/
+			 background: -o-linear-gradient(right,rgba(194,38,38,.5),rgba(194,38,38,0)); /*Opera 11.1-12*/
+			 background: -moz-linear-gradient(right,rgba(194,38,38,.5),rgba(194,38,38,0)); /*Fx 3.6-15*/
+			 background: linear-gradient(to right, rgba(194,38,38,.5), rgba(194,38,38,0)); /*Standard*/
+		}
+		.gradient-green {
+			background: #56AB56; /* For browsers that do not support gradients */
+			background: -webkit-linear-gradient(left,rgba(86,171,86,0),rgba(86,171,86,.5)); /*Safari 5.1-6*/
+			background: -o-linear-gradient(right,rgba(86,171,86,0),rgba(86,171,86,.5)); /*Opera 11.1-12*/
+			background: -moz-linear-gradient(right,rgba(86,171,86,0),rgba(86,171,86,.5)); /*Fx 3.6-15*/
+			background: linear-gradient(to right, rgba(86,171,86,0), rgba(86,171,86,.5)); /*Standard*/
+		}
+
+		@include mq($max-width: 640px) {
+			.type, .ratio-wrapper {
+				width: 100%;
+				max-width: 100%;
+				flex: 0 0 100%;
+			}
+			.type {
+				justify-content: center;
+				-webkit-justify-content: center;
+				-ms-flex-pack: center;
+			}
+			.arrow {
+				&.up{
+					display: block;
+				}
+				&.left {
+					display: none;
+				}
+			}
+			.text {
+				position: static;
+				-webkit-flex: 0 0 auto;
+				-ms-flex: 0 0 auto;
+				flex: 0 0 auto;
+				&:before, &:after {
+					margin: 0 !important;
+					top: initial !important;
+					right: initial !important;
+					left: 50%;
+					margin-left: -55px !important;
+				}
+			}
+			.currency-pay {
+				border-left: 1px solid $primary-color;
+				border-top: none;
+				flex-direction: column-reverse;
+				padding-right: 0;
+				position: relative;
+				.text:before {
+					left: 50%;
+					top: -23px !important;
+				}
+				.ratio-container {
+					vertical-align: top;
+					.cost {
+						border-top: none;
+					}
+				}
+			}
+			.currency-get {
+				border-right: 1px solid $primary-color;
+				border-bottom: none;
+				padding-left: 0;
+				position: relative;
+				.text:after {
+					left: 50%;
+					bottom: -23px !important;
+				}
+				.ratio-container {
+					vertical-align: bottom;
+					.cost {
+						border-bottom: none;
+						padding: 0.25rem 0.5rem 1rem 0.5rem;
+					}
+				}
+			}
+			.ratio-container {
+				text-align: center !important;
+				.cost {
+					left: 0;
+					min-width: 80px;
+					width: 80px;
+					border: 1px solid $primary-color;
+					line-height: 16px;
+					padding: 1rem 0.5rem 0.25rem 0.5rem;
+				}
+			}
+			.gradient-red {
+				background: red; /* For browsers that do not support gradients */
+				background: -webkit-linear-gradient(top,rgba(194,38,38,.5), rgba(194,38,38,0.1),rgba(194,38,38,0)); /*Safari 5.1-6*/
+				background: -o-linear-gradient(bottom,rgba(194,38,38,.5), rgba(194,38,38,0.1),rgba(194,38,38,0)); /*Opera 11.1-12*/
+				background: -moz-linear-gradient(bottom,rgba(194,38,38,.5), rgba(194,38,38,0.1),rgba(194,38,38,0)); /*Fx 3.6-15*/
+				background: linear-gradient(to bottom, rgba(194,38,38,.5), rgba(194,38,38,0.1), rgba(194,38,38,0)); /*Standard*/
+			}
+			.gradient-green {
+				background: #56AB56; /* For browsers that do not support gradients */
+				background: -webkit-linear-gradient(top,rgba(86,171,86,0),rgba(86,171,86,.1),rgba(86,171,86,.5)); /*Safari 5.1-6*/
+				background: -o-linear-gradient(bottom,rgba(86,171,86,0),rgba(86,171,86,.1),rgba(86,171,86,.5)); /*Opera 11.1-12*/
+				background: -moz-linear-gradient(bottom,rgba(86,171,86,0),rgba(86,171,86,.1),rgba(86,171,86,.5)); /*Fx 3.6-15*/
+				background: linear-gradient(to bottom, rgba(86,171,86,0),rgba(86,171,86,.1), rgba(86,171,86,.5)); /*Standard*/
+			}
+		}
+	}
+
 	.item {
 		min-width: 600px;
 		@include mq($max-width: 768px) {
@@ -711,93 +957,6 @@ img.gitter-badge {
 
 		.price:hover {
 			cursor: help;
-		}
-		span.currency {
-			width: 30px;
-			height: 30px;
-			display: inline-block;
-			background-size: 30px;
-			padding-right: 35px;
-			background: url('../img/currency_icons.png') no-repeat;
-
-			&.unknown {
-				background-position: right -750px;
-			}
-			&.regal {
-				background-position: right 0;
-			}
-			&.augmentation {
-				background-position: right -30px;
-			}
-			&.wisdom {
-				background-position: right -60px;
-			}
-			&.portal {
-				background-position: right -90px;
-			}
-			&.alchemy {
-				background-position: right -120px;
-			}
-			&.mirror {
-				background-position: right -150px;
-			}
-			&.blessed {
-				background-position: right -180px;
-			}
-			&.whetstone {
-				background-position: right -210px;
-			}
-			&.scrap {
-				 background-position: right -240px;
-			}
-			&.vaal {
-				background-position: right -270px;
-			}
-			&.bauble {
-				background-position: right -300px;
-			}
-			&.chaos {
-				background-position: right -330px;
-			}
-			&.chisel {
-				background-position: right -360px;
-			}
-			&.chromatic {
-				background-position: right -390px;
-			}
-			&.divine {
-				 background-position: right -420px;
-			}
-			&.exalted {
-				background-position: right -450px;
-			}
-			&.transmutation {
-				background-position: right -480px;
-			}
-			&.scouring {
-				background-position: right -510px;
-			}
-			&.regret {
-				background-position: right -540px;
-			}
-			&.fusing {
-				background-position: right -570px;
-			}
-			&.prism {
-				background-position: right -600px;
-			}
-			&.jeweller {
-				background-position: right -630px;
-			}
-			&.alteration {
-				background-position: right -660px;
-			}
-			&.chance {
-				background-position: right -690px;
-			}
-			&.coins {
-				background-position: right -720px;
-			}
 		}
 	}
 
@@ -1002,6 +1161,102 @@ img.gitter-badge {
 		}
 	}
 }
+
+.search-results, #showItemModal, .panel {
+	.item, .currency {
+		.requirements, .sell-infos, .currency-pay {
+			span.currency, img.price {
+				width: 30px;
+				height: 30px;
+				display: inline-block;
+				background-size: 30px;
+				padding-right: 35px;
+				background: url('../img/currency_icons.png') no-repeat;
+
+				&.unknown {
+					background-position: right -750px;
+				}
+				&.regal {
+					background-position: right 0;
+				}
+				&.augmentation {
+					background-position: right -30px;
+				}
+				&.wisdom {
+					background-position: right -60px;
+				}
+				&.portal {
+					background-position: right -90px;
+				}
+				&.alchemy {
+					background-position: right -120px;
+				}
+				&.mirror {
+					background-position: right -150px;
+				}
+				&.blessed {
+					background-position: right -180px;
+				}
+				&.whetstone {
+					background-position: right -210px;
+				}
+				&.scrap {
+					background-position: right -240px;
+				}
+				&.vaal {
+					background-position: right -270px;
+				}
+				&.bauble {
+					background-position: right -300px;
+				}
+				&.chaos {
+					background-position: right -330px;
+				}
+				&.chisel {
+					background-position: right -360px;
+				}
+				&.chromatic {
+					background-position: right -390px;
+				}
+				&.divine {
+					background-position: right -420px;
+				}
+				&.exalted {
+					background-position: right -450px;
+				}
+				&.transmutation {
+					background-position: right -480px;
+				}
+				&.scouring {
+					background-position: right -510px;
+				}
+				&.regret {
+					background-position: right -540px;
+				}
+				&.fusing {
+					background-position: right -570px;
+				}
+				&.prism {
+					background-position: right -600px;
+				}
+				&.jeweller {
+					background-position: right -630px;
+				}
+				&.alteration {
+					background-position: right -660px;
+				}
+				&.chance {
+					background-position: right -690px;
+				}
+				&.coins {
+					background-position: right -720px;
+				}
+			}
+		}
+	}
+}
+
+
 .search-results {
 
 	@include mq($max-width: 768px) {
