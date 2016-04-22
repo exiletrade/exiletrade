@@ -1372,9 +1372,11 @@ function indexerLeagueToLadder(league) {
 			var itemTypeKey = firstKey(item.mods);
 			var explicits = item.mods[itemTypeKey].explicit;
 			var forgottenMods = $.map(explicits, function (propertyValue, modKey) {
+				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
+				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : ""
 				return {
 					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.explicit.' + modKey,
+					key: 'mods.' + itemTypeKey + '.explicit.' + modKey + keyExtraSuffix,
 					name: modKey,
 					value: propertyValue,
 					css: getModCssClasses(modKey)
@@ -1389,9 +1391,11 @@ function indexerLeagueToLadder(league) {
 			var itemTypeKey = firstKey(item.mods);
 			var implicits = item.mods[itemTypeKey].implicit;
 			var implicitMods = $.map(implicits, function (propertyValue, modKey) {
+				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
+				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : ""
 				return {
 					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.implicit.' + modKey
+					key: 'mods.' + itemTypeKey + '.implicit.' + modKey + keyExtraSuffix
 				};
 			});
 			item.implicitMods = implicitMods;
@@ -1415,9 +1419,11 @@ function indexerLeagueToLadder(league) {
 			var itemTypeKey = firstKey(item.mods);
 			var crafteds = item.mods[itemTypeKey].crafted;
 			item.craftedMods = $.map(crafteds, function (propertyValue, modKey) {
+				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
+				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : ""
 				return {
 					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.crafted.' + modKey
+					key: 'mods.' + itemTypeKey + '.crafted.' + modKey + keyExtraSuffix
 				};
 			});
 		}
