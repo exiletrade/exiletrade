@@ -802,7 +802,7 @@ function indexerLeagueToLadder(league) {
 			"sortReverse" : false,
 			"searchAccounts" : ""
 		};
-		$scope.enableBlacklistFeature = false;
+		$scope.enableBlacklistFeature = true;
 	/*------------------------------------------------------------------------------------------------------------------
 	* END Set some global/scope variables
 	* ----------------------------------------------------------------------------------------------------------------*/
@@ -1241,6 +1241,9 @@ function indexerLeagueToLadder(league) {
 			var actualSearchDuration = 0;
 			var limit = 20;
 			var fetchSize = $scope.options.switchOnlinePlayersOnly ? 50 : limit;
+			var accBlacklist = $scope.enableBlacklistFeature ? $scope.accountBlacklist.map(function (obj) {
+				return obj.account;
+			}) : [];
 
 			function fetch() {
 				doElasticSearch($scope.searchQuery, $scope.from, fetchSize, $scope.sortKey, $scope.sortOrder)
@@ -1250,11 +1253,23 @@ function indexerLeagueToLadder(league) {
 						var hitsItems = response.hits.hits.map(function (value) {
 							return value._source;
 						});
+
+						var blacklisted = 0;
+						var offline = 0;
+
 						playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, hitsItems).then(function () {
 							var accountNamesFilter = $scope.options.switchOnlinePlayersOnly ? $scope.onlinePlayers : [];
 							response.hits.hits = response.hits.hits.filter(function (item) {
 								var onlineInTheRiver = accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1;
-								return item._source.isOnline || onlineInTheRiver || !$scope.options.switchOnlinePlayersOnly;
+								var isOnline = item._source.isOnline || onlineInTheRiver || !$scope.options.switchOnlinePlayersOnly;
+								var isBlacklisted = accBlacklist.indexOf(item._source.shop.sellerAccount) != -1;
+								if (isBlacklisted) {
+									blacklisted++;
+								}
+								if (!isOnline) {
+									offline++;
+								}
+								return !isBlacklisted && isOnline;
 							});
 
 							$.each(response.hits.hits, function (index, value) {
@@ -1277,6 +1292,8 @@ function indexerLeagueToLadder(league) {
 							}
 
 							response.took = actualSearchDuration;
+							response.blacklisted = blacklisted;
+							response.offline = offline;
 
 							$scope.disableScroll = hitsItems.length < fetchSize;
 
