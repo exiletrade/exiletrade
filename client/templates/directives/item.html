@@ -438,10 +438,16 @@
 										{{item._source.shop.stash.stashName}}</a>
 								</td>
 							</tr>
+							<tr ng-if="item._source.shop.sellerAccount">
+								<td>Account:</td>
+								<td>
+									<a href="#">{{item._source.shop.sellerAccount}}</a>
+								</td>
+							</tr>
 							<tr ng-if="item._source.shop.note">
 								<td>Note:</td>
 								<td>
-									<a>{{item._source.shop.note}}</a>
+									<a href="#">{{item._source.shop.note}}</a>
 								</td>
 							</tr>
 						</tbody>
