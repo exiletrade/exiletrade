@@ -303,10 +303,8 @@ function formatNumber(str) {
 
 function evalSearchTerm(token) {
 	var result = "";
-	var tokens = splitToken(token);
-	//var letterPart = tokens.letterPart;
-	//var numberPart = tokens.numberPart;
 	for (var regex in terms) {
+		// terms is a map object located in data.js
 		if (terms.hasOwnProperty(regex)) {
 			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
 			var rgex = new RegExp(regex, 'i');
@@ -344,6 +342,28 @@ function evalSearchTerm(token) {
 				}
 				debugOutput(cleanToken + ' + ' + rgex + '=' + result, 'trace');
 				break;
+			}
+		}
+	}
+	return result;
+}
+
+// Used to determine the sortKey from sorting search terms
+function evalSearchTermFieldKey(token) {
+	var result = "";
+	for (var regex in terms) {
+		// terms is a map object located in data.js
+		if (terms.hasOwnProperty(regex)) {
+			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
+			var foundMatch = rgexTest.test(token);
+			if (foundMatch) {
+				var query = terms[regex].query;
+				var delimIdx = query.indexOf(':');
+				if (!/[`\(\)]/i.test(query) && delimIdx !== -1) {
+					result = query.substring(0, delimIdx);
+					// remove any escaping, e.g. 'modsTotal.Adds \#-# Physical Damage.avg'
+					result = result.replace("\\", "");
+				}
 			}
 		}
 	}
@@ -748,17 +768,23 @@ function indexerLeagueToLadder(league) {
 
 		var httpParams = $location.search();
 		debugOutput('httpParams:' + angular.toJson(httpParams, true), 'trace');
-		var sortKeyDefault = 'shop.chaosEquiv';
-		var sortOrderDefault = 'asc';
+		var sortKeyDefault = ['shop.chaosEquiv'];
+		var sortOrderDefault = ['asc'];
 		var limitDefault = 50;
 		if (httpParams.q) {
 			$scope.searchInput = httpParams.q;
 		}
 		if (httpParams.sortKey) {
 			sortKeyDefault = httpParams.sortKey;
+			if (typeof sortKeyDefault === 'string') {
+				sortKeyDefault = [sortKeyDefault];
+			}
 		}
 		if (httpParams.sortOrder) {
 			sortOrderDefault = httpParams.sortOrder;
+			if (typeof sortOrderDefault === 'string') {
+				sortOrderDefault = [sortOrderDefault];
+			}
 		}
 		if (httpParams.limit) {
 			limitDefault = httpParams.limit;
@@ -1096,8 +1122,8 @@ function indexerLeagueToLadder(league) {
 		* */
 		$scope.doSearchWithSort = function (event) {
 			var elem = event.currentTarget;
-			var sortKey = elem.getAttribute('data-sort-key');
-			var sortOrder = elem.getAttribute('data-sort-order');
+			var sortKey = [elem.getAttribute('data-sort-key')];
+			var sortOrder = [elem.getAttribute('data-sort-order')];
 			var limit = 50;
 			if (httpParams.limit) {
 				limit = httpParams.limit;
@@ -1121,10 +1147,35 @@ function indexerLeagueToLadder(league) {
 				limit = 999;
 			} // deny power overwhelming
 			// ga('send', 'event', 'Search', 'PreFix', createSearchPrefix($scope.options));
-			$location.search({'q': searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder});
+			$location.search({'q': searchInput});
+			var sortRegex = /\b(\w+)(asc|de?sc)\b/gi;
+			if (sortRegex.test(searchInput)) {
+				var sortTerms = searchInput.match(sortRegex);
+				sortKey = [];
+				sortOrder = [];
+				debugOutput('parsed sortTerms = ' + sortTerms.toString(), 'info');
+				sortTerms.forEach(function (token) {
+					var rgxArr = sortRegex.exec(token);
+					// refresh the regex internal index
+					sortRegex.lastIndex = 0;
+					var key = rgxArr[1];
+					var ord = rgxArr[2].toLowerCase().replace("dsc", "desc");
+					key = evalSearchTermFieldKey(key);
+					// special handle for 'shop.hasPrice'
+					if (key === "shop.hasPrice") {
+						key = "shop.chaosEquiv";
+					}
+					sortKey.push(key);
+					sortOrder.push(ord);
+				});
+				debugOutput('parsed sort keys = ' + sortKey.toString(), 'info');
+				debugOutput('parsed sort ords = ' + sortOrder.toString(), 'info');
+			}
+
 			$location.replace();
 			debugOutput('changed location to: ' + $location.absUrl(), 'trace');
 
+			searchInput = searchInput.replace(sortRegex, "").trim();
 			$scope.searchQuery = buildQueryString(searchInput);
 			debugOutput("searchQuery=" + $scope.searchQuery, 'log');
 			/*
@@ -1260,10 +1311,14 @@ function indexerLeagueToLadder(league) {
 		}
 
 		function doElasticSearch(searchQuery, _from, _size, sortKey, sortOrder) {
+			var sortArray = sortKey.map(function (key, idx) {
+			  var order = sortOrder[idx] !== undefined ? sortOrder[idx] : "desc";
+			  return key + ":" + order;
+			});
 			var esBody = buildEsBody(searchQuery);
 			var esPayload = {
 				index: 'index',
-				sort: [sortKey + ':' + sortOrder],
+				sort: sortArray,
 				from: _from,
 				size: _size,
 				body: esBody
@@ -1373,7 +1428,7 @@ function indexerLeagueToLadder(league) {
 			var explicits = item.mods[itemTypeKey].explicit;
 			var forgottenMods = $.map(explicits, function (propertyValue, modKey) {
 				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
-				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : ""
+				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : "";
 				return {
 					display: modToDisplay(propertyValue, modKey),
 					key: 'mods.' + itemTypeKey + '.explicit.' + modKey + keyExtraSuffix,
@@ -1392,7 +1447,7 @@ function indexerLeagueToLadder(league) {
 			var implicits = item.mods[itemTypeKey].implicit;
 			var implicitMods = $.map(implicits, function (propertyValue, modKey) {
 				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
-				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : ""
+				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : "";
 				return {
 					display: modToDisplay(propertyValue, modKey),
 					key: 'mods.' + itemTypeKey + '.implicit.' + modKey + keyExtraSuffix
@@ -1420,7 +1475,7 @@ function indexerLeagueToLadder(league) {
 			var crafteds = item.mods[itemTypeKey].crafted;
 			item.craftedMods = $.map(crafteds, function (propertyValue, modKey) {
 				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
-				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : ""
+				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : "";
 				return {
 					display: modToDisplay(propertyValue, modKey),
 					key: 'mods.' + itemTypeKey + '.crafted.' + modKey + keyExtraSuffix
