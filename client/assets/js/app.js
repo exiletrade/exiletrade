@@ -765,6 +765,7 @@ function indexerLeagueToLadder(league) {
 		$scope.onlinePlayers = [];
 		$scope.helpState = false;
 		$scope.enableTutorialFeature = false;
+		$scope.isCurrencySearch = false;
 
 		var httpParams = $location.search();
 		debugOutput('httpParams:' + angular.toJson(httpParams, true), 'trace');
@@ -1142,6 +1143,8 @@ function indexerLeagueToLadder(league) {
 			$scope.Response = null;
 			$scope.disableScroll = true;
 			$scope.showSpinner = true;
+			$scope.isCurrencySearch = /^\w+:\w+/.test(searchInput);
+			console.info("$scope.isCurrencySearch = " + $scope.isCurrencySearch)
 			limit = Number(limit);
 			if (limit > 999) {
 				limit = 999;
