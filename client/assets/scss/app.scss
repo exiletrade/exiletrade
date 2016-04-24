@@ -760,6 +760,9 @@ img.gitter-badge {
 	}
 
 	.item {
+		&.currency {
+			padding: 0 5px;
+		}
 		min-width: 600px;
 		@include mq($max-width: 768px) {
 			min-width: initial;

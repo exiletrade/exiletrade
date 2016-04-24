@@ -9,11 +9,16 @@
 <div class="currency-seller clearfix">
 	<span class="highlight">IGN: </span>
 	<span>{{item._source.shop.lastCharacterName}}</span>
+	<span
+		class="online"
+		ng-show="item._source.isOnline">
+		Online
+	</span>
 	<i class="seperator"></i>
 	<span class="highlight">Stock: </span>
 	<span>{{item._source.properties.stackSize.current}}</span>
-	<i class="seperator" ng-if="!enableBlacklistFeature"></i>
-	<a class="click small hollow whisper-btn noselect blacklist" ng-if="!enableBlacklistFeature"
+	<i class="seperator"></i>
+	<a class="click small hollow whisper-btn noselect blacklist"
 	   ng-click="addBlacklistCandidate(item._source.shop.sellerAccount)" zf-open="showAddBlacklistModal"
 	   title="Add {{item._source.shop.lastCharacterName}} to blacklist.">
 		Ignore

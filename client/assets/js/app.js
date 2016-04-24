@@ -804,7 +804,8 @@ function indexerLeagueToLadder(league) {
 		};
 		$scope.enableBlacklistFeature = true;
 		$scope.currencyTrading = {};
-		
+		$scope.currencyTradingEnabled = true;
+
 	/*------------------------------------------------------------------------------------------------------------------
 	* END Set some global/scope variables
 	* ----------------------------------------------------------------------------------------------------------------*/
