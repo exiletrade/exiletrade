@@ -418,7 +418,7 @@ url: /
 				</div>
 			</div>
 			<div class="tab-contents clearfix">
-				<div class="grid-block search-items large-up-2 tab" ng-if="false"
+				<div class="grid-block search-items large-up-2 tab" ng-if="!isCurrencySearch"
 					 ng-class="{active:isActiveTab(tab.id)}" ng-show="isActiveTab(tab.id)" ng-repeat="tab in tabs">
 					<span ng-if="tab.id>0" class="tab-controls clearfix">
 						<!--<a href="#" class="button hollow alert float-right" ng-click="removeAutosearch()">Remove Autosearch</a>
@@ -430,7 +430,7 @@ url: /
 						<div item></div>
 					</div>
 				</div>
-				<div class="grid-block search-items search-currency large-up-2 tab"
+				<div class="grid-block search-items search-currency large-up-2 tab" ng-if="isCurrencySearch"
 					 ng-class="{active:isActiveTab(tab.id)}" ng-show="isActiveTab(tab.id)" ng-repeat="tab in tabs">
 					<span ng-if="tab.id>0" class="tab-controls clearfix">
 						<!--<a href="#" class="button hollow alert float-right" ng-click="removeAutosearch()">Remove Autosearch</a>

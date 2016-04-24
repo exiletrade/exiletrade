@@ -203,8 +203,8 @@ function badUserInput(badTokens) {
 function parseSearchInput(_terms, input) {
 	debugOutput('parseSearchInput: ' + input, 'trace');
 
-	// capture literal search terms (LST) like name="veil of the night"
-	var regex = /([^\s]*[:=]\".*?\")/g;
+	// allow literal search terms (LST) like "Summon Lightning Golem"
+	var regex = /([^\s]*[:=]?\".*?\")/g;
 	var lsts = input.match(regex);
 	var _input = input.replace(regex, 'LST');
 	var parseResult = parseSearchInputTokens(_input);
@@ -213,8 +213,8 @@ function parseSearchInput(_terms, input) {
 	parseResult.queryString = parseResult.queryString.replace('LST', function () {
 		var lst = lsts[i];
 		i++;
-		var lstStr = lst.toLowerCase()
-			.replace("name", "info.tokenized.fullName")
+		var lstStr = lst
+			.replace(/name/i, "info.name")
 			.replace("=", ":");
 		return lstStr;
 	});
@@ -303,10 +303,8 @@ function formatNumber(str) {
 
 function evalSearchTerm(token) {
 	var result = "";
-	var tokens = splitToken(token);
-	//var letterPart = tokens.letterPart;
-	//var numberPart = tokens.numberPart;
 	for (var regex in terms) {
+		// terms is a map object located in data.js
 		if (terms.hasOwnProperty(regex)) {
 			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
 			var rgex = new RegExp(regex, 'i');
@@ -344,6 +342,28 @@ function evalSearchTerm(token) {
 				}
 				debugOutput(cleanToken + ' + ' + rgex + '=' + result, 'trace');
 				break;
+			}
+		}
+	}
+	return result;
+}
+
+// Used to determine the sortKey from sorting search terms
+function evalSearchTermFieldKey(token) {
+	var result = "";
+	for (var regex in terms) {
+		// terms is a map object located in data.js
+		if (terms.hasOwnProperty(regex)) {
+			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
+			var foundMatch = rgexTest.test(token);
+			if (foundMatch) {
+				var query = terms[regex].query;
+				var delimIdx = query.indexOf(':');
+				if (!/[`\(\)]/i.test(query) && delimIdx !== -1) {
+					result = query.substring(0, delimIdx);
+					// remove any escaping, e.g. 'modsTotal.Adds \#-# Physical Damage.avg'
+					result = result.replace("\\", "");
+				}
 			}
 		}
 	}
@@ -745,20 +765,27 @@ function indexerLeagueToLadder(league) {
 		$scope.onlinePlayers = [];
 		$scope.helpState = false;
 		$scope.enableTutorialFeature = false;
+		$scope.isCurrencySearch = false;
 
 		var httpParams = $location.search();
 		debugOutput('httpParams:' + angular.toJson(httpParams, true), 'trace');
-		var sortKeyDefault = 'shop.chaosEquiv';
-		var sortOrderDefault = 'asc';
+		var sortKeyDefault = ['shop.chaosEquiv'];
+		var sortOrderDefault = ['asc'];
 		var limitDefault = 50;
 		if (httpParams.q) {
 			$scope.searchInput = httpParams.q;
 		}
 		if (httpParams.sortKey) {
 			sortKeyDefault = httpParams.sortKey;
+			if (typeof sortKeyDefault === 'string') {
+				sortKeyDefault = [sortKeyDefault];
+			}
 		}
 		if (httpParams.sortOrder) {
 			sortOrderDefault = httpParams.sortOrder;
+			if (typeof sortOrderDefault === 'string') {
+				sortOrderDefault = [sortOrderDefault];
+			}
 		}
 		if (httpParams.limit) {
 			limitDefault = httpParams.limit;
@@ -775,10 +802,9 @@ function indexerLeagueToLadder(league) {
 			"sortReverse" : false,
 			"searchAccounts" : ""
 		};
-		$scope.enableBlacklistFeature = false;
-		//$scope.currencyTrading = { "msg": "", "item" : {}, "rangeValue" : 0, "buy" : 0, "pay" : 1 };
+		$scope.enableBlacklistFeature = true;
 		$scope.currencyTrading = {};
-
+		
 	/*------------------------------------------------------------------------------------------------------------------
 	* END Set some global/scope variables
 	* ----------------------------------------------------------------------------------------------------------------*/
@@ -1099,8 +1125,8 @@ function indexerLeagueToLadder(league) {
 		* */
 		$scope.doSearchWithSort = function (event) {
 			var elem = event.currentTarget;
-			var sortKey = elem.getAttribute('data-sort-key');
-			var sortOrder = elem.getAttribute('data-sort-order');
+			var sortKey = [elem.getAttribute('data-sort-key')];
+			var sortOrder = [elem.getAttribute('data-sort-order')];
 			var limit = 50;
 			if (httpParams.limit) {
 				limit = httpParams.limit;
@@ -1119,15 +1145,42 @@ function indexerLeagueToLadder(league) {
 			$scope.Response = null;
 			$scope.disableScroll = true;
 			$scope.showSpinner = true;
+			$scope.isCurrencySearch = /^\w+:\w+/.test(searchInput);
+			console.info("$scope.isCurrencySearch = " + $scope.isCurrencySearch)
 			limit = Number(limit);
 			if (limit > 999) {
 				limit = 999;
 			} // deny power overwhelming
 			// ga('send', 'event', 'Search', 'PreFix', createSearchPrefix($scope.options));
-			$location.search({'q': searchInput, 'sortKey': sortKey, 'sortOrder': sortOrder});
+			$location.search({'q': searchInput});
+			var sortRegex = /\b(\w+)(asc|de?sc)\b/gi;
+			if (sortRegex.test(searchInput)) {
+				var sortTerms = searchInput.match(sortRegex);
+				sortKey = [];
+				sortOrder = [];
+				debugOutput('parsed sortTerms = ' + sortTerms.toString(), 'info');
+				sortTerms.forEach(function (token) {
+					var rgxArr = sortRegex.exec(token);
+					// refresh the regex internal index
+					sortRegex.lastIndex = 0;
+					var key = rgxArr[1];
+					var ord = rgxArr[2].toLowerCase().replace("dsc", "desc");
+					key = evalSearchTermFieldKey(key);
+					// special handle for 'shop.hasPrice'
+					if (key === "shop.hasPrice") {
+						key = "shop.chaosEquiv";
+					}
+					sortKey.push(key);
+					sortOrder.push(ord);
+				});
+				debugOutput('parsed sort keys = ' + sortKey.toString(), 'info');
+				debugOutput('parsed sort ords = ' + sortOrder.toString(), 'info');
+			}
+
 			$location.replace();
 			debugOutput('changed location to: ' + $location.absUrl(), 'trace');
 
+			searchInput = searchInput.replace(sortRegex, "").trim();
 			$scope.searchQuery = buildQueryString(searchInput);
 			debugOutput("searchQuery=" + $scope.searchQuery, 'log');
 			/*
@@ -1190,6 +1243,9 @@ function indexerLeagueToLadder(league) {
 			var actualSearchDuration = 0;
 			var limit = 20;
 			var fetchSize = $scope.options.switchOnlinePlayersOnly ? 50 : limit;
+			var accBlacklist = $scope.enableBlacklistFeature ? $scope.accountBlacklist.map(function (obj) {
+				return obj.account;
+			}) : [];
 
 			function fetch() {
 				doElasticSearch($scope.searchQuery, $scope.from, fetchSize, $scope.sortKey, $scope.sortOrder)
@@ -1199,11 +1255,23 @@ function indexerLeagueToLadder(league) {
 						var hitsItems = response.hits.hits.map(function (value) {
 							return value._source;
 						});
+
+						var blacklisted = 0;
+						var offline = 0;
+
 						playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, hitsItems).then(function () {
 							var accountNamesFilter = $scope.options.switchOnlinePlayersOnly ? $scope.onlinePlayers : [];
 							response.hits.hits = response.hits.hits.filter(function (item) {
 								var onlineInTheRiver = accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1;
-								return item._source.isOnline || onlineInTheRiver || !$scope.options.switchOnlinePlayersOnly;
+								var isOnline = item._source.isOnline || onlineInTheRiver || !$scope.options.switchOnlinePlayersOnly;
+								var isBlacklisted = accBlacklist.indexOf(item._source.shop.sellerAccount) != -1;
+								if (isBlacklisted) {
+									blacklisted++;
+								}
+								if (!isOnline) {
+									offline++;
+								}
+								return !isBlacklisted && isOnline;
 							});
 
 							$.each(response.hits.hits, function (index, value) {
@@ -1226,6 +1294,8 @@ function indexerLeagueToLadder(league) {
 							}
 
 							response.took = actualSearchDuration;
+							response.blacklisted = blacklisted;
+							response.offline = offline;
 
 							$scope.disableScroll = hitsItems.length < fetchSize;
 
@@ -1263,10 +1333,14 @@ function indexerLeagueToLadder(league) {
 		}
 
 		function doElasticSearch(searchQuery, _from, _size, sortKey, sortOrder) {
+			var sortArray = sortKey.map(function (key, idx) {
+			  var order = sortOrder[idx] !== undefined ? sortOrder[idx] : "desc";
+			  return key + ":" + order;
+			});
 			var esBody = buildEsBody(searchQuery);
 			var esPayload = {
 				index: 'index',
-				sort: [sortKey + ':' + sortOrder],
+				sort: sortArray,
 				from: _from,
 				size: _size,
 				body: esBody
@@ -1375,9 +1449,11 @@ function indexerLeagueToLadder(league) {
 			var itemTypeKey = firstKey(item.mods);
 			var explicits = item.mods[itemTypeKey].explicit;
 			var forgottenMods = $.map(explicits, function (propertyValue, modKey) {
+				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
+				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : "";
 				return {
 					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.explicit.' + modKey,
+					key: 'mods.' + itemTypeKey + '.explicit.' + modKey + keyExtraSuffix,
 					name: modKey,
 					value: propertyValue,
 					css: getModCssClasses(modKey)
@@ -1392,9 +1468,11 @@ function indexerLeagueToLadder(league) {
 			var itemTypeKey = firstKey(item.mods);
 			var implicits = item.mods[itemTypeKey].implicit;
 			var implicitMods = $.map(implicits, function (propertyValue, modKey) {
+				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
+				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : "";
 				return {
 					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.implicit.' + modKey
+					key: 'mods.' + itemTypeKey + '.implicit.' + modKey + keyExtraSuffix
 				};
 			});
 			item.implicitMods = implicitMods;
@@ -1418,9 +1496,11 @@ function indexerLeagueToLadder(league) {
 			var itemTypeKey = firstKey(item.mods);
 			var crafteds = item.mods[itemTypeKey].crafted;
 			item.craftedMods = $.map(crafteds, function (propertyValue, modKey) {
+				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
+				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : "";
 				return {
 					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.crafted.' + modKey
+					key: 'mods.' + itemTypeKey + '.crafted.' + modKey + keyExtraSuffix
 				};
 			});
 		}
