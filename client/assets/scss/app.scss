@@ -590,7 +590,7 @@ img.gitter-badge {
 				color: $link_color;
 				background: transparent;
 			}
-			span, i, a {
+			span, i, a.blacklist {
 				float: left;
 				margin-left: 5px;
 			}
@@ -665,7 +665,7 @@ img.gitter-badge {
 			background: linear-gradient(to right, rgba(86,171,86,0), rgba(86,171,86,.5)); /*Standard*/
 		}
 
-		@include mq($max-width: 640px) {
+		@include mq($max-width: 641px) {
 			.type, .ratio-wrapper {
 				width: 100%;
 				max-width: 100%;
@@ -1162,9 +1162,9 @@ img.gitter-badge {
 	}
 }
 
-.search-results, #showItemModal, .panel {
-	.item, .currency {
-		.requirements, .sell-infos, .currency-pay {
+.search-results, #showItemModal, .panel, #showCurrencyTradingModal {
+	.item, .currency, .selectAmount {
+		.requirements, .sell-infos, .currency-pay, .pay {
 			span.currency, img.price {
 				width: 30px;
 				height: 30px;
@@ -1282,12 +1282,72 @@ img.gitter-badge {
 	.button {
 		text-decoration: none !important;
 	}
-	textarea {
+}
+
+#showCurrencyTradingModal, #showAddBlacklistModal {
+	textarea, input {
 		background-color: rgba(0, 0, 0, 0.1);
 		color: white;
 		border-color: #2b2b2b;
 	}
 }
+
+#showCurrencyTradingModal {
+	.highlight {
+		color: $link_color;
+		background: none;
+		font-weight: 700;
+	}
+
+	.selectAmount {
+		margin-top: 15px;
+		img {
+			width: 30px;
+			height: 30px;
+		}
+		.buy, .pay {
+			padding: 0;
+			min-width: 75px;
+			text-align: left;
+			.desc {
+				width: 75px;
+				display: inline-block;
+				text-align: center;
+				color: darken($body-font-color, 20%);
+			}
+			.outOfStock {
+				color: red;
+			}
+		}
+		.pay {
+			text-align: right;
+			img {
+				background-size: 30px;
+				padding-right: 30px;
+			}
+			.amount {
+				text-align: right;
+			}
+			.desc {
+				text-align: center;
+			}
+		}
+		input[type="range"] {
+			margin-bottom: 10px;
+		}
+		input[type="number"] {
+			padding: 0.25rem 0 0.25rem 0.5rem;
+			max-width: 70px;
+			margin: 0 auto 10px;
+			height: 2rem;
+		}
+	}
+
+	a.button {
+		text-decoration: none !important;
+	}
+}
+
 #showManageBlacklistModal {
 	a {text-decoration: none;}
 	input {

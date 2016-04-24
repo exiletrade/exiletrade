@@ -309,7 +309,7 @@ url: /
 					  ng-change="blacklistCandidate.commentLength = 100 - blacklistCandidate.comment.length">
 			</textarea>
 
-			<a href="#" class="button" zf-close="" ng-click="addPlayerToBlacklist(blacklistCandidate.account, blacklistCandidate.comment)">Yes</a>
+			<a href="#" class="button" zf-close="" ng-click="addPlayerToBlacklist(blacklistCandidate.account, blacklistCandidate.comment)">Add</a>
 			<a href="#" class="button alert" zf-close="" ng-click="clearBlacklistCandidate">Cancel</a>
 		</div>
 
@@ -355,6 +355,46 @@ url: /
 					</tr>
 				</tbody>
 			</table>
+		</div>
+
+		<div zf-modal="" id="showCurrencyTradingModal">
+			<a zf-close="" class="close-button">×</a>
+			<h5>Contact Seller: <span class="highlight">{{currencyTrading.item.shop.lastCharacterName}}</span></h5>
+
+			<span>Select the amount you want to buy:</span>
+
+			<div class="selectAmount grid-block">
+				<div class="buy grid-content shrink">
+					<div>
+						<img src="{{currencyTrading.item.info.icon}}" title="{{currencyTrading.item.info.fullName}}">
+						<span class="amount" ng-class="{'outOfStock': (currencyTrading.item.properties.stackSize.current - currencyTrading.rangeValue) == 0}">
+							{{currencyTrading.item.properties.stackSize.current - currencyTrading.rangeValue}}
+						</span>
+					</div>
+					<span class="desc">Buy</span>
+				</div>
+				<div class="inputs grow grid-content">
+					<input type="range" ng-model="currencyTrading.rangeValue" min="{{currencyTrading.rangeMin}}"
+						   max="{{currencyTrading.rangeMax}}"
+						   step="{{currencyTrading.rangeSteps}}"
+						   ng-change="updateCurrencyBuyMessage(currencyTrading.item, currencyTrading.rangeValue)">
+					<input type="number" ng-model="currencyTrading.rangeValue" min="{{currencyTrading.rangeMin}}"
+						   max="{{currencyTrading.rangeMax}}" step="{{currencyTrading.rangeSteps}}">
+				</div>
+				<div class="pay grid-content shrink">
+					<div>
+						<span class="amount">{{currencyTrading.pay}}</span>
+						<img src="{{currencyTrading.item.info.icon}}" class="price {{currencyTrading.item.shop.currency | cleanCurrency}}">
+					</div>
+					<span class="desc">Pay</span>
+				</div>
+			</div>
+
+			<textarea ng-model="currencyTrading.msg" spellcheck="false"></textarea>
+
+			<a href="#" class="button click" ngclipboard data-clipboard-text="{{currencyTrading.msg}}">
+				Copy to clipboard
+			</a>
 		</div>
 
 		<!-- Show Elastic JSON Request Debug Modal -->

@@ -729,8 +729,8 @@ function indexerLeagueToLadder(league) {
 	]);
 
 	appModule.controller('SearchController',
-	['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService','FoundationApi', 'Upload',
-	function ($q, $scope, $http, $location, $interval, es, playerOnlineService, favicoService, FoundationApi, Upload) {
+	['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService','FoundationApi', 'ModalFactory', 'Upload',
+	function ($q, $scope, $http, $location, $interval, es, playerOnlineService, favicoService, FoundationApi, ModalFactory, Upload) {
 		debugOutput('controller', 'info');
 
 	/*------------------------------------------------------------------------------------------------------------------
@@ -776,6 +776,9 @@ function indexerLeagueToLadder(league) {
 			"searchAccounts" : ""
 		};
 		$scope.enableBlacklistFeature = false;
+		//$scope.currencyTrading = { "msg": "", "item" : {}, "rangeValue" : 0, "buy" : 0, "pay" : 1 };
+		$scope.currencyTrading = {};
+
 	/*------------------------------------------------------------------------------------------------------------------
 	* END Set some global/scope variables
 	* ----------------------------------------------------------------------------------------------------------------*/
@@ -1832,24 +1835,6 @@ function indexerLeagueToLadder(league) {
 		$scope.getKeys = function(obj){
 			return Object.keys(obj)
 		};
-		
-		$scope.getCurrencyRatio = function(price, stack, amount) {
-			var ratio = 0;
-			for (var key in price) {
-				ratio = 1/price[key];
-				if (amount == 1) {
-					ratio = ratio * stack;
-				}
-			}
-			if( ratio >= 10) {
-				ratio = Math.round(ratio * 10) / 10;
-			}
-			else {
-				ratio = Math.round(ratio * 1000) / 1000;
-			}
-
-			return ratio;
-		};
 
 		/*
 		* Check if item needs to display the itemlevel
@@ -1888,10 +1873,75 @@ function indexerLeagueToLadder(league) {
 		$scope.searchInputState = function() {
 			return isEmpty($scope.searchInput);
 		};
+
 	/*------------------------------------------------------------------------------------------------------------------
 	* END Helpers/stateChecks/random ungrouped stuff
 	* ----------------------------------------------------------------------------------------------------------------*/
 
+	/*------------------------------------------------------------------------------------------------------------------
+	* BEGIN Currency Trading
+	* ----------------------------------------------------------------------------------------------------------------*/
+
+		$scope.getCurrencyRatio = function(price, stack, amount) {
+			var ratio = 0;
+			for (var key in price) {
+				ratio = 1/price[key];
+				if (amount >= 1) {
+					ratio = ratio * stack;
+				}
+			}
+			if( ratio >= 10) {
+				ratio = Math.round(ratio * 10) / 10;
+			}
+			else {
+				ratio = Math.round(ratio * 1000) / 1000;
+			}
+
+			return ratio;
+		};
+
+		$scope.prepareCurrencyTradingModal = function(item){
+			$scope.resetCurrencyTrading();
+			$scope.currencyTrading.item = item;
+			$scope.currencyTrading.rangeSteps = Math.floor(item.properties.stackSize.current / item.shop.amount);
+			$scope.currencyTrading.rangeValue = 1 * $scope.currencyTrading.rangeSteps;
+			$scope.currencyTrading.rangeMax = item.properties.stackSize.current;
+			$scope.currencyTrading.rangeMin = $scope.currencyTrading.rangeValue;
+
+			$scope.updateCurrencyBuyMessage(item, $scope.currencyTrading.rangeValue);
+			FoundationApi.publish('showCurrencyTradingModal', 'open');
+		};
+
+		$scope.$watch('currencyTrading.rangeValue', function() {
+			$scope.currencyTrading.rangeValue = parseInt($scope.currencyTrading.rangeValue);
+		});
+
+		$scope.updateCurrencyBuyMessage = function(item, rangeValue){
+			var buy = item.info.fullName;
+			var pay = item.shop.currency;
+			var priceSingle = item.shop.price[pay];
+			var stackSize = item.properties.stackSize.current;
+			var amount = item.shop.amount;
+			var buyTotal = rangeValue;
+			var payTotal = Math.round(($scope.currencyTrading.rangeValue * (priceSingle/stackSize)) * 100 ) / 100;
+			var ign = item.shop.lastCharacterName;
+			var league = item.attributes.league;
+
+			$scope.currencyTrading.msg = '@' + ign + ' Hi, I would like to buy your ' + buyTotal + ' ' + buy + ' for my ' + payTotal + ' ' + pay +
+				' in ' + league + '.';
+
+			$scope.currencyTrading.buy = buyTotal;
+			$scope.currencyTrading.pay = payTotal;
+		};
+		$scope.resetCurrencyTrading = function() {
+			$scope.currencyTrading = {
+				"msg": "", "item" : {}, "rangeValue" : 0, "buy" : 0, "pay" : 1
+			};
+		};
+
+	/*------------------------------------------------------------------------------------------------------------------
+	* END Currency Trading
+	* ----------------------------------------------------------------------------------------------------------------*/
 
 	/*------------------------------------------------------------------------------------------------------------------
 	* BEGIN Account Blacklist

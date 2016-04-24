@@ -12,7 +12,13 @@
 	<i class="seperator"></i>
 	<span class="highlight">Stock: </span>
 	<span>{{item._source.properties.stackSize.current}}</span>
-	<a href="button">Contact</a>
+	<i class="seperator" ng-if="!enableBlacklistFeature"></i>
+	<a class="click small hollow whisper-btn noselect blacklist" ng-if="!enableBlacklistFeature"
+	   ng-click="addBlacklistCandidate(item._source.shop.sellerAccount)" zf-open="showAddBlacklistModal"
+	   title="Add {{item._source.shop.lastCharacterName}} to blacklist.">
+		Ignore
+	</a>
+	<a href="button" ng-click="prepareCurrencyTradingModal(item._source)" zf-open="">Contact</a>
 </div>
 
 <div class="grid-block currency-get">
@@ -29,10 +35,8 @@
 			<span class="cost">{{(getCurrencyRatio(item._source.shop.price, item._source.properties.stackSize.current, item._source.shop.amount))}}</span>
 		</div>
 	</div>
-	<!--<img zf-iconic="" icon="chevron" data-direction="left" size="medium" class="arrow left">-->
 	<div class="arrow left">←</div>
 	<div class="arrow up">↑</div>
-	<!--<img zf-iconic="" icon="chevron" data-direction="up" size="medium" class="arrow up">-->
 </div>
 
 <div class="grid-block currency-pay">
