@@ -203,8 +203,8 @@ function badUserInput(badTokens) {
 function parseSearchInput(_terms, input) {
 	debugOutput('parseSearchInput: ' + input, 'trace');
 
-	// capture literal search terms (LST) like name="veil of the night"
-	var regex = /([^\s]*[:=]\".*?\")/g;
+	// allow literal search terms (LST) like "Summon Lightning Golem"
+	var regex = /([^\s]*[:=]?\".*?\")/g;
 	var lsts = input.match(regex);
 	var _input = input.replace(regex, 'LST');
 	var parseResult = parseSearchInputTokens(_input);
@@ -213,8 +213,8 @@ function parseSearchInput(_terms, input) {
 	parseResult.queryString = parseResult.queryString.replace('LST', function () {
 		var lst = lsts[i];
 		i++;
-		var lstStr = lst.toLowerCase()
-			.replace("name", "info.tokenized.fullName")
+		var lstStr = lst
+			.replace(/name/i, "info.name")
 			.replace("=", ":");
 		return lstStr;
 	});
