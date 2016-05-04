@@ -119,7 +119,7 @@ function badUserInput(badTokens) {
 		}
 	}
 
-	//attempt 1 User copy pasted RegEx 
+	//attempt 1 User copy pasted RegEx
 	if (badTokens.length > 0) {
 		for (i = 0; i < badTokens.length; i++) {
 			badTokens[i] = badTokens[i].replace(/\w\?/gi, "");
@@ -1147,7 +1147,7 @@ function indexerLeagueToLadder(league) {
 			$scope.disableScroll = true;
 			$scope.showSpinner = true;
 			$scope.isCurrencySearch = /^\w+:\w+/.test(searchInput);
-			console.info("$scope.isCurrencySearch = " + $scope.isCurrencySearch)
+			console.info("$scope.isCurrencySearch = " + $scope.isCurrencySearch);
 			limit = Number(limit);
 			if (limit > 999) {
 				limit = 999;
@@ -1373,7 +1373,7 @@ function indexerLeagueToLadder(league) {
 		function suggestSearchTerm(term) {
 			var q = term.toLowerCase().trim();
 			q = q.replace(/[\(\)-\d]/g, "");
-			(q);
+			(q); // XXX unneeded line?
 			var results = [];
 
 			if (/^(OR|AND|NOT)$/i.test(q)) {
@@ -1914,7 +1914,7 @@ function indexerLeagueToLadder(league) {
 		};
 
 		$scope.getKeys = function(obj){
-			return Object.keys(obj)
+			return Object.keys(obj);
 		};
 
 		/*
