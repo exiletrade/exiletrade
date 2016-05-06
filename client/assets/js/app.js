@@ -840,11 +840,29 @@ function indexerLeagueToLadder(league) {
 		* Create options
 		* */
 		$scope.options = {
+			"leagueSelect2": {
+				"type" : "select",
+				"name" : "League",
+				"value": "Standard",
+				"leagues" : [
+					{
+						"id" : "Standard",
+						"url" : "http:\/\/pathofexile.com\/forum\/view-thread\/71278",
+						"startAt" : "2013-01-23T21:00:00Z",
+						"endAt" : null
+					}, {
+						"id" : "Hardcore",
+						"url" : "http:\/\/pathofexile.com\/forum\/view-thread\/71276",
+						"startAt" : "2013-01-23T21:00:00Z",
+						"endAt" : null
+					}
+				]
+			},
 			"leagueSelect": {
 				"type": "select",
 				"name": "League",
-				"value": 'Perandus SC',
-				"options": ["Perandus SC", "Perandus HC", "Standard", "Hardcore"]
+				"value": 'Perandus Flashback SC',
+				"options": ["Perandus Flashback SC", "Perandus Flashback HC", "Standard", "Hardcore"]
 			},
 			"buyoutSelect": {
 				"type": "select",
@@ -876,6 +894,20 @@ function indexerLeagueToLadder(league) {
 			"notificationVolume": 1,
 			"dontShowAdBlockWarning" : false
 		};
+
+		function overwriteLeagueOptions(data){
+			$scope.options.leagueSelect.leagues = data;
+		}
+
+		function loadLeagueJSONfromAPI(url) {
+			$http.get(url)
+				.then(function (res) {
+					if (res.status == 200) {
+						overwriteLeagueOptions(res.data);
+					}
+				});
+		}
+		loadLeagueJSONfromAPI("http://api.pathofexile.com/leagues?type=main");
 
 		/*
 		* Load new sound; play sound preview
