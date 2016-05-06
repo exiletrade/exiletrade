@@ -504,6 +504,8 @@ function indexerLeagueToLadder(league) {
 	var ladderLeaguesMap = {
 		"Perandus SC": "perandus",
 		"Perandus HC": "perandushc",
+		"Perandus Flashback": "perandusfb",
+		"Perandus Flashback HC": "perandusfbhc",
 		"Standard": "standard",
 		"Hardcore": "hardcore"
 	};
@@ -840,29 +842,11 @@ function indexerLeagueToLadder(league) {
 		* Create options
 		* */
 		$scope.options = {
-			"leagueSelect2": {
-				"type" : "select",
-				"name" : "League",
-				"value": "Standard",
-				"leagues" : [
-					{
-						"id" : "Standard",
-						"url" : "http:\/\/pathofexile.com\/forum\/view-thread\/71278",
-						"startAt" : "2013-01-23T21:00:00Z",
-						"endAt" : null
-					}, {
-						"id" : "Hardcore",
-						"url" : "http:\/\/pathofexile.com\/forum\/view-thread\/71276",
-						"startAt" : "2013-01-23T21:00:00Z",
-						"endAt" : null
-					}
-				]
-			},
 			"leagueSelect": {
 				"type": "select",
 				"name": "League",
-				"value": 'Perandus Flashback SC',
-				"options": ["Perandus Flashback SC", "Perandus Flashback HC", "Standard", "Hardcore"]
+				"value": 'Perandus Flashback',
+				"options": ["Perandus Flashback", "Perandus Flashback HC", "Perandus", "Hardcore Perandus", "Standard", "Hardcore"]
 			},
 			"buyoutSelect": {
 				"type": "select",
@@ -907,7 +891,7 @@ function indexerLeagueToLadder(league) {
 					}
 				});
 		}
-		loadLeagueJSONfromAPI("http://api.pathofexile.com/leagues?type=main");
+		// loadLeagueJSONfromAPI("http://api.pathofexile.com/leagues?type=main");
 
 		/*
 		* Load new sound; play sound preview
