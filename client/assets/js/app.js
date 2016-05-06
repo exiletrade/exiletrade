@@ -1069,7 +1069,7 @@ function indexerLeagueToLadder(league) {
 
 			var searchPrefix = "";
 			if (!containsLeagueTerm) {
-				searchPrefix = options.leagueSelect.value.replace(" ", "");
+				searchPrefix = options.leagueSelect.value.replace(/\s/g, "");
 			}
 
 			if (!containsBuyoutTerm) {
