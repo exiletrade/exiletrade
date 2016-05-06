@@ -939,11 +939,18 @@ function indexerLeagueToLadder(league) {
 	/*------------------------------------------------------------------------------------------------------------------
 	* BEGIN Tab related Stuff
 	* ----------------------------------------------------------------------------------------------------------------*/
-		$scope.tabs = [{
-			title: 'Results',
+		$scope.tabs = [
+		  {
+			title: 'Manual',
 			id: 0,
 			newItems: 0
-		}];
+		  },
+		  {
+			title: 'Automated',
+			id: 1,
+			newItems: 0
+		  }
+		];
 		$scope.currentTab = 0;
 
 		$scope.removeAutosearch = function () {
@@ -959,7 +966,6 @@ function indexerLeagueToLadder(league) {
 		$scope.onClickTab = function (tab) {
 			$scope.currentTab = tab.id;
 			$scope.tabs[tab.id].newItems = 0;
-			$scope.Response = tab.response;
 			$scope.disableScroll = tab.id !== 0; // no scrolling for automated search
 		};
 		$scope.isActiveTab = function (tabId) {
@@ -982,19 +988,15 @@ function indexerLeagueToLadder(league) {
 			$scope.doSavedSearch(input);
 		};
 
-		function hitToUUID(hit) {
-			return hit._source.uuid;
-		}
-
 		var automatedSearchIntervalFn = function () {
 			if ($scope.savedAutomatedSearches && $scope.savedAutomatedSearches.length > 0) {
 				debugOutput('Gonna run counts on automated searches: ' + $scope.savedAutomatedSearches.length, 'trace');
 				var countPromises = $scope.savedAutomatedSearches.map(function (search) {
-					var queryString = buildQueryString(search.searchInput + " timestamp" + search.lastSearch);
-					//search.lastSearch = new Date().getTime();
+ 					var queryString = buildQueryString(search.searchInput + " timestamp" + search.lastSearch);
+					search.lastSearch = new Date().getTime();
 					var fetchSize = 20;
 					var from = 0;
-					var promise = doElasticSearch(queryString, from, fetchSize, "shop.updated", "desc").then(function (response) {
+					var promise = doElasticSearch(queryString, from, fetchSize, ["shop.updated"], ["desc"]).then(function (response) {
 						$.each(response.hits.hits, function (index, value) {
 							addCustomFields(value._source);
 						});
@@ -1005,8 +1007,7 @@ function indexerLeagueToLadder(league) {
 					});
 					return promise;
 				});
-				//localStorage.setItem("savedAutomatedSearches", JSON.stringify($scope.savedAutomatedSearches.reverse()));
-
+				
 				$q.all(countPromises).then(function (results) {
 					var total = 0;
 					results.forEach(function (e, idx, arr) {
@@ -1014,36 +1015,31 @@ function indexerLeagueToLadder(league) {
 					});
 					if (total > 0) {
 						var newHitsCtr = 0;
+						var automatedTab = $scope.tabs[1];
 						results.forEach(function (elem, index, array) {
-							var existingTab = $scope.tabs.find(function (tab) {
-								return tab.searchInput === elem.searchInput;
-							});
-							if (!existingTab) {
-								newHitsCtr += elem.response.hits.total;
-								$scope.tabs.push({
-									title: elem.searchInput,
-									searchInput: elem.searchInput,
-									id: index + 1,
-									newItems: elem.response.hits.total % 21, // max is fetchSize
-									response: elem.response
-								});
+							if (!automatedTab.response) {
+								automatedTab.response = elem.response;
+								newHitsCtr = automatedTab.response.hits.hits.length;
 							} else {
-								var currentHits = existingTab.response.hits.hits.map(hitToUUID(hit));
-								var newHits = elem.response.hits.hits.map(hitToUUID(hit));
-								var diff = $(currentHits).not(newHits).get();
-								newHitsCtr += diff.length;
-								if (diff.length !== 0) {
-									existingTab.newItems = diff.length;
-								}
-								existingTab.response = elem.response;
+								elem.response.hits.hits.forEach(function (newHit) {
+									var hitExists = automatedTab.response.hits.hits.find(function (hit) {
+										return newHit._source.uuid === hit._source.uuid;
+									});
+									if (!hitExists) {
+										automatedTab.response.hits.hits.push(newHit);
+										newHitsCtr++;
+									}
+								});
 							}
 						});
 						if (newHitsCtr > 0 && !$scope.options.muteSound) {
 							$scope.snd.play();
 							favicoService.badge(total);
+							automatedTab.newItems = newHitsCtr;
 						}
 					}
 				});
+				localStorage.setItem("savedAutomatedSearches", JSON.stringify($scope.savedAutomatedSearches.reverse()));
 			}
 		};
 
@@ -1113,6 +1109,7 @@ function indexerLeagueToLadder(league) {
 				$scope.searchInput = valueFromInput;
 			}
 			debugOutput('doSearch called, $scope.searchInput = ' + $scope.searchInput, 'info');
+			$scope.onClickTab($scope.tabs[0]);
 			doActualSearch($scope.searchInput, limitDefault, sortKeyDefault, sortOrderDefault);
 			ga('send', 'event', 'Search', 'User Input', $scope.searchInput);
 		};

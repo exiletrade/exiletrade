@@ -42,11 +42,11 @@ url: /
 						<img zf-iconic="" icon="bookmark" size="small" title="Bookmark the search">
 						<span class="desktop">Save</span>
 					</a>
-					<!--a href="#" ng-click="saveAutomatedSearch()" class="button small saveSearchNotificationLink" title="Add Automated Search"
+					<a href="#" ng-click="saveAutomatedSearch()" class="button small saveSearchNotificationLink" title="Add Automated Search"
 					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
 						<img src="./assets/img/add.svg" class="add-icon">
 						<span class="desktop">Auto</span>
-					</a-->
+					</a>
 					<div class="searchStats" title="{{queryString}}" ng-if="Response.took" zf-open="showElasticJsonRequestModal">
 						<div title="Time it took to search for the initial results">
 							<img zf-iconic="" icon="dashboard" size="small">
@@ -408,7 +408,7 @@ url: /
 	<!-- Searchresults -->
 	<div class="grid-content search-results">
 		<div id="tabs">
-			<div class="tab-headers grid-block" ng-show="(tabs.length>1)">
+			<div class="tab-headers grid-block" ng-show="(savedAutomatedSearches.length>0)">
 				<div ng-repeat="tab in tabs"
 					 ng-class="{active:isActiveTab(tab.id)}"
 					 ng-click="onClickTab(tab)"
@@ -424,7 +424,7 @@ url: /
 						<!--<a href="#" class="button hollow alert float-right" ng-click="removeAutosearch()">Remove Autosearch</a>
 						<a href="#" class="button hollow warning float-right" ng-click="clearAutosearch()">Clear List</a>-->
 					</span>
-					<div class="grid-content item" ng-repeat="item in Response.hits.hits" ng-style="options.switchItemsPerRow"
+					<div class="grid-content item" ng-repeat="item in tab.response.hits.hits" ng-style="options.switchItemsPerRow"
 						 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
 						<!-- Inserting templates/directives/item.html -->
 						<div item></div>
@@ -436,7 +436,7 @@ url: /
 						<!--<a href="#" class="button hollow alert float-right" ng-click="removeAutosearch()">Remove Autosearch</a>
 						<a href="#" class="button hollow warning float-right" ng-click="clearAutosearch()">Clear List</a>-->
 					</span>
-					<div class="grid-content item currency" ng-repeat="item in Response.hits.hits" ng-style="options.switchItemsPerRow"
+					<div class="grid-content item currency" ng-repeat="item in tab.response.hits.hits" ng-style="options.switchItemsPerRow"
 						 data-id="{{item._id}}" data-md5sum="{{item._source.md5sum}}" data-uuid="{{item._source.uuid}}">
 						<!-- Inserting templates/directives/currency.html -->
 						<div currency class="grid-block large-up-2 medium-up-2 small-up-1"></div>
