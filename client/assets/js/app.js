@@ -846,7 +846,7 @@ function indexerLeagueToLadder(league) {
 				"type": "select",
 				"name": "League",
 				"value": 'Perandus Flashback',
-				"options": ["Perandus Flashback", "Perandus Flashback HC", "Perandus", "Hardcore Perandus", "Standard", "Hardcore"]
+				"options": ["Perandus Flashback", "Perandus Flashback HC", "Perandus SC", "Perandus HC", "Standard", "Hardcore"]
 			},
 			"buyoutSelect": {
 				"type": "select",
@@ -1388,7 +1388,6 @@ function indexerLeagueToLadder(league) {
 		function suggestSearchTerm(term) {
 			var q = term.toLowerCase().trim();
 			q = q.replace(/[\(\)-\d]/g, "");
-			(q); // XXX unneeded line?
 			var results = [];
 
 			if (/^(OR|AND|NOT)$/i.test(q)) {

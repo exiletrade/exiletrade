@@ -8,12 +8,18 @@
 <div class="grid-block item-border">
 	<div class="grid-block item-header medium-12">
 		<div class="controls" >
-			<h5 class="item-name" title="Note: {{item._source.shop.note}}">
+			<h5 class="item-name" title="{{item._source.info.flavourText || item._source.info.descrText}}">
 				<span class="label corrupted" ng-if="item._source.attributes.corrupted">Corrupted</span>
 				<span class="label mirrored" ng-if="item._source.attributes.mirrored">Mirrored</span>
-				<a class="name {{item._source.attributes.rarity}}"
-				   ngclipboard
-				   data-clipboard-text="{{copyWhisperToClipboard(item)}}">{{item._source.info.fullName}}</a>
+				<a ng-if="['Rare','Magic','Normal'].indexOf(item._source.attributes.rarity) == -1"
+					   class="name {{item._source.attributes.rarity}}"
+					   href="http://pathofexile.gamepedia.com/{{item._source.info.name}}" 
+					   target="_blank">
+					   {{item._source.info.fullName}}</a>
+					<a ng-if="['Rare','Magic', 'Normal'].indexOf(item._source.attributes.rarity) > -1"
+					   class="name {{item._source.attributes.rarity}}"
+					   href="#">
+					   {{item._source.info.fullName}}</a>
 			</h5>
 			<span>
 				<a class="saveNotificationLink button float-right" title="Bookmark Item" content="Saved: {{item._source.info.fullName}}"
@@ -432,10 +438,16 @@
 									{{item._source.shop.stash.stashName}}</a>
 							</td>
 						</tr>
+						<tr ng-if="item._source.shop.sellerAccount">
+							<td>Account:</td>
+							<td>
+								<a href="#">{{item._source.shop.sellerAccount}}</a>
+							</td>
+						</tr>
 						<tr ng-if="item._source.shop.note">
 							<td>Note:</td>
 							<td>
-								<a>{{item._source.shop.note}}</a>
+								<a href="#">{{item._source.shop.note}}</a>
 							</td>
 						</tr>
 					</tbody>
