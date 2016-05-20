@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>ExileTrade Stats</title>
+    
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+      .chart { overflow-x : scroll ;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="page-header">
+            <h1>ExileTrade Stats</h1>
+            <p>Count of each unique item per league seen in the Public Stash API (both gone and available). 'gone' means it was removed from the Public Stash Tab, 'available' means it's still available for trade. This is my first time making charts, so it's all noob-made; but I'll be updating this.</p>
+            <p><strong>Note:</strong> It may take ~4sec to load the chart, please wait.</p>
+        </div>
+
+        <h3>Perandus HC</h3>
+        <div id="chartContainerAllItemHC" class="row chart">
+        </div>
+        <h3>Perandus SC</h3>
+        <div id="chartContainerAllItemSC" class="row chart">
+        </div>
+
+        <hr/>
+        
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#phcdata">PHC Raw Data</button>
+        <div class="collapse" id="phcdata">
+          <pre id="chartContainerAllItemRequestHC"></pre>
+          <pre id="chartContainerAllItemDataHC"></pre>
+          <pre id="chartContainerAllItemDataFlattenedHC"></pre>
+        </div>
+        
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#pscdata">PSC Raw Data</button>
+        <div class="collapse" id="pscdata">
+          <pre id="chartContainerAllItemRequestSC"></pre>
+          <pre id="chartContainerAllItemDataSC"></pre>
+          <pre id="chartContainerAllItemDataFlattenedSC"></pre>
+        </div>
+        
+        <p>ExileTrade is fan-made and is not affiliated with Grinding Gear Games in any way.</p>
+    </div>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+    
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+    <!-- D3 and Dimple libraries for making charts -->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>
+    
+    <!-- Make the charts -->
+    <script type="text/javascript">
+
+       $( document ).ready(function() {
+		  console.log( "ready!" );
+
+          var jsonPayloadHC = buildJsonPayload("Hardcore Perandus")
+          $('#chartContainerAllItemRequestHC').html(JSON.stringify(jsonPayloadHC, null, 2))
+
+          runAggsAjax(jsonPayloadHC, function(data) {
+                $('#chartContainerAllItemDataHC').html(data)
+                data = flattenAggsData($.parseJSON(data))
+                $('#chartContainerAllItemDataFlattenedHC').html(JSON.stringify(data, null, 2))
+                buildAllItemsCountChart("chartContainerAllItemHC", data);
+          });
+
+          var jsonPayloadSC = buildJsonPayload("Perandus")
+          $('#chartContainerAllItemRequestSC').html(JSON.stringify(jsonPayloadSC, null, 2))
+
+          runAggsAjax(jsonPayloadSC, function(data) {
+                $('#chartContainerAllItemDataSC').html(data)
+                data = flattenAggsData($.parseJSON(data))
+                $('#chartContainerAllItemDataFlattenedSC').html(JSON.stringify(data, null, 2))
+                buildAllItemsCountChart("chartContainerAllItemSC", data);
+          });
+        });
+
+      function runAggsAjax(jsonPayload, successFn) {
+          $.ajax({
+              type: "POST",
+              headers: {
+                'Authorization':'DEVELOPMENT-Indexer',
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+              },
+              url: "http://api.exiletools.com/index/_search?pretty",
+              dataType: 'text',
+              data: JSON.stringify(jsonPayload),
+              success: successFn
+          }).fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+          });
+      }
+
+      // Our charting tool will need a flat structured json data
+      function flattenAggsData(data) {
+        var buckets = data.aggregations.filtered.agg1.buckets
+        var flatten = $.map(buckets, function (bucket, i) {
+          var name = bucket.key
+          var count = bucket.doc_count
+
+          var agg2Buckets = bucket.agg2.buckets
+          var available = 0
+          var gone = 0
+          var availableBucket = $.grep(agg2Buckets, bucketKeyFilter("YES"))[0]
+          if (availableBucket) {
+            available = availableBucket.doc_count
+          }
+          var goneBucket = $.grep(agg2Buckets, bucketKeyFilter("GONE"))[0]
+          if (goneBucket) {
+            gone = goneBucket.doc_count
+          }
+
+          return {
+            Name: name,
+            Count: count,
+            Available: available,
+            Gone: gone
+          }
+        })
+        var flatten2 = []
+        $.each(flatten, function( index, value ) {
+            if (value.Gone) {
+                flatten2.push({
+                    Name: value.Name,
+                    Status: "Gone",
+                    Count: value.Gone,
+                    Total: value.Count
+                })    
+            }
+            if (value.Available) {
+                flatten2.push({
+                    Name: value.Name,
+                    Status: "Available",
+                    Count: value.Available,
+                    Total: value.Count
+                })    
+            }
+        });
+        return flatten2;
+      }
+
+      function bucketKeyFilter(key) {
+        return function (bucket, i) {
+            return bucket.key == key
+        }
+      }
+    
+      function buildAllItemsCountChart(id, data) {
+        var svg = dimple.newSvg("#" + id, 5000, 600);
+        var chart = new dimple.chart(svg, data);
+        chart.setBounds("50px","10px","100%","80%")
+        var xAxis = chart.addCategoryAxis("x", "Name");
+        xAxis.fontSize = "12px";
+        chart.addMeasureAxis("y", "Count");
+        var series = chart.addSeries("Status", dimple.plot.bar);
+        series.getTooltipText = function (e) {
+               var field = e.aggField[0]
+               var arr = [
+                e.x,
+                field + ": " + e.yValue
+               ]
+               if (field == "Available") arr.push("Total: " + e.y)
+               return arr
+           };
+        chart.assignColor("Available", "green")
+        chart.draw();
+      }
+    
+      function buildJsonPayload(league) {
+        return {
+                  "aggs": {
+                    "filtered": {
+                      "filter" : {
+                                    "bool" : {
+                                        "must" : [
+                                            {
+                                                "term" : {
+                                                    "attributes.rarity" : "Unique"
+                                                }
+                                            },
+                                            {
+                                                "term" : {
+                                                    "attributes.identified" : true
+                                                }
+                                            },
+                                            {
+                                                "term" : {
+                                                    "attributes.league" : league
+                                                }
+                                            }
+                                        ]
+                                    }
+                                 },
+                      "aggs": {
+                        "agg1": {
+                              "terms": {
+                                "field" : "info.name",
+                                size:10000
+                              },
+                              "aggs" : {
+								"agg2" : {
+									"terms" : {
+										"field" : "shop.verified",
+                                        size:10
+                                     }
+                                 }
+                              }
+                            }
+                      }
+                    }
+                  },
+                  "size": 0
+          }
+      }
+    </script>
+  </body>
+</html>
