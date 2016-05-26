@@ -83,7 +83,9 @@ function checkDefaultOptions(loadedOption, defaultOption, isSelect) {
 function setDefaultOptions(loadedOption, defaultOption) {
 	for (var key in loadedOption) {
 		if (typeof loadedOption[key] === 'object' && loadedOption[key].type == 'select') {
-			defaultOption[key].value = checkDefaultOptions(loadedOption[key], defaultOption[key], true);
+			try {
+				defaultOption[key].value = checkDefaultOptions(loadedOption[key], defaultOption[key], true);
+			} catch (err) {}
 		}
 		else {
 			defaultOption[key] = checkDefaultOptions(loadedOption[key], defaultOption[key], false);
@@ -666,6 +668,9 @@ function indexerLeagueToLadder(league) {
 			getLadderOnlinePlayers: function (_league) {
 				var league = indexerLeagueToLadder(_league);
 
+				if (typeof league === 'undefined') {
+					league = 'Standard';
+				}
 				var toons = ladderAllPlayerCache.get(league);
 				if (typeof toons !== 'undefined') {
 					return $q.resolve(toons);
@@ -2394,7 +2399,8 @@ function indexerLeagueToLadder(league) {
 				"jeweller",		//22
 				"alteration", 	//23
 				"chance",		//24
-				"unknown"		//25
+				"unknown",		//25
+				"silver",		//26
 			];
 
 			str =  str.replace(/[^\w\s]/gi, '').replace(/[0-9]/g, '').toLowerCase();

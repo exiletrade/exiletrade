@@ -151,6 +151,9 @@
 							<li ng-if="item._source.mods.Card">
 								{{item._source.mods.Card.DivinationReward}}
 							</li>
+							<li ng-if="item._source.mods.Prophecy">
+								{{item._source.mods.Prophecy.prophecyText}}
+							</li>
 							<li class="unidentified" ng-if="item._source.attributes.identified==false">Unidentified</li>
 						</ul>
 					</div>
