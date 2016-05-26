@@ -1,0 +1,117 @@
+<head>
+  <title>ExileTrade|Auto</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.6/socket.io.js"></script>  
+  <script src="https://cdn.rawgit.com/broofa/node-uuid/master/uuid.js"></script>  
+  <style>
+    #left
+    {
+      width: 400px;
+      float: left;
+    }
+
+    #right
+    {
+      margin-left: 410px; /* Change this to whatever the width of your left column is*/
+    }
+
+    .clear
+    {
+      clear: both;
+    }
+
+    textarea { 
+      width: 400px; 
+      height: 475px;
+      font-family: "Trebuchet MS", Helvetica, sans-serif;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div id="container">
+    <h1>ExileTrade | Auto</h1>
+    <div id="left">
+      <textarea id="filter">
+        [
+            {
+                "eq" : {
+                    "attributes.league" : "Perandus",
+                    "info.name" : "Infractem",
+                    "attributes.rarity" : "Unique",
+                    "shop.hasPrice" : true
+                }
+            }, 
+            {
+                "eq" : {
+                    "attributes.league" : "Perandus",
+                    "shop.hasPrice" : true,
+                    "sockets.socketCount" : 6
+                },
+                "lt" : {
+                    "shop.chaosEquiv" : 1
+                }
+            }
+        ]
+      </textarea>
+      <input id="btnFilter" type="button" value="   Update Filter   " />
+      <br/>
+      <br/>
+    </div>
+    <div id="right">
+      <div style="background-color: #ffffe0;">
+        <div id='itemsDiv'></div>
+      </div>
+    </div>
+    <div class="clear">ExileTrade Auto is fan-made and is not related to Grinding Gear Games in anyway</div>
+  </div>
+  <script>  
+  
+    var pwxid = uuid.v4();
+    var socket = io.connect('http://rtstashapi.exiletools.com', {query: 'pwxid=' + pwxid});
+
+    var parseAndEmitFilter = function () {
+      var filterText = $("#filter").val();
+      var filter = JSON.parse(filterText);
+      socket.emit('filter', filter);
+      console.log("Sent Filter: " + JSON.stringify(filter));
+    };
+
+    $("#btnFilter").click(parseAndEmitFilter);
+    
+    // On connect, verify the session and pwxid, then emit the filter object
+    // and notify locally of the filter sent for reference
+    socket.on("connect", function () {  
+      var sessionid = socket.io.engine.id
+      console.log("Connected with session id " + sessionid + " and pwxid " + pwxid);
+      parseAndEmitFilter();
+    });
+    
+    socket.on("item", function(item) {
+      console.info(item)
+      var et = item.attributes.equipType;
+      var outputString = "<table border=1 cellspacing=0 cellpadding=5 width=100%><tr><td valign=top width=200>" + item.info.fullName + "</td><td width=400>";
+      if (item.mods[et].implicit) {
+        jQuery.each(item.mods[et].implicit, function(key, value) {
+          outputString += ("<b>" + key + " : " + value + "</b><br>");
+        });
+      }
+      if (item.mods[et].explicit) {
+        jQuery.each(item.mods[et].explicit, function(key, value) {
+          outputString += (key + " : " + value + "<br>");
+        });
+      }
+      $('#itemsDiv').prepend(outputString + "</td><td width=100>" + item.shop.sellerAccount + "</td><td width=100>" + item.shop.amount + " " + item.shop.currency + "</td><td width=250>" + new Date(item.shop.modified) + "</td></tr></table>");
+    });
+    
+    socket.on('error', console.error.bind(console));
+
+    // Heartbeat messages are sent when the filter is accepted and roughly every 60 seconds
+    // afterwards, with the message in heartbeat.status - mostly this serves to keep
+    // the client aware that yes, items are being analyzed
+    socket.on("heartbeat", function(heartbeat) {
+      console.log("Received a heartbeat: " + heartbeat.status);
+    });
+  </script>  
+</body>
