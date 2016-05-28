@@ -9,17 +9,14 @@
       width: 400px;
       float: left;
     }
-
     #right
     {
       margin-left: 410px; /* Change this to whatever the width of your left column is*/
     }
-
     .clear
     {
       clear: both;
     }
-
     textarea { 
       width: 400px; 
       height: 475px;
@@ -70,14 +67,12 @@
   
     var pwxid = uuid.v4();
     var socket = io.connect('http://rtstashapi.exiletools.com', {query: 'pwxid=' + pwxid});
-
     var parseAndEmitFilter = function () {
       var filterText = $("#filter").val();
       var filter = JSON.parse(filterText);
       socket.emit('filter', filter);
       console.log("Sent Filter: " + JSON.stringify(filter));
     };
-
     $("#btnFilter").click(parseAndEmitFilter);
     
     // On connect, verify the session and pwxid, then emit the filter object
@@ -106,7 +101,6 @@
     });
     
     socket.on('error', console.error.bind(console));
-
     // Heartbeat messages are sent when the filter is accepted and roughly every 60 seconds
     // afterwards, with the message in heartbeat.status - mostly this serves to keep
     // the client aware that yes, items are being analyzed
