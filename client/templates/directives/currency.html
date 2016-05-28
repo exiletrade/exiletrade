@@ -37,7 +37,7 @@
 	</div>
 	<div class="grid-block ratio-wrapper shrink gradient-green">
 		<div class="ratio-container">
-			<span class="cost">{{(getCurrencyRatio(item._source.shop.price, item._source.properties.stackSize.current, item._source.shop.amount))}}</span>
+			<span class="cost">{{item._source.shop.normalizedRatio}}</span>
 		</div>
 	</div>
 	<div class="arrow left">←</div>

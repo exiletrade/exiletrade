@@ -811,7 +811,7 @@ function indexerLeagueToLadder(league) {
 		};
 		$scope.enableBlacklistFeature = true;
 		$scope.currencyTrading = {};
-		$scope.currencyTradingEnabled = false;
+		$scope.currencyTradingEnabled = true;
 
 	/*------------------------------------------------------------------------------------------------------------------
 	* END Set some global/scope variables
@@ -1272,6 +1272,8 @@ function indexerLeagueToLadder(league) {
 				doElasticSearch($scope.searchQuery, $scope.from, fetchSize, $scope.sortKey, $scope.sortOrder)
 					.then(function (response) {
 						actualSearchDuration += response.took;
+						// combine currency stacks
+						response.hits.hits = combineCurrencyStacks(response.hits.hits);
 
 						var hitsItems = response.hits.hits.map(function (value) {
 							return value._source;
@@ -1282,6 +1284,7 @@ function indexerLeagueToLadder(league) {
 
 						playerOnlineService.addCustomFieldLadderData($scope.options.leagueSelect.value, hitsItems).then(function () {
 							var accountNamesFilter = $scope.options.switchOnlinePlayersOnly ? $scope.onlinePlayers : [];
+
 							response.hits.hits = response.hits.hits.filter(function (item) {
 								var onlineInTheRiver = accountNamesFilter.indexOf(item._source.shop.sellerAccount) != -1;
 								var isOnline = item._source.isOnline || onlineInTheRiver || !$scope.options.switchOnlinePlayersOnly;
@@ -1981,7 +1984,70 @@ function indexerLeagueToLadder(league) {
 	/*------------------------------------------------------------------------------------------------------------------
 	* BEGIN Currency Trading
 	* ----------------------------------------------------------------------------------------------------------------*/
+		
+		// combine currency stacks from the same seller account if the price/ratio is the same
+		function combineCurrencyStacks(response) {
+			var currencyResponse = [];
+			var tempArr = [];
 
+			$.each(response, function (index, value) {
+				var name = value._source.shop.sellerAccount;
+				var price = value._source.shop.price[value._source.shop.currency];
+				var amount = value._source.shop.amount;
+				var stackSize = value._source.properties.stackSize.current;
+				var stackSizeMax = value._source.properties.stackSize.max;
+				var stackSizeMaxTotal = value._source.properties.stackSize.maxTotal;
+
+				if (typeof stackSizeMaxTotal === 'undefined') {
+					stackSizeMaxTotal = stackSizeMax;
+					value._source.properties.stackSize.maxTotal = stackSizeMax;
+				}
+				var normalizedRatio = normalizeCurrencyRatio(price,	stackSizeMaxTotal, amount);
+				// add normalized ratio to item
+				value._source.shop.normalizedRatio = normalizedRatio;
+
+				if (name in tempArr) {
+					if (price in tempArr[name]) {
+						tempArr[name][price]._source.properties.stackSize.current += stackSize;
+						//tempArr[name][price]._source.shop.amount = parseFloat(tempArr[name][price]._source.shop.amount) + parseFloat(amount);
+						tempArr[name][price]._source.properties.stackSize.maxTotal += stackSizeMax;
+					}
+					else {
+						tempArr[name][price] = value;
+					}
+				}
+				else {
+					tempArr[name] = [];
+					tempArr[name][price] = value;
+				}
+			});
+
+			for (var key in tempArr) {
+				for (var priceKey in tempArr[key]) {
+					currencyResponse.push(tempArr[key][priceKey]);
+				}
+			}
+
+			return currencyResponse;
+		}
+
+		// TODO fixing currency ratio display
+		function normalizeCurrencyRatio(price, stackSize, amount) {
+			var ratio =  1/price;
+			if (amount >= 1) {
+				ratio = ratio * stackSize;
+			}
+			if( ratio >= 10) {
+				ratio = Math.round(ratio * 10) / 10;
+			}
+			else {
+				ratio = Math.round(ratio * 1000) / 1000;
+			}
+
+			return ratio;
+		}
+
+		// old, not used atm, can probably be removed later
 		$scope.getCurrencyRatio = function(price, stack, amount) {
 			var ratio = 0;
 			for (var key in price) {
@@ -2004,6 +2070,7 @@ function indexerLeagueToLadder(league) {
 			$scope.resetCurrencyTrading();
 			$scope.currencyTrading.item = item;
 			$scope.currencyTrading.rangeSteps = Math.floor(item.properties.stackSize.current / item.shop.amount);
+			console.log($scope.currencyTrading.rangeSteps);
 			$scope.currencyTrading.rangeValue = 1 * $scope.currencyTrading.rangeSteps;
 			$scope.currencyTrading.rangeMax = item.properties.stackSize.current;
 			$scope.currencyTrading.rangeMin = $scope.currencyTrading.rangeValue;
@@ -2014,15 +2081,18 @@ function indexerLeagueToLadder(league) {
 
 		$scope.$watch('currencyTrading.rangeValue', function() {
 			$scope.currencyTrading.rangeValue = parseInt($scope.currencyTrading.rangeValue);
+
+			console.log($scope.currencyTrading.rangeSteps);
 		});
 
+		// TODO fix buy/pay/slider values
 		$scope.updateCurrencyBuyMessage = function(item, rangeValue){
 			var buy = item.info.fullName;
 			var pay = item.shop.currency;
-			var priceSingle = item.shop.price[pay];
-			var stackSize = item.properties.stackSize.current;
 			var amount = item.shop.amount;
+			var stackSize = item.properties.stackSize.current;
 			var buyTotal = rangeValue;
+			var priceSingle = item.shop.price[pay] * (item.properties.stackSize.maxTotal / item.properties.stackSize.max);
 			var payTotal = Math.round(($scope.currencyTrading.rangeValue * (priceSingle/stackSize)) * 100 ) / 100;
 			var ign = item.shop.lastCharacterName;
 			var league = item.attributes.league;
@@ -2374,7 +2444,7 @@ function indexerLeagueToLadder(league) {
 			}
 
 			var validTerms = [
-				"coins",		//0
+				"perandus",//0
 				"regal", 		//1
 				"augmentation",	//2
 				"wisdom", 		//3
@@ -2400,7 +2470,7 @@ function indexerLeagueToLadder(league) {
 				"alteration", 	//23
 				"chance",		//24
 				"unknown",		//25
-				"silver",		//26
+				"silver"	//26
 			];
 
 			str =  str.replace(/[^\w\s]/gi, '').replace(/[0-9]/g, '').toLowerCase();
@@ -2430,7 +2500,14 @@ function indexerLeagueToLadder(league) {
 				["unknown transmute", validTerms[17]],
 				["unknown x", validTerms[16]],
 				["unknown chaoss", validTerms[12]],
-				["unknown alch", validTerms[5]]
+				["unknown alch", validTerms[5]],
+				["perandus coin", validTerms[0]],
+				["silver coin", validTerms[26]],
+				["unknown silver coin", validTerms[26]],
+				["unknown silver", validTerms[26]],
+				["unknown silvercoin", validTerms[26]],
+				["unknown silvercoins", validTerms[26]],
+				["unknown silver coins", validTerms[26]]
 			]);
 
 			var result = currencyMap.get(str);
