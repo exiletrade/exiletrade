@@ -3,6 +3,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.6/socket.io.js"></script>  
   <script src="https://cdn.rawgit.com/broofa/node-uuid/master/uuid.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
   <style>
     #left
     {
@@ -34,10 +35,9 @@
         [
             {
                 "eq" : {
-                    "attributes.league" : "Perandus",
-                    "info.name" : "Infractem",
-                    "attributes.rarity" : "Unique",
-                    "shop.hasPrice" : true
+                    "attributes.league" : "Standard",
+                    "attributes.itemType" : "Boots",
+                    "attributes.rarity" : "Unique"
                 }
             }, 
             {
@@ -61,7 +61,13 @@
         <div id='itemsDiv'></div>
       </div>
     </div>
-    <div class="clear">ExileTrade Auto is fan-made and is not related to Grinding Gear Games in anyway</div>
+    <div class="clear">
+      <p><a href="https://github.com/trackpete/exiletools-indexer/tree/master/related/node-monitor" target="_blank">Documentation</a> about defining filters.</p>
+      <p>To see what fields are available for filtering, see item JSON spec <a href="http://exiletools.com/info/indexer-docs.html" target="_blank">doc</a> from exiletools</p>
+      <p>Obviously, there's a lot of things needed to be improved here but I haven't had the time. If your a web dev master, you can probably improve <a href="https://github.com/exiletrade/exiletrade/blob/master/client/auto/index.html" target="_blank">this</a> in just an hour. If so, I'd be more than happy to accept your Pull-request.</p>
+      <p>Forum thread <a href="https://www.pathofexile.com/forum/view-thread/1602257">link</a></p>
+      <p>ExileTrade Auto is fan-made and is not related to Grinding Gear Games in anyway. ExileTrade is powered by <a href="exiletools.com" target="_blank">ExileTools</a>.</p>
+    </div>
   </div>
   <script>  
   
@@ -74,6 +80,9 @@
       console.log("Sent Filter: " + JSON.stringify(filter));
     };
     $("#btnFilter").click(parseAndEmitFilter);
+
+    // setup clipboardjs https://clipboardjs.com
+    new Clipboard('.btn');
     
     // On connect, verify the session and pwxid, then emit the filter object
     // and notify locally of the filter sent for reference
@@ -86,7 +95,15 @@
     socket.on("item", function(item) {
       console.info(item)
       var et = item.attributes.equipType;
-      var outputString = "<table border=1 cellspacing=0 cellpadding=5 width=100%><tr><td valign=top width=200>" + item.info.fullName + "</td><td width=400>";
+      var wtbMsg = "@" + item.shop.lastCharacterName 
+        + " I would like to buy your " + item.info.fullName
+        + " listed for " + item.shop.amount + " " + item.shop.currency
+        + " (League:" + item.attributes.league
+        + ", Stash Tab:\'" + item.shop.stash.stashName
+        + "' [x" + item.shop.stash.xLocation + ",y" + item.shop.stash.yLocation + "])";
+      var wtbBtn = "<button class='btn' data-clipboard-text=\"" + wtbMsg +  "\">WTB</button>"
+
+      var outputString = "<table border=1 cellspacing=0 cellpadding=5 width=100%><tr>" + item.info.fullName + "</tr><tr><td valign=top width=40>" + wtbBtn + "</td><td width=400>";
       if (item.mods[et].implicit) {
         jQuery.each(item.mods[et].implicit, function(key, value) {
           outputString += ("<b>" + key + " : " + value + "</b><br>");
