@@ -31,6 +31,12 @@ url: /
 					   	placeholder="Search Input - First time user? Try clicking the help button below" size="" type="text"
 						mass-autocomplete-item="autocomplete_options"
 						my-enter="doSearch()" focus-if="{{searchInputState()}}">
+
+					<a href="#" ng-click="saveAutomatedSearch()" class="button small saveSearchNotificationLink" title="Add to Automated Searches"
+					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
+						<img src="./assets/img/add.svg" class="add-icon">
+						<span class="desktop">Auto</span>
+					</a>
 					<a href="#" ng-click="options.switchOnlinePlayersOnly = !options.switchOnlinePlayersOnly; doSearch()"
 						class="button small saveSearchNotificationLink" title="Toggle Online-only">
 						<img zf-iconic="" ng-show="options.switchOnlinePlayersOnly"  icon="circle-check" size="small">
@@ -41,11 +47,6 @@ url: /
 					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
 						<img zf-iconic="" icon="bookmark" size="small" title="Bookmark the search">
 						<span class="desktop">Save</span>
-					</a>
-					<a href="#" ng-click="saveAutomatedSearch()" class="button small saveSearchNotificationLink" title="Add Automated Search"
-					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
-						<img src="./assets/img/add.svg" class="add-icon">
-						<span class="desktop">Auto</span>
 					</a>
 					<div class="searchStats" title="{{queryString}}" ng-if="Response.took" zf-open="showElasticJsonRequestModal">
 						<div title="Time it took to search for the initial results">
