@@ -504,10 +504,8 @@ function buildListOfOnlinePlayers(ladderOnlinePlayers, onlineplayersStash) {
 
 function indexerLeagueToLadder(league) {
 	var ladderLeaguesMap = {
-		"Perandus SC": "perandus",
-		"Perandus HC": "perandushc",
-		"Perandus Flashback": "perandusfb",
-		"Perandus Flashback HC": "perandusfbhc",
+		"Prophecy SC": "prophecy",
+		"Prophecy HC": "prophecyhc",
 		"Standard": "standard",
 		"Hardcore": "hardcore"
 	};
@@ -850,8 +848,8 @@ function indexerLeagueToLadder(league) {
 			"leagueSelect": {
 				"type": "select",
 				"name": "League",
-				"value": 'Perandus Flashback',
-				"options": ["Perandus Flashback", "Perandus Flashback HC", "Perandus SC", "Perandus HC", "Standard", "Hardcore"]
+				"value": 'Prophecy SC',
+				"options": ["Prophecy SC", "Prophecy HC", "Standard", "Hardcore"]
 			},
 			"buyoutSelect": {
 				"type": "select",
@@ -884,18 +882,14 @@ function indexerLeagueToLadder(league) {
 			"dontShowAdBlockWarning" : false
 		};
 
-		function overwriteLeagueOptions(data){
-			$scope.options.leagueSelect.leagues = data;
-		}
+// 		function loadLeagueJSONfromAPI(url) {
+// 			$http.get(url)
+// 				.then(function (res) {
+// 					if (res.status == 200) {
 
-		function loadLeagueJSONfromAPI(url) {
-			$http.get(url)
-				.then(function (res) {
-					if (res.status == 200) {
-						overwriteLeagueOptions(res.data);
-					}
-				});
-		}
+// 					}
+// 				});
+// 		}
 		// loadLeagueJSONfromAPI("http://api.pathofexile.com/leagues?type=main");
 
 		/*
@@ -934,6 +928,12 @@ function indexerLeagueToLadder(league) {
 		* */
 		if ($scope.loadedOptions) {
 			setDefaultOptions($scope.loadedOptions, $scope.options);
+			if ($scope.options.leagueSelect.options.indexOf($scope.options.leagueSelect.value) === -1) {
+				if ($scope.options.leagueSelect.value.indexOf('HC'))
+					$scope.options.leagueSelect.value = $scope.options.leagueSelect.options[1];
+				else
+					$scope.options.leagueSelect.value = $scope.options.leagueSelect.options[0];
+			}
 			$scope.setSpecialDefaultOptions($scope.loadedOptions, $scope.options);
 		}
 
@@ -1273,7 +1273,7 @@ function indexerLeagueToLadder(league) {
 					.then(function (response) {
 						actualSearchDuration += response.took;
 						// combine currency stacks
-						response.hits.hits = combineCurrencyStacks(response.hits.hits);
+						//response.hits.hits = combineCurrencyStacks(response.hits.hits);
 
 						var hitsItems = response.hits.hits.map(function (value) {
 							return value._source;
@@ -2444,7 +2444,7 @@ function indexerLeagueToLadder(league) {
 			}
 
 			var validTerms = [
-				"perandus",//0
+				"Prophecy",//0
 				"regal", 		//1
 				"augmentation",	//2
 				"wisdom", 		//3
