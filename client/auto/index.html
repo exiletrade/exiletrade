@@ -53,6 +53,9 @@
         ]
       </textarea>
     <input id="btnFilter" type="button" value="   Update Filter   " />
+    <input id="urlWithFilter" type="text" value="" />
+    <br/>
+    <div id="log"></div>
     <br/>
     <br/>
   </div>
@@ -69,15 +72,40 @@
     <p>ExileTrade Auto is fan-made and is not related to Grinding Gear Games in anyway. ExileTrade is powered by <a href="exiletools.com" target="_blank">ExileTools</a>.</p>
   </div>
 </div>
+
 <script>
 
+  function log(str) {
+    console.log(str);
+    $('#log').html(str)
+  }
+
+  /*!
+   * querystring - Simple querystring lib with no dependencies
+   * v0.1.0
+   * https://github.com/jgallen23/querystring
+   * copyright Greg Allen 2013
+   * MIT License
+  */
+  var querystring={parse:function(a){var b={};if(a=void 0!==a?a:window.location.search,"string"==typeof a&&a.length>0){"?"===a[0]&&(a=a.substring(1)),a=a.split("&");for(var c=0,d=a.length;d>c;c++){var e,f,g=a[c],h=g.indexOf("=");h>=0?(e=g.substr(0,h),f=g.substr(h+1)):(e=g,f=""),f=decodeURIComponent(f),void 0===b[e]?b[e]=f:b[e]instanceof Array?b[e].push(f):b[e]=[b[e],f]}}return b}};
+
+  // handle url
+  var jsonFromUrl = querystring.parse().q
+  if (jsonFromUrl) {
+    var str = JSON.stringify(JSON.parse(jsonFromUrl), null, 2); // spacing level = 2
+    $("#filter").val(str);
+  }
+  
   var pwxid = uuid.v4();
   var socket = io.connect('http://rtstashapi.exiletools.com', {query: 'pwxid=' + pwxid});
   var parseAndEmitFilter = function () {
     var filterText = $("#filter").val();
     var filter = JSON.parse(filterText);
     socket.emit('filter', filter);
-    console.log("Sent Filter: " + JSON.stringify(filter));
+    var jsonStr = JSON.stringify(filter);
+    log("Sent Filter: " + jsonStr);
+    var newurl = 'http://exiletra.de/auto/q=' + encodeURIComponent(jsonStr);
+    $('#urlWithFilter').val(newurl);
   };
   $("#btnFilter").click(parseAndEmitFilter);
 
@@ -88,7 +116,7 @@
   // and notify locally of the filter sent for reference
   socket.on("connect", function () {
     var sessionid = socket.io.engine.id;
-    console.log("Connected with session id " + sessionid + " and pwxid " + pwxid);
+    log("Connected with session id " + sessionid + " and pwxid " + pwxid);
     parseAndEmitFilter();
   });
 
@@ -106,6 +134,7 @@
   }
 
   socket.on("item", function(item) {
+    log("Received item: " + item.info.fullName)
     console.info(item);
     playSound();
     var et = item.attributes.equipType;
@@ -118,12 +147,12 @@
     var wtbBtn = "<button class='btn' data-clipboard-text=\"" + wtbMsg +  "\">WTB</button>"
 
     var outputString = "<table border=1 cellspacing=0 cellpadding=5 width=100%><tr>" + item.info.fullName + "</tr><tr><td valign=top width=40>" + wtbBtn + "</td><td width=400>";
-    if (item.mods[et].implicit) {
+    if (item.mods[et] && item.mods[et].implicit) {
       jQuery.each(item.mods[et].implicit, function(key, value) {
         outputString += ("<b>" + key + " : " + value + "</b><br>");
       });
     }
-    if (item.mods[et].explicit) {
+    if (item.mods[et] && item.mods[et].explicit) {
       jQuery.each(item.mods[et].explicit, function(key, value) {
         outputString += (key + " : " + value + "<br>");
       });
@@ -136,7 +165,7 @@
   // afterwards, with the message in heartbeat.status - mostly this serves to keep
   // the client aware that yes, items are being analyzed
   socket.on("heartbeat", function(heartbeat) {
-    console.log("Received a heartbeat: " + heartbeat.status);
+    log("Received a heartbeat: " + heartbeat.status);
   });
 </script>
 </body>
