@@ -53,6 +53,8 @@
         ]
       </textarea>
     <input id="btnFilter" type="button" value="   Update Filter   " />
+    <input id="btnClearResults" type="button" value="   Clear Results   " />
+    <br/>
     <input id="urlWithFilter" type="text" value="" />
     <br/>
     <div id="log"></div>
@@ -104,10 +106,14 @@
     socket.emit('filter', filter);
     var jsonStr = JSON.stringify(filter);
     log("Sent Filter: " + jsonStr);
-    var newurl = 'http://exiletra.de/auto/q=' + encodeURIComponent(jsonStr);
+    var newurl = 'http://exiletra.de/auto/?q=' + encodeURIComponent(jsonStr);
     $('#urlWithFilter').val(newurl);
   };
   $("#btnFilter").click(parseAndEmitFilter);
+  
+  $("#btnClearResults").click(function() {
+    $('#itemsDiv').html("");
+  });
 
   // setup clipboardjs https://clipboardjs.com
   new Clipboard('.btn');
