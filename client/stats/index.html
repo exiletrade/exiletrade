@@ -32,10 +32,10 @@
             <p>These charts uses up-to-date data from ExileTools. Will be adding the Prophecy leagues soon as they are live, so stay tuned!</p>
         </div>
 
-        <h3>Perandus HC</h3>
+        <h3>Prophecy HC</h3>
         <div id="chartContainerAllItemHC" class="row chart">
         </div>
-        <h3>Perandus SC</h3>
+        <h3>Prophecy SC</h3>
         <div id="chartContainerAllItemSC" class="row chart">
         </div>
 
@@ -76,7 +76,7 @@
        $( document ).ready(function() {
 		  console.log( "ready!" );
 
-          var jsonPayloadHC = buildJsonPayload("Hardcore Perandus")
+          var jsonPayloadHC = buildJsonPayload("Hardcore Prophecy")
           $('#chartContainerAllItemRequestHC').html(JSON.stringify(jsonPayloadHC, null, 2))
 
           runAggsAjax(jsonPayloadHC, function(data) {
@@ -86,7 +86,7 @@
                 buildAllItemsCountChart("chartContainerAllItemHC", data);
           });
 
-          var jsonPayloadSC = buildJsonPayload("Perandus")
+          var jsonPayloadSC = buildJsonPayload("Prophecy")
           $('#chartContainerAllItemRequestSC').html(JSON.stringify(jsonPayloadSC, null, 2))
 
           runAggsAjax(jsonPayloadSC, function(data) {
