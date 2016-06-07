@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,6 +20,22 @@
 
     <style>
       .chart { overflow-x : scroll ;}
+      
+      @media (max-width: 1200px) {
+            .container{
+                max-width: 1070px;
+            }
+        }
+       @media (min-width: 1920px) {
+            .container{
+                min-width: 1800px;
+            }
+        }
+        /*body {
+            -moz-transform: scale(1.5, 1.5); /* Moz-browsers */
+            zoom: 1.5; /* Other non-webkit browsers */
+            zoom: 150%; /* Webkit browsers */
+        }*/
     </style>
   </head>
   <body>
@@ -72,23 +87,18 @@
     
     <!-- Make the charts -->
     <script type="text/javascript">
-
        $( document ).ready(function() {
 		  console.log( "ready!" );
-
           var jsonPayloadHC = buildJsonPayload("Hardcore Prophecy")
           $('#chartContainerAllItemRequestHC').html(JSON.stringify(jsonPayloadHC, null, 2))
-
           runAggsAjax(jsonPayloadHC, function(data) {
                 $('#chartContainerAllItemDataHC').html(data)
                 data = flattenAggsData($.parseJSON(data))
                 $('#chartContainerAllItemDataFlattenedHC').html(JSON.stringify(data, null, 2))
                 buildAllItemsCountChart("chartContainerAllItemHC", data);
           });
-
           var jsonPayloadSC = buildJsonPayload("Prophecy")
           $('#chartContainerAllItemRequestSC').html(JSON.stringify(jsonPayloadSC, null, 2))
-
           runAggsAjax(jsonPayloadSC, function(data) {
                 $('#chartContainerAllItemDataSC').html(data)
                 data = flattenAggsData($.parseJSON(data))
@@ -96,12 +106,11 @@
                 buildAllItemsCountChart("chartContainerAllItemSC", data);
           });
         });
-
       function runAggsAjax(jsonPayload, successFn) {
           $.ajax({
               type: "POST",
               headers: {
-                'Authorization':'DEVELOPMENT-Indexer',
+                'Authorization':'07e669ae1b2a4f517d68068a8e24cfe4',
                 'Accept':'application/json',
                 'Content-Type':'application/json'
               },
@@ -113,14 +122,12 @@
             alert( "Request failed: " + textStatus );
           });
       }
-
       // Our charting tool will need a flat structured json data
       function flattenAggsData(data) {
         var buckets = data.aggregations.filtered.agg1.buckets
         var flatten = $.map(buckets, function (bucket, i) {
           var name = bucket.key
           var count = bucket.doc_count
-
           var agg2Buckets = bucket.agg2.buckets
           var available = 0
           var gone = 0
@@ -132,7 +139,6 @@
           if (goneBucket) {
             gone = goneBucket.doc_count
           }
-
           return {
             Name: name,
             Count: count,
@@ -161,7 +167,6 @@
         });
         return flatten2;
       }
-
       function bucketKeyFilter(key) {
         return function (bucket, i) {
             return bucket.key == key
@@ -169,7 +174,7 @@
       }
     
       function buildAllItemsCountChart(id, data) {
-        var svg = dimple.newSvg("#" + id, 5000, 600);
+        var svg = dimple.newSvg("#" + id, 5000, 800);
         var chart = new dimple.chart(svg, data);
         chart.setBounds("50px","10px","100%","80%")
         var xAxis = chart.addCategoryAxis("x", "Name");
