@@ -558,7 +558,7 @@ function indexerLeagueToLadder(league) {
 
 	// Create the es service from the esFactory
 	appModule.service('es', function (esFactory) {
-		return esFactory({host: 'https://apikey:07e669ae1b2a4f517d68068a8e24cfe4@api.exiletools.com'}); // poeblackmarketweb@gmail.com
+		return esFactory({host: 'http://apikey:07e669ae1b2a4f517d68068a8e24cfe4@api.exiletools.com'}); // poeblackmarketweb@gmail.com
 	});
 
 	appModule.service('playerOnlineService', function ($q, $http, CacheFactory, es) {
@@ -593,7 +593,7 @@ function indexerLeagueToLadder(league) {
 
 		function refreshLadderAllPlayerCache(league) {
 			debugOutput("Loading up all players from ladder league: " + league, 'trace');
-			var url = "https://api.exiletools.com/ladder?league=" + league + "&showAllOnline=1&onlineStats=1";
+			var url = "http://api.exiletools.com/ladder?league=" + league + "&showAllOnline=1&onlineStats=1";
 
 			var promise = $http.get(url).then(function (result) {
 				if (typeof result.data === 'object') {
@@ -637,7 +637,7 @@ function indexerLeagueToLadder(league) {
 		function refreshLadderPlayerCache(league, accountNames) {
 			var accountNamesParam = accountNames.join(':');
 			debugOutput("Loading up players from ladder: " + accountNamesParam, 'trace');
-			var url = "https://api.exiletools.com/ladder?league=" + league + "&short=1&onlineStats=1&accountName=" + accountNamesParam;
+			var url = "http://api.exiletools.com/ladder?league=" + league + "&short=1&onlineStats=1&accountName=" + accountNamesParam;
 			var promise = $http.get(url);
 			promise.then(function (result) {
 				if (typeof result.data === 'object') {
@@ -929,10 +929,12 @@ function indexerLeagueToLadder(league) {
 		if ($scope.loadedOptions) {
 			setDefaultOptions($scope.loadedOptions, $scope.options);
 			if ($scope.options.leagueSelect.options.indexOf($scope.options.leagueSelect.value) === -1) {
-				if ($scope.options.leagueSelect.value.indexOf('HC'))
+				if ($scope.options.leagueSelect.value.indexOf('HC')) {
 					$scope.options.leagueSelect.value = $scope.options.leagueSelect.options[1];
-				else
+				}
+				else {
 					$scope.options.leagueSelect.value = $scope.options.leagueSelect.options[0];
+				}
 			}
 			$scope.setSpecialDefaultOptions($scope.loadedOptions, $scope.options);
 		}
