@@ -143,7 +143,7 @@
   }
 
   socket.on("item", function(item) {
-    log("Received item: " + item.info.fullName)
+    log("Received item: " + item.info.fullName);
     console.info(item);
     playSound();
     var et = item.attributes.equipType;
