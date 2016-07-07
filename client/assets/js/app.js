@@ -1066,8 +1066,8 @@ function indexerLeagueToLadder(league) {
 			}
 		};
 
-		automatedSearchIntervalFn();
-		$interval(automatedSearchIntervalFn, 10000); // 10 sec
+		//automatedSearchIntervalFn();
+		//$interval(automatedSearchIntervalFn, 10000); // 10 sec
 
 		function createSearchPrefix(options, containsLeagueTerm, containsBuyoutTerm, containsVerifyTerm) {
 			containsLeagueTerm = defaultFor(containsLeagueTerm, false);
