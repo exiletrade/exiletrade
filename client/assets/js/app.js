@@ -2517,7 +2517,7 @@ function indexerLeagueToLadder(league) {
 			}
 
 			var validTerms = [
-				"Prophecy",//0
+				"perandus",     //0
 				"regal", 		//1
 				"augmentation",	//2
 				"wisdom", 		//3
@@ -2543,7 +2543,8 @@ function indexerLeagueToLadder(league) {
 				"alteration", 	//23
 				"chance",		//24
 				"unknown",		//25
-				"silver"	//26
+				"silver",	    //26
+				"prophecy"	    //26
 			];
 
 			str =  str.replace(/[^\w\s]/gi, '').replace(/[0-9]/g, '').toLowerCase();
@@ -2560,6 +2561,7 @@ function indexerLeagueToLadder(league) {
 				["unknown pcoins", validTerms[0]],
 				["unknown pcoin", validTerms[0]],
 				["unknown per", validTerms[0]],
+				["unknown reg", validTerms[1]],
 				["unknown exa", validTerms[16]],
 				["unknown fuse", validTerms[20]],
 				["unknown alt", validTerms[23]],
@@ -2573,10 +2575,13 @@ function indexerLeagueToLadder(league) {
 				["unknown transmute", validTerms[17]],
 				["unknown x", validTerms[16]],
 				["unknown chaoss", validTerms[12]],
+				["unknown caos", validTerms[12]],
+				["unknown chao", validTerms[12]],
 				["unknown alch", validTerms[5]],
 				["perandus coin", validTerms[0]],
 				["silver coin", validTerms[26]],
 				["unknown silver coin", validTerms[26]],
+				["unknown sc", validTerms[26]],
 				["unknown silver", validTerms[26]],
 				["unknown silvercoin", validTerms[26]],
 				["unknown silvercoins", validTerms[26]],
