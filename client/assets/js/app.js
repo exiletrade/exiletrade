@@ -835,7 +835,7 @@ function indexerLeagueToLadder(league) {
 		var sortKeyDefault = ['shop.chaosEquiv'];
 		var sortOrderDefault = ['asc'];
 		var limitDefault = 50;
-		var isGGGOnlineAPI = httpParams.gggonlineapi
+		var isGGGOnlineAPI = true;//httpParams.gggonlineapi
 		if (httpParams.q) {
 			$scope.searchInput = httpParams.q;
 		}
@@ -1235,7 +1235,7 @@ function indexerLeagueToLadder(league) {
 			} // deny power overwhelming
 			// ga('send', 'event', 'Search', 'PreFix', createSearchPrefix($scope.options));
 			$location.search({'q': searchInput});
-			if (isGGGOnlineAPI) $location.search({'q': searchInput, 'gggonlineapi' : 1});
+			//if (isGGGOnlineAPI) $location.search({'q': searchInput, 'gggonlineapi' : 1});
 			var sortRegex = /\b(\w+)(asc|de?sc)\b/gi;
 			if (sortRegex.test(searchInput)) {
 				var sortTerms = searchInput.match(sortRegex);
