@@ -829,6 +829,17 @@ function indexerLeagueToLadder(league) {
 		$scope.helpState = false;
 		$scope.enableTutorialFeature = false;
 		$scope.isCurrencySearch = false;
+		$scope.exiletoolsAvailable = false;
+
+		$http.get('http://api.exiletools.com/index/_search')
+			.success(function (data){
+				$scope.exiletoolsAvailable = true;
+			})
+			.error(function (error, status){
+				debugOutput("trying to connect to exiletools search", "log");
+				debugOutput("status: " + status, "log");
+				$scope.exiletoolsAvailable = false;
+			});
 
 		var httpParams = $location.search();
 		debugOutput('httpParams:' + angular.toJson(httpParams, true), 'trace');
@@ -2143,7 +2154,7 @@ function indexerLeagueToLadder(league) {
 			$scope.resetCurrencyTrading();
 			$scope.currencyTrading.item = item;
 			$scope.currencyTrading.rangeSteps = Math.floor(item.properties.stackSize.current / item.shop.amount);
-			console.log($scope.currencyTrading.rangeSteps);
+			debugOutput($scope.currencyTrading.rangeSteps, "log");
 			$scope.currencyTrading.rangeValue = 1 * $scope.currencyTrading.rangeSteps;
 			$scope.currencyTrading.rangeMax = item.properties.stackSize.current;
 			$scope.currencyTrading.rangeMin = $scope.currencyTrading.rangeValue;
@@ -2155,7 +2166,7 @@ function indexerLeagueToLadder(league) {
 		$scope.$watch('currencyTrading.rangeValue', function() {
 			$scope.currencyTrading.rangeValue = parseInt($scope.currencyTrading.rangeValue);
 
-			console.log($scope.currencyTrading.rangeSteps);
+			debugOutput($scope.currencyTrading.rangeSteps, "log");
 		});
 
 		// TODO fix buy/pay/slider values
