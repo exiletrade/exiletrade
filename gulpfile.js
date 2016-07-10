@@ -103,7 +103,8 @@ var paths = {
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=1782931570",
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=223573764",
 		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=207179951",
-		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=1732537543"
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=1732537543",
+		"https://docs.google.com/spreadsheets/d/1jG2gzYuAukoJtYonlWghbkk9m5W6yGzM21cscpqJ5TU/gviz/tq?tq=SELECT+A,+B,+C,+D,+E&headers=1&gid=615818"
 	]
 };
 
