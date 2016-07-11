@@ -830,15 +830,18 @@ function indexerLeagueToLadder(league) {
 		$scope.enableTutorialFeature = false;
 		$scope.isCurrencySearch = false;
 		$scope.exiletoolsAvailable = false;
+		$scope.exiletoolsAvailableCheckingDone = false;
 
 		$http.get('http://api.exiletools.com/index/_search')
 			.success(function (data){
 				$scope.exiletoolsAvailable = true;
+				$scope.exiletoolsAvailableCheckingDone = true;
 			})
 			.error(function (error, status){
 				debugOutput("trying to connect to exiletools search", "log");
 				debugOutput("status: " + status, "log");
 				$scope.exiletoolsAvailable = false;
+				$scope.exiletoolsAvailableCheckingDone = true;
 			});
 
 		var httpParams = $location.search();
