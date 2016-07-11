@@ -829,7 +829,7 @@ function indexerLeagueToLadder(league) {
 		$scope.helpState = false;
 		$scope.enableTutorialFeature = false;
 		$scope.isCurrencySearch = false;
-		$scope.exiletoolsAvailable = false;
+		$scope.exiletoolsAvailable = true;
 		$scope.exiletoolsAvailableCheckingDone = false;
 
 		$http.get('http://api.exiletools.com/index/_search')
