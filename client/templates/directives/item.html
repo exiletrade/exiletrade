@@ -139,7 +139,18 @@
 								<a href=""
 								   data-sort-key="{{mod.key}}"
 								   data-sort-order="desc" class="{{mod.css}}"
-								   ng-click="doSearchWithSort($event)"><span class="item-mod-affix" ng-if="mod.affix">[{{mod.affix}} T{{mod.tier}}/{{mod.maxTier}}]</span> {{mod.display}}</a>
+								   ng-click="doSearchWithSort($event)">
+									<span class="item-mod-affix" ng-if="mod.affix">
+										<span class="affix" ng-class="(mod.affix=='P') ? 'prefix' : 'suffix'">{{mod.affix}}</span>
+										<span class="tier">{{mod.tier}}</span>
+										<span class="mod-range">
+											<span class="affix" ng-class="(mod.affix=='P') ? 'prefix' : 'suffix'">{{mod.affix}}</span>
+										<span class="tier"><span class="tier-label"> Tier:</span><span> {{mod.tier}}</span><span class="max-tier">/{{mod.maxTier}}</span></span>
+											Range: <span class="mod-range-value">{{mod.value}}</span>
+										</span>
+									</span>
+									{{mod.display}}
+								</a>
 							</li>
 							<li class="sortable" ng-repeat="mod in item._source.craftedMods"
 								data-mod="{{mod}}">
