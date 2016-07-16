@@ -1,6 +1,6 @@
 // https://docs.google.com/spreadsheets/d/1TmP6fl_Sd4Lc0fIw4dWn-TeUT2_WQqQPGfDRZUjCvIg/edit#gid=1
-
-var affixes = [
+var fm_affixes = (function () {
+  var affixes = [
     {
         "categories": "Dmg",
         "description": "Base Min Added Cold Dmg / Base Max Added Cold Dmg",
@@ -18198,4 +18198,6 @@ var affixes = [
         "onehandmaces": "No",
         "twohandmaces": "No"
     }
-];
+  ];
+  return affixes;
+}());

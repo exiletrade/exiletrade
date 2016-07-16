@@ -594,7 +594,7 @@ function indexerLeagueToLadder(league) {
 		function pullStatusFromGGGApi(batchOfNames) {
 			var csv = batchOfNames.join(',');
 			var exTradeUrl = "https://exiletrade-server.herokuapp.com/?q=" + csv;
-			
+
 			var promise = $http.get(exTradeUrl)
 			.then(function (result) {
 				debugOutput(exTradeUrl + " resolved to: " + result.data, 'trace');
@@ -710,7 +710,7 @@ function indexerLeagueToLadder(league) {
 			return promise;
 		}
 
-		function onlyUnique(value, index, self) { 
+		function onlyUnique(value, index, self) {
 			return self.indexOf(value) === index;
 		}
 
@@ -770,7 +770,7 @@ function indexerLeagueToLadder(league) {
 						var sellerAccount = item.shop.sellerAccount;
 						var isOnline = onlineNames.indexOf(sellerAccount) != -1;
 						item.isOnline = isOnline;
-					});	
+					});
 					return items;
 				});
 			},
@@ -1103,7 +1103,7 @@ function indexerLeagueToLadder(league) {
 					});
 					return promise;
 				});
-				
+
 				$q.all(countPromises).then(function (results) {
 					var total = 0;
 					results.forEach(function (e, idx, arr) {
@@ -1241,7 +1241,7 @@ function indexerLeagueToLadder(league) {
 			$scope.showSpinner = true;
 			if ($scope.currencyTradingEnabled) {
 				$scope.isCurrencySearch = /^\w+:\w+/.test(searchInput);
-				console.info("$scope.isCurrencySearch = " + $scope.isCurrencySearch);	
+				console.info("$scope.isCurrencySearch = " + $scope.isCurrencySearch);
 			}
 			limit = Number(limit);
 			if (limit > 999) {
@@ -1330,7 +1330,7 @@ function indexerLeagueToLadder(league) {
 				}).then(function (results) {
 					var onlineplayersStash = results.b.aggregations.filtered.sellers.buckets;
 					$scope.onlinePlayers = buildListOfOnlinePlayers(results.a, onlineplayersStash);
-				});				
+				});
 			}
 
 		}
@@ -1567,7 +1567,7 @@ function indexerLeagueToLadder(league) {
 			});
 			item.forgottenMods = forgottenMods;
 			// we call on fm.js to do it's awesome work
-			fm_process(item);
+			fm.fm_process(item);
 		}
 
 		function createImplicitMods(item) {
@@ -2071,7 +2071,7 @@ function indexerLeagueToLadder(league) {
 	/*------------------------------------------------------------------------------------------------------------------
 	* BEGIN Currency Trading
 	* ----------------------------------------------------------------------------------------------------------------*/
-		
+
 		// combine currency stacks from the same seller account if the price/ratio is the same
 		function combineCurrencyStacks(response) {
 			var currencyResponse = [];
