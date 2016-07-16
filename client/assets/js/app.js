@@ -1,24 +1,3 @@
-function debugOutput(input, outputType) {
-	if (typeof debugDevBuild === 'undefined') {
-		return;
-	}
-	try {
-		if (outputType == "log") {
-			console.log(input);
-		}
-		else if (outputType == "trace") {
-			console.trace(input);
-		}
-		else if (outputType == "info") {
-			console.info(input);
-		}
-		else if (outputType == "error") {
-			console.error(input);
-		}
-	} catch (err) {
-
-	}
-}
 
 /*
 Find Object by id in Array
@@ -67,21 +46,6 @@ function setDefaultOptions(loadedOption, defaultOption) {
 			defaultOption[key] = checkDefaultOptions(loadedOption[key], defaultOption[key], false);
 		}
 	}
-}
-
-function modToDisplay(value, mod) {
-	if (typeof value === 'number') {
-		mod = mod.replace('#', value);
-	} else if (typeof value === "object") {
-		var valstr = value.min + '-' + value.max + ' (' + value.avg + ')';
-		mod = mod.replace('#-#', valstr);
-	} else if (typeof value === "boolean") {
-		mod = mod;
-	} else {
-		debugOutput("Mod value is neither a number or an object, maybe ExileTools has a recent change? mod = " +
-		mod + ", value = " + value, 'error');
-	}
-	return mod;
 }
 
 (function () {
@@ -154,7 +118,7 @@ function modToDisplay(value, mod) {
 
 			var promise = $http.get(exTradeUrl)
 			.then(function (result) {
-				debugOutput(exTradeUrl + " resolved to: " + result.data, 'trace');
+				util.out(exTradeUrl + " resolved to: " + result.data, 'trace');
 				return $http.get(result.data);
 			})
 			.then(function (result) {
@@ -164,8 +128,8 @@ function modToDisplay(value, mod) {
 					});
 					return result.data;
 				}
-				debugOutput("Invalid result from GGG API - " + url, 'error');
-				debugOutput(result, 'error');
+				util.out("Invalid result from GGG API - " + url, 'error');
+				util.out(result, 'error');
 				return {};
 			});
 
@@ -199,8 +163,8 @@ function modToDisplay(value, mod) {
 								if (isOnline) onlinePlayers.push(name);
 							}
 						});
-						debugOutput("onlinePlayers:", 'trace');
-						debugOutput(onlinePlayers, 'trace');
+						util.out("onlinePlayers:", 'trace');
+						util.out(onlinePlayers, 'trace');
 						return onlinePlayers;
 					});
 				} else {
@@ -252,7 +216,7 @@ function modToDisplay(value, mod) {
 	appModule.controller('SearchController',
 	['$q', '$scope', '$http', '$location', '$interval', 'es', 'playerOnlineService','favicoService','FoundationApi', 'ModalFactory', 'Upload',
 	function ($q, $scope, $http, $location, $interval, es, playerOnlineService, favicoService, FoundationApi, ModalFactory, Upload) {
-		debugOutput('controller', 'info');
+		util.out('controller', 'info');
 
 	/*------------------------------------------------------------------------------------------------------------------
 	* BEGIN Set some global/scope variables
@@ -276,14 +240,14 @@ function modToDisplay(value, mod) {
 				$scope.exiletoolsAvailableCheckingDone = true;
 			})
 			.error(function (error, status){
-				debugOutput("trying to connect to exiletools search", "log");
-				debugOutput("status: " + status, "log");
+				util.out("trying to connect to exiletools search", "log");
+				util.out("status: " + status, "log");
 				$scope.exiletoolsAvailable = false;
 				$scope.exiletoolsAvailableCheckingDone = true;
 			});
 
 		var httpParams = $location.search();
-		debugOutput('httpParams:' + angular.toJson(httpParams, true), 'trace');
+		util.out('httpParams:' + angular.toJson(httpParams, true), 'trace');
 		var sortKeyDefault = ['shop.chaosEquiv'];
 		var sortOrderDefault = ['asc'];
 		var limitDefault = 50;
@@ -391,16 +355,6 @@ function modToDisplay(value, mod) {
 			"notificationVolume": 1,
 			"dontShowAdBlockWarning" : false
 		};
-
-// 		function loadLeagueJSONfromAPI(url) {
-// 			$http.get(url)
-// 				.then(function (res) {
-// 					if (res.status == 200) {
-
-// 					}
-// 				});
-// 		}
-		// loadLeagueJSONfromAPI("http://api.pathofexile.com/leagues?type=main");
 
 		/*
 		* Load new sound; play sound preview
@@ -521,64 +475,6 @@ function modToDisplay(value, mod) {
 			$scope.doSavedSearch(input);
 		};
 
-		var automatedSearchIntervalFn = function () {
-			if ($scope.savedAutomatedSearches && $scope.savedAutomatedSearches.length > 0) {
-				debugOutput('Gonna run counts on automated searches: ' + $scope.savedAutomatedSearches.length, 'trace');
-				var countPromises = $scope.savedAutomatedSearches.map(function (search) {
- 					var queryString = buildQueryString(search.searchInput + " timestamp" + search.lastSearch);
-					search.lastSearch = new Date().getTime();
-					var fetchSize = 20;
-					var from = 0;
-					var promise = doElasticSearch(queryString, from, fetchSize, ["shop.updated"], ["desc"]).then(function (response) {
-						$.each(response.hits.hits, function (index, value) {
-							addCustomFields(value._source);
-						});
-						return {
-							response: response,
-							searchInput: search.searchInput
-						};
-					});
-					return promise;
-				});
-
-				$q.all(countPromises).then(function (results) {
-					var total = 0;
-					results.forEach(function (e, idx, arr) {
-						total += e.response.hits.hits.length;
-					});
-					if (total > 0) {
-						var newHitsCtr = 0;
-						var automatedTab = $scope.tabs[1];
-						results.forEach(function (elem, index, array) {
-							if (!automatedTab.response) {
-								automatedTab.response = elem.response;
-								newHitsCtr = automatedTab.response.hits.hits.length;
-							} else {
-								elem.response.hits.hits.forEach(function (newHit) {
-									var hitExists = automatedTab.response.hits.hits.find(function (hit) {
-										return newHit._source.uuid === hit._source.uuid;
-									});
-									if (!hitExists) {
-										automatedTab.response.hits.hits.push(newHit);
-										newHitsCtr++;
-									}
-								});
-							}
-						});
-						if (newHitsCtr > 0 && !$scope.options.muteSound) {
-							$scope.snd.play();
-							favicoService.badge(total);
-							automatedTab.newItems = newHitsCtr;
-						}
-					}
-				});
-				localStorage.setItem("savedAutomatedSearches", JSON.stringify($scope.savedAutomatedSearches.reverse()));
-			}
-		};
-
-		//automatedSearchIntervalFn();
-		//$interval(automatedSearchIntervalFn, 10000); // 10 sec
-
 		function createSearchPrefix(options, containsLeagueTerm, containsBuyoutTerm, containsVerifyTerm) {
 			containsLeagueTerm = util.defaultFor(containsLeagueTerm, false);
 			containsBuyoutTerm = util.defaultFor(containsBuyoutTerm, false);
@@ -641,14 +537,14 @@ function modToDisplay(value, mod) {
 				$("#mainGrid").focus();
 				$scope.searchInput = valueFromInput;
 			}
-			debugOutput('doSearch called, $scope.searchInput = ' + $scope.searchInput, 'info');
+			util.out('doSearch called, $scope.searchInput = ' + $scope.searchInput, 'info');
 			$scope.onClickTab($scope.tabs[0]);
 			doActualSearch($scope.searchInput, limitDefault, sortKeyDefault, sortOrderDefault);
 			ga('send', 'event', 'Search', 'User Input', $scope.searchInput);
 		};
 
 		$scope.stateChanged = function () {
-			debugOutput('stateChanged', 'log');
+			util.out('stateChanged', 'log');
 		};
 
 		/*
@@ -672,7 +568,7 @@ function modToDisplay(value, mod) {
 		 - http://stackoverflow.com/questions/20607313/angularjs-promise-with-recursive-function
 		 */
 		function doActualSearch(searchInput, limit, sortKey, sortOrder) {
-			debugOutput("$scope.options.switchOnlinePlayersOnly = " + $scope.options.switchOnlinePlayersOnly, 'info');
+			util.out("$scope.options.switchOnlinePlayersOnly = " + $scope.options.switchOnlinePlayersOnly, 'info');
 			$scope.Response = null;
 			$scope.disableScroll = true;
 			$scope.showSpinner = true;
@@ -691,7 +587,7 @@ function modToDisplay(value, mod) {
 				var sortTerms = searchInput.match(sortRegex);
 				sortKey = [];
 				sortOrder = [];
-				debugOutput('parsed sortTerms = ' + sortTerms.toString(), 'info');
+				util.out('parsed sortTerms = ' + sortTerms.toString(), 'info');
 				sortTerms.forEach(function (token) {
 					var rgxArr = sortRegex.exec(token);
 					// refresh the regex internal index
@@ -706,16 +602,16 @@ function modToDisplay(value, mod) {
 					sortKey.push(key);
 					sortOrder.push(ord);
 				});
-				debugOutput('parsed sort keys = ' + sortKey.toString(), 'info');
-				debugOutput('parsed sort ords = ' + sortOrder.toString(), 'info');
+				util.out('parsed sort keys = ' + sortKey.toString(), 'info');
+				util.out('parsed sort ords = ' + sortOrder.toString(), 'info');
 			}
 
 			$location.replace();
-			debugOutput('changed location to: ' + $location.absUrl(), 'trace');
+			util.out('changed location to: ' + $location.absUrl(), 'trace');
 
 			searchInput = searchInput.replace(sortRegex, "").trim();
 			$scope.searchQuery = buildQueryString(searchInput);
-			debugOutput("searchQuery=" + $scope.searchQuery, 'log');
+			util.out("searchQuery=" + $scope.searchQuery, 'log');
 			/*
 			 if ($scope.badSearchInputTerms.length > 0) {
 			 $scope.showSpinner = false;
@@ -761,7 +657,7 @@ function modToDisplay(value, mod) {
 		}
 
 		$scope.scrollNext = function () {
-			//debugOutput('scrollNext called, $scope.disableScroll = ' + $scope.disableScroll, 'trace')
+			//util.out('scrollNext called, $scope.disableScroll = ' + $scope.disableScroll, 'trace')
 			if ($scope.disableScroll) {
 				return;
 			}
@@ -807,7 +703,7 @@ function modToDisplay(value, mod) {
 							});
 
 							$.each(response.hits.hits, function (index, value) {
-								addCustomFields(value._source);
+								itemutil.addCustomFields(value._source);
 							});
 
 							$scope.from = $scope.from + fetchSize;
@@ -833,10 +729,10 @@ function modToDisplay(value, mod) {
 
 							$scope.showSpinner = false;
 							$scope.isScrollBusy = false;
-							debugOutput('scrollNext finished, $scope.disableScroll = ' + $scope.disableScroll, 'trace');
+							util.out('scrollNext finished, $scope.disableScroll = ' + $scope.disableScroll, 'trace');
 						});
 					}, function (err) {
-						debugOutput(err.message, 'trace');
+						util.out(err.message, 'trace');
 						$scope.showSpinner = false;
 						$scope.isScrollBusy = false;
 					});
@@ -878,7 +774,7 @@ function modToDisplay(value, mod) {
 				body: esBody
 			};
 			$scope.elasticJsonRequest = angular.toJson(esPayload, true);
-			//debugOutput("Gonna run elastic: " + $scope.elasticJsonRequest, 'trace');
+			//util.out("Gonna run elastic: " + $scope.elasticJsonRequest, 'trace');
 			return es.search(esPayload);
 		}
 
@@ -946,95 +842,6 @@ function modToDisplay(value, mod) {
 	/*------------------------------------------------------------------------------------------------------------------
 	* BEGIN Add/Create/Change item mods
 	* ----------------------------------------------------------------------------------------------------------------*/
-
-		/*
-		* Add custom fields to the item object
-		* */
-		function addCustomFields(item) {
-			if (item.mods) {
-				createForgottenMods(item);
-			}
-			if (item.mods) {
-				createImplicitMods(item);
-			}
-			if (item.mods) {
-				createCraftedMods(item);
-			}
-			if (item.mods) {
-				createEnchantMods(item);
-			}
-			if (item.shop) {
-				var added = new Date(item.shop.added);
-				var updated = new Date(item.shop.updated);
-				var modified = new Date(item.shop.modified);
-				item.shop.addedHuman = util.prettyDate(added);
-				item.shop.updatedHuman = util.prettyDate(updated);
-				item.shop.modifiedHuman = util.prettyDate(modified);
-				if (!item.isOnline) {
-					item.isOnline = $scope.onlinePlayers.indexOf(item.shop.sellerAccount) != -1;
-				}
-			}
-		}
-
-		function createForgottenMods(item) {
-			var itemTypeKey = util.firstKey(item.mods);
-			var explicits = item.mods[itemTypeKey].explicit;
-			var forgottenMods = $.map(explicits, function (propertyValue, modKey) {
-				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
-				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : "";
-				return {
-					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.explicit.' + modKey + keyExtraSuffix,
-					name: modKey,
-					value: propertyValue,
-					css: getModCssClasses(modKey)
-				};
-			});
-			item.forgottenMods = forgottenMods;
-			// we call on fm.js to do it's awesome work
-			fm.fm_process(item);
-		}
-
-		function createImplicitMods(item) {
-			var itemTypeKey = util.firstKey(item.mods);
-			var implicits = item.mods[itemTypeKey].implicit;
-			var implicitMods = $.map(implicits, function (propertyValue, modKey) {
-				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
-				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : "";
-				return {
-					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.implicit.' + modKey + keyExtraSuffix
-				};
-			});
-			item.implicitMods = implicitMods;
-		}
-
-		function createEnchantMods(item) {
-			var enchant = item.enchantMods;
-			if (!enchant) {
-				return;
-			}
-			var enchantMods = $.map(enchant, function (propertyValue, modKey) {
-				return {
-					display: modToDisplay(propertyValue, modKey),
-					key: 'enchantMods.' + modKey
-				};
-			});
-			item.enchantMods = enchantMods;
-		}
-
-		function createCraftedMods(item) {
-			var itemTypeKey = util.firstKey(item.mods);
-			var crafteds = item.mods[itemTypeKey].crafted;
-			item.craftedMods = $.map(crafteds, function (propertyValue, modKey) {
-				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
-				var keyExtraSuffix = (typeof propertyValue === "object" && propertyValue.avg) ? ".avg" : "";
-				return {
-					display: modToDisplay(propertyValue, modKey),
-					key: 'mods.' + itemTypeKey + '.crafted.' + modKey + keyExtraSuffix
-				};
-			});
-		}
 
 		/*
 		* Add values to mod description
@@ -1196,11 +1003,11 @@ function modToDisplay(value, mod) {
 				}
 			};
 			loadOnlinePlayersIntoScope().then(function () {
-				debugOutput("Gonna run elastic: " + angular.toJson(esPayload, true), 'trace');
+				util.out("Gonna run elastic: " + angular.toJson(esPayload, true), 'trace');
 				es.search(esPayload).then(function (response) {
-					debugOutput("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
+					util.out("itemId: " + itemId + ". Found " + response.hits.total + " hits.", 'info');
 					if (response.hits.total == 1) {
-						addCustomFields(response.hits.hits[0]._source);
+						itemutil.addCustomFields(response.hits.hits[0]._source);
 						playerOnlineService.addOnlineData([response.hits.hits[0]._source]);
 					}
 					$scope.lastRequestedSavedItem = response.hits.hits;
@@ -1230,152 +1037,8 @@ function modToDisplay(value, mod) {
 	* END Save/Delete searchs/items from/to HTML localStorage
 	* ----------------------------------------------------------------------------------------------------------------*/
 
-
-	/*------------------------------------------------------------------------------------------------------------------
-	* BEGIN Item css classes
-	* ----------------------------------------------------------------------------------------------------------------*/
-
-		/*
-		* Get CSS Classes for element resistances
-		* */
-		function getModCssClasses(mod) {
-			var css = "";
-			if (mod.indexOf("Resistance") > -1) {
-				if (mod.indexOf("Cold") > -1) {
-					css = "mod-cold-res";
-				}
-				else if (mod.indexOf("Fire") > -1) {
-					css = "mod-fire-res";
-				}
-				else if (mod.indexOf("Lightning") > -1) {
-					css = "mod-lightning-res";
-				}
-				else if (mod.indexOf("Chaos") > -1) {
-					css = "mod-chaos-res";
-				}
-			}
-			if (mod.indexOf("Damage") > -1) {
-				if (mod.indexOf("Cold") > -1) {
-					css = "mod-cold-dmg";
-				}
-				else if (mod.indexOf("Fire") > -1) {
-					css = "mod-fire-dmg";
-				}
-				else if (mod.indexOf("Lightning") > -1) {
-					css = "mod-lightning-dmg";
-				}
-				else if (mod.indexOf("Chaos") > -1) {
-					css = "mod-chaos-dmg";
-				}
-			}
-			else if (mod.indexOf("to maximum Life") > -1) {
-				css = "mod-life";
-			}
-			else if (mod.indexOf("to maximum Mana") > -1) {
-				css = "mod-mana";
-			}
-			return css;
-		}
-
-		/*
-		* Get CSS Classes for item sockets
-		* */
-		$scope.getSocketClasses = function (x) {
-			if (typeof x == "undefined") {
-				return [];
-			}
-			var sockets = [];
-			var colors = x.split('-').join('').split('');
-			for (var i = 0; i < colors.length; i++) {
-				var cssClasses;
-				switch (i) {
-					case 0 :
-						cssClasses = 'socketLeft';
-						break;
-					case 1 :
-						cssClasses = 'socketRight';
-						break;
-					case 2 :
-						cssClasses = 'socketRight middle';
-						break;
-					case 3 :
-						cssClasses = 'socketLeft middle';
-						break;
-					case 4 :
-						cssClasses = 'socketLeft bottom';
-						break;
-					case 5 :
-						cssClasses = 'socketRight bottom';
-						break;
-				}
-				switch (colors[i]) {
-					case 'W' :
-						cssClasses += ' socketWhite';
-						break;
-					case 'R' :
-						cssClasses += ' socketRed';
-						break;
-					case 'G' :
-						cssClasses += ' socketGreen';
-						break;
-					case 'B' :
-						cssClasses += ' socketBlue';
-						break;
-				}
-				sockets[i] = cssClasses;
-			}
-			return sockets;
-		};
-
-		/*
-		* Get CSS classes for item socket links
-		* */
-		$scope.getSocketLinkClasses = function (x) {
-			if (typeof x == "undefined") {
-				return [];
-			}
-			var groups = x.split('-');
-			var pointer = 0;
-			var pos = [];
-
-			for (var i = 0; i < groups.length; i++) {
-				var count = groups[i].length - 1;
-
-				try {
-					pointer += groups[i - 1].length;
-				} catch (err) {
-				}
-
-				if (count > 0) {
-					for (var j = 0; j < count; j++) {
-						var cssClasses;
-						switch (pointer + j) {
-							case 0 :
-								cssClasses = 'socketLinkCenter';
-								break;
-							case 1 :
-								cssClasses = 'socketLinkRight';
-								break;
-							case 2 :
-								cssClasses = 'socketLinkCenter middle';
-								break;
-							case 3 :
-								cssClasses = 'socketLinkLeft middle';
-								break;
-							case 4 :
-								cssClasses = 'socketLinkCenter bottom';
-								break;
-						}
-						pos.push(cssClasses);
-					}
-				}
-			}
-			return pos;
-		};
-	/*------------------------------------------------------------------------------------------------------------------
-	* END Item css classes
-	* ----------------------------------------------------------------------------------------------------------------*/
-
+		$scope.getSocketClasses = itemutil.getSocketClasses;
+		$scope.getSocketLinkClasses = itemutil.getSocketLinkClasses;
 
 	/*------------------------------------------------------------------------------------------------------------------
 	* BEGIN Helpers/stateChecks/random ungrouped stuff
@@ -1457,7 +1120,7 @@ function modToDisplay(value, mod) {
 			return blacklist.indexOf(type) == -1;
 		};
 
-		debugOutput("Loaded " + Object.keys(terms).length + " terms.", "info");
+		util.out("Loaded " + Object.keys(terms).length + " terms.", "info");
 		sampleTerms.sort(function (a, b) {
 			return a.sample.length - b.sample.length;
 		});
@@ -1573,7 +1236,7 @@ function modToDisplay(value, mod) {
 			$scope.resetCurrencyTrading();
 			$scope.currencyTrading.item = item;
 			$scope.currencyTrading.rangeSteps = Math.floor(item.properties.stackSize.current / item.shop.amount);
-			debugOutput($scope.currencyTrading.rangeSteps, "log");
+			util.out($scope.currencyTrading.rangeSteps, "log");
 			$scope.currencyTrading.rangeValue = 1 * $scope.currencyTrading.rangeSteps;
 			$scope.currencyTrading.rangeMax = item.properties.stackSize.current;
 			$scope.currencyTrading.rangeMin = $scope.currencyTrading.rangeValue;
@@ -1585,7 +1248,7 @@ function modToDisplay(value, mod) {
 		$scope.$watch('currencyTrading.rangeValue', function() {
 			$scope.currencyTrading.rangeValue = parseInt($scope.currencyTrading.rangeValue);
 
-			debugOutput($scope.currencyTrading.rangeSteps, "log");
+			util.out($scope.currencyTrading.rangeSteps, "log");
 		});
 
 		// TODO fix buy/pay/slider values
@@ -1879,7 +1542,7 @@ function modToDisplay(value, mod) {
 			if ($scope.options.dontShowAdBlockWarning) {
 				return;
 			}
-			setTimeout(function(){
+			setTimeutil.out(function(){
 				FoundationApi.publish('showAdBlockModal', 'show');
 			}, 50);
 		};
@@ -2056,9 +1719,9 @@ function modToDisplay(value, mod) {
 					var el = e.target;
 					var allowance = 340;
 					var clientHeight = mainGrid.clientHeight;
-					//debugOutput("Scrolling = " + (el.scrollHeight - el.scrollTop) + " to " + clientHeight + " with allowance " + allowance, 'log');
+					//util.out("Scrolling = " + (el.scrollHeight - el.scrollTop) + " to " + clientHeight + " with allowance " + allowance, 'log');
 					if ((el.scrollHeight - el.scrollTop) <= (clientHeight + allowance)) { // fully scrolled
-						//debugOutput("Scrolled to bottom", 'trace');
+						//util.out("Scrolled to bottom", 'trace');
 						scope.$apply(attrs.execOnScrollToBottom);
 					}
 				};

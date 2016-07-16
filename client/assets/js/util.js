@@ -1,6 +1,28 @@
 // Self contained functions, meaning they need not any dependencies to work
 var util = (function () {
   return {
+    out: function (input, outputType) {
+    	if (typeof debugDevBuild === 'undefined') {
+    		return;
+    	}
+    	try {
+    		if (outputType == "log") {
+    			console.log(input);
+    		}
+    		else if (outputType == "trace") {
+    			console.trace(input);
+    		}
+    		else if (outputType == "info") {
+    			console.info(input);
+    		}
+    		else if (outputType == "error") {
+    			console.error(input);
+    		}
+    	} catch (err) {
+
+    	}
+    },
+
     defaultFor: function (arg, val) {
     	return typeof arg !== 'undefined' ? arg : val;
     },

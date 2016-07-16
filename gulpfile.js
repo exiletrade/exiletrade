@@ -81,6 +81,7 @@ var paths = {
 		'client/assets/js/searchterm.js',
 		'client/assets/js/affixes.js',
 		'client/assets/js/fm.js',
+		'client/assets/js/itemutil.js',
 		(isDemo || isProduction) ? '' : 'client/assets/js/debug.js',
 		'client/assets/js/app.js'
 	],

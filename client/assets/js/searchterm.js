@@ -2,10 +2,10 @@
   handles parsing of search term based user input
   returns a parseResult object
  */
-var searchterm = (function () {
+var searchterm = (function (util) {
 
   function parseSearchInput(_terms, input) {
-  	debugOutput('parseSearchInput: ' + input, 'trace');
+  	util.out('parseSearchInput: ' + input, 'trace');
 
   	// allow literal search terms (LST) like "Summon Lightning Golem"
   	var regex = /([^\s]*[:=]?\".*?\")/g;
@@ -29,7 +29,7 @@ var searchterm = (function () {
   function parseSearchInputTokens(input) {
   	//var rerun = typeof rerun !== 'undefined' ? rerun : false;
   	var tokens = input.split(" ");
-  	debugOutput(tokens, 'trace');
+  	util.out(tokens, 'trace');
   	var queryTokens = [];
   	var badTokens = [];
   	for (var i in tokens) {
@@ -48,7 +48,7 @@ var searchterm = (function () {
   			}
 
   			evaluatedToken = evalSearchTerm(evaluatedToken);
-  			debugOutput(token + '=' + evaluatedToken, 'trace');
+  			util.out(token + '=' + evaluatedToken, 'trace');
   			if (evaluatedToken) {
   				if (isNegation) {
   					evaluatedToken = createMissingQuery(evaluatedToken);
@@ -85,10 +85,10 @@ var searchterm = (function () {
   		letterPart = token.replace(rgx, "");
   	}
   	if (numberPart) {
-  		debugOutput(numberPart, 'log');
+  		util.out(numberPart, 'log');
   	}
   	numberPart = formatNumber(numberPart);
-  	debugOutput({'numberPart': numberPart, 'letterPart': letterPart}, 'log');
+  	util.out({'numberPart': numberPart, 'letterPart': letterPart}, 'log');
   	return {'numberPart': numberPart, 'letterPart': letterPart};
   }
 
@@ -145,7 +145,7 @@ var searchterm = (function () {
   				if (hasCloseParen(token)) {
   					result = result + /\)+/.exec(token)[0];
   				}
-  				debugOutput(cleanToken + ' + ' + rgex + '=' + result, 'trace');
+  				util.out(cleanToken + ' + ' + rgex + '=' + result, 'trace');
   				break;
   			}
   		}
@@ -195,7 +195,7 @@ var searchterm = (function () {
   	}
   	for (i = 0; i < badTokens.length; i++) {
   		evaluatedToken = evalSearchTerm(badTokens[i]);
-  		debugOutput(badTokens[i] + '=' + evaluatedToken, 'log');
+  		util.out(badTokens[i] + '=' + evaluatedToken, 'log');
   		if (evaluatedToken) {
   			successArr.push(evaluatedToken);
   			badTokens.splice(i, 1);
@@ -213,7 +213,7 @@ var searchterm = (function () {
   		}
   		for (i = 0; i < badTokens.length; i++) {
   			evaluatedToken = evalSearchTerm(badTokens[i]);
-  			debugOutput(badTokens[i] + '=' + evaluatedToken, 'log');
+  			util.out(badTokens[i] + '=' + evaluatedToken, 'log');
   			if (evaluatedToken) {
   				successArr.push(evaluatedToken);
   				badTokens.splice(i, 1);
@@ -227,7 +227,7 @@ var searchterm = (function () {
   		//all spaces
   		var attmpt = badTokens.join("");
   		evaluatedToken = evalSearchTerm(attmpt);
-  		debugOutput(attmpt + '=' + evaluatedToken, 'log');
+  		util.out(attmpt + '=' + evaluatedToken, 'log');
   		if (evaluatedToken) {
   			successArr.push(evaluatedToken);
   			badTokens = [];
@@ -276,10 +276,10 @@ var searchterm = (function () {
   		}
   		successArr.push(tmpArr.join(" OR "));
   	}
-  	debugOutput("Result", 'log');
-  	debugOutput(successArr, 'log');
-  	debugOutput("Failure", 'log');
-  	debugOutput(badTokens, 'log');
+  	util.out("Result", 'log');
+  	util.out(successArr, 'log');
+  	util.out("Failure", 'log');
+  	util.out(badTokens, 'log');
   	return {'corrected': successArr, 'unCorrectable': badTokens};
   }
 
@@ -318,7 +318,7 @@ var searchterm = (function () {
   	}
   	return res;
   }
-  
+
   function createMissingQuery(evaluatedToken) {
   	return "-" + evaluatedToken;
   }
@@ -326,4 +326,4 @@ var searchterm = (function () {
   return {
     parseSearchInput: parseSearchInput
   }
-}());
+}(util));
