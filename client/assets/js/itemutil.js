@@ -239,9 +239,116 @@ var itemutil = (function (util) {
     return pos;
   };
 
+  function cleanCurrency(str) {
+    if (typeof str === 'undefined') {
+      return;
+    }
+
+    var validTerms = [
+      "perandus",     //0
+      "regal", 		//1
+      "augmentation",	//2
+      "wisdom", 		//3
+      "portal", 		//4
+      "alchemy", 		//5
+      "mirror", 		//6
+      "blessed", 		//7
+      "whetstone",	//8
+      "scrap", 		//9
+      "vaal",			//10
+      "bauble", 		//11
+      "chaos", 		//12
+      "chisel", 		//13
+      "chromatic",	//14
+      "divine", 		//15
+      "exalted", 		//16
+      "transmutation",//17
+      "scouring",		//18
+      "regret",		//19
+      "fusing", 		//20
+      "prism", 		//21
+      "jeweller",		//22
+      "alteration", 	//23
+      "chance",		//24
+      "unknown",		//25
+      "silver",	    //26
+      "prophecy"	    //26
+    ];
+
+    str =  str.replace(/[^\w\s]/gi, '').replace(/[0-9]/g, '').toLowerCase();
+
+    var currencyMap = new Map([
+      ["unknown shekel", validTerms[0]],
+      ["unknown shekels", validTerms[0]],
+      ["unknown pc", validTerms[0]],
+      ["unknown p", validTerms[0]],
+      ["unknown perandus", validTerms[0]],
+      ["unknown perandus coin", validTerms[0]],
+      ["unknown perandus coins", validTerms[0]],
+      ["unknown peranduscoins", validTerms[0]],
+      ["unknown pcoins", validTerms[0]],
+      ["unknown pcoin", validTerms[0]],
+      ["unknown per", validTerms[0]],
+      ["unknown reg", validTerms[1]],
+      ["unknown exa", validTerms[16]],
+      ["unknown fuse", validTerms[20]],
+      ["unknown alt", validTerms[23]],
+      ["unknown aug", validTerms[2]],
+      ["unknown jewel", validTerms[22]],
+      ["jewellers", validTerms[22]],
+      ["jewellers orb", validTerms[22]],
+      ["unknown cartographer", validTerms[13]],
+      ["unknown scour", validTerms[18]],
+      ["unknown gemcutter", validTerms[21]],
+      ["unknown transmute", validTerms[17]],
+      ["unknown x", validTerms[16]],
+      ["unknown chaoss", validTerms[12]],
+      ["unknown caos", validTerms[12]],
+      ["unknown chao", validTerms[12]],
+      ["unknown alch", validTerms[5]],
+      ["perandus coin", validTerms[0]],
+      ["silver coin", validTerms[26]],
+      ["unknown silver coin", validTerms[26]],
+      ["unknown sc", validTerms[26]],
+      ["unknown silver", validTerms[26]],
+      ["unknown silvercoin", validTerms[26]],
+      ["unknown silvercoins", validTerms[26]],
+      ["unknown silver coins", validTerms[26]]
+    ]);
+
+    var result = currencyMap.get(str);
+    if (!result) {result = str;}
+
+    return result;
+  };
+
+  function copyWhisperToClipboard(item) {
+    var message = item._source.shop.defaultMessage;
+    var seller = item._source.shop.lastCharacterName;
+    var itemName = item._source.info.fullName;
+    var league = item._source.attributes.league;
+    var stashTab = item._source.shop.stash.stashName;
+    var x = item._source.shop.stash.xLocation;
+    var y = item._source.shop.stash.yLocation;
+
+    if (message === undefined) {
+      message = '@' + seller + " Hi, I'd like to buy your " + itemName + ' in ' + league + ' (Stash-Tab: "' +
+        stashTab + '" [x' + x + ',y' + y + '])' + ', my offer is : ';
+    } else {
+      //removing the "Unknown" tag from currency
+      var n = message.indexOf('Unknown (');
+      if (n > -1) {
+        message = message.replace('Unknown ', '');
+      }
+    }
+    return message;
+  };
+
   return {
     addCustomFields: addCustomFields,
     getSocketClasses: getSocketClasses,
-    getSocketLinkClasses: getSocketLinkClasses
+    getSocketLinkClasses: getSocketLinkClasses,
+    cleanCurrency: cleanCurrency,
+    copyWhisperToClipboard: copyWhisperToClipboard
   }
 }(util));
