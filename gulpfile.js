@@ -77,6 +77,8 @@ var paths = {
 	],
 	// These files are for your app's JavaScript
 	appJS: [
+		'client/assets/js/util.js',
+		'client/assets/js/searchterm.js',
 		'client/assets/js/affixes.js',
 		'client/assets/js/fm.js',
 		(isDemo || isProduction) ? '' : 'client/assets/js/debug.js',

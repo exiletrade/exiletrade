@@ -20,10 +20,6 @@ function debugOutput(input, outputType) {
 	}
 }
 
-function defaultFor(arg, val) {
-	return typeof arg !== 'undefined' ? arg : val;
-}
-
 /*
 Find Object by id in Array
 * */
@@ -33,26 +29,6 @@ function findObjectById(list, id) {
 		// for val & type comparison
 		return obj.itemId === id;
 	})[0];
-}
-
-
-/*
-* Check if input var is empty
-* */
-function isEmpty (obj) {
-	if (obj === null) {return true;}
-
-	// Assume if it has a length property with a non-zero value
-	// that that property is correct.
-	if (obj.length > 0)    {return false;}
-	if (obj.length === 0)  {return true;}
-
-	// Otherwise, does it have any properties of its own?
-	// Note that this doesn't handle
-	// toString and valueOf enumeration bugs in IE < 9
-	for (var key in obj) {
-		if (hasOwnProperty.call(obj, key)) {return false;}
-	}
 }
 
 /*
@@ -93,347 +69,6 @@ function setDefaultOptions(loadedOption, defaultOption) {
 	}
 }
 
-// expects array
-//returns {'corrected', 'unCorrectable'
-function badUserInput(badTokens) {
-	if (badTokens.length === 0) {
-		return;
-	}
-	var successArr = [];
-	var evaluatedToken;
-	var i = 0;
-	//attempt 0 numbers at the end
-	for (i = 0; i < badTokens.length; i++) {
-		var rgx = new RegExp(/((\d+)$|(\d+)-(\d+)$)/);
-		if (rgx.test(badTokens[i])) {
-			var match = rgx.exec(badTokens[i]);
-			badTokens[i] = badTokens[i].replace(rgx, "");
-			badTokens[i] = match[0] + badTokens[i];
-		}
-	}
-	for (i = 0; i < badTokens.length; i++) {
-		evaluatedToken = evalSearchTerm(badTokens[i]);
-		debugOutput(badTokens[i] + '=' + evaluatedToken, 'log');
-		if (evaluatedToken) {
-			successArr.push(evaluatedToken);
-			badTokens.splice(i, 1);
-			i--;
-		}
-	}
-
-	//attempt 1 User copy pasted RegEx
-	if (badTokens.length > 0) {
-		for (i = 0; i < badTokens.length; i++) {
-			badTokens[i] = badTokens[i].replace(/\w\?/gi, "");
-			while (badTokens[i].indexOf(")?") > -1) {
-				badTokens[i] = badTokens[i].replace(/\([^\(\)]*\)\?/, "");
-			}
-		}
-		for (i = 0; i < badTokens.length; i++) {
-			evaluatedToken = evalSearchTerm(badTokens[i]);
-			debugOutput(badTokens[i] + '=' + evaluatedToken, 'log');
-			if (evaluatedToken) {
-				successArr.push(evaluatedToken);
-				badTokens.splice(i, 1);
-				i--;
-			}
-		}
-	}
-
-	//attempt 2 removing spaces
-	if (badTokens.length > 0) {
-		//all spaces
-		var attmpt = badTokens.join("");
-		evaluatedToken = evalSearchTerm(attmpt);
-		debugOutput(attmpt + '=' + evaluatedToken, 'log');
-		if (evaluatedToken) {
-			successArr.push(evaluatedToken);
-			badTokens = [];
-		}
-	}
-
-	if (badTokens.length > 0) {
-		//groups of two
-		var attempt = [];
-		for (i = 0; i < badTokens.length; i++) {
-			if (!(/^(of|the)$/i.test(badTokens[i]))) {
-				attempt.push(badTokens[i]);
-			}
-		}
-		if ((attempt.length >= 2)) {
-			for (i = 0; i < attempt.length - 1; i++) {
-				for (var j = i + 1; j < attempt.length; j++) {
-					evaluatedToken = evalSearchTerm(attempt[i] + attempt[j]);
-					if (evaluatedToken) {
-						successArr.push(evaluatedToken);
-						attempt.splice(j, 1);
-						attempt.splice(i, 1);
-						i--;
-						break;
-					}
-					evaluatedToken = evalSearchTerm(attempt[j] + attempt[i]);
-					if (evaluatedToken) {
-						successArr.push(evaluatedToken);
-						attempt.splice(j, 1);
-						attempt.splice(i, 1);
-						i--;
-						break;
-					}
-				}
-			}
-		}
-		badTokens = attempt;
-	}
-
-	//Interpret bad Tokens as tokenized fullname
-	if (badTokens.length > 0) {
-		var tmpArr = [];
-		ga('send', 'event', 'Search', 'Bad Tokens', badTokens.join(","));
-		for (i = 0; i < badTokens.length; i++) {
-			tmpArr.push("info.tokenized.fullName:" + badTokens[i].toLowerCase() + "~");
-		}
-		successArr.push(tmpArr.join(" OR "));
-	}
-	debugOutput("Result", 'log');
-	debugOutput(successArr, 'log');
-	debugOutput("Failure", 'log');
-	debugOutput(badTokens, 'log');
-	return {'corrected': successArr, 'unCorrectable': badTokens};
-}
-
-
-function parseSearchInput(_terms, input) {
-	debugOutput('parseSearchInput: ' + input, 'trace');
-
-	// allow literal search terms (LST) like "Summon Lightning Golem"
-	var regex = /([^\s]*[:=]?\".*?\")/g;
-	var lsts = input.match(regex);
-	var _input = input.replace(regex, 'LST');
-	var parseResult = parseSearchInputTokens(_input);
-
-	var i = 0;
-	parseResult.queryString = parseResult.queryString.replace('LST', function () {
-		var lst = lsts[i];
-		i++;
-		var lstStr = lst
-			.replace(/name/i, "info.name")
-			.replace("=", ":");
-		return lstStr;
-	});
-
-	return parseResult;
-}
-
-function parseSearchInputTokens(input) {
-	//var rerun = typeof rerun !== 'undefined' ? rerun : false;
-	var tokens = input.split(" ");
-	debugOutput(tokens, 'trace');
-	var queryTokens = [];
-	var badTokens = [];
-	for (var i in tokens) {
-		var evaluatedToken = tokens[i];
-		if (!evaluatedToken) {
-			continue;
-		}
-		var token = evaluatedToken.toUpperCase();
-
-		if (/^(OR|AND|LST|NOT)$/i.test(token)) {
-			evaluatedToken = token;
-		} else {
-			var isNegation = hasNegation(token);
-			if (isNegation) {
-				evaluatedToken = evaluatedToken.substring(1);
-			}
-
-			evaluatedToken = evalSearchTerm(evaluatedToken);
-			debugOutput(token + '=' + evaluatedToken, 'trace');
-			if (evaluatedToken) {
-				if (isNegation) {
-					evaluatedToken = createMissingQuery(evaluatedToken);
-				} else if (hasBackTick(evaluatedToken)) {
-					evaluatedToken = parseSearchInputTokens(evaluatedToken).queryString;
-				}
-			} else {
-				badTokens.push(tokens[i]);
-			}
-		}
-		queryTokens.push(evaluatedToken);
-	}
-	var queryString = queryTokens.join(" ");
-
-	//rerun bad tokens
-	var correction = badUserInput(badTokens);
-	if (correction) {
-		badTokens = correction.unCorrectable;
-		queryString += " " + correction.corrected.join(" ");
-	}
-	return {'queryString': queryString, 'badTokens': badTokens};
-}
-
-function splitToken(token) {
-	var rgx = new RegExp(/((\d+)-(\d+)|(\d+))/);
-	var numberPart;
-	var letterPart = token;
-	if (rgx.test(token)) {
-		var match = rgx.exec(token);
-		if (match) {
-			numberPart = match[0];
-		}
-		letterPart = token.replace(rgx, "");
-	}
-	if (numberPart) {
-		debugOutput(numberPart, 'log');
-	}
-	numberPart = formatNumber(numberPart);
-	debugOutput({'numberPart': numberPart, 'letterPart': letterPart}, 'log');
-	return {'numberPart': numberPart, 'letterPart': letterPart};
-}
-
-function formatNumber(str) {
-	if (!str) {
-		return;
-	}
-	var result;
-	if (str.indexOf("-") != -1) {
-		var tmp = str.split("-");
-		result = ":[" + tmp[0] + " TO " + tmp[1] + "]";
-	} else {
-		result = ":>=" + str;
-	}
-	return result;
-}
-
-function evalSearchTerm(token) {
-	var result = "";
-	for (var regex in terms) {
-		// terms is a map object located in data.js
-		if (terms.hasOwnProperty(regex)) {
-			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
-			var rgex = new RegExp(regex, 'i');
-			var cleanToken = removeParensAndBackTick(token);
-			var isNegation = hasNegation(cleanToken);
-			if (isNegation) {
-				cleanToken = cleanToken.substring(1);
-			}
-			var foundMatch = rgexTest.test(cleanToken);
-			if (foundMatch) {
-				result = terms[regex].query;
-				// apply any captured regex groups
-				var arr = rgex.exec(cleanToken);
-				// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
-				result = result.replace(/\$(\d+)/g, function replacer(match, p1) {
-					var filter = terms[regex].filter;
-					var value = arr[p1];
-					if (filter) {
-						var filterFn = Function("val", filter);
-						value = filterFn(value);
-					}
-					return value;
-				});
-				//result = cleanToken.replace(rgex, result);
-				// escape spaces for elasticsearch
-				result = escapeField(result);
-				if (isNegation) {
-					result = '-' + result;
-				}
-				if (hasOpenParen(token)) {
-					result = /\(+/.exec(token)[0] + result;
-				}
-				if (hasCloseParen(token)) {
-					result = result + /\)+/.exec(token)[0];
-				}
-				debugOutput(cleanToken + ' + ' + rgex + '=' + result, 'trace');
-				break;
-			}
-		}
-	}
-	return result;
-}
-
-// Used to determine the sortKey from sorting search terms
-function evalSearchTermFieldKey(token) {
-	var result = "";
-	for (var regex in terms) {
-		// terms is a map object located in data.js
-		if (terms.hasOwnProperty(regex)) {
-			var rgexTest = new RegExp('^(' + regex + ')$', 'i');
-			var foundMatch = rgexTest.test(token);
-			if (foundMatch) {
-				var query = terms[regex].query;
-				var delimIdx = query.indexOf(':');
-				if (!/[`\(\)]/i.test(query) && delimIdx !== -1) {
-					result = query.substring(0, delimIdx);
-					// remove any escaping, e.g. 'modsTotal.Adds \#-# Physical Damage.avg'
-					result = result.replace("\\", "");
-				}
-			}
-		}
-	}
-	return result;
-}
-
-function createMissingQuery(evaluatedToken) {
-	return "-" + evaluatedToken;
-}
-
-function removeParensAndBackTick(token) {
-	var _token = token.replace(/[\(\)`]/g, "");
-	return _token;
-}
-
-function hasOpenParen(token) {
-	return token.startsWith('(');
-}
-
-function hasCloseParen(token) {
-	return token.endsWith(')');
-}
-
-function hasBackTick(token) {
-	return token.indexOf('`') != -1;
-}
-
-function hasNegation(token) {
-	return token.startsWith('-');
-}
-
-function escapeField(result) {
-	var res = result;
-	var delimIdx = result.indexOf(':');
-	if (delimIdx != -1) {
-		var field = res.substr(0, delimIdx);
-		res = res.replace(field, field.replace(/(\s|\*)/g, '\\$1'));
-		if (field == 'info.name') {
-			var value = res.substr(delimIdx);
-			res = res.replace(value, value.replace(/(\s)/g, '\\$1'));
-		}
-	}
-	return res;
-}
-
-function firstKey(obj) {
-	for (var key in obj) {
-		break;
-	}
-	// "key" is the first key here
-	return key;
-}
-
-/*
- * Based on JavaScript Pretty Date: http://stackoverflow.com/questions/7641791/javascript-library-for-human-friendly-relative-date-formatting
- * Copyright (c) 2011 John Resig (ejohn.org)
- * Licensed under the MIT and GPL licenses.
- */
-function prettyDate(date) {
-	var diff = (((new Date()).getTime() - date.getTime()) / 1000),
-		day_diff = Math.floor(diff / 86400);
-
-	if (isNaN(day_diff) || day_diff < 0) { return; }
-
-	return day_diff === 0 && (
-	diff < 60 && "just now" || diff < 120 && "1 minute ago" || diff < 3600 && Math.floor(diff / 60) + " minutes ago" || diff < 7200 && "1 hour ago" || diff < 86400 && Math.floor(diff / 3600) + " hours ago") || day_diff == 1 && "Yesterday" || day_diff < 7 && day_diff + " days ago" || day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago" || day_diff > 30 && Math.ceil(day_diff / 31) + " months ago";
-}
-
 function modToDisplay(value, mod) {
 	if (typeof value === 'number') {
 		mod = mod.replace('#', value);
@@ -447,20 +82,6 @@ function modToDisplay(value, mod) {
 		mod + ", value = " + value, 'error');
 	}
 	return mod;
-}
-
-
-function chunk (arr, len) {
-
-  var chunks = [],
-      i = 0,
-      n = arr.length;
-
-  while (i < n) {
-    chunks.push(arr.slice(i, i += len));
-  }
-
-  return chunks;
 }
 
 (function () {
@@ -568,7 +189,7 @@ function chunk (arr, len) {
 					}
 				});
 				if (cacheMisses.length > 0) {
-					var batches = chunk(cacheMisses, 100);
+					var batches = util.chunk(cacheMisses, 100);
 					var promises = batches.map(pullStatusFromGGGApi)
 					return $q.all(promises).then(function (results) {
 						cacheMisses.forEach(function (name) {
@@ -959,9 +580,9 @@ function chunk (arr, len) {
 		//$interval(automatedSearchIntervalFn, 10000); // 10 sec
 
 		function createSearchPrefix(options, containsLeagueTerm, containsBuyoutTerm, containsVerifyTerm) {
-			containsLeagueTerm = defaultFor(containsLeagueTerm, false);
-			containsBuyoutTerm = defaultFor(containsBuyoutTerm, false);
-			containsVerifyTerm = defaultFor(containsVerifyTerm, false);
+			containsLeagueTerm = util.defaultFor(containsLeagueTerm, false);
+			containsBuyoutTerm = util.defaultFor(containsBuyoutTerm, false);
+			containsVerifyTerm = util.defaultFor(containsVerifyTerm, false);
 
 			var searchPrefix = "";
 			if (!containsLeagueTerm) {
@@ -1113,7 +734,7 @@ function chunk (arr, len) {
 
 		function buildQueryString(searchInput) {
 			searchInput = searchInput.trim();
-			var parseResult = parseSearchInput($scope.termsMap, searchInput);
+			var parseResult = searchterm.parseSearchInput($scope.termsMap, searchInput);
 			$scope.badSearchInputTerms = parseResult.badTokens;
 			var inputQueryString = parseResult.queryString;
 
@@ -1124,7 +745,7 @@ function chunk (arr, len) {
 			var containsVerifyTerm = inputQueryString.indexOf("shop.verified") != -1;
 
 			var prefix = createSearchPrefix($scope.options, containsLeagueTerm, containsBuyoutTerm, containsVerifyTerm);
-			var prefixParseResult = parseSearchInput($scope.termsMap, prefix);
+			var prefixParseResult = searchterm.parseSearchInput($scope.termsMap, prefix);
 
 			// // see also https://github.com/exiletrade/exiletrade/issues/63
 			if (inputQueryString.length > 0) {
@@ -1346,9 +967,9 @@ function chunk (arr, len) {
 				var added = new Date(item.shop.added);
 				var updated = new Date(item.shop.updated);
 				var modified = new Date(item.shop.modified);
-				item.shop.addedHuman = prettyDate(added);
-				item.shop.updatedHuman = prettyDate(updated);
-				item.shop.modifiedHuman = prettyDate(modified);
+				item.shop.addedHuman = util.prettyDate(added);
+				item.shop.updatedHuman = util.prettyDate(updated);
+				item.shop.modifiedHuman = util.prettyDate(modified);
 				if (!item.isOnline) {
 					item.isOnline = $scope.onlinePlayers.indexOf(item.shop.sellerAccount) != -1;
 				}
@@ -1356,7 +977,7 @@ function chunk (arr, len) {
 		}
 
 		function createForgottenMods(item) {
-			var itemTypeKey = firstKey(item.mods);
+			var itemTypeKey = util.firstKey(item.mods);
 			var explicits = item.mods[itemTypeKey].explicit;
 			var forgottenMods = $.map(explicits, function (propertyValue, modKey) {
 				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
@@ -1375,7 +996,7 @@ function chunk (arr, len) {
 		}
 
 		function createImplicitMods(item) {
-			var itemTypeKey = firstKey(item.mods);
+			var itemTypeKey = util.firstKey(item.mods);
 			var implicits = item.mods[itemTypeKey].implicit;
 			var implicitMods = $.map(implicits, function (propertyValue, modKey) {
 				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
@@ -1403,7 +1024,7 @@ function chunk (arr, len) {
 		}
 
 		function createCraftedMods(item) {
-			var itemTypeKey = firstKey(item.mods);
+			var itemTypeKey = util.firstKey(item.mods);
 			var crafteds = item.mods[itemTypeKey].crafted;
 			item.craftedMods = $.map(crafteds, function (propertyValue, modKey) {
 				// for mods that have ranged values like 'Adds #-# Physical Damage', we need to sort on avg field
@@ -1856,7 +1477,7 @@ function chunk (arr, len) {
 		* Set search input autofocus
 		* */
 		$scope.searchInputState = function() {
-			return isEmpty($scope.searchInput);
+			return util.isEmpty($scope.searchInput);
 		};
 
 	/*------------------------------------------------------------------------------------------------------------------
