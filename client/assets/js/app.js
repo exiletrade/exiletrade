@@ -814,7 +814,7 @@ function setDefaultOptions(loadedOption, defaultOption) {
 			for (var i = 0; i < sampleTerms.length && results.length < 10; i++) {
 				var sample = sampleTerms[i].sample;
 				var query = sampleTerms[i].query;
-				var isQueryMatch = !hasBackTick(query) && substrRegex.test(query);
+				var isQueryMatch = !util.hasBackTick(query) && substrRegex.test(query);
 				if (substrRegex.test(sample) || isQueryMatch) {
 					results.push({
 						label: '<strong>' + sample + '</strong>' + '<span>' + "<i>" + query + "</i>" + '</span>',

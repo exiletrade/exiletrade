@@ -35,6 +35,11 @@ var util = (function () {
     	return key;
     },
 
+    
+    hasBackTick: function(token) {
+        return token.indexOf('`') != -1;
+    },
+
     // Check if input var is empty
     isEmpty: function (obj) {
     	if (obj === null) {return true;}

@@ -52,7 +52,7 @@ var searchterm = (function (util) {
   			if (evaluatedToken) {
   				if (isNegation) {
   					evaluatedToken = createMissingQuery(evaluatedToken);
-  				} else if (hasBackTick(evaluatedToken)) {
+  				} else if (util.hasBackTick(evaluatedToken)) {
   					evaluatedToken = parseSearchInputTokens(evaluatedToken).queryString;
   				}
   			} else {
@@ -295,10 +295,6 @@ var searchterm = (function (util) {
 
   function hasCloseParen(token) {
   	return token.endsWith(')');
-  }
-
-  function hasBackTick(token) {
-  	return token.indexOf('`') != -1;
   }
 
   function hasNegation(token) {
