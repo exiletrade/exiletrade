@@ -1,0 +1,386 @@
+<div class="grid-content searchField clearfix">
+	<div class="small-12 medium-12 grid-content" mass-autocomplete>
+		<label>
+				<span class="inline-label">
+					<a href="" ng-click="doSearch()" class="button" value="Search">
+						<img zf-iconic="" icon="magnifying-glass" size="small">
+					</a>
+					<input
+							id="searchField" spellcheck="false" ng-model="searchInput"
+							placeholder="Search Input - First time user? Try clicking the help button below" size="" type="text"
+							mass-autocomplete-item="autocomplete_options"
+							my-enter="doSearch()" focus-if="{{searchInputState()}}">
+
+					<!--a href="#" ng-click="saveAutomatedSearch()" class="button small saveSearchNotificationLink" title="Add to Automated Searches"
+					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
+						<img src="./assets/img/add.svg" class="add-icon">
+						<span class="desktop">Auto</span>
+					</a-->
+					<a href="#" ng-click="options.switchOnlinePlayersOnly = !options.switchOnlinePlayersOnly; doSearch()"
+					   class="button small saveSearchNotificationLink" title="Toggle Online-only">
+						<img zf-iconic="" ng-show="options.switchOnlinePlayersOnly"  icon="circle-check" size="small">
+						<img zf-iconic="" ng-show="!options.switchOnlinePlayersOnly" icon="circle-x" size="small">
+						<span class="desktop">Online</span>
+					</a>
+					<a href="#" ng-click="saveLastSearch()" class="button small saveSearchNotificationLink" title="Save Search"
+					   content="Saved: {{searchInput}}" color="success" autoclose="2500" zf-notify="save-notification-search">
+						<img zf-iconic="" icon="bookmark" size="small" title="Bookmark the search">
+						<span class="desktop">Save</span>
+					</a>
+					<div class="searchStats" title="{{queryString}}" ng-if="Response.took" zf-open="showElasticJsonRequestModal">
+						<div title="Time it took to search for the initial results">
+							<img zf-iconic="" icon="dashboard" size="small">
+							<span>{{Response.took}} ms</span>
+						</div>
+						<div title="Total items found, both online and offline">
+							<img zf-iconic="" icon="document" size="small">
+							<span>{{Response.hits.total}} hits</span>
+						</div>
+					</div>
+				</span>
+			<div class="openHelp" ng-show="!(show_autocomplete && results.length > 0)"><a href="#" class="button"  ng-click="toggleHelp()">
+				Help
+				<img ng-show="!helpState" zf-iconic="" icon="chevron" data-direction="bottom" size="small">
+				<img ng-show="helpState" zf-iconic="" icon="chevron" data-direction="top" size="small" class="up">
+			</a>
+			</div>
+		</label>
+	</div>
+
+	<zf-notification-set id="save-notification-search" position="top-left"></zf-notification-set>
+	<zf-notification-set id="save-notification-options" position="top-right"></zf-notification-set>
+	<zf-notification-static id="save-notification-whisper" color="success" zf-advise="" title="Whisper message copied." autoclose=2000>
+	</zf-notification-static>
+
+	<div zf-modal="" id="showAdBlockModal">
+		<a zf-close="" class="close-button">×</a>
+		<h3>AdBlock enabled</h3>
+		<p>
+			It seems you have an ad-blocker enabled, that's no problem since we don't have ads
+			and never will have them. But there are cases where some icons are removed because of that, if
+			you seem to experience this you can try disabling your ad-blocker on this site.
+		</p>
+		<p>Known adblocker to cause problems: AdBlock Ultimate</p>
+		<div class="checkbox">
+			<input type="checkbox" id="adBlock" ng-model="options.dontShowAdBlockWarning" ng-change="saveOptions()">
+			<label for="adBlock">Never show this message again.</label>
+		</div>
+		<a href="#" zf-close="" class="button">Ok</a>
+	</div>
+
+	<!--<a href="#" zf-toggle="savedSearchesPanel" class="button small absoluteNavBtn savedSearches">Show saved Searches/Items</a>-->
+	<a href="#" ng-click="scrollToTop()" class="button small absoluteNavBtn scrollTop">
+		<span class="desktop">Scroll Top</span>
+		<span class="mobile">Up</span>
+	</a>
+
+	<!-- bad search input accordion -->
+	<div ng-if="badSearchInputTerms.length" class="badSearchInputTerms">
+		<zf-accordion>
+			<zf-accordion-item title="Invalid Search Terms">
+				<ul>
+					<li ng-repeat="badTerm in badSearchInputTerms"><span>{{badTerm}}</span>
+				</ul>
+			</zf-accordion-item>
+		</zf-accordion>
+	</div>
+
+	<!-- search terms guide accordion (directive) -->
+	<div termsguide></div>
+
+	<!-- Saved Searches Sidebar -->
+	<div zf-panel="" id="savedSearchesPanel" position="right">
+		<a zf-close="" ng-click="resizeGridFrame(false)" class="close-button ng-scope">×</a>
+		<zf-accordion class="saved-search">
+			<zf-accordion-item title="Saved Searches">
+				<section class="block-list">
+					<ul>
+						<li class="" ng-repeat="data in savedSearchesList">
+							<a href="#" ng-model="searchInput" ng-click="doSavedSearch(data)">{{data}}</a>
+							<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeSearchFromList(data)">
+						</li>
+					</ul>
+				</section>
+			</zf-accordion-item>
+		</zf-accordion>
+		<zf-accordion class="saved-search">
+			<zf-accordion-item title="Automated Searches">
+				<section class="block-list">
+					<ul>
+						<li class="" ng-repeat="data in savedAutomatedSearches">
+							<a href="#" ng-model="data.searchInput" ng-click="doSavedSearch(data.searchInput)">{{data.searchInput}}&nbsp;&nbsp;{{data.count}}</a>
+							<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeAutomatedSearchFromList(data)">
+						</li>
+					</ul>
+				</section>
+			</zf-accordion-item>
+		</zf-accordion>
+	</div>
+
+	<!-- Saved Items Sidebar -->
+	<div zf-panel="" id="savedItemsPanel" position="right">
+		<a zf-close="" class="close-button ng-scope">×</a>
+		<zf-accordion auto-open="false">
+			<div class="accordion-item-wrapper" ng-repeat="data in savedItemsList" >
+				<img zf-iconic="" icon="ban" size="small" class="" ng-click="removeItemFromList(data.itemId)">
+				<zf-accordion-item title="{{data.itemDescription}}" ng-click="requestSavedItem(data.itemId)">
+
+					<div class="grid-content">
+						<div class="grid-block">
+							<div class="grid-content item" ng-repeat="item in lastRequestedSavedItem" ng-if="item._source.shop.verified=='YES'">
+								<div item></div>
+							</div>
+								<span class="availablity" ng-repeat="item in lastRequestedSavedItem" ng-if="item._source.shop.verified=='GONE'">
+									Item available: {{item._source.shop.verified}}
+								</span>
+							<span ng-show="isEmpty(lastRequestedSavedItem)">Requesting Item...</span>
+						</div>
+					</div>
+				</zf-accordion-item>
+			</div>
+		</zf-accordion>
+	</div>
+
+
+	<!-- Show Options Sidebar (directive) -->
+	<div zf-panel="" id="searchOptions">
+		<div optionspanel></div>
+	</div>
+
+	<!-- Show Search Terms Doc Modal -->
+	<div zf-modal="" class="wide-json-dialog" id="showSearchTermsDocModal">
+		<!--a zf-close="" class="close-button">×</a-->
+		<h4>Search Terms</h4>
+		<div class="DivWithScroll">
+			<table>
+				<thead>
+				<th>Term</th>
+				<th>Translation</th>
+				</thead>
+				<tbody>
+				<tr
+						ng-repeat="(key, value) in termsMap"
+						ng-class-odd="'rowOdd'"
+						ng-class-even="'rowEven'">
+					<td>{{key}}</td>
+					<td>{{value.query}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- Show Disclaimer Modal -->
+	<div zf-modal="" id="showDisclaimerModal">
+		<a zf-close="" class="close-button">×</a>
+		<h3>About</h3>
+		<p>This site is fan-made and not affiliated with Grinding Gear Games in any way. ExileTrade is fully open source under GNU General Public License v2.0.</p>
+		<p>ExileTrade is powered by <a href="https://github.com/trackpete/exiletools-indexer" class="x-link" target="_blank">
+			ExileTools Indexer Public API</a>.
+		</p>
+		<p>Visit our official forum thread at
+			<a href="https://www.pathofexile.com/forum/view-thread/1602257" class="x-link" target="_blank">view-thread/1602257</a>.
+		</p>
+
+		<zf-accordion class="">
+			<zf-accordion-item title="Sound Attributions">
+				<ul>
+					<li>
+						<a href="http://soundbible.com/2101-12-Ga-Winchester-Shotgun.html" class="x-link" target="_blank">
+							Winchester12-RA by RA The Sun God</a>
+					</li>
+					<li>
+						<a href="http://soundbible.com/1997-Cha-Ching-Register.html" class="x-link" target="_blank">
+							Cha-Ching-Register by Muska666</a>
+					</li>
+					<li>
+						<a href="http://soundbible.com/1949-Pew-Pew.html" class="x-link" target="_blank">
+							Pew-Pew by DKnight556 </a>
+					</li>
+					<li>
+						<a href="http://soundbible.com/1823-Winning-Triumphal-Fanfare.html" class="x-link" target="_blank">
+							Winning-Fanfare by John Stracke</a>
+					</li>
+					<li>
+						<a href="http://soundbible.com/1737-Turkey-Gobble.html" class="x-link" target="_blank">
+							Turkey-Gobble by bod</a>
+					</li>
+					<li>
+						<a href="http://soundbible.com/2067-Blop.html" class="x-link" target="_blank">
+							Blob by Mark DiAngelo</a>
+					</li>
+					<li>
+						We use some sound effects from <a href="http://www.freesfx.co.uk" class="x-link" target="_blank">
+						http://www.freesfx.co.uk
+					</a>
+					</li>
+				</ul>
+			</zf-accordion-item>
+		</zf-accordion>
+
+		<zf-accordion class="">
+			<zf-accordion-item title="Image Attributions">
+				<ul>
+					<li>
+						"add" icon made by <a href="http://www.flaticon.com/authors/victor-erixon" title="Victor Erixon" class="x-link" target="_blank">Victor Erixon</a>
+						from <a href="http://www.flaticon.com" title="Flaticon" class="x-link" target="_blank">www.flaticon.com</a> is licensed by
+						<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" class="x-link" target="_blank">CC 3.0 BY</a>
+					</li>
+					<li>
+						"x link" icon made by <a href="http://www.freepik.com" title="Freepik" class="x-link" target="_blank">Freepik</a> from
+						<a href="http://www.flaticon.com" title="Flaticon" class="x-link" target="_blank">www.flaticon.com</a> is licensed by
+						<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" class="x-link">CC 3.0 BY</a>
+					</li>
+				</ul>
+			</zf-accordion-item>
+		</zf-accordion>
+
+		<h5>Support Us</h5>
+		<p>Buy us a couple of beer!</p>
+		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=3BULCX8UDSN9S&lc=PH&item_name=Durian%20Open%20Source%20Project&currency_code=USD&bn=PP%2dDonationsBF%3aO6Y32pY%2epng%3aNonHosted">
+			<img src="./assets/img/paypalbeer.png" />
+		</a>
+		<br/>
+		<br/>
+		<p>
+			<span>Bitcoin Wallet Address:</span> <em>3QviKneY2CSNbQRrMELZawg9CEvHrS4LKj</em>
+			<br/>
+			<span><img src="./assets/img/BC_64px.png" width="20%" height="20%"/></span>
+		</p>
+	</div>
+
+	<!-- Show Chrome Extension Modal -->
+	<div zf-modal="" id="showChromeExtensionModal">
+		<a zf-close="" class="close-button">×</a>
+		<h3>Chrome Extension</h3>
+		<p>Installing this Chrome Extension allows you to search for Items from your address bar.</p>
+		<h5>Install Instructions</h5>
+		<ol>
+			<li>Start the download
+				<a href="./download/ExileTradeExtension.crx" download target="_blank">Chrome Extension</a>
+			</li>
+			<li>Go to Extension Settings: Enter the following in the address bar
+				<code>chrome://extensions/</code>
+			</li>
+			<li>Now drag and drop the file into the window</li>
+		</ol>
+		<h5>Usage Instructions</h5>
+		<ol>
+			<li>Type <code>p</code> into the address bar followed by pressing <code>Tab</code> or <code>Space</code></li>
+			<li>Now enter your Search Query just like on ExileTrade</li>
+		</ol>
+	</div>
+
+	<div zf-modal="" id="showAddBlacklistModal">
+		<a zf-close="" class="close-button">×</a>
+		<h5>Add player to blacklist</h5>
+		<p>
+			Are you sure that you want to add player
+				<span class="account">
+					<a class="x-link" href="https://www.pathofexile.com/account/view-profile/{{blacklistCandidate.account}}" target="_blank">
+						{{blacklistCandidate.account}}</a>
+				</span>
+			to the blacklist?
+			You can manage your blacklist later on to remove players, import and export the blacklist to use it on
+			different browsers/devices. You can find this in the options panel at the top.
+		</p>
+		<label>Optional comment ({{blacklistCandidate.commentLength}} Characters remaining)</label>
+			<textarea ng-model="blacklistCandidate.comment" ng-maxlength="100" maxlength="100"
+					  ng-change="blacklistCandidate.commentLength = 100 - blacklistCandidate.comment.length">
+			</textarea>
+
+		<a href="#" class="button" zf-close="" ng-click="addPlayerToBlacklist(blacklistCandidate.account, blacklistCandidate.comment)">Add</a>
+		<a href="#" class="button alert" zf-close="" ng-click="clearBlacklistCandidate">Cancel</a>
+	</div>
+
+	<div zf-modal="" id="showManageBlacklistModal">
+		<a zf-close="" class="close-button">×</a>
+		<h5>Manage account blacklist</h5>
+		<a href="#" class="button" type="file" ngf-select="uploadBlacklist($file, $invalidFiles)"
+		   accept=".json" ngf-max-size="1MB">Import Blacklist</a>
+		<a href="#" class="button" ng-click="saveBlacklistToJSON(accountBlacklist)">Export Blacklist</a>
+
+		<input type="text" class="form-control" placeholder="Filter list by account" ng-model="manageBlacklist.searchAccounts">
+
+		<table>
+			<thead>
+			<tr>
+				<td>Nr.</td>
+				<td>
+					<a href="#" ng-click="manageBlacklist.sortType = 'date_added'; manageBlacklist.sortReverse = !manageBlacklist.sortReverse">
+						Date
+						<span ng-show="manageBlacklist.sortType == 'date_added' && !manageBlacklist.sortReverse" class="arrow arrow-down"></span>
+						<span ng-show="manageBlacklist.sortType == 'date_added' && manageBlacklist.sortReverse" class="arrow arrow-up"></span>
+					</a>
+				</td>
+				<td>
+					<a href="#" ng-click="manageBlacklist.sortType = 'account'; manageBlacklist.sortReverse = !manageBlacklist.sortReverse">
+						Account
+						<span ng-show="manageBlacklist.sortType == 'account' && !manageBlacklist.sortReverse" class="arrow arrow-down"></span>
+						<span ng-show="manageBlacklist.sortType == 'account' && manageBlacklist.sortReverse" class="arrow  arrow-up"></span>
+					</a>
+				</td>
+				<td>
+					Comment
+				</td>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="account in accountBlacklist | orderBy:manageBlacklist.sortType:manageBlacklist.sortReverse | filter:manageBlacklist.searchAccounts track by $index">
+				<td>{{$index }}</td>
+				<td>{{ account.date_added | date:'yyyy-MM-dd' }}</td>
+				<td>{{ account.account }}</td>
+				<td>{{ account.comment }}</td>
+				<td> <a href="#" class="remove" ng-click="removePlayerFromBlacklist(account.account)">Remove</a></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div zf-modal="" id="showCurrencyTradingModal">
+		<a zf-close="" class="close-button">×</a>
+		<h5>Contact Seller: <span class="highlight">{{currencyTrading.item.shop.lastCharacterName}}</span></h5>
+
+		<span>Select the amount you want to buy:</span>
+
+		<div class="selectAmount grid-block">
+			<div class="buy grid-content shrink">
+				<div>
+					<img src="{{currencyTrading.item.info.icon}}" title="{{currencyTrading.item.info.fullName}}">
+						<span class="amount" ng-class="{'outOfStock': (currencyTrading.item.properties.stackSize.current - currencyTrading.rangeValue) == 0}">
+							{{currencyTrading.item.properties.stackSize.current - currencyTrading.rangeValue}}
+						</span>
+				</div>
+				<span class="desc">Buy</span>
+			</div>
+			<div class="inputs grow grid-content">
+				<input type="range" ng-model="currencyTrading.rangeValue" min="{{currencyTrading.rangeMin}}"
+					   max="{{currencyTrading.rangeMax}}"
+					   step="{{currencyTrading.rangeSteps}}"
+					   ng-change="updateCurrencyBuyMessage(currencyTrading.item, currencyTrading.rangeValue)">
+				<input type="number" ng-model="currencyTrading.rangeValue" min="{{currencyTrading.rangeMin}}"
+					   max="{{currencyTrading.rangeMax}}" step="{{currencyTrading.rangeSteps}}">
+			</div>
+			<div class="pay grid-content shrink">
+				<div>
+					<span class="amount">{{currencyTrading.pay}}</span>
+					<img src="{{currencyTrading.item.info.icon}}" class="price {{currencyTrading.item.shop.currency | cleanCurrency}}">
+				</div>
+				<span class="desc">Pay</span>
+			</div>
+		</div>
+
+		<textarea ng-model="currencyTrading.msg" spellcheck="false"></textarea>
+
+		<a href="#" class="button click" ngclipboard data-clipboard-text="{{currencyTrading.msg}}">
+			Copy to clipboard
+		</a>
+	</div>
+
+	<!-- Show Elastic JSON Request Debug Modal -->
+	<div zf-modal="" id="showElasticJsonRequestModal">
+		<a zf-close="" class="close-button">×</a>
+		<h4>Elastic JSON Request</h4>
+		<textarea class="code" rows="30" cols="160">{{elasticJsonRequest}}</textarea>
+	</div>
+</div>

@@ -1658,6 +1658,21 @@ function setDefaultOptions(loadedOption, defaultOption) {
 		};
 	});
 
+	appModule.directive('searchfield', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/searchfield.html',
+			scope: true
+		};
+	});
+
+	appModule.directive('searchform', function () {
+		return {
+			restrict: 'A',
+			templateUrl: 'templates/directives/searchform.html',
+			scope: true
+		};
+	});
 /*----------------------------------------------------------------------------------------------------------------------
 * END Custom Directives
 * --------------------------------------------------------------------------------------------------------------------*/

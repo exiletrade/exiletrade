@@ -143,16 +143,8 @@ img.pageLogo {
 	}
 }
 
-.searchField {
+.searchForm, .searchField {
 	padding: 0 3rem;
-	hr {
-		margin-top: 5px;
-	}
-
-	.add-icon {
-		width: 13px;
-		margin-right: 5px;
-	}
 	@include mq($max-width: 768px) {
 		padding: 0 0.5rem;
 	}
@@ -160,6 +152,17 @@ img.pageLogo {
 		div.grid-content {
 			padding: 0;
 		}
+	}
+}
+
+.searchField {
+	hr {
+		margin-top: 5px;
+	}
+
+	.add-icon {
+		width: 13px;
+		margin-right: 5px;
 	}
 	@include mq($max-width: 480px){
 		a.saveSearchNotificationLink .desktop {
@@ -199,6 +202,7 @@ img.pageLogo {
 		}
 	}
 }
+
 #searchField {
 	background-color: $color_input_bg;
 	color: white;
@@ -209,6 +213,26 @@ img.pageLogo {
 			width: 13px;
 			height: 13px;
 		}
+	}
+}
+
+.searchForm {
+	input, select {
+		background-color: $color_input_bg;
+		color: white;
+		border-color: $primary-color;
+
+		&:active, &:hover, &:focus {
+			background-color: $color_input_bg;
+			color: white;
+		}
+		option {
+			background: #36393b !important;
+			width: 200px !important;
+		}
+	}
+	label {
+		color: white;
 	}
 }
 
