@@ -320,6 +320,7 @@ var searchterm = (function (util) {
   }
 
   return {
-    parseSearchInput: parseSearchInput
+    parseSearchInput: parseSearchInput,
+	evalSearchTermFieldKey: evalSearchTermFieldKey
   }
 }(util));
