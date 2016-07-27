@@ -321,6 +321,6 @@ var searchterm = (function (util) {
 
   return {
     parseSearchInput: parseSearchInput,
-	evalSearchTermFieldKey: evalSearchTermFieldKey
+    evalSearchTermFieldKey: evalSearchTermFieldKey
   };
 }(util));
