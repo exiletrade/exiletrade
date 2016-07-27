@@ -322,5 +322,5 @@ var searchterm = (function (util) {
   return {
     parseSearchInput: parseSearchInput,
 	evalSearchTermFieldKey: evalSearchTermFieldKey
-  }
+  };
 }(util));
