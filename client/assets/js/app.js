@@ -594,7 +594,7 @@ function setDefaultOptions(loadedOption, defaultOption) {
 					sortRegex.lastIndex = 0;
 					var key = rgxArr[1];
 					var ord = rgxArr[2].toLowerCase().replace("dsc", "desc");
-					key = evalSearchTermFieldKey(key);
+					key = searchterm.evalSearchTermFieldKey(key);
 					// special handle for 'shop.hasPrice'
 					if (key === "shop.hasPrice") {
 						key = "shop.chaosEquiv";
